@@ -1,0 +1,145 @@
+*{
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+body, html{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: #02111B;
+}
+
+.todo_container{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  height: 60%;
+  width: 95%;
+}
+
+/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------TODO_Header------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+.todo_header{
+  display: flex;
+  align-items: center;
+  height: 10%;
+  width: 100%;
+  color: #fff;
+  font-family: 'geomanist', sans-serif;
+}
+
+.todo_content{
+  height: 75%;
+  width: 100%;
+}
+
+.todo_header h1{
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.progressBar_container{
+  height: 7px;
+  border-radius: 5px;
+  width: 45%;
+  margin-left: auto;
+  background-color: #0F212D;
+}
+
+.progressBar_bar{
+  height: 100%;
+  border-radius: 2px;
+  width: 75%;
+  background-color: #5C7AFF;
+}
+
+.taskInfo_container{
+  height: 22px;
+  width: 40px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  background-color: #0F212D;
+  margin: auto;
+  margin-right: 0px;
+}
+
+.todo_header h3{
+  margin: auto;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------TODO_Content------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+.task_container{
+  display: flex;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+}
+
+.bin_icon{
+  height: 25px;
+  margin: auto;
+}
+
+.task_content_validate{
+  background-color: #5C7AFF;
+  display: flex;
+  padding-left: 12px;
+  align-items: center;
+  border-radius: 26px;
+  height: 80%;
+  width: 90%;
+}
+
+.task_content_todo{
+  background-color: #0F212D;
+  display: flex;
+  padding-left: 12px;
+  align-items: center;
+  border-radius: 26px;
+  height: 80%;
+  width: 90%;
+}
+
+.task_content_todo h6, .task_content_validate h6{
+  color: #fff;
+  font-family: 'geomanist', sans-serif;
+  font-size: 16px;
+}
+
+.task_validate{
+  min-height: 28px;
+  min-width: 28px;
+  display: flex;
+  background-color: #384EB2;
+  box-shadow: -1px -1px 3px #00000085;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: 12px;
+}
+
+.validate_icon{
+  margin: auto;
+  width: 20px;
+}
+
+.task_todo{
+  min-height: 28px;
+  min-width: 28px;
+  display: flex;
+  border: 2px solid #384EB2;
+  box-shadow: -1px -1px 3px #00000085;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: 12px;
+}
