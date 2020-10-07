@@ -6,7 +6,7 @@
 class Task
 {
   private $id;
-  private $title;
+  private $content;
   private $dateStart;
   private $statut;
   private $todoObject;
@@ -18,7 +18,7 @@ class Task
     $this->dateStart = $dateStart;
     $this->statut = $statut;
     $this->todoObject = $todoObject;
-    var_dump(get_object_vars($this));
+    $this->todoObject->GET_ListeTask()->append($this);
   }
 
   public function GET_Id(){

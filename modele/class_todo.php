@@ -13,7 +13,7 @@ class Todo
   {
     $this->id = $id;
     $this->title =$title;
-    $this->listeTask = array();
+    $this->listeTask = new ArrayObject(array());
   }
 
   public function GET_Id(){

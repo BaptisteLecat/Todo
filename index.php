@@ -23,7 +23,7 @@
       <div class="todo_content">
 
         <div class="task_container">
-          <div class="task_content_validate">
+          <div class="task_content_validate" onclick="DisplayInfo(this);">
             <h6>Commander des fruits et des légumes</h6>
             <div class="task_validate">
               <img class="validate_icon" src="assets\icons\checkmark_52px.png" alt="validate icon">
@@ -32,7 +32,7 @@
           <img class="bin_icon" src="assets\icons\trash_52px.png" alt="bin to delete">
         </div>
         <div class="task_container">
-          <div class="task_content_validate">
+          <div class="task_content_validate" onclick="DisplayInfo(this);">
             <h6>Appeler le coiffeur pour 17h</h6>
             <div class="task_validate">
               <img class="validate_icon" src="assets\icons\checkmark_52px.png" alt="validate icon">
@@ -41,7 +41,7 @@
           <img class="bin_icon" src="assets\icons\trash_52px.png" alt="bin to delete">
         </div>
         <div class="task_container">
-          <div class="task_content_validate">
+          <div class="task_content_validate" onclick="DisplayInfo(this);">
             <h6>Faire cuire les oeufs</h6>
             <div class="task_validate">
               <img class="validate_icon" src="assets\icons\checkmark_52px.png" alt="validate icon">
@@ -50,7 +50,7 @@
           <img class="bin_icon" src="assets\icons\trash_52px.png" alt="bin to delete">
         </div>
         <div class="task_container">
-          <div class="task_content_todo">
+          <div class="task_content_todo" onclick="DisplayInfo(this);">
             <h6>Acheter les jouets pour Noël</h6>
             <div class="task_todo">
             </div>
@@ -60,5 +60,6 @@
 
       </div>
     </div>
+    <script type="text/javascript" src="anim.js"></script>
   </body>
 </html>
