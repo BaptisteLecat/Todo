@@ -111,10 +111,21 @@ body, html{
   width: 90%;
 }
 
-.task_content_todo h6, .task_content_validate h6{
+.task_title{
+  display: flex;
+  flex-flow: wrap column;
+}
+
+.task_title h6, .task_title h6{
   color: #fff;
   font-family: 'geomanist', sans-serif;
   font-size: 16px;
+}
+
+.task_title p, .task_title p{
+  color: #909090;
+  font-family: 'geomanist', sans-serif;
+  font-size: 14px;
 }
 
 .task_validate{
@@ -142,4 +153,27 @@ body, html{
   border-radius: 50%;
   margin-left: auto;
   margin-right: 12px;
+}
+
+.btn_addClass{
+  margin: auto;
+  margin-top: 8px;
+  color: #fff;
+  font-family: 'Comfortaa', cursive;
+  font-size: 25px;
+  align-items: center;
+  text-align: center;
+  background-color: #384EB2;
+  height: 40px;
+  width: 40px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  outline: none;
+}
+
+.btn_addClass h1{
+  margin: 0px auto;
+  margin-top: 6px;
+  font-weight: normal;
 }

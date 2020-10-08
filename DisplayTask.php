@@ -39,19 +39,25 @@ echo '<div class="todo_container">
 
 foreach ($today_todo->GET_ListeTask() as $key => $value) {
   if ($value->GET_Statut()) {
-    echo '<div class="task_container">
-      <div class="task_content_validate">
-        <h6>'.$value->GET_Content().'</h6>
-        <div class="task_validate">
-          <img class="validate_icon" src="assets\icons\checkmark_52px.png" alt="validate icon">
-        </div>
-      </div>
-      <img class="bin_icon" src="assets\icons\trash_52px.png" alt="bin to delete">
-    </div>';
+    echo '        <div class="task_container">
+              <div class="task_content_validate">
+                <div class="task_title">
+                  <h6>'.$value->GET_Content().'</h6>
+                  <p>14 Juillet 2020</p>
+                </div>
+                <div class="task_validate">
+                  <img class="validate_icon" src="assets\icons\checkmark_52px.png" alt="validate icon">
+                </div>
+              </div>
+              <img class="bin_icon" src="assets\icons\trash_52px.png" alt="bin to delete">
+            </div>';
   }else {
     echo '<div class="task_container">
       <div class="task_content_todo" onclick="DisplayInfo(this);">
+      <div class="task_title">
         <h6>'.$value->GET_Content().'</h6>
+        <p>14 Juillet 2020</p>
+      </div>
         <div class="task_todo">
         </div>
       </div>
@@ -60,7 +66,7 @@ foreach ($today_todo->GET_ListeTask() as $key => $value) {
   }
 }
 
-echo '</div>
+echo '<button type="button" name="AddTask" class="btn_addClass"><h1>+</h1></button></div>
     </div>';
 
 

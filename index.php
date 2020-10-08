@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="todo.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap" rel="stylesheet">
     <title>TodoList</title>
   </head>
   <body>
@@ -25,6 +26,7 @@
           </div>
           <img class="bin_icon" src="assets\icons\trash_52px.png" alt="bin to delete">
         </div>-->
+
     <script type="text/javascript" src="anim.js"></script>
   </body>
 </html>
