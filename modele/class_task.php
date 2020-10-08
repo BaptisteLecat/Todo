@@ -18,7 +18,7 @@ class Task
     $this->dateStart = $dateStart;
     $this->statut = $statut;
     $this->todoObject = $todoObject;
-    $this->todoObject->GET_ListeTask()->append($this);
+    $this->todoObject->AddTask($this);
   }
 
   public function GET_Id(){

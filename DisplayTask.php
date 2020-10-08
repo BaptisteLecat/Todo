@@ -13,18 +13,32 @@ $diff = $d1->diff($d2);
 $nb_jours = $diff->days;*/
 
 $task1_date = strtotime("15:30pm October 15 2014");
-$task1 = new Task(1, "Faire les devoirs", $task1_date, 1, $today_todo);
+$task1 = new Task(1, "Faire les devoirs", $task1_date, false, $today_todo);
 $task2_date = strtotime("15:30pm October 15 2014");
-$task2 = new Task(2, "Aller chercher les enfants", date("Y-m-d h:i:sa",$task2_date), 1, $today_todo);
+$task2 = new Task(2, "Aller chercher les enfants", date("Y-m-d h:i:sa",$task2_date), false, $today_todo);
 $task3_date = strtotime("15:30pm October 15 2014");
-$task3 = new Task(3, "Récupérer les cours", date("Y-m-d h:i:sa",$task3_date), 0, $today_todo);
+$task3 = new Task(3, "Récupérer les cours", date("Y-m-d h:i:sa",$task3_date), false, $today_todo);
 $task4_date = strtotime("15:30pm October 15 2014");
-$task4 = new Task(4, "Faire les crêpes", date("Y-m-d h:i:sa",$task4_date), 1, $tomorrow_todo);
+$task4 = new Task(4, "Faire les crêpes", date("Y-m-d h:i:sa",$task4_date), true, $tomorrow_todo);
+$today_todo->RemoveTask(2);
 
-var_dump($today_todo->GET_ListeTask());
+echo '<div class="todo_container">
 
-/*foreach ($today_todo->GET_ListeTask() as $key => $value) {
-  if ($value->GET_Statut() == 1) {
+  <div class="todo_header">
+    <h1>'.$today_todo->GET_Title().'</h1>
+    <div class="progressBar_container">
+      <div class="progressBar_bar" style=" width:'.$today_todo->GET_ProgressValuePourcent().'%;">
+      </div>
+    </div>
+    <div class="taskInfo_container">
+      <h3>'.$today_todo->GET_NbTaskValidate().' / '.count($today_todo->GET_ListeTask()).'</h3>
+    </div>
+  </div>
+
+  <div class="todo_content">';
+
+foreach ($today_todo->GET_ListeTask() as $key => $value) {
+  if ($value->GET_Statut()) {
     echo '<div class="task_container">
       <div class="task_content_validate">
         <h6>'.$value->GET_Content().'</h6>
@@ -35,9 +49,19 @@ var_dump($today_todo->GET_ListeTask());
       <img class="bin_icon" src="assets\icons\trash_52px.png" alt="bin to delete">
     </div>';
   }else {
-    // code...
+    echo '<div class="task_container">
+      <div class="task_content_todo" onclick="DisplayInfo(this);">
+        <h6>'.$value->GET_Content().'</h6>
+        <div class="task_todo">
+        </div>
+      </div>
+      <img class="bin_icon" src="assets\icons\trash_52px.png" alt="bin to delete">
+    </div>';
   }
-}*/
+}
+
+echo '</div>
+    </div>';
 
 
 
