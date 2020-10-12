@@ -1,0 +1,38 @@
+CREATE TABLE USER
+(
+	id_user INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	name_user VARCHAR(100),
+	firstname_user VARCHAR(100),
+	email_user VARCHAR(255),
+	password_user VARCHAR(255)
+);
+
+CREATE TABLE TODO
+(
+	id_todo INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	title_todo VARCHAR(255),
+	active_todo INT,
+	iduser_todo INT,
+	FOREIGN KEY (iduser_todo) REFERENCES USER(id_user)
+);
+
+CREATE TABLE TASK
+(
+	id_task INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	content_task VARCHAR(255),
+	enddate_task DATE,
+	endtime_task TIME,
+	status_task INT,
+	iduser_task INT,
+	idtodo_task INT,
+	FOREIGN KEY (iduser_task) REFERENCES USER(id_user),
+	FOREIGN KEY (idtodo_task) REFERENCES TODO(id_todo)
+);
+
+CREATE TABLE PARTICIPER
+(
+	iduser_participer INT PRIMARY KEY NOT NULL,
+	idtodo_participer INT PRIMARY KEY NOT NULL,
+	FOREIGN KEY (iduser_participer) REFERENCES USER(id_user),
+	FOREIGN KEY (idtodo_participer) REFERENCES TODO(id_todo)
+);
