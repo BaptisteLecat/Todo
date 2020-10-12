@@ -1,6 +1,13 @@
 <?php
 
-require 'modele/class_todo.php';
+include 'modele/accesBD.php';
+
+$connexion = new accesBD();
+
+var_dump($connexion->REQTask_LoadTaskFromIdUser(3));
+
+
+/*require 'modele/class_todo.php';
 require 'modele/class_task.php';
 
 $today_todo = new Todo(1, "Today");
@@ -11,7 +18,7 @@ $d1 = $d1->format('Y-m-d');
 $d2 = new DateTime('2020-06-10');
 $diff = $d1->diff($d2);
 $nb_jours = $diff->days;*/
-
+/*
 $task1_date = strtotime("15:30pm October 15 2014");
 $task1 = new Task(1, "Faire les devoirs", $task1_date, 0, $today_todo);
 $task2_date = strtotime("15:30pm October 15 2014");
@@ -69,7 +76,7 @@ foreach ($today_todo->GET_ListeTask() as $key => $value) {
 echo '<button type="button" name="AddTask" class="btn_addClass"><h1>+</h1></button></div>
     </div>';
 
-
+*/
 
 
  ?>

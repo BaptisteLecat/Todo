@@ -32,11 +32,11 @@ class Task
     return $this->content;
   }
 
-  public function GET_endDate(){
+  public function GET_EndDate(){
     return $this->endDate;
   }
 
-  public function GET_status(){
+  public function GET_Status(){
     return $this->status;
   }
 

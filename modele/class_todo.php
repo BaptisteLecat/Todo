@@ -8,14 +8,16 @@ class Todo
   private $id;
   private $title;
   private $active;
+  private $status;
   private $listeTask;
   private $userObject;
 
-  function __construct($id, $title, $active, $userObject)
+  function __construct($id, $title, $active, $status, $userObject)
   {
     $this->id = $id;
     $this->title =$title;
     $this->active = $active;
+    $this->status = $status;
     $this->userObject = $userObject;
     $this->listeTask = array();
   }
@@ -32,6 +34,10 @@ class Todo
     return $this->active;
   }
 
+  public function GET_Status(){
+    return $this->status;
+  }
+
   public function GET_ListeTask(){
     return $this->listeTask;
   }
@@ -43,7 +49,7 @@ class Todo
   public function NbTaskValidate(){
     $nbTaskValidate = 0;
     foreach ($this->listeTask as $key => $value) {
-      if ($value->GET_Statut()) {
+      if ($value->GET_Status()) {
         $nbTaskValidate++;
       }
     }
