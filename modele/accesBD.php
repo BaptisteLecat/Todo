@@ -57,6 +57,45 @@ class accesBD
         }
 	}
 
+	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//----------------------------REQUEST USER--------------------------------------------------------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	public function REQUser_VerifEmail($email){
+		$success = 0;
+
+		$request = $this->bdd->prepare("SELECT id_user FROM user WHERE email_user = ?");
+		if ($request->execute(array($email))) {
+			if ($request->rowCount() > 0) {
+				$success = 1;
+			}
+		}
+		return $success;
+	}
+
+	public function REQUser_VerifLogin($email, $password){
+		$success = 1;
+
+		$request = $this->bdd->prepare("SELECT id_user FROM user WHERE email_user = ? and password_user = ?");
+		if ($request->execute(array($email,$password))) {
+			if ($request->rowCount() > 0) {
+				$success = 1;
+			}
+		}
+		return $success;
+	}
+
+	public function REQUser_InsertUser($name, $firstname, $email, $password){
+		$success = 0;
+
+		$request = $this->bdd->prepare("INSERT INTO (name_user, firstname_user, email_user, password_user) VALUES(?, ?, ?, ?)");
+		if ($request->execute(array($name, $firstname, $email, $password))) {
+			$success = 1;
+		}
+		return $success;
+	}
+
+
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//----------------------------REQUEST TODO--------------------------------------------------------------------------------------------------------------------------------------------------
