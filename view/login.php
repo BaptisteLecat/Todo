@@ -25,8 +25,6 @@
           <form class="" action="index.html" method="post">
             <div class="input_container">
               <input type="text" class="inputText" name="email" placeholder="Email">
-              <input type="text" class="inputText" name="email" placeholder="Email">
-              <input type="text" class="inputText" name="email" placeholder="Email">
               <input type="password" class="inputText" name="password" placeholder="Mot de Passe">
             </div>
             <div class="submit_container">
