@@ -1,0 +1,128 @@
+.todoState_container{
+  margin: 0px auto;
+  width: 95%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #1A2C39;
+  border-radius: 10px;
+}
+
+.todoState_header{
+  position: relative;
+  height: 25px;
+  width: 80%;
+  background-color: #0F212D;
+  border-radius: 5px;
+  margin-top: -10px;
+  margin-left: 10px;
+  padding: 0px 5px;
+  display: flex;
+}
+
+.todoState_header h1{
+  margin: auto 0px;
+  color: #fff;
+  font-family: 'geomanist', sans-serif;
+  font-size: 15px;
+}
+
+.todoState_card_container{
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 5%;
+  width: 95%;
+  height: auto;
+  display: flex;
+  flex-flow: wrap;
+}
+
+.card_container{
+  margin: 8px auto;
+  height: 180px;
+  width: 130px;
+  background-color: #0F212D;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+}
+
+.card_header_date{
+  margin: 0px auto;
+  margin-top: 8%;
+  height: 14%;
+  width: 90%;
+  background-color: #213543;
+  border-radius: 4px;
+  display: flex;
+}
+
+.card_header_date h2{
+  color: #fff;
+  font-family: 'geomanist', sans-serif;
+  font-size: 15px;
+  margin: auto;
+  font-weight: normal;
+}
+
+.card_logo_container{
+  display: flex;
+  width: 100%;
+  height: 30%;
+  margin-bottom: 5%;
+  margin-top: 2%;
+}
+
+.card_logo{
+  margin: auto;
+  border-radius: 50%;
+  height: 90%;
+  width: 45%;
+  background-color: #384EB2;
+  display: flex;
+}
+
+.card_logo img{
+  margin: auto;
+  height: 40px;
+}
+
+.card_content{
+  margin: 0px auto;
+  display: flex;
+  text-align: center;
+  height: 25%;
+  width: 85%;
+  background-color: #213543;
+  border-radius: 4px;
+}
+
+.card_content h3{
+  margin: auto;
+  color: #fff;
+  font-family: 'geomanist', sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.card_progressBar_container{
+  display: flex;
+  height: 20%;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.card_progressBar{
+  height: 38%;
+  width: 80%;
+  margin: auto;
+  background-color: #213543;
+  border-radius: 4px;
+}
+
+.card_progressBar_indicator{
+  height: 100%;
+  width: 78%;
+  background-color: #384EB2;
+  border-radius: 4px;
+}
