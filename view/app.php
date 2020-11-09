@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/app.css">
     <link rel="stylesheet" href="../assets/css/todo.css">
     <link rel="stylesheet" href="../assets/css/stats.css">
@@ -212,7 +213,7 @@
         <img src="../assets/icons/chevron_right_127px.png" alt="suivant">
       </div>
     </footer>
-    
+
   </body>
 
   <footer>

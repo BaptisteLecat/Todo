@@ -18,7 +18,7 @@
   height: 10%;
   width: 100%;
   color: #fff;
-  font-family: 'geomanist', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 .todo_content{
@@ -107,13 +107,13 @@
 
 .task_title h6, .task_title h6{
   color: #fff;
-  font-family: 'geomanist', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   font-size: 15px;
 }
 
 .task_title p, .task_title p{
   color: #909090;
-  font-family: 'geomanist', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   font-size: 14px;
 }
 
