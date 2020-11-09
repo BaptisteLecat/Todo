@@ -30,7 +30,7 @@ class accesBD
 		$this->base="integration";*/
 
 
-		$this->connexion();
+		$this->connection();
 
 	}
 
@@ -38,7 +38,7 @@ class accesBD
 	//-----------------------------CONNECTION A LA BASE---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	private function connexion()
+	private function connection()
 	{
 		try
         {
@@ -49,11 +49,12 @@ class accesBD
 
             // Pour Mysql/MariaDB
             $this->bdd = new PDO("mysql:dbname=$this->base;host=$this->hote",$this->login, $this->passwd);
-            $this->boolConnexion = true;
+						$this->bdd->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+            $this->boolconnection = true;
         }
         catch(PDOException $e)
         {
-            die("Connexion à la base de données échouée".$e->getMessage());
+            die("connection à la base de données échouée".$e->getMessage());
         }
 	}
 
@@ -64,8 +65,8 @@ class accesBD
 	public function REQUser_VerifEmail($email){
 		$success = 0;
 
-		$request = $this->bdd->prepare("SELECT id_user FROM user WHERE email_user = ?");
-		if ($request->execute(array($email))) {
+		$request = $this->bdd->prepare("SELECT id_user FROM user WHERE email_user = :email_user");
+		if ($request->execute(array('email_user'=>$email))) {
 			if ($request->rowCount() > 0) {
 				$success = 1;
 			}
@@ -76,11 +77,15 @@ class accesBD
 	public function REQUser_VerifLogin($email, $password){
 		$success = 1;
 
-		$request = $this->bdd->prepare("SELECT id_user FROM user WHERE email_user = ? and password_user = ?");
-		if ($request->execute(array($email,$password))) {
-			if ($request->rowCount() > 0) {
-				$success = 1;
+		$request = $this->bdd->prepare("SELECT id_user FROM user WHERE email_user = :email_user and password_user = :password_user");
+		try{
+			if ($request->execute(array(':email_user'=>$email,':password_user'=>$password))) {
+				if ($request->rowCount() > 0) {
+					$success = 1;
+				}
 			}
+		}catch(PDOException $e){
+			echo $e->getMessage();
 		}
 		return $success;
 	}
@@ -88,13 +93,16 @@ class accesBD
 	public function REQUser_InsertUser($name, $firstname, $email, $password){
 		$success = 0;
 
-		$request = $this->bdd->prepare("INSERT INTO (name_user, firstname_user, email_user, password_user) VALUES(?, ?, ?, ?)");
-		if ($request->execute(array($name, $firstname, $email, $password))) {
-			$success = 1;
+		$request = $this->bdd->prepare("INSERT INTO user(name_user, firstname_user, email_user, password_user) VALUES(:name_user, :firstname_user, :email_user, :password_user)");
+		try{
+			if ($request->execute([':name_user'=>$name, ':firstname_user'=>$firstname, ':email_user'=>$email, ':password_user'=>$password])) {
+				$success = 1;
+			}
+		}catch(PDOException $e){
+			echo $e->getMessage();
 		}
 		return $success;
 	}
-
 
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -153,13 +161,21 @@ class accesBD
     return $response;
   }
 
-  function REQTask_LoadTaskFromIdUser($idUser){
+  function REQTask_LoadTaskFromIdUser($idUser, $endDate){
     $success = 0;
     $listeTask = null;
     $i = 0;
 
-    $request = $this->bdd->prepare("SELECT id_task, content_task, enddate_task, endtime_task, status_task FROM task WHERE iduser_task = ?");
-    if ($request->execute(array($idUser))) {
+		if(isset($date)){
+			$string_request = "SELECT id_task, content_task, enddate_task, endtime_task, status_task FROM task WHERE iduser_task = ? and enddate_task = ?";
+			$array_request= array($idUser, $endDate);
+		}else {
+			$string_request = "SELECT id_task, content_task, enddate_task, endtime_task, status_task FROM task WHERE iduser_task = ?";
+			$array_request = array($idUser);
+		}
+
+    $request = $this->bdd->prepare($string_request);
+    if ($request->execute($array_request)) {
       if ($request->rowCount() > 0) {
         while ($result = $request->fetch()) {
           $success = 1;
