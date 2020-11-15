@@ -49,7 +49,7 @@ class Todo
   public function NbTaskValidate(){
     $nbTaskValidate = 0;
     foreach ($this->listeTask as $key => $value) {
-      if ($value->GET_Status()) {
+      if ($value->GET_Active()) {
         $nbTaskValidate++;
       }
     }
@@ -57,7 +57,17 @@ class Todo
   }
 
   public function ProgressValuePourcent(){
-    return ($this->GET_NbTaskValidate() / count($this->listeTask)) * 100;
+    if(count($this->listeTask) > 0)
+    return ($this->NbTaskValidate() / count($this->listeTask)) * 100;
+  }
+
+  public function ValidateTask($idTask){
+    foreach($this->listeTask as $key => $value){
+      if($value->GET_Id() == $idTask){
+        $value->SET_Active(1);
+        break;
+      }
+    }
   }
 
   public function AddTask($task){

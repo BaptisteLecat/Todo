@@ -5,53 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/app.css">
-    <link rel="stylesheet" href="../assets/css/todo.css">
-    <link rel="stylesheet" href="../assets/css/stats.css">
-    <link rel="stylesheet" href="../assets/css/todoState.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="assets/css/todo.css">
+    <link rel="stylesheet" href="assets/css/stats.css">
+    <link rel="stylesheet" href="assets/css/todoState.css">
     <title></title>
   </head>
   <body>
     <main>
-      <div class="todo_container">
-        <div class="todo_header">
-          <h1>Aujourd'hui</h1>
-          <div class="progressBar_container">
-            <div class="progressBar_bar">
-            </div>
-          </div>
-          <div class="taskInfo_container">
-            <h3>1 / 3</h3>
-          </div>
-        </div>
-
-        <div class="todo_content">
-          <div class="task_container">
-            <div class="task_content_validate">
-              <div class="task_title">
-                <h6>Trouver un cadeau pour Raphael</h6>
-              </div>
-              <div class="task_validate">
-                <img class="validate_icon" src="../assets\icons\checkmark_52px.png" alt="validate icon">
-              </div>
-            </div>
-            <img class="bin_icon" src="../assets\icons\trash_52px.png" alt="bin to delete">
-          </div>
-
-          <div class="task_container">
-            <div class="task_content_todo" onclick="DisplayInfo(this);">
-            <div class="task_title">
-              <h6>'.$value->GET_Content().'</h6>
-            </div>
-              <div class="task_todo">
-              </div>
-            </div>
-            <img class="bin_icon" src="../assets\icons\trash_52px.png" alt="bin to delete">
-          </div>
-
-        <button type="button" name="AddTask" class="btn_addClass"><h1>+</h1></button></div>
-      </div>
-
       <div class="information_container">
         <div class="stats_container">
           <div class="stats_text_container">

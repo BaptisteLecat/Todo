@@ -1,0 +1,14 @@
+{
+    "name": "technocraft/todo",
+    "authors": [
+        {
+            "name": "Baptiste",
+            "email": "baptiste.lecat44@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {"App\\" : "App/"},
+        "classmap": ["App/"]
+    }
+}

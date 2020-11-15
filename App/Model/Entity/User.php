@@ -3,52 +3,49 @@
 /**
  * Class to represent the User who can create a Todo with a list of Tasks.
  */
+
+ namespace App\Model\Entity;
+ 
 class User
 {
   private $id;
   private $name;
   private $firstname;
   private $email;
-  private $password;
   private $listTodo;
   private $listTask;
 
-  function __construct($id, $name, $firstname, $email, $password)
+  function __construct($id, $name, $firstname, $email)
   {
     $this->id = $id;
     $this->name = $name;
     $this->firstname = $firstname;
     $this->email = $email;
-    $this->password = $password;
     $this->listTodo = array();
     $this->listTask = array();
   }
 
-  public function GET_Id(){
+  public function getId(){
     return $this->id;
   }
 
-  public function GET_Name(){
+  public function getName(){
     return $this->name;
   }
 
-  public function GET_Firstname(){
+  public function getFirstname(){
     return $this->firstname;
   }
 
-  public function GET_Email(){
+  public function getEmail(){
     return $this->email;
   }
 
-  public function GET_Password(){
-    return $this->password;
-  }
-
-  public function GET_ListTodo(){
+  public function getListTodo(){
     return $this->listTodo;
   }
 
-  public function GET_ListTask(){
+  public function getListTask(){
     return $this->listTask;
   }
 

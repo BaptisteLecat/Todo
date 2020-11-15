@@ -8,16 +8,18 @@ class Task
   private $id;
   private $content;
   private $endDate;
-  private $status;
+  private $endTime;
+  private $active;
   private $todoObject;
   private $userObject;
 
-  function __construct($id, $content, $endDate, $status, $todoObject, $userObject)
+  function __construct($id, $content, $endDate, $endTime, $active, $todoObject, $userObject)
   {
     $this->id = $id;
     $this->content = $content;
     $this->endDate = $endDate;
-    $this->status = $status;
+    $this->endTime = $endTime;
+    $this->active = $active;
     $this->todoObject = $todoObject;
     $this->userObject = $userObject;
     $this->todoObject->AddTask($this);
@@ -36,8 +38,16 @@ class Task
     return $this->endDate;
   }
 
-  public function GET_Status(){
-    return $this->status;
+  public function GET_EndTime(){
+    return $this->endTime;
+  }
+
+  public function GET_Active(){
+    return $this->active;
+  }
+
+  public function SET_Active($active){
+    $this->active = $active;
   }
 
   public function GET_TodoObject(){
