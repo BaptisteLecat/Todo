@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\PdoFactory;
 use App\Model\Entity\User;
+use PDOException;
 
 class UserManager extends PdoFactory
 {

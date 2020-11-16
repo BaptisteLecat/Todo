@@ -64,7 +64,7 @@
             <?php } ?>
           </div>
           <div class="formFooter_link">
-            <h6>Mot de passe oublié?</h6>
+            <h6><a href="losePassword.php">Mot de passe oublié?</a></h6>
             <h6>Vous n'avez pas encore de compte?</h6>
           <div>
         </div>
