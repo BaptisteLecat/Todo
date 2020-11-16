@@ -9,7 +9,7 @@
   </head>
   <body>
     <header>
-      <img src="../assets/icons/logoTodo.png" alt="Logo Todo">
+      <img src="../public/assets/icons/logoTodo.png" alt="Logo Todo">
       <h1><span>Todo</span>List</h1>
     </header>
     <main>

@@ -109,6 +109,7 @@ form {
 }
 
 .input_container .inputText {
+    outline: none;
     margin: 5px 0px;
     height: 45px;
     width: 100%;
@@ -123,6 +124,14 @@ form {
     padding-left: 10px;
 }
 
+.input_container .inputText:first-child:focus {
+    border: 3px solid #5c7aff;
+}
+
+.input_container .inputText:nth-child(2):focus {
+    border: 3px solid #5c7aff;
+}
+
 .submit_container {
     height: 100%;
     width: 20%;
@@ -131,6 +140,7 @@ form {
 }
 
 form .sender {
+    outline: none;
     margin: auto;
     border-radius: 5px;
     box-shadow: -3px -1px 0px 1px #506CE6;
