@@ -31,8 +31,8 @@ CREATE TABLE TASK
 
 CREATE TABLE PARTICIPER
 (
-	iduser_participer INT PRIMARY KEY NOT NULL,
-	idtodo_participer INT PRIMARY KEY NOT NULL,
+	iduser_participer INT KEY NOT NULL,
+	idtodo_participer INT NOT NULL,
 	FOREIGN KEY (iduser_participer) REFERENCES USER(id_user),
 	FOREIGN KEY (idtodo_participer) REFERENCES TODO(id_todo)
 );
