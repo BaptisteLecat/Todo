@@ -3,6 +3,7 @@
 require_once '../vendor/autoload.php';
 
 use App\Model\PasswordManager;
+use App\Model\TodoManager;
 
 $passwordManager = new PasswordManager();
 
@@ -19,7 +20,8 @@ function verifEmail($userObject){
         if (preg_match("/[a-zA-Z0-9_\-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/", $_POST["email"])) {
             $resultVerifLogin = $userObject->emailIsValid($_POST['email']);
             if ($resultVerifLogin["success"] == 1) {
-                //Login ok
+                $todoManager = new TodoManager();
+                var_dump($todoManager->insertTodo("title", "status", "active", 5));
             } else {
                 $error = ["type" => "login", "message" => "Identifiant incorrect!"];
             }

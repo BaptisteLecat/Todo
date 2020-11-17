@@ -3,6 +3,9 @@
 /**
  * Class to represent the Todo created by a User, and compose with a list of Tasks.
  */
+
+namespace App\Model\Entity;
+
 class Todo
 {
   private $id;

@@ -36,10 +36,10 @@
               <h6>Faire les courses</h6>
             </div>
             <div class="task_validate">
-              <img class="validate_icon" src="../public/assets\icons\checkmark_52px.png" alt="validate icon">
+              <img class="validate_icon" src="../assets\icons\checkmark_52px.png" alt="validate icon">
             </div>
           </div>
-          <img class="bin_icon" src="../public/assets\icons\trash_52px.png" alt="bin to delete">
+          <img class="bin_icon" src="../assets\icons\trash_52px.png" alt="bin to delete">
         </div>
         <button type="button" name="AddTask" class="btn_addClass" onclick="DisplayTask()">
           <h1>+</h1>
@@ -76,7 +76,7 @@
           </div>
           <div class="card_logo_container">
             <div class="card_logo">
-              <img src="../public/assets\icons\todo_icon\house_48px.png" alt="house">
+              <img src="../assets\icons\todo_icon\house_48px.png" alt="house">
             </div>
           </div>
           <div class="card_content">
@@ -96,7 +96,7 @@
           </div>
           <div class="card_logo_container">
             <div class="card_logo">
-              <img src="../public/assets\icons\todo_icon\house_48px.png" alt="house">
+              <img src="../assets\icons\todo_icon\house_48px.png" alt="house">
             </div>
           </div>
           <div class="card_content">
@@ -116,7 +116,7 @@
           </div>
           <div class="card_logo_container">
             <div class="card_logo">
-              <img src="../public/assets\icons\todo_icon\house_48px.png" alt="house">
+              <img src="../assets\icons\todo_icon\house_48px.png" alt="house">
             </div>
           </div>
           <div class="card_content">
@@ -136,7 +136,7 @@
           </div>
           <div class="card_logo_container">
             <div class="card_logo">
-              <img src="../public/assets\icons\todo_icon\house_48px.png" alt="house">
+              <img src="../assets\icons\todo_icon\house_48px.png" alt="house">
             </div>
           </div>
           <div class="card_content">
@@ -156,7 +156,7 @@
           </div>
           <div class="card_logo_container">
             <div class="card_logo">
-              <img src="../public/assets\icons\todo_icon\house_48px.png" alt="house">
+              <img src="../assets\icons\todo_icon\house_48px.png" alt="house">
             </div>
           </div>
           <div class="card_content">
@@ -176,7 +176,7 @@
           </div>
           <div class="card_logo_container">
             <div class="card_logo">
-              <img src="../public/assets\icons\todo_icon\house_48px.png" alt="house">
+              <img src="../assets\icons\todo_icon\house_48px.png" alt="house">
             </div>
           </div>
           <div class="card_content">
@@ -196,7 +196,7 @@
 
   <footer>
     <div class="headerTodo_switcher_1">
-      <img src="../public/assets/icons/chevron_left_127px.png" alt="précédent">
+      <img src="../assets/icons/chevron_left_127px.png" alt="précédent">
       <h6>Précédent</h6>
     </div>
     <div class="headerTodo_title">
@@ -204,7 +204,7 @@
     </div>
     <div class="headerTodo_switcher_2">
       <h6>Suivant</h6>
-      <img src="../public/assets/icons/chevron_right_127px.png" alt="suivant">
+      <img src="../assets/icons/chevron_right_127px.png" alt="suivant">
     </div>
   </footer>
 
