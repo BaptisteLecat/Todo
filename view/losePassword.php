@@ -11,7 +11,7 @@
         <input type="submit" name="sender">
     </form>
     <footer>
-        <?php if(isset($error["type"])){?>
+        <?php if(isset($error["message"])){?>
             <h6><?= $error["message"] ?></h6>
         <?php } ?>
     </footer>

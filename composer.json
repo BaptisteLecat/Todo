@@ -4,7 +4,9 @@
         "name": "BaptisteLecat",
         "email": "60200125+BaptisteLecat@users.noreply.github.com"
     }],
-    "require": {},
+    "require": {
+        "phpmailer/phpmailer": "^6.1"
+    },
     "autoload": {
         "psr-4": { "App\\": "App" }
     }

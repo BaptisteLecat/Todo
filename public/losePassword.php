@@ -9,9 +9,6 @@ $passwordManager = new PasswordManager();
 
 if(isset($_POST["email"])){
     $error = verifEmail($passwordManager);
-    
-}else{
-    echo("coucou");
 }
 
 function verifEmail($userObject){
@@ -20,13 +17,12 @@ function verifEmail($userObject){
         if (preg_match("/[a-zA-Z0-9_\-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/", $_POST["email"])) {
             $resultVerifLogin = $userObject->emailIsValid($_POST['email']);
             if ($resultVerifLogin["success"] == 1) {
-                $todoManager = new TodoManager();
-                var_dump($todoManager->insertTodo("title", "status", "active", 5));
+                $error = ["message" => sendToken($userObject, $_POST["email"])];
             } else {
-                $error = ["type" => "login", "message" => "Identifiant incorrect!"];
+                $error = ["message" => "Identifiant incorrect!"];
             }
         } else {
-            $error = ["type" => "email", "message" => "Format de l'email incorrect!"];
+            $error = ["message" => "Format de l'email incorrect!"];
         }
     
     }else{
@@ -45,6 +41,30 @@ function verifInput(){
     }
 
     return $error;
+}
+
+function sendToken($userObject, $email){
+    $message = "";
+    $resultSendEmail = $userObject->sendEmail($email);
+    if($resultSendEmail["success"] == 1){      
+        $message = "Envoie avec succes de votre token d'identification.";
+    }else{
+        switch ($resultSendEmail["typeError"]) {
+            case 'EmailSend':
+                $message = "Une erreur est survenue lors de l'envoi du mail d'identification.";
+                break;
+
+            case 'ResetLimit':
+                $message = "Vous avez atteint le nombre maximum de changement de Mot de Passe. Veuillez contacter le support.";
+                break;
+
+            default:
+                $message = "Une erreur système est survenue.";
+                break;
+        }
+    }
+    
+    return $message;
 }
 
 include "../view/losePassword.php";
