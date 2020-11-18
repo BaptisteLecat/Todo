@@ -67,10 +67,10 @@ class PasswordManager extends PdoFactory
     //Renvoie 0 => erreur PDO, 1 => Erreur NbReset, 2 => Success.
     private function sendToken(){
         $response = ["success" => 0, "typeError" => "System"];
-        $this->token = $this->generateToken(5);
+        $this->token = $this->generateToken(6);
 
         try{
-            //Verification préalable du nombre de Rest effectuer sur le compte.
+            //Verification préalable du nombre de Reset effectuer sur le compte.
             $request = $this->pdo->prepare("SELECT idModif FROM modifpassword WHERE idUser = :idUser");
             if($request->execute(array(":idUser" => $this->idUser))){
                 $nbModif = $request->rowCount();
@@ -91,5 +91,13 @@ class PasswordManager extends PdoFactory
             echo $e->getMessage();
         }
         return $response;
+    }
+
+    public function tokenIsValid($tokenInput){
+        $success = 0;
+        if($tokenInput == $this->token){
+            $success = 1;
+        }
+        return $success;
     }
 }
