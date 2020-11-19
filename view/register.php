@@ -24,15 +24,31 @@
                     <h2>Enregistrement</h2>
                 </div>
             </div>
-            <form method="post">
-                <div class="input_container">
-                    <input type="text" class="inputText" name="name" placeholder="Mot de Passe">
-                    <input type="text" class="inputText" name="firstname" placeholder="Mot de Passe">
-                </div>
-                <div class="submit_container">
-                    <input type="submit" class="sender" name="sender" value="">
-                </div>
-            </form>
+
+            <?php if ($etape == 1) { ?>
+                <form method="post">
+                    <div class="input_container">
+                        <input type="text" class="inputText" name="name" placeholder="Nom">
+                        <input type="text" class="inputText" name="firstname" placeholder="Prénom">
+                    </div>
+                    <div class="submit_container">
+                        <input type="submit" class="sender" name="sender" value="">
+                    </div>
+                </form>
+            <?php } else { ?>
+                <?php if ($etape == 2) { ?>
+                    <form method="post">
+                        <div class="input_container">
+                            <input type="hidden" name="etape" value="2">
+                            <input type="text" class="inputText" name="email" placeholder="Email">
+                            <input type="text" class="inputText" name="password" placeholder="Mot de Passe">
+                        </div>
+                        <div class="submit_container">
+                            <input type="submit" class="sender" name="sender" value="">
+                        </div>
+                    </form>
+            <?php }
+            } ?>
             <div class="form_footer">
                 <div class="formFooter_error">
                     <?php if (isset($error["type"])) { ?>
