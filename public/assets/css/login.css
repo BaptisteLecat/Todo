@@ -44,7 +44,8 @@ main {
 
 .form_container {
     margin: auto;
-    height: 70%;
+    height: auto;
+    min-height: 75%;
     width: 88%;
     border-radius: 10px;
     box-shadow: 1px 3px 3px 2px #00000059;
@@ -54,9 +55,10 @@ main {
 }
 
 .form_header {
-    height: 13%;
-    width: 100%;
-    margin-top: -5%;
+    height: 10%;
+    position: absolute;
+    width: 88%;
+    margin-top: -10%;
     display: flex;
 }
 
@@ -95,6 +97,7 @@ main {
 form {
     height: 50%;
     width: 100%;
+    margin: auto;
     display: flex;
 }
 
@@ -135,6 +138,7 @@ form {
 .submit_container {
     height: 100%;
     width: 20%;
+    margin: auto;
     left: 0px;
     display: flex;
 }
@@ -159,7 +163,7 @@ form .sender {
     padding-bottom: 2%;
     display: flex;
     flex-direction: column;
-    height: 40%;
+    height: 30%;
     width: 100%;
     padding-left: calc(8% + 10px);
 }

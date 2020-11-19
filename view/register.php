@@ -17,7 +17,7 @@
     <main>
         <div class="form_container">
             <div class="form_header">
-                <div class="connexion_tab">
+                <div class="connexion_tab"onclick="document.location.href='login.php';">
                     <h2>Connexion</h2>
                 </div>
                 <div class="register_tab">
