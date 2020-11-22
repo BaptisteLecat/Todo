@@ -1,6 +1,6 @@
 <?php 
 
-require_once ' ';
+require_once '../vendor/autoload.php';
 
 use App\Model\TodoManager;
 use App\Model\TaskManager;
@@ -8,8 +8,7 @@ use App\Model\Entity\User;
 use App\Model\Entity\Todo;
 use App\Model\Entity\Task;
 
-session_start();
-$user = unserialize($_SESSION["User"]);
+$user = new User(5, "coucou", "nom", "email");
 $todoManager = new TodoManager();
 $taskManager = new TaskManager();
 
@@ -40,7 +39,7 @@ function loadTodoTaskFromId($idTask, $todo, $taskManager){
 function createTask($user, $taskManager){
     foreach ($user->getListTodo() as $todo){
         if($todo->getId() == 10){
-            $resultInsertTask = $taskManager->insertTask("Sortir le chien", date("Y-m-d"), date("18:29:00"), $todo);
+            $resultInsertTask = $taskManager->insertTask("Sortir le chien", date("2020/11/20"), date("18:29:00"), $todo);
             if($resultInsertTask["success"] == 1){
                 echo("rt:".$resultInsertTask["idTask"].": ");
                 loadTodoTaskFromId($resultInsertTask["idTask"],$todo, $taskManager);
@@ -53,7 +52,6 @@ function createTask($user, $taskManager){
 loadUserTodo($user, $todoManager);
 loadUserTask($user, $taskManager);
 //createTask($user, $taskManager);
-//var_dump(taskForToday($user));
 
 foreach ($user->getListTodo() as $todo){
     if($todo->getId() == 10){
@@ -69,5 +67,3 @@ echo '    ';
 foreach ($user->getListTask() as $task){
     echo($task->getContent()."   ");
 }
-
-include "../view/home.php";

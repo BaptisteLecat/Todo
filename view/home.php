@@ -17,7 +17,10 @@
   <main>
     <div class="todo_container">
 
-      <div class="todo_header">
+      <input type="hidden" id="taskManager" value="<?php echo(json_encode($taskManager)); ?>">
+      <input type="hidden" id="user" value="<?php echo(json_encode($user)); ?>">
+
+      <div class="todo_header" id="test">
         <h1>Aujourd'hui</h1>
         <div class="progressBar_container">
           <div class="progressBar_bar" style=" width:'.$todoDay->ProgressValuePourcent().'%;">
@@ -207,6 +210,7 @@
       <img src="../assets/icons/chevron_right_127px.png" alt="suivant">
     </div>
   </footer>
+  <script src="../function/test.js"></script>
 
 </body>
 

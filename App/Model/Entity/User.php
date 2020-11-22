@@ -49,12 +49,20 @@ class User
     return $this->listTask;
   }
 
-  public function AddTodo($todo){
-    array_push($this->listeTodo, $todo);
+  public function setListTodo($listTodo){
+    $this->listTodo = $listTodo;
   }
 
-  public function AddTask($task){
-    array_push($this->listeTask, $task);
+  public function setListTask($listTask){
+    $this->listTask = $listTask;
+  }
+
+  public function addTodo($todo){
+    array_push($this->listTodo, $todo);
+  }
+
+  public function addTask($task){
+    array_push($this->listTask, $task);
   }
 }
 

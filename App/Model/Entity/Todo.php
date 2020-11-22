@@ -12,75 +12,104 @@ class Todo
   private $title;
   private $active;
   private $status;
-  private $listeTask;
+  private $createDate;
+  private $listTask;
   private $userObject;
 
-  function __construct($id, $title, $active, $status, $userObject)
+  function __construct($id, $title, $active, $status, $createDate, $userObject)
   {
     $this->id = $id;
     $this->title =$title;
     $this->active = $active;
     $this->status = $status;
+    $this->createDate = $createDate;
     $this->userObject = $userObject;
-    $this->listeTask = array();
+    $this->userObject->AddTodo($this);
+    $this->listTask = array();
   }
 
-  public function GET_Id(){
+  public function getId(){
     return $this->id;
   }
 
-  public function GET_Title(){
+  public function getTitle(){
     return $this->title;
   }
 
-  public function GET_Active(){
+  public function getActive(){
     return $this->active;
   }
 
-  public function GET_Status(){
+  public function getStatus(){
     return $this->status;
   }
 
-  public function GET_ListeTask(){
-    return $this->listeTask;
+  public function getListTask(){
+    return $this->listTask;
   }
 
-  public function GET_UserObject(){
+  public function getUserObject(){
     return $this->userObject;
   }
 
-  public function NbTaskValidate(){
+
+  public function setId($id){
+    $this->id = $id;
+  }
+
+  public function setTitle($title){
+    $this->title = $title;
+  }
+
+  public function setActive($active){
+    $this->active = $active;
+  }
+
+  public function setStatus($status){
+    $this->status = $status;
+  }
+
+  public function setListTask($listTask){
+    $this->listTask = $listTask;
+  }
+
+  public function setUserObject($userObject){
+    $this->userObject = $userObject;
+  }
+
+  public function nbTaskValidate(){
     $nbTaskValidate = 0;
     foreach ($this->listeTask as $key => $value) {
-      if ($value->GET_Active()) {
+      if ($value->getActive()) {
         $nbTaskValidate++;
       }
     }
     return $nbTaskValidate;
   }
 
-  public function ProgressValuePourcent(){
+  public function progressValuePourcent(){
     if(count($this->listeTask) > 0)
     return ($this->NbTaskValidate() / count($this->listeTask)) * 100;
   }
 
-  public function ValidateTask($idTask){
+  public function validateTask($idTask){
     foreach($this->listeTask as $key => $value){
-      if($value->GET_Id() == $idTask){
+      if($value->getId() == $idTask){
         $value->SET_Active(1);
         break;
       }
     }
   }
 
-  public function AddTask($task){
-    array_push($this->listeTask, $task);
+  public function addTask($task){
+    array_push($this->listTask, $task);
+    $this->userObject->addTask($task);
   }
 
   //Modifier pour pouvoir supprimer plusieurs taches.
-  public function RemoveTask($idTask){
+  public function removeTask($idTask){
     foreach ($this->listeTask as $key => $value) {
-      if ($value->GET_Id() == $idTask) {
+      if ($value->getId() == $idTask) {
         unset($this->listeTask[array_search($value, $this->listeTask)]);
         break;
       }

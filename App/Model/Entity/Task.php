@@ -29,35 +29,35 @@ class Task
     //add list user
   }
 
-  public function GET_Id(){
+  public function getId(){
     return $this->id;
   }
 
-  public function GET_Content(){
+  public function getContent(){
     return $this->content;
   }
 
-  public function GET_EndDate(){
+  public function getEndDate(){
     return $this->endDate;
   }
 
-  public function GET_EndTime(){
+  public function getEndTime(){
     return $this->endTime;
   }
 
-  public function GET_Active(){
+  public function getActive(){
     return $this->active;
   }
 
-  public function SET_Active($active){
+  public function setActive($active){
     $this->active = $active;
   }
 
-  public function GET_TodoObject(){
+  public function getTodoObject(){
     return $this->todoObject;
   }
 
-  public function GET_UserObject(){
+  public function getUserObject(){
     return $this->userObject;
   }
 }
