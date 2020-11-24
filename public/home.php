@@ -1,6 +1,10 @@
 <?php 
 
 require_once '../vendor/autoload.php';
+<<<<<<< Updated upstream
+=======
+require 'module/dayDisplayer.php';
+>>>>>>> Stashed changes
 
 use App\Model\TodoManager;
 use App\Model\TaskManager;
@@ -30,7 +34,15 @@ function loadUserTask($user, $taskManager){
     
 }
 
-function loadTodoTaskFromId($idTask, $todo, $taskManager){
+loadUserTodo($user, $todoManager);
+loadUserTask($user, $taskManager);
+$_SESSION["User"] = serialize($user);
+$taskForToday = taskForToday($user);
+$nbTaskValidate = nbTaskValidate($taskForToday);
+var_dump(unserialize($_SESSION["User"]));
+
+
+/*function loadTodoTaskFromId($idTask, $todo, $taskManager){
     $resultLoadTask = $taskManager->loadTaskFromTaskId($idTask, $todo);
     if($resultLoadTask["success"] == 1){
         //Success.
@@ -48,14 +60,9 @@ function createTask($user, $taskManager){
             }
         }
     }
-}
+}*/
 
-loadUserTodo($user, $todoManager);
-loadUserTask($user, $taskManager);
-//createTask($user, $taskManager);
-//var_dump(taskForToday($user));
-
-foreach ($user->getListTodo() as $todo){
+/*foreach ($user->getListTodo() as $todo){
     if($todo->getId() == 10){
         foreach ($todo->getListTask() as $value){
             echo($value->getId());
@@ -68,6 +75,6 @@ echo '    ';
 
 foreach ($user->getListTask() as $task){
     echo($task->getContent()."   ");
-}
+}*/
 
 include "../view/home.php";
