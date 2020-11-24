@@ -16,9 +16,8 @@
 <body>
   <main>
     <div class="todo_container">
-
-      <input type="hidden" id="taskManager" value="<?php echo(json_encode($taskManager)); ?>">
-      <input type="hidden" id="user" value="<?php echo(json_encode($user)); ?>">
+      <input type="hidden" id="taskManager" value="<?php echo($taskManager); ?>">
+      <input type="hidden" id="user" value="<?php echo($user); ?>">
 
       <div class="todo_header" id="test">
         <h1>Aujourd'hui</h1>
@@ -30,7 +29,6 @@
           <h3>1 / 3</h3>
         </div>
       </div>
-      <script type="text/javascript" src="../assets/js/displayAllDailyTask.js"></script>
 
       <div class="todo_content">
         <div class="task_container">
@@ -210,7 +208,7 @@
       <img src="../assets/icons/chevron_right_127px.png" alt="suivant">
     </div>
   </footer>
-  <script src="../function/test.js"></script>
+  <script src="js/test.js"></script>
 
 </body>
 
