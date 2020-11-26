@@ -18,6 +18,7 @@ function taskForToday(){
     return $listTaskToday;
 }
 
-$task = new Task("5", "Hello guy", "78", "e", 8, null, null);
+$todo = unserialize($_SESSION["User"]);
+$task = new Task("5", "Hello guy", "78", "e", 8, $todo, unserialize($_SESSION["User"]));
 
 echo json_encode($task);

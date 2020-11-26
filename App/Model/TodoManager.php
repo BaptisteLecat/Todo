@@ -21,7 +21,6 @@ class TodoManager extends PdoFactory
      */
     public function loadTodoFromUserObject($userObject){
         $response = ["success" => 0];
-        $list_todo = array();
 
         try{
             $request = $this->pdo->prepare("SELECT id_todo, title_todo, active_todo, status_todo, createdate_todo FROM todo WHERE iduser_todo = :iduser_todo and active_todo = 1");
@@ -29,10 +28,9 @@ class TodoManager extends PdoFactory
                 if($request->rowCount() > 0){
                     while ($result = $request->fetch()) {
                         $todo = new Todo(intval($result["id_todo"]), $result["title_todo"], intval($result["active_todo"]), $result["status_todo"], $result["createdate_todo"], $userObject);
-                        array_push($list_todo, $todo);
                     }
                 }
-                $response = ["success" => 1, "list_todo" => $list_todo];
+                $response = ["success" => 1];
             }
         }catch(PDOException $e){
             echo $e->getMessage();

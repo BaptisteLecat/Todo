@@ -16,16 +16,8 @@
 <body>
   <main>
     <div class="todo_container">
-<<<<<<< Updated upstream
-      <input type="hidden" id="taskManager" value="<?php echo($taskManager); ?>">
-      <input type="hidden" id="user" value="<?php echo($user); ?>">
-
-      <div class="todo_header" id="test">
-        <h1>Aujourd'hui</h1>
-=======
       <div class="todoHeader" id="test">
         <h1 id='dayTitle'>Aujourd'hui</h1>
->>>>>>> Stashed changes
         <div class="progressBar_container">
           <div class="progressBar_bar" id='progressValue'> <!--Style css for width define in JS. -->
           </div>

@@ -1,10 +1,7 @@
 <?php 
 
 require_once '../vendor/autoload.php';
-<<<<<<< Updated upstream
-=======
 require 'module/dayDisplayer.php';
->>>>>>> Stashed changes
 
 use App\Model\TodoManager;
 use App\Model\TaskManager;
@@ -13,9 +10,23 @@ use App\Model\Entity\Todo;
 use App\Model\Entity\Task;
 
 session_start();
+
+if(!isset($_SESSION["User"])){
+    header("Location: login.php");
+}
+
 $user = unserialize($_SESSION["User"]);
 $todoManager = new TodoManager();
 $taskManager = new TaskManager();
+
+//Permet de recharger la liste de task et de Todo sans avoir de doublon.
+if($user->getListTask() != null){
+    $user->setListTask(array());
+}
+
+if($user->getListTodo() != null){
+    $user->setListTodo(array());
+}
 
 function loadUserTodo($user, $todoManager){
     $resultLoadTodo = $todoManager->loadTodoFromUserObject($user);
@@ -39,7 +50,7 @@ loadUserTask($user, $taskManager);
 $_SESSION["User"] = serialize($user);
 $taskForToday = taskForToday($user);
 $nbTaskValidate = nbTaskValidate($taskForToday);
-var_dump(unserialize($_SESSION["User"]));
+//var_dump(unserialize($_SESSION["User"]));
 
 
 /*function loadTodoTaskFromId($idTask, $todo, $taskManager){
