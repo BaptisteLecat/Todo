@@ -5,12 +5,12 @@ use App\Model\Entity\Task;
 use App\Model\Entity\Todo;
 
 session_start();
-
 function taskForToday(){
+    $tomorrow = date('Y-m-d', strtotime('+1 day'));
     $user = unserialize($_SESSION["User"]);
     $listTaskToday = array();
     foreach($user->getListTask() as $task){
-        if($task->getEndDate() == date("Y-m-d")){
+        if($task->getEndDate() == $tomorrow){
             array_push($listTaskToday, $task);
         }
     }

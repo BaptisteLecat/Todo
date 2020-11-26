@@ -15,8 +15,21 @@
 
 <body>
   <main>
+
+    <div class="daySwitcher_container">
+      <div class="button_container">
+        <button>Précédent</button>
+      </div>
+      <div class="dayTitle_container">
+        <h1>Jour</h1>
+      </div>
+      <div class="button_container">
+        <button>Suivant</button>
+      </div>
+    </div>
+
     <div class="todo_container">
-      <div class="todoHeader" id="test">
+      <div class="todo_header" id="test">
         <h1 id='dayTitle'>Aujourd'hui</h1>
         <div class="progressBar_container">
           <div class="progressBar_bar" id='progressValue'>

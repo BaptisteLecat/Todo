@@ -5,3 +5,4 @@ composer.json
 public/assets/CreateDatabase.txt
 view/todoViewer.php
 view/todoViewer.php
+public/function/switch_dayDisplayer.php
