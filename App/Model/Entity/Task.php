@@ -6,7 +6,9 @@
 
 namespace App\Model\Entity;
 
-class Task
+use JsonSerializable;
+
+class Task implements JsonSerializable
 {
   private $id;
   private $content;
@@ -27,6 +29,18 @@ class Task
     $this->userObject = $userObject;
     $this->todoObject->AddTask($this);
     //add list user
+  }
+
+  public function jsonSerialize(){
+    return Array(
+      'id' => $this->id,
+      'content' => $this->content,
+      'endDate' => $this->endDate,
+      'endTime' => $this->endTime,
+      'active' => $this->active,
+      'todoObject' => $this->todoObject->jsonSerialize(),
+      'userObject' => $this->userObject->jsonSerialize(),
+    );
   }
 
   public function getId(){

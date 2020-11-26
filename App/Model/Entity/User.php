@@ -5,8 +5,10 @@
  */
 
  namespace App\Model\Entity;
- 
-class User
+
+use JsonSerializable;
+
+class User implements JsonSerializable
 {
   private $id;
   private $name;
@@ -23,6 +25,18 @@ class User
     $this->email = $email;
     $this->listTodo = array();
     $this->listTask = array();
+  }
+
+  public function jsonSerialize()
+  {
+    return Array(
+      'id' => $this->id,
+      'name' => $this->name,
+      'firstname' => $this->firstname,
+      'email' => $this->email,
+      //'listTodo' => $this->listTodo,
+      //'listTask' => $this->listTask
+    );
   }
 
   public function getId(){

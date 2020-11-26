@@ -6,7 +6,9 @@
 
 namespace App\Model\Entity;
 
-class Todo
+use JsonSerializable;
+
+class Todo implements JsonSerializable
 {
   private $id;
   private $title;
@@ -26,6 +28,18 @@ class Todo
     $this->userObject = $userObject;
     $this->userObject->AddTodo($this);
     $this->listTask = array();
+  }
+
+  public function jsonSerialize()
+  {
+    return Array(
+      'id' => $this->id,
+      'title' => $this->title,
+      'active' => $this->active,
+      'status' => $this->status,
+      'createDate' => $this->createDate,
+      'userObject' => $this->userObject->jsonSerialize()
+    );
   }
 
   public function getId(){

@@ -3,11 +3,9 @@
 function taskForToday($user){
     $listTaskToday = array();
     foreach($user->getListTask() as $task){
-        //if($task->getEndDate() == date("Y-m-d")){
-            if($task->getActive() == 1){
-                array_push($listTaskToday, $task);
-            }
-        //}
+        if($task->getEndDate() == date("Y-m-d")){
+            array_push($listTaskToday, $task);
+        }
     }
     return $listTaskToday;
 }

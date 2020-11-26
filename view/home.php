@@ -19,37 +19,39 @@
       <div class="todoHeader" id="test">
         <h1 id='dayTitle'>Aujourd'hui</h1>
         <div class="progressBar_container">
-          <div class="progressBar_bar" id='progressValue'> <!--Style css for width define in JS. -->
+          <div class="progressBar_bar" id='progressValue'>
+            <!--Style css for width define in JS. -->
           </div>
         </div>
         <div class="taskInfo_container">
-          <h3 id='progressState'><?= $nbTaskValidate."/".count($taskForToday) ?></h3>
+          <h3 id='progressState'><?= $nbTaskValidate . "/" . count($taskForToday) ?></h3>
         </div>
       </div>
 
-      <div class="todo_content" id='todoContainer'> <!-- Container for all the task -->
-      <?php foreach($taskForToday as $task){ ?>
-        <div class="task_container">
-          <?php if($task->getActive() == 1){ ?>
-          <div class="task_content_validate">
-            <div class="task_title">
-              <h6><?= $task->getContent() ?></h6>
-            </div>
-            <div class="task_validate">
-              <img class="validate_icon" src="../assets\icons\checkmark_52px.png" alt="validate icon">
-            </div>
+      <div class="todo_content" id='todoContent'>
+        <!-- Container for all the task -->
+        <?php foreach ($taskForToday as $task) { ?>
+          <div class="task_container">
+            <?php if ($task->getActive() == 1) { ?>
+              <div class="task_content_validate">
+                <div class="task_title">
+                  <h6><?= $task->getContent() ?></h6>
+                </div>
+                <div class="task_validate">
+                  <img class="validate_icon" src="../assets\icons\checkmark_52px.png" alt="validate icon">
+                </div>
+              </div>
+            <?php } else { ?>
+              <div class="task_content_todo">
+                <div class="task_title">
+                  <h6><?= $task->getContent() ?></h6>
+                </div>
+                <div class="task_todo">
+                </div>
+              </div>
+            <?php } ?>
+            <img class="bin_icon" src="../assets\icons\trash_52px.png" alt="bin to delete">
           </div>
-          <?php }else{ ?>
-            <div class="task_content_todo">
-            <div class="task_title">
-              <h6><?= $task->getContent() ?></h6>
-            </div>
-            <div class="task_todo">
-            </div>
-          </div>
-          <?php } ?>
-          <img class="bin_icon" src="../assets\icons\trash_52px.png" alt="bin to delete">
-        </div>
         <?php } ?>
         <button type="button" name="AddTask" class="btn_addClass">
           <h1>+</h1>
