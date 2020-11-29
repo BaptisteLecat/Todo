@@ -5,12 +5,15 @@ use App\Model\Entity\Task;
 use App\Model\Entity\Todo;
 
 session_start();
-function taskForToday(){
-    $tomorrow = date('Y-m-d', strtotime('+1 day'));
+
+$day = $_POST["day"];
+
+function taskForToday($day){
+    $dateDefine = date('Y-m-d', strtotime( $day.' day'));
     $user = unserialize($_SESSION["User"]);
     $listTaskToday = array();
     foreach($user->getListTask() as $task){
-        if($task->getEndDate() == $tomorrow){
+        if($task->getEndDate() == $dateDefine){
             array_push($listTaskToday, $task);
         }
     }
@@ -22,4 +25,4 @@ function taskForToday(){
 //var_dump($task);
 //$tab = ["coucou" => "salut", "prenom" => "hénry"];
 
-echo json_encode(taskForToday());
+echo json_encode(taskForToday($day));

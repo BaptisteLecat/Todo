@@ -1,6 +1,24 @@
-document.getElementById('test').addEventListener("click", function(e) {
-    e.preventDefault();
+var day = 0; // -3 to 3. 
 
+function dayBefore(){
+    if(day > -3){
+        day--;
+        displayTaskByDay();
+    }else{
+        alert("Limite de jour before atteinte.");
+    }
+}
+
+function dayNext(){
+    if(day < 3){
+        day++;
+        displayTaskByDay();
+    }else{
+        alert("Limite de jour Next atteinte.");
+    }
+}
+
+function displayTaskByDay(){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -47,7 +65,8 @@ document.getElementById('test').addEventListener("click", function(e) {
 
     xhr.open("POST", "function/switch_dayDisplayer.php", true);
     xhr.responseType = "json";
-    xhr.send();
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("day=" + encodeURI(day));
 
     return false;
-});
+}

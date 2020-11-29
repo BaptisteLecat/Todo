@@ -18,19 +18,19 @@
 
     <div class="daySwitcher_container">
       <div class="button_container">
-        <button>Précédent</button>
+        <button onclick="dayBefore()">Précédent</button>
       </div>
       <div class="dayTitle_container">
-        <h1>Jour</h1>
+        <h1 id='dayTitle'>Jour</h1>
       </div>
       <div class="button_container">
-        <button>Suivant</button>
+        <button onclick="dayNext()">Suivant</button>
       </div>
     </div>
 
     <div class="todo_container">
       <div class="todo_header" id="test">
-        <h1 id='dayTitle'>Aujourd'hui</h1>
+        <h1 id='dateValue'>Aujourd'hui</h1>
         <div class="progressBar_container">
           <div class="progressBar_bar" id='progressValue'>
             <!--Style css for width define in JS. -->
