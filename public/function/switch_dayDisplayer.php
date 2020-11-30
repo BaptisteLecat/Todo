@@ -7,9 +7,9 @@ use App\Model\Entity\Todo;
 session_start();
 
 $day = $_POST["day"];
-
-function taskForToday($day){
-    $dateDefine = date('Y-m-d', strtotime( $day.' day'));
+$dateDefine = date('Y-m-d', strtotime( $day.' day'));
+$stringDate = strtotime($dateDefine);
+function taskForToday($dateDefine){
     $user = unserialize($_SESSION["User"]);
     $listTaskToday = array();
     foreach($user->getListTask() as $task){
@@ -25,4 +25,6 @@ function taskForToday($day){
 //var_dump($task);
 //$tab = ["coucou" => "salut", "prenom" => "hénry"];
 
-echo json_encode(taskForToday($day));
+$response = ["dayTitle" => date("l", $stringDate), "listTask" => taskForToday($day)];
+
+echo json_encode($response);

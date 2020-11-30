@@ -1,24 +1,24 @@
 var day = 0; // -3 to 3. 
 
-function dayBefore(){
-    if(day > -3){
+function dayBefore() {
+    if (day > -3) {
         day--;
         displayTaskByDay();
-    }else{
+    } else {
         alert("Limite de jour before atteinte.");
     }
 }
 
-function dayNext(){
-    if(day < 3){
+function dayNext() {
+    if (day < 3) {
         day++;
         displayTaskByDay();
-    }else{
+    } else {
         alert("Limite de jour Next atteinte.");
     }
 }
 
-function displayTaskByDay(){
+function displayTaskByDay() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -26,8 +26,9 @@ function displayTaskByDay(){
             console.log(res);
 
             var html = "";
+            document.getElementById("dayTitle").innerText = res["dayTitle"];
 
-            res.forEach(task => {
+            res["listTask"].forEach(task => {
                 html = html.concat('<div class="task_container">');
                 if (task.active == 1) {
                     html = html.concat(`
