@@ -3,22 +3,25 @@ var day = 0; // -3 to 3.
 function dayBefore() {
     if (day > -3) {
         day--;
+        document.getElementById('nextSwitcher').style.opacity = 1;
         displayTaskByDay();
     } else {
-        alert("Limite de jour before atteinte.");
+        document.getElementById('previousSwitcher').style.opacity = 0.5;
     }
 }
 
 function dayNext() {
     if (day < 3) {
         day++;
+        document.getElementById('previousSwitcher').style.opacity = 1;
         displayTaskByDay();
     } else {
-        alert("Limite de jour Next atteinte.");
+        document.getElementById('nextSwitcher').style.opacity = 0.5;
     }
 }
 
 function displayTaskByDay() {
+    var nbActiveTask = 0;
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -31,6 +34,7 @@ function displayTaskByDay() {
             res["listTask"].forEach(task => {
                 html = html.concat('<div class="task_container">');
                 if (task.active == 1) {
+                    nbActiveTask++;
                     html = html.concat(`
                 <div class="task_content_validate">
                     <div class="task_title">
@@ -52,10 +56,16 @@ function displayTaskByDay() {
                   <img class="bin_icon" src="../assets/icons/trash_52px.png" alt="bin to delete"></div>`);
                 }
             });
-            html.concat(`<button type="button" name="AddTask" class="btn_addClass">
+            html = html.concat(`<button type="button" name="AddTask" class="btn_addClass">
             <h1>+</h1>
           </button></div>`);
             document.getElementById('todoContent').innerHTML = html;
+            document.getElementById('progressState').innerHTML = nbActiveTask + "/" + res["listTask"].length;
+            if(res["listTask"].length > 0){
+                document.getElementById('progressValue').style.width = (nbActiveTask / res["listTask"].length)*100 + "%";
+            }else{
+                document.getElementById('progressValue').style.width = "0%";
+            }
 
         } else if (this.readyState == 4) {
             alert("Une erreur est survenue..");

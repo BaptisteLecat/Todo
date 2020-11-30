@@ -17,13 +17,13 @@
   <main>
 
     <div class="daySwitcher_container">
-      <div class="button_container">
+      <div id='previousSwitcher' class="button_container">
         <button onclick="dayBefore()">Précédent</button>
       </div>
       <div class="dayTitle_container">
         <h1 id='dayTitle'><?= $dayTitle ?></h1>
       </div>
-      <div class="button_container">
+      <div id='nextSwitcher' class="button_container">
         <button onclick="dayNext()">Suivant</button>
       </div>
     </div>
@@ -32,9 +32,14 @@
       <div class="todo_header" id="test">
         <h1 id='dateValue'><?= $dateString ?></h1>
         <div class="progressBar_container">
-          <div class="progressBar_bar" id='progressValue'>
-            <!--Style css for width define in JS. -->
-          </div>
+          <?php if (isset($taskForToday)) {
+            if (count($taskForToday) > 0) {
+              $value = ($nbTaskValidate / count($taskForToday)) * 100; ?>
+              <div class="progressBar_bar" id='progressValue' style="width: <?= $value ?> %"></div>
+            <?php } else { ?>
+              <div class="progressBar_bar" id='progressValue' style="width: 0%"></div>
+          <?php }
+          } ?>
         </div>
         <div class="taskInfo_container">
           <h3 id='progressState'><?= $nbTaskValidate . "/" . count($taskForToday) ?></h3>
