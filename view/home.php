@@ -21,7 +21,7 @@
         <button onclick="dayBefore()">Précédent</button>
       </div>
       <div class="dayTitle_container">
-        <h1 id='dayTitle'>Jour</h1>
+        <h1 id='dayTitle'><?= $dayTitle ?></h1>
       </div>
       <div class="button_container">
         <button onclick="dayNext()">Suivant</button>
@@ -30,7 +30,7 @@
 
     <div class="todo_container">
       <div class="todo_header" id="test">
-        <h1 id='dateValue'>Aujourd'hui</h1>
+        <h1 id='dateValue'><?= $dateString ?></h1>
         <div class="progressBar_container">
           <div class="progressBar_bar" id='progressValue'>
             <!--Style css for width define in JS. -->
@@ -234,7 +234,7 @@
       <img src="../assets/icons/chevron_right_127px.png" alt="suivant">
     </div>
   </footer>
-  <script src="js/test.js"></script>
+  <script src="js/taskDisplayer.js"></script>
 
 </body>
 

@@ -27,7 +27,7 @@ function displayTaskByDay() {
 
             var html = "";
             document.getElementById("dayTitle").innerText = res["dayTitle"];
-
+            document.getElementById("dateValue").innerText = res["dateString"];
             res["listTask"].forEach(task => {
                 html = html.concat('<div class="task_container">');
                 if (task.active == 1) {

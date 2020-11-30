@@ -5,9 +5,7 @@ require 'module/dayDisplayer.php';
 
 use App\Model\TodoManager;
 use App\Model\TaskManager;
-use App\Model\Entity\User;
-use App\Model\Entity\Todo;
-use App\Model\Entity\Task;
+use App\Model\Entity\DateFrench;
 
 session_start();
 
@@ -50,6 +48,9 @@ loadUserTask($user, $taskManager);
 $_SESSION["User"] = serialize($user);
 $taskForToday = taskForToday($user);
 $nbTaskValidate = nbTaskValidate($taskForToday);
+$dayTitle = dateFrench::dateToDay(strtotime(date('Y-m-d')));
+$dateString= dateFrench::dateToString(strtotime(date('Y-m-d')));
+
 //var_dump(unserialize($_SESSION["User"]));
 
 
