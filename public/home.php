@@ -1,7 +1,7 @@
 <?php 
 
 require_once '../vendor/autoload.php';
-require 'module/dayDisplayer.php';
+require 'module/taskDisplayer/function/dayDisplayer.php';
 
 use App\Model\TodoManager;
 use App\Model\TaskManager;

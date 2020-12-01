@@ -51,7 +51,7 @@
         <?php foreach ($taskForToday as $task) { ?>
           <div class="task_container">
             <?php if ($task->getActive() == 1) { ?>
-              <div class="task_content_validate">
+              <div class="task_content_validate" onclick="">
                 <div class="task_title">
                   <h6><?= $task->getContent() ?></h6>
                 </div>
@@ -239,7 +239,7 @@
       <img src="../assets/icons/chevron_right_127px.png" alt="suivant">
     </div>
   </footer>
-  <script src="js/taskDisplayer.js"></script>
+  <script src="module/taskDisplayer/taskDisplayer.js"></script>
 
 </body>
 

@@ -1,5 +1,9 @@
 <?php 
 
+/**
+ * Utilisé lors du chargement de la page par le Controleur, pour afficher les tâches du Jour.
+ */
+
 function taskForToday($user){
     $listTaskToday = array();
     foreach($user->getListTask() as $task){

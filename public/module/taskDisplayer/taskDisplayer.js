@@ -74,7 +74,7 @@ function displayTaskByDay() {
         }
     };
 
-    xhr.open("POST", "function/switch_dayDisplayer.php", true);
+    xhr.open("POST", "module/taskDisplayer/ajax/dayDisplayer.php", true);
     xhr.responseType = "json";
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("day=" + encodeURI(day));

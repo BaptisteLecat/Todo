@@ -1,5 +1,10 @@
 <?php 
-require_once '../../vendor/autoload.php';
+
+/**
+ * Utilisé lors des appels AJAX pour effectuer le chargement des taches pour un jour donné.
+ */
+
+require_once '../../../../vendor/autoload.php';
 
 use App\Model\Entity\DateFrench;
 
