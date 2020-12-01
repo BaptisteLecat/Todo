@@ -36,7 +36,7 @@ function displayTaskByDay() {
                 if (task.active == 1) {
                     nbActiveTask++;
                     html = html.concat(`
-                <div class="task_content_validate">
+                <div class="task_content_validate" id="${task.id}" onclick="activeModifier(this)">
                     <div class="task_title">
                         <h6>${task.content}</h6>
                     </div>
@@ -47,7 +47,7 @@ function displayTaskByDay() {
                   <img class="bin_icon" src="../assets/icons/trash_52px.png" alt="bin to delete"></div>`);
                 } else {
                     html = html.concat(`
-                <div class="task_content_todo">
+                <div class="task_content_todo" id="${task.id}" onclick="activeModifier(this)">
                     <div class="task_title">
                       <h6>${task.content}</h6>
                     </div>
@@ -78,6 +78,26 @@ function displayTaskByDay() {
     xhr.responseType = "json";
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("day=" + encodeURI(day));
+}
 
-    return false;
+function activeModifier(object){
+    var idTask = object.id;
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var res = this.response;
+            console.log(res);
+            displayTaskByDay();
+
+        } else if (this.readyState == 4) {
+            alert("Une erreur est survenue..");
+        } else if (this.statusText == "parsererror") {
+            alert("Erreur Json");
+        }
+    };
+
+    xhr.open("POST", "module/taskDisplayer/ajax/activeModifier.php", true);
+    xhr.responseType = "json";
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("idTask=" + encodeURI(idTask));
 }

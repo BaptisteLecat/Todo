@@ -13,7 +13,7 @@ use \PDOException;
 
 class TaskManager extends PdoFactory
 {
-    // TODO InsertTask, UpdateTask(content_task enddate_task endtime_task status_task id_todo), Load
+    // TODO UpdateTask(content_task enddate_task endtime_task status_task id_todo), Load
 
     public function loadTaskFromTodoObject($todoObject)
     {
@@ -90,6 +90,74 @@ class TaskManager extends PdoFactory
             }
         } catch (PDOException $e) {
             echo $e->getMessage();
+        }
+        return $response;
+    }
+
+    //Un a la fois.$content, $endDate, $endTime, $active, $idTodo
+    public function updateTask($taskObject, $stringModif, $value){
+        $response = ["success" => 0];
+
+        switch($stringModif){
+            case "content":
+                try{
+                    $request = $this->pdo->prepare("UPDATE task SET content_task = :content_task WHERE id_task = :id_task");
+                    if($request->execute(array(':content_task' => $value, ':id_task' => $taskObject->getId()))){
+                        $taskObject->setContent($value);
+                        $response = ["success" => 1];
+                    }
+                }catch (PDOException $e) {
+                    echo $e->getMessage();
+                }
+            break;
+            
+            case "endDate":
+                try{
+                    $request = $this->pdo->prepare("UPDATE task SET enddate_task = :enddate_task WHERE id_task = :id_task");
+                    if($request->execute(array(':enddate_task' => $value, ':id_task' => $taskObject->getId()))){
+                        $taskObject->setEndDate($value);
+                        $response = ["success" => 1];
+                    }
+                }catch (PDOException $e) {
+                    echo $e->getMessage();
+                }
+            break;
+
+            case "endTime":
+                try{
+                    $request = $this->pdo->prepare("UPDATE task SET endtime_task = :endtime_task WHERE id_task = :id_task");
+                    if($request->execute(array(':endtime_task' => $value, ':id_task' => $taskObject->getId()))){
+                        $taskObject->setEndTime($value);
+                        $response = ["success" => 1];
+                    }
+                }catch (PDOException $e) {
+                    echo $e->getMessage();
+                }
+            break;
+
+            case "active":
+                try{
+                    $request = $this->pdo->prepare("UPDATE task SET active_task = :active_task WHERE id_task = :id_task");
+                    if($request->execute(array(':active_task' => $value, ':id_task' => $taskObject->getId()))){
+                        $taskObject->setActive($value);
+                        $response = ["success" => 1];
+                    }
+                }catch (PDOException $e) {
+                    echo $e->getMessage();
+                }
+            break;
+
+            case "idTodo":
+                try{
+                    $request = $this->pdo->prepare("UPDATE task SET idtodo_task = :idtodo_task WHERE id_task = :id_task");
+                    if($request->execute(array(':idtodo_task' => $value, ':id_task' => $taskObject->getId()))){
+                        $taskObject->setTodoObject($value);
+                        $response = ["success" => 1];
+                    }
+                }catch (PDOException $e) {
+                    echo $e->getMessage();
+                }
+            break;
         }
         return $response;
     }

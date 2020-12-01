@@ -63,10 +63,6 @@ class Task implements JsonSerializable
     return $this->active;
   }
 
-  public function setActive($active){
-    $this->active = $active;
-  }
-
   public function getTodoObject(){
     return $this->todoObject;
   }
@@ -74,6 +70,24 @@ class Task implements JsonSerializable
   public function getUserObject(){
     return $this->userObject;
   }
-}
 
- ?>
+  public function setActive($active){
+    $this->active = $active;
+  }
+
+  public function setContent($content){
+    $this->content = $content;
+  }
+
+  public function setEndDate($endDate){
+    $this->endDate = $endDate;
+  }
+
+  public function setEndTime($endTime){
+    $this->endTime = $endTime;
+  }
+
+  public function setTodoObject($todoObject){
+    $this->todoObject = $todoObject;
+  }
+}

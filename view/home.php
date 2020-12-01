@@ -51,7 +51,7 @@
         <?php foreach ($taskForToday as $task) { ?>
           <div class="task_container">
             <?php if ($task->getActive() == 1) { ?>
-              <div class="task_content_validate" onclick="">
+              <div class="task_content_validate" id="<?= $task->getId() ?>" onclick="activeModifier(this)">
                 <div class="task_title">
                   <h6><?= $task->getContent() ?></h6>
                 </div>
@@ -60,7 +60,7 @@
                 </div>
               </div>
             <?php } else { ?>
-              <div class="task_content_todo">
+              <div class="task_content_todo" id="<?= $task->getId() ?>" onclick="activeModifier(this)">
                 <div class="task_title">
                   <h6><?= $task->getContent() ?></h6>
                 </div>
