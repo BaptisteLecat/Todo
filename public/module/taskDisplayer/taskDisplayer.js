@@ -56,9 +56,7 @@ function displayTaskByDay() {
                   <img class="bin_icon" src="../assets/icons/trash_52px.png" alt="bin to delete"></div>`);
                 }
             });
-            html = html.concat(`<button type="button" name="AddTask" class="btn_addClass">
-            <h1>+</h1>
-          </button></div>`);
+            
             document.getElementById('todoContent').innerHTML = html;
             document.getElementById('progressState').innerHTML = nbActiveTask + "/" + res["listTask"].length;
             if(res["listTask"].length > 0){

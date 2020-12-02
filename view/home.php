@@ -71,9 +71,6 @@
             <img class="bin_icon" src="../assets\icons\trash_52px.png" alt="bin to delete">
           </div>
         <?php } ?>
-        <button type="button" name="AddTask" class="btn_addClass">
-          <h1>+</h1>
-        </button>
       </div>
 
     </div>

@@ -64,9 +64,10 @@
 }
 
 .todo_content{
-  margin-top: 5px;
-  height: 75%;
-  width: 100%;
+  margin: 8px 0px 0px 10px;
+  padding-right: 10px;
+  height: 180px;
+  overflow: auto;
 }
 
 .todo_header h1{
@@ -184,6 +185,12 @@
   border-radius: 50%;
   margin-left: auto;
   margin-right: 12px;
+}
+
+.todo_container{
+  display: flex;
+  width: 100%;
+  height: auto;
 }
 
 .btn_addClass{
