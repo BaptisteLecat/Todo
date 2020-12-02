@@ -53,7 +53,7 @@ function displayTaskByDay() {
                     </div>
                     <div class="task_todo"></div>
                   </div>
-                  <img class="bin_icon" src="../assets/icons/trash_52px.png" alt="bin to delete"></div>`);
+                  <img class="bin_icon" src="../assets/icons/trash_52px.png" alt="bin to delete" onclick="deleteTask(this)"></div>`);
                 }
             });
             
@@ -95,6 +95,28 @@ function activeModifier(object){
     };
 
     xhr.open("POST", "module/taskDisplayer/ajax/activeModifier.php", true);
+    xhr.responseType = "json";
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("idTask=" + encodeURI(idTask));
+}
+
+function deleteTask(object){
+    var idTask = object.id;
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var res = this.response;
+            console.log(res);
+            displayTaskByDay();
+
+        } else if (this.readyState == 4) {
+            alert("Une erreur est survenue..");
+        } else if (this.statusText == "parsererror") {
+            alert("Erreur Json");
+        }
+    };
+
+    xhr.open("POST", "module/taskDisplayer/ajax/delete.php", true);
     xhr.responseType = "json";
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("idTask=" + encodeURI(idTask));

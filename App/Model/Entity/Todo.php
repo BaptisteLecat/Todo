@@ -121,7 +121,7 @@ class Todo implements JsonSerializable
   }
 
   //Modifier pour pouvoir supprimer plusieurs taches.
-  public function removeTask($idTask){
+  public function deleteTask($idTask){
     foreach ($this->listeTask as $key => $value) {
       if ($value->getId() == $idTask) {
         unset($this->listeTask[array_search($value, $this->listeTask)]);

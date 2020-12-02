@@ -161,4 +161,19 @@ class TaskManager extends PdoFactory
         }
         return $response;
     }
+
+    public function deleteTask($taskObject){
+        $response = ["success" => 0];
+
+        try{
+            $request = $this->pdo->prepare("DELETE FROM task WHERE id_task = :id_task");
+            if($request->execute(array(':id_task' => $taskObject->getId()))){
+                $taskObject->getTodoObject()->deleteTask($taskObject->getId());
+                $response = ["success" => 1];
+            }
+        }catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        return $response;
+    }
 }
