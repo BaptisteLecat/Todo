@@ -19,11 +19,12 @@ function deleteTask($idTask)
     foreach ($user->getListTask() as $task) {
         if ($task->getId() == $idTask) {
             $taskManager = new TaskManager();
-            //if ($taskManager->deleteTask($task)["success"] == 1) {
-                $response = "coucou";
+            if ($taskManager->deleteTask($task)["success"] == 1) {
+                $response = ["success" => 1];
+                $user->deleteTask($task);
                 $_SESSION["User"] = serialize($user);
                 break;
-            //}
+            }
         }
     }
     return $response;

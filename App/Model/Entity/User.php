@@ -78,7 +78,8 @@ class User implements JsonSerializable
   public function addTask($task){
     array_push($this->listTask, $task);
   }
+
+  public function deleteTask($task){
+    unset($this->listTask[array_search( $task, $this->listTask)]);
+  }
 }
-
-
- ?>

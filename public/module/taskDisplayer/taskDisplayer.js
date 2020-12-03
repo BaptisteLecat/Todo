@@ -32,11 +32,11 @@ function displayTaskByDay() {
             document.getElementById("dayTitle").innerText = res["dayTitle"];
             document.getElementById("dateValue").innerText = res["dateString"];
             res["listTask"].forEach(task => {
-                html = html.concat('<div class="task_container">');
+                html = html.concat(`<div class="task_container" id="${task.id}">`);
                 if (task.active == 1) {
                     nbActiveTask++;
                     html = html.concat(`
-                <div class="task_content_validate" id="${task.id}" onclick="activeModifier(this)">
+                <div class="task_content_validate" onclick="activeModifier(this)">
                     <div class="task_title">
                         <h6>${task.content}</h6>
                     </div>
@@ -79,7 +79,7 @@ function displayTaskByDay() {
 }
 
 function activeModifier(object){
-    var idTask = object.id;
+    var idTask = object.parentNode.id;
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -101,7 +101,7 @@ function activeModifier(object){
 }
 
 function deleteTask(object){
-    var idTask = object.id;
+    var idTask = object.parentNode.id;
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
