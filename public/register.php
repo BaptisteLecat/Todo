@@ -66,10 +66,8 @@ switch ($etape) {
                     $error = ["input" => "first", "type" => "formatEmail", "message" => "Email invalide!"];
                     $flag = 1;
 
-                    
                     $registerInfo["email"] = $_POST["email"];
                     $registerInfo["password"] = $_POST["password"];
-                    
                 }
 
                 if (preg_match("#^(?=.*[A-Za-z])(?=.*\d)(?=.*[&-+!*$@%_])([&-+!*$@%_\w]{8,25})$#", $_POST["password"]) == 0) {
@@ -80,10 +78,8 @@ switch ($etape) {
                         $flag = 1;
                     }
 
-                    
                     $registerInfo["email"] = $_POST["email"];
                     $registerInfo["password"] = $_POST["password"];
-                    
                 }
 
                 if ($flag == 0) {
