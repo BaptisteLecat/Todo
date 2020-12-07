@@ -5,6 +5,7 @@ namespace App\Model;
 use App\PdoFactory;
 use App\Model\Entity\User;
 use App\Model\MailerManager;
+use PDOException;
 
 class PasswordManager extends PdoFactory
 {

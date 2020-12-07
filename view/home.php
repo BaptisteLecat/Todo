@@ -223,21 +223,9 @@
     </div>
   </main>
 
-  <footer>
-    <div class="headerTodo_switcher_1">
-      <img src="../assets/icons/chevron_left_127px.png" alt="précédent">
-      <h6>Précédent</h6>
-    </div>
-    <div class="headerTodo_title">
-      <h1>Jour</h1>
-    </div>
-    <div class="headerTodo_switcher_2">
-      <h6>Suivant</h6>
-      <img src="../assets/icons/chevron_right_127px.png" alt="suivant">
-    </div>
-  </footer>
-  <script src="module/taskDisplayer/taskDisplayer.js"></script>
+  <button class="createBtn"><img src="..\assets\icons\plus_math_52px.png" alt="More"></button>
 
+  <script src="module/taskDisplayer/taskDisplayer.js"></script>
 </body>
 
 <footer>

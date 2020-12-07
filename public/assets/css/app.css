@@ -92,3 +92,17 @@ header{
 main{
   margin-bottom: 25%;
 }
+
+.createBtn{
+  position: fixed;
+  bottom: 60px;
+  right: 1%;
+  z-index: 20;
+  height: 10%;
+  width: 18%;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  box-shadow: -6px 2px 8px #00000099;
+  background-color: #384EB2;
+}

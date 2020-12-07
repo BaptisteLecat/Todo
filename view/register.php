@@ -17,7 +17,7 @@
     <main>
         <div class="form_container">
             <div class="form_header">
-                <div class="connexion_tab"onclick="document.location.href='login.php';">
+                <div class="connexion_tab" onclick="document.location.href='login.php';">
                     <h2>Connexion</h2>
                 </div>
                 <div class="register_tab">
@@ -28,8 +28,29 @@
             <?php if ($etape == 1) { ?>
                 <form method="post">
                     <div class="input_container">
-                        <input type="text" class="inputText" name="name" placeholder="Nom">
-                        <input type="text" class="inputText" name="firstname" placeholder="Prénom">
+                        <?php if (isset($error["input"])) {
+                            switch ($error["input"]) {
+                                case "first": ?>
+                                    <input style="border: 2px solid #b43030;" type="text" class="inputText" name="name" placeholder="Nom" value="<?php if(isset($registerInfo["name"])){ echo($registerInfo["name"]); } ?>">
+                                    <input type="text" class="inputText" name="firstname" placeholder="Prénom" value="<?php if(isset($registerInfo["firstname"])){ echo($registerInfo["firstname"]); } ?>">
+                                    <?php break; ?>
+
+                                <?php
+                                case "second": ?>
+                                    <input type="text" class="inputText" name="name" placeholder="Nom" value="<?php if(isset($registerInfo["name"])){ echo($registerInfo["name"]); } ?>">
+                                    <input style="border: 2px solid #b43030;" type="text" class="inputText" name="firstname" placeholder="Prénom" value="<?php if(isset($registerInfo["firstname"])){ echo($registerInfo["firstname"]); } ?>">
+                                    <?php break; ?>
+
+                                <?php
+                                case "both": ?>
+                                    <input style="border: 2px solid #b43030;" type="text" class="inputText" name="name" placeholder="Nom" value="<?php if(isset($registerInfo["name"])){ echo($registerInfo["name"]); } ?>">
+                                    <input style="border: 2px solid #b43030;" type="text" class="inputText" name="firstname" placeholder="Prénom" value="<?php if(isset($registerInfo["firstname"])){ echo($registerInfo["firstname"]); } ?>">
+                            <?php break;
+                            }
+                        } else { ?>
+                            <input type="text" class="inputText" name="name" placeholder="Nom" value="<?php if(isset($registerInfo["name"])){ echo($registerInfo["name"]); } ?>">
+                            <input type="text" class="inputText" name="firstname" placeholder="Prénom" value="<?php if(isset($registerInfo["firstname"])){ echo($registerInfo["firstname"]); } ?>">
+                        <?php } ?>
                     </div>
                     <div class="submit_container">
                         <input type="submit" class="sender" name="sender" value="">
@@ -40,8 +61,29 @@
                     <form method="post">
                         <div class="input_container">
                             <input type="hidden" name="etape" value="2">
-                            <input type="text" class="inputText" name="email" placeholder="Email">
-                            <input type="text" class="inputText" name="password" placeholder="Mot de Passe">
+                            <?php if (isset($error["input"])) {
+                                switch ($error["input"]) {
+                                    case "first": ?>
+                                        <input style="border: 2px solid #b43030;" type="text" class="inputText" name="email" placeholder="Email" value="<?php if(isset($registerInfo["email"])){ echo($registerInfo["email"]); } ?>">
+                                        <input type="password" class="inputText" name="password" placeholder="Mot de Passe" value="<?php if(isset($registerInfo["password"])){ echo($registerInfo["password"]); } ?>">
+                                        <?php break; ?>
+
+                                    <?php
+                                    case "second": ?>
+                                        <input type="text" class="inputText" name="email" placeholder="Email"  value="<?php if(isset($registerInfo["email"])){ echo($registerInfo["email"]); } ?>">
+                                        <input style="border: 2px solid #b43030;" type="password" class="inputText" name="password" placeholder="Mot de Passe" value="<?php if(isset($registerInfo["password"])){ echo($registerInfo["password"]); } ?>">
+                                        <?php break; ?>
+
+                                    <?php
+                                    case "both": ?>
+                                        <input style="border: 2px solid #b43030;" type="text" class="inputText" name="email" placeholder="Email" value="<?php if(isset($registerInfo["email"])){ echo($registerInfo["email"]); } ?>">
+                                        <input style="border: 2px solid #b43030;" type="password" class="inputText" name="password" placeholder="Mot de Passe" value="<?php if(isset($registerInfo["password"])){ echo($registerInfo["password"]); } ?>">
+                                <?php break;
+                                }
+                            } else { ?>
+                                <input type="text" class="inputText" name="email" placeholder="Email"  value="<?php if(isset($registerInfo["email"])){ echo($registerInfo["email"]); } ?>">
+                                <input type="password" class="inputText" name="password" placeholder="Mot de Passe" value="<?php if(isset($registerInfo["password"])){ echo($registerInfo["password"]); } ?>">
+                            <?php } ?>
                         </div>
                         <div class="submit_container">
                             <input type="submit" class="sender" name="sender" value="">
