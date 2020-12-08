@@ -28,7 +28,10 @@
             <textarea placeholder="Coucou"></textarea>
 
             <h6>Priorité</h6>
-            <button>Normale</button><button>Normale</button>
+            <div class="btn_container">
+                <button>Normale</button>
+                <button>Normale</button>
+            </div>
 
             <h6>Date de fin</h6>
             <input type="date">

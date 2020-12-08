@@ -1,4 +1,4 @@
-header{
+header {
     margin-top: 6%;
     background-color: #384EB2;
     height: 60px;
@@ -6,7 +6,7 @@ header{
     display: flex;
 }
 
-.header_title{
+.header_title {
     margin: auto;
     background-color: #516BDF;
     border: none;
@@ -16,24 +16,66 @@ header{
     display: flex;
 }
 
-.header_title h1{
+.header_title h1 {
     color: #fff;
     font-family: 'Geomanist', sans-serif;
-    font-size: 18px;
+    font-size: 24px;
     margin: auto;
 }
 
-main{
+main {
     height: calc(100% - (60px + 50px));
     width: 100%;
     margin: 0px;
     display: flex;
 }
 
-form{
+form {
     margin: auto;
     height: 85%;
-    width: 95%;
+    width: 90%;
     display: flex;
     flex-direction: column;
+}
+
+form h6 {
+    color: #fff;
+    font-family: 'Geomanist', sans-serif;
+    font-size: 18px;
+    margin: 20px 0px 4px 4px;
+}
+
+form h6:first-child {
+    margin: 0px 0px 4px 4px;
+}
+
+form input,
+button,
+textarea,
+select {
+    padding-left: 4px;
+    border: none;
+    border-radius: 4px;
+    min-height: 40px;
+    background-color: #1a2c3a;
+    color: #fff;
+    font-family: 'Geomanist', sans-serif;
+    font-size: 18px;
+    resize: none;
+    outline: none;
+}
+
+form textarea {
+    height: 70px;
+}
+
+.btn_container button {
+    margin: auto;
+    width: 28%;
+}
+
+.btn_container {
+    height: auto;
+    width: 100%;
+    display: flex;
 }
