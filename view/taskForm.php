@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <img src="assets\icons\chevron_left_127px.png" class="previousPage">
     <header>
         <div class="header_title">
             <h1>Création d'une Tâche</h1>
@@ -25,12 +26,12 @@
             </select>
 
             <h6>Contenu de la Tâche</h6>
-            <textarea placeholder="Coucou"></textarea>
+            <textarea required></textarea>
 
             <h6>Priorité</h6>
             <div class="btn_container">
                 <button>Normale</button>
-                <button>Normale</button>
+                <button>Importante</button>
             </div>
 
             <h6>Date de fin</h6>
@@ -38,6 +39,8 @@
 
             <h6>Heure de fin</h6>
             <input type="time">
+
+            <input type="submit" value="Valider">
         </form>
     </main>
 </body>
