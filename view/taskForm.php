@@ -33,7 +33,7 @@
                 <button>Normale</button>
                 <button>Importante</button>
             </div>
-
+            <!--//TODO Faire le petit "i" informations, avec la messageBox associé.-->
             <h6>Date de fin</h6>
             <input type="date">
 
