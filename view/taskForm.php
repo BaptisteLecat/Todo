@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="stylesheet" href="assets/css/taskForm.css">
+    <link rel="stylesheet" href="assets/css/messageBox/information.css">
     <title>TaskForm</title>
 </head>
 
@@ -53,6 +54,8 @@
         </form>
     </main>
 </body>
+
+<?php include 'messageBox/information.php'; ?>
 
 <footer>
     <div class="button_container_menu">

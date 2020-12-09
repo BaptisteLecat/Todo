@@ -1,0 +1,63 @@
+.box_container {
+    position: absolute;
+    top: 0px;
+    height: 70px;
+    width: 100%;
+    display: flex;
+    background-color: #fff;
+}
+
+.color_indicator {
+    height: 100%;
+    width: 2%;
+    background-color: #FF3F00;
+}
+
+.icon_container {
+    height: 100%;
+    width: 18%;
+    display: flex;
+}
+
+.icon_container img {
+    margin: auto;
+    height: 60%;
+}
+
+.content_container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 60%;
+}
+
+.content_container h1 {
+    margin: auto 0px 0px 0px;
+    color: black;
+    font-family: 'Geomanist', sans-serif;
+    font-size: 18px;
+}
+
+.content_container p {
+    margin: 2px 0px auto 0px;
+    color: grey;
+    font-family: 'Geomanist', sans-serif;
+    font-size: 14px;
+}
+
+.close_container {
+    height: 100%;
+    width: 20%;
+    display: flex;
+}
+
+.close_container h6 {
+    margin: auto;
+}
+
+.close_container a {
+    text-decoration: none;
+    color: black;
+    font-family: 'Geomanist', sans-serif;
+    font-size: 8px;
+}
