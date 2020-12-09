@@ -1,4 +1,4 @@
-.previousPage{
+.previousPage {
     height: 5%;
     margin: 5px;
 }
@@ -59,7 +59,6 @@ form h6:first-child {
 }
 
 form input,
-button,
 textarea,
 select {
     padding-left: 4px;
@@ -78,11 +77,11 @@ form textarea {
     height: 70px;
 }
 
-form textarea::placeholder{
+form textarea::placeholder {
     color: #8b8e94;
 }
 
-.btn_container button {
+.btn_container input[type=button] {
     margin: auto;
     width: 32%;
 }
@@ -93,13 +92,38 @@ form textarea::placeholder{
     display: flex;
 }
 
-form input{
+.titleInput_container {
+    margin-top: 20px;
+    height: 20px;
+    width: 100%;
+    display: flex;
+    padding-bottom: 4px;
+}
+
+.titleInput_container img {
+    height: 100%;
+    margin: 0px 4px 0px auto;
+}
+
+form input {
     width: 100%;
 }
 
-form input[type=submit]{
+form input[type=submit] {
     background-color: #5C7AFF;
     margin: 20px auto 20px auto;
     height: 8%;
     width: 60%;
+}
+
+@media screen and (min-width: 600px) {
+    form {
+        width: 70%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    form {
+        width: 50%;
+    }
 }

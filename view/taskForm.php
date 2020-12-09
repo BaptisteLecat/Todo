@@ -30,15 +30,24 @@
 
             <h6>Priorité</h6>
             <div class="btn_container">
-                <button>Normale</button>
-                <button>Importante</button>
+                <input type="button" value="Normale">
+                <input type="button" value="Importante">
             </div>
             <!--//TODO Faire le petit "i" informations, avec la messageBox associé.-->
-            <h6>Date de fin</h6>
+            
+            <div class="titleInput_container">
+                <h6>Date de fin</h6>
+                <img src="assets\icons\information.png">
+            </div>
             <input type="date">
 
-            <h6>Heure de fin</h6>
+            <div class="titleInput_container">
+                <h6>Heure de fin</h6>
+                <img src="assets\icons\information.png">
+            </div>
             <input type="time">
+            <!--//TODO Faire le JS qui permet de changer l'etat du btn click et la value du hidden.-->
+            <input type="hidden" value="">
 
             <input type="submit" value="Valider">
         </form>
