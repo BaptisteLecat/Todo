@@ -77,13 +77,22 @@ class TaskManager extends PdoFactory
             $resultCountTask = $this->countNbTask($todoObject->getId());
             if ($resultCountTask["success"] == 1) {
                 $nbrow = $resultCountTask["nbrow"];
-                $request = $this->pdo->prepare("INSERT INTO task (content_task, enddate_task, endtime_task, iduser_task, idtodo_task) VALUES (:content_task, :enddate_task, :endtime_task, :iduser_task, :idtodo_task)");
-                if ($request->execute(array(':content_task' => $content, ':enddate_task' => $endDate, ':endtime_task' => $endTime, ':iduser_task' => $todoObject->getUserObject()->getId(), ':idtodo_task' => $todoObject->getId()))) {
+                if($endTime == ""){
+                    $endTime = null; //Pour pouvoir spécifier lors de la création de l'objet.
+                    $stringRequest = "INSERT INTO task (content_task, enddate_task, iduser_task, idtodo_task) VALUES (:content_task, :enddate_task, :iduser_task, :idtodo_task)";
+                    $values = array(':content_task' => $content, ':enddate_task' => $endDate, ':iduser_task' => $todoObject->getUserObject()->getId(), ':idtodo_task' => $todoObject->getId());
+                }else{
+                    $stringRequest = "INSERT INTO task (content_task, enddate_task, endtime_task, iduser_task, idtodo_task) VALUES (:content_task, :enddate_task, :endtime_task, :iduser_task, :idtodo_task)";
+                    $values = array(':content_task' => $content, ':enddate_task' => $endDate, ':endtime_task' => $endTime, ':iduser_task' => $todoObject->getUserObject()->getId(), ':idtodo_task' => $todoObject->getId());
+                }
+                $request = $this->pdo->prepare($stringRequest);
+                if ($request->execute($values)) {
                     $lastId = $this->pdo->lastInsertId();
                     $resultCountTask = $this->countNbTask($todoObject->getId());
                     if ($resultCountTask["success"] == 1) {
                         if ($nbrow < $resultCountTask["nbrow"]) {
                             $response = ["success" => 1, "idTask" => $lastId];
+                            $task = new Task($lastId, $content, $endDate, $endTime, 0, $todoObject, $todoObject->getUserObject());
                         }
                     }
                 }

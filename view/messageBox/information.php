@@ -1,15 +1,8 @@
-<div class="box_container">
-    <div class="color_indicator">
-
-    </div>
+<div class="box_container" id="box_container" onclick = "hideMessageBox()">
     <div class="icon_container">
-        <img src="assets\icons\information.png" alt="">
+        <img src="<?= '..\..\assets\icons\messageBox\\'.$messageBox->getIcon().'.png'; ?>" alt="">
     </div>
-    <div class="content_container">
-        <h1>Title</h1>
-        <p>Content of the message box.</p>
-    </div>
-    <div class="close_container">
-        <h6><a href="">FERMER</a></h6>
+    <div class="text_container">
+        <h6><?= $messageBox->getMessage(); ?></h6>
     </div>
 </div>
