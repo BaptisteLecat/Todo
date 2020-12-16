@@ -14,9 +14,9 @@ function activeStateModifier($idTask){
         if ($task->getId() == $idTask) {
             $taskManager = new TaskManager();
             if ($task->getActive() == 1) {
-                $taskManager->updateTask($task, "active", 0);
+                $taskManager->updateActive($task, 0);
             } else {
-                $taskManager->updateTask($task, "active", 1);
+                $taskManager->updateActive($task, 1);
             }
             $_SESSION["User"] = serialize($user);
             break;
