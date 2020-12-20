@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="assets/css/app.css">
-    <link rel="stylesheet" href="assets/css/taskForm.css">
+    <link rel="stylesheet" href="assets/css/taskCreate.css">
     <link rel="stylesheet" href="assets/css/messageBox/information.css">
     <title>TaskForm</title>
 </head>
 
 <body onload="showMessageBox()">
-<?php if($messageBox != null){include("messageBox/information.php");} ?>
+    <?php if ($messageBox != null) {
+        include("messageBox/information.php");
+    } ?>
     <img src="assets\icons\chevron_left_127px.png" class="previousPage">
     <header>
         <div class="header_title">
@@ -19,6 +21,9 @@
     </header>
     <main>
         <form method="post">
+            <div class="form_switcher">
+                <h3>Ajouter un Todo</h3>
+            </div>
             <h6>Todo de référence</h6>
             <select name="todo-selector" id="todo">
                 <?php foreach ($user->getListTodo() as $todo) { ?>
@@ -34,13 +39,13 @@
                 <h6>Date de fin</h6>
                 <img src="assets\icons\information.png">
             </div>
-            <input name="date" type="date">
+            <input class="bug" name="date" type="date">
 
             <div class="titleInput_container">
                 <h6>Heure de fin</h6>
                 <img src="assets\icons\information.png">
             </div>
-            <input name="time" type="time">
+            <input class="bug" name="time" type="time">
             <!--//TODO Faire le JS qui permet de changer l'etat du btn click et la value du hidden.-->
 
             <input type="submit" value="Valider">

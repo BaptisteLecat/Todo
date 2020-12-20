@@ -55,9 +55,11 @@ if(isset($_POST["todo-selector"])){
     }else{
         $date = $_POST["date"];
     }
+    $errorId = true;
     foreach($user->getListTodo() as $todo){
         
         if($todo->getId() == $_POST["todo-selector"]){
+            $errorId = false;
             $resultInsertTask = $taskManager->insertTask($_POST["content"], $date, $_POST["time"], $todo);
             
             if($resultInsertTask["success"] == 1){
@@ -67,6 +69,10 @@ if(isset($_POST["todo-selector"])){
             }
             break;
         }
+    }
+
+    if($errorId == true){
+        $messageBox = new MessageBox("Ohoh, la Todo sélectionnée est inconnue !", "error");
     }
 }
 
