@@ -12,18 +12,24 @@ class Todo implements JsonSerializable
 {
   private $id;
   private $title;
+  private $description;
   private $active;
   private $status;
+  private $endDate;
+  private $endTime;
   private $createDate;
   private $listTask;
   private $userObject;
 
-  function __construct($id, $title, $active, $status, $createDate, $userObject)
+  function __construct($id, $title, $description, $active, $status, $endDate, $endTime, $createDate, $userObject)
   {
     $this->id = $id;
     $this->title =$title;
+    $this->description = $description;
     $this->active = $active;
     $this->status = $status;
+    $this->endDate = $endDate;
+    $this->endTime = $endTime;
     $this->createDate = $createDate;
     $this->userObject = $userObject;
     $this->userObject->AddTodo($this);
@@ -35,8 +41,11 @@ class Todo implements JsonSerializable
     return Array(
       'id' => $this->id,
       'title' => $this->title,
+      'description' => $this->description,
       'active' => $this->active,
       'status' => $this->status,
+      'endDate' => $this->enDate,
+      'endTime' => $this->endTime,
       'createDate' => $this->createDate,
       'userObject' => $this->userObject->jsonSerialize()
     );
@@ -50,12 +59,28 @@ class Todo implements JsonSerializable
     return $this->title;
   }
 
+  public function getDescription(){
+    return $this->title;
+  }
+
   public function getActive(){
     return $this->active;
   }
 
   public function getStatus(){
     return $this->status;
+  }
+
+  public function getEndDate(){
+    return $this->endDate;
+  }
+
+  public function getEndTime(){
+    return $this->endTime;
+  }
+
+  public function getCreateDate(){
+    return $this->createDate;
   }
 
   public function getListTask(){
@@ -75,12 +100,28 @@ class Todo implements JsonSerializable
     $this->title = $title;
   }
 
+  public function setDescription($description){
+    $this->description = $description;
+  }
+
   public function setActive($active){
     $this->active = $active;
   }
 
   public function setStatus($status){
     $this->status = $status;
+  }
+
+  public function setEndDate($endDate){
+    $this->endDate = $endDate;
+  }
+
+  public function setEndTime($endTime){
+    $this->endTime = $endTime;
+  }
+
+  public function setCreateDate($createDate){
+    $this->createDate = $createDate;
   }
 
   public function setListTask($listTask){
@@ -93,7 +134,7 @@ class Todo implements JsonSerializable
 
   public function nbTaskValidate(){
     $nbTaskValidate = 0;
-    foreach ($this->listeTask as $key => $value) {
+    foreach ($this->listeTask as $value) {
       if ($value->getActive()) {
         $nbTaskValidate++;
       }
@@ -107,7 +148,7 @@ class Todo implements JsonSerializable
   }
 
   public function validateTask($idTask){
-    foreach($this->listeTask as $key => $value){
+    foreach($this->listeTask as $value){
       if($value->getId() == $idTask){
         $value->SET_Active(1);
         break;
@@ -120,6 +161,3 @@ class Todo implements JsonSerializable
     $this->userObject->addTask($task);
   }
 }
-
-
- ?>
