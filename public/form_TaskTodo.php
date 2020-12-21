@@ -59,7 +59,7 @@ if (isset($_GET["form"])) {
                     $messageBox = new MessageBox("Ohoh, la Todo sélectionnée est inconnue !", "error");
                 }
             }
-            include("../view/taskCreate.php");
+            include("../view/form/taskCreate.php");
             break;
 
         case "CreateTodo":
