@@ -13,7 +13,6 @@ use \PDOException;
 
 class TaskManager extends PdoFactory
 {
-    // TODO UpdateTask(content_task enddate_task endtime_task status_task id_todo), Load
 
     public function loadTaskFromTodoObject($todoObject)
     {
@@ -119,7 +118,6 @@ class TaskManager extends PdoFactory
         return $response;
     }
 
-    //Un a la fois.$content, $endDate, $endTime, $active, $idTodo
     public function updateTask($taskObject, $stringModif, $value){
         $response = ["success" => 0];
 

@@ -66,7 +66,34 @@ if (isset($_GET["form"])) {
             break;
     }
 } else {
-    //Case Create Task
+    $messageBox = null;
+    if (isset($_POST["todo-selector"])) {
+        if ($_POST["date"] == "") {
+            $date = date('Y-m-d');
+        } else {
+            $date = $_POST["date"];
+        }
+        $errorId = true;
+        foreach ($user->getListTodo() as $todo) {
+
+            if ($todo->getId() == $_POST["todo-selector"]) {
+                $errorId = false;
+                $resultInsertTask = $taskManager->insertTask($_POST["content"], $date, $_POST["time"], $todo);
+
+                if ($resultInsertTask["success"] == 1) {
+                    $messageBox = new MessageBox("Félicitation, vous avez désormais une tâche supplémentaire à effectuer !", "validate");
+                } else {
+                    $messageBox = new MessageBox("Ohoh, il semblerait qu'un problème soit survenue !", "error");
+                }
+                break;
+            }
+        }
+
+        if ($errorId == true) {
+            $messageBox = new MessageBox("Ohoh, la Todo sélectionnée est inconnue !", "error");
+        }
+    }
+    include("../view/form/taskCreate.php");
 }
 
 function loadUserTodo($user, $todoManager)

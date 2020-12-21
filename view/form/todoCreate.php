@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="stylesheet" href="assets/css/taskCreate.css">
     <link rel="stylesheet" href="assets/css/messageBox/information.css">
-    <title>TaskForm</title>
+    <title>TodoForm</title>
 </head>
 
 <body onload="showMessageBox()">
@@ -16,23 +16,19 @@
     <img src="assets\icons\chevron_left_127px.png" class="previousPage">
     <header>
         <div class="header_title">
-            <h1>Création d'une Tâche</h1>
+            <h1>Création d'un Todo</h1>
         </div>
     </header>
     <main>
         <form method="post">
             <div class="form_switcher">
-                <h3>Ajouter un Todo</h3>
+                <h3>Ajouter une Tâche</h3>
             </div>
             <h6>Todo de référence</h6>
-            <select name="todo-selector" id="todo">
-                <?php foreach ($user->getListTodo() as $todo) { ?>
-                    <option value="<?= $todo->getId() ?>"><?= $todo->getTitle() ?></option>
-                <?php } ?>
-            </select>
+            <input type="text" name="title">
 
-            <h6>Contenu de la Tâche</h6>
-            <textarea name="content" required></textarea>
+            <h6>Description du Todo</h6>
+            <textarea name="description" required></textarea>
 
             <div class="titleInput_container">
                 <h6>Date de fin</h6>
