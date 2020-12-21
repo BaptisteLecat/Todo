@@ -44,7 +44,7 @@ class Todo implements JsonSerializable
       'description' => $this->description,
       'active' => $this->active,
       'status' => $this->status,
-      'endDate' => $this->enDate,
+      'endDate' => $this->endDate,
       'endTime' => $this->endTime,
       'createDate' => $this->createDate,
       'userObject' => $this->userObject->jsonSerialize()
