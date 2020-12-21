@@ -1,4 +1,5 @@
 //TODO Ajout tâche
 - Date et heure de fin par défaut == date et heure fin todo.
 
-//TODO
+//TODO Class Todo
+- Ajout de nouveaux attribut, modification des requetes.
