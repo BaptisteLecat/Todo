@@ -10,8 +10,6 @@ use App\Model\UserManager;
 
 $userManager = new UserManager();
 
-
-
 if (isset($_POST['email']) && isset($_POST['password'])) {
     $error = login($userManager);
 }

@@ -12,8 +12,7 @@ use App\Model\Entity\Todo;
 use \PDOException;
 
 class TodoManager extends PdoFactory
-{ 
-
+{
     /**
      * Permet de charger tout les TODO d'un USER.
      * @param User $userObject Afin de récupérer l'id du User.
