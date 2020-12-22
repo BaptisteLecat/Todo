@@ -14,7 +14,7 @@ use \PDOException;
 class TodoManager extends PdoFactory
 {
     /**
-     * Permet de charger tout les TODO d'un USER.
+     * Permet de charger tout les TODO d'un USER (non réalisées).
      * @param User $userObject Afin de récupérer l'id du User.
      * @return int|Todo[success,listTodo] Success 0 = listTodo none | Success = 1 listTodo ou listTodo = null.
      */
@@ -22,7 +22,7 @@ class TodoManager extends PdoFactory
         $response = ["success" => 0];
 
         try{
-            $request = $this->pdo->prepare("SELECT id_todo, title_todo, description_todo, active_todo, status_todo, enddate_todo, endtime_todo, createdate_todo FROM todo WHERE iduser_todo = :iduser_todo and active_todo = 1");
+            $request = $this->pdo->prepare("SELECT id_todo, title_todo, description_todo, active_todo, status_todo, enddate_todo, endtime_todo, createdate_todo FROM todo WHERE iduser_todo = :iduser_todo and active_todo = 0");
             if($request->execute(array(':iduser_todo' => $userObject->getId()))){
                 if($request->rowCount() > 0){
                     while ($result = $request->fetch()) {
