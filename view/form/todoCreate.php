@@ -32,8 +32,8 @@
 
             <h6>Statut</h6>
             <div class="status_container">
-                <input type="button" value="Privé">
-                <input type="button" value="Publique">
+                <input type="button" id='private' value="Privé" onclick="btnStatus_click(this)" style="background-color: #5C7AFF">
+                <input type="button" id='public' value="Publique" onclick="btnStatus_click(this)">
             </div>
 
             <div class="titleInput_container">
@@ -48,11 +48,13 @@
             </div>
             <input class="bug" name="time" type="time">
 
+            <input type="hidden" name="status" id='status_value' value="private">
             <input type="submit" value="Valider">
         </form>
     </main>
 
-    <script src="module/taskform/taskCreateDisplayer.js"></script>
+    <script src="module/form/messageBox/messageBoxDisplayer.js"></script>
+    <script src="module/form/todoform/todoCreateDisplayer.js"></script>
 </body>
 
 <footer>

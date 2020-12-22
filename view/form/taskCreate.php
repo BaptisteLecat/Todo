@@ -50,7 +50,7 @@
         </form>
     </main>
 
-    <script src="module/taskform/taskCreateDisplayer.js"></script>
+    <script src="module/form/messageBox/messageBoxDisplayer.js"></script>
 </body>
 
 <footer>
