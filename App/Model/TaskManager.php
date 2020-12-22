@@ -18,12 +18,12 @@ class TaskManager extends PdoFactory
     {
         $response = ["success" => 0];
         try {
-            $request = $this->pdo->prepare("SELECT id_task, content_task, enddate_task, endtime_task, active_task FROM task WHERE idtodo_task = :idtodo_task");
+            $request = $this->pdo->prepare("SELECT id_task, content_task, enddate_task, endtime_task, active_task, createdate_task FROM task WHERE idtodo_task = :idtodo_task");
             if ($request->execute(array('idtodo_task' => $todoObject->getId()))) {
                 if ($request->rowCount() > 0) {
                     while ($result = $request->fetch()) {
                         //A modifier si update de l'app en online Task.
-                        $task = new Task(intval($result["id_task"]), $result["content_task"], $result["enddate_task"], $result["endtime_task"], $result["active_task"], $todoObject, $todoObject->getUserObject());
+                        $task = new Task(intval($result["id_task"]), $result["content_task"], $result["enddate_task"], $result["endtime_task"], $result["active_task"], $result["createdate_task"], $todoObject, $todoObject->getUserObject());
                     }
                     $response = ["success" => 1];
                 }
@@ -38,12 +38,12 @@ class TaskManager extends PdoFactory
     {
         $response = ["success" => 0];
         try {
-            $request = $this->pdo->prepare("SELECT content_task, enddate_task, endtime_task, active_task FROM task WHERE id_task = :id_task");
+            $request = $this->pdo->prepare("SELECT content_task, enddate_task, endtime_task, active_task, createdate_task FROM task WHERE id_task = :id_task");
             if ($request->execute(array(':id_task' => $idTask))) {
                 if ($request->rowCount() > 0) {
                     while ($result = $request->fetch()) {
                         //A modifier si update de l'app en online Task.
-                        $task = new Task($idTask, $result["content_task"], $result["enddate_task"], $result["endtime_task"], $result["active_task"], $todoObject, $todoObject->getUserObject());
+                        $task = new Task($idTask, $result["content_task"], $result["enddate_task"], $result["endtime_task"], $result["active_task"], $result["createdate_task"], $todoObject, $todoObject->getUserObject());
                     }
                     $response = ["success" => 1];
                 }
@@ -91,7 +91,7 @@ class TaskManager extends PdoFactory
                     if ($resultCountTask["success"] == 1) {
                         if ($nbrow < $resultCountTask["nbrow"]) {
                             $response = ["success" => 1, "idTask" => $lastId];
-                            $task = new Task($lastId, $content, $endDate, $endTime, 0, $todoObject, $todoObject->getUserObject());
+                            $task = new Task($lastId, $content, $endDate, $endTime, 0, date('Y-m-d'), $todoObject, $todoObject->getUserObject());
                         }
                     }
                 }

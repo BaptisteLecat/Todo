@@ -15,16 +15,18 @@ class Task implements JsonSerializable
   private $endDate;
   private $endTime;
   private $active;
+  private $createDate;
   private $todoObject;
   private $userObject;
 
-  function __construct($id, $content, $endDate, $endTime, $active, $todoObject, $userObject)
+  function __construct($id, $content, $endDate, $endTime, $active, $createDate, $todoObject, $userObject)
   {
     $this->id = $id;
     $this->content = $content;
     $this->endDate = $endDate;
     $this->endTime = $endTime;
     $this->active = $active;
+    $this->createDate = $createDate;
     $this->todoObject = $todoObject;
     $this->userObject = $userObject;
     $this->todoObject->AddTask($this);
@@ -38,6 +40,7 @@ class Task implements JsonSerializable
       'endDate' => $this->endDate,
       'endTime' => $this->endTime,
       'active' => $this->active,
+      'createDate' => $this->createDate,
       'todoObject' => $this->todoObject->jsonSerialize(),
       'userObject' => $this->userObject->jsonSerialize(),
     );
@@ -63,6 +66,10 @@ class Task implements JsonSerializable
     return $this->active;
   }
 
+  public function getCreateDate(){
+    return $this->createDate;
+  }
+
   public function getTodoObject(){
     return $this->todoObject;
   }
@@ -73,6 +80,10 @@ class Task implements JsonSerializable
 
   public function setActive($active){
     $this->active = $active;
+  }
+
+  public function setCreateDate($createDate){
+    $this->createDate = $createDate;
   }
 
   public function setContent($content){
