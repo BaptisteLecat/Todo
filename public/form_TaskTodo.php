@@ -63,6 +63,8 @@ if (isset($_GET["form"])) {
             break;
 
         case "CreateTodo":
+            $messageBox = null;
+            include("../view/form/todoCreate.php");
             break;
     }
 } else {

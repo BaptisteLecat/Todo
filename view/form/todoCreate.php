@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="assets/css/app.css">
-    <link rel="stylesheet" href="assets/css/taskCreate.css">
+    <link rel="stylesheet" href="assets/css/form/createTodo.css">
     <link rel="stylesheet" href="assets/css/messageBox/information.css">
     <title>TodoForm</title>
 </head>
@@ -24,11 +24,17 @@
             <div class="form_switcher">
                 <h3>Ajouter une Tâche</h3>
             </div>
-            <h6>Todo de référence</h6>
+            <h6>Titre</h6>
             <input type="text" name="title">
 
-            <h6>Description du Todo</h6>
+            <h6>Description</h6>
             <textarea name="description" required></textarea>
+
+            <h6>Statut</h6>
+            <div class="status_container">
+                <input type="button" value="Privé">
+                <input type="button" value="Publique">
+            </div>
 
             <div class="titleInput_container">
                 <h6>Date de fin</h6>
