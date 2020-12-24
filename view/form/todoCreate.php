@@ -40,7 +40,7 @@
                 <h6>Date de fin</h6>
                 <img src="assets\icons\information.png">
             </div>
-            <input class="bug" name="date" type="date">
+            <input class="bug" name="date" type="date" value="<?= date('Y-m-d'); ?>">
 
             <div class="titleInput_container">
                 <h6>Heure de fin</h6>
