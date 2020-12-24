@@ -223,7 +223,7 @@
     </div>
   </main>
 
-  <button class="createBtn"><img src="..\assets\icons\plus_math_52px.png" alt="More"></button>
+  <button class="createBtn" onclick="document.location.href='form_TaskTodo.php'"><img src="..\assets\icons\plus_math_52px.png" alt="More"></button>
 
   <script src="module/taskDisplayer/taskDisplayer.js"></script>
 </body>

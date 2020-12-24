@@ -22,7 +22,7 @@
     <main>
         <form method="post">
             <div class="form_switcher">
-                <h3>Ajouter une Tâche</h3>
+                <h3 onclick="document.location.href='form_TaskTodo.php?form=CreateTask'">Ajouter une Tâche</h3>
             </div>
             <h6>Titre</h6>
             <input type="text" name="title" required>

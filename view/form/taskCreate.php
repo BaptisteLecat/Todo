@@ -22,7 +22,7 @@
     <main>
         <form method="post">
             <div class="form_switcher">
-                <h3>Ajouter un Todo</h3>
+                <h3 onclick="document.location.href='form_TaskTodo.php?form=CreateTodo'">Ajouter un Todo</h3>
             </div>
             <h6>Todo de référence</h6>
             <select name="todo-selector" id="todo">
