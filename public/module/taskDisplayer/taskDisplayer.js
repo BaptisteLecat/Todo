@@ -36,7 +36,7 @@ function displayTaskByDay() {
                 if (task.active == 1) {
                     nbActiveTask++;
                     html = html.concat(`
-                <div class="task_content_validate" onclick="activeModifier(this)">
+                <div class="task_content_validate" id="${task.id}" onclick="activeModifier(this)">
                     <div class="task_title">
                         <h6>${task.content}</h6>
                     </div>
