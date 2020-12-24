@@ -33,19 +33,16 @@ if (isset($_GET["form"])) {
     switch ($_GET["form"]) {
         case "CreateTask":
             $messageBox = null;
-            if (isset($_POST["todo-selector"])) {
-                if ($_POST["date"] == "") {
-                    $date = date('Y-m-d');
-                } else {
-                    $date = $_POST["date"];
-                }
-                $errorId = true;
+            if (isset($_POST["todo-selector"])) { //Si le formulaire a été soumis.
+                $date = $_POST["date"];
+                $errorId = true; //Variable permettant de verifier que l'id du todo-selector existe bien.
                 foreach ($user->getListTodo() as $todo) {
 
-                    if ($todo->getId() == $_POST["todo-selector"]) {
+                    if ($todo->getId() == $_POST["todo-selector"]) { //L'id est valide.
                         $errorId = false;
                         $resultInsertTask = $taskManager->insertTask($_POST["content"], $date, $_POST["time"], $todo);
 
+                        //Affichage de la messageBox success ou error.
                         if ($resultInsertTask["success"] == 1) {
                             $messageBox = new MessageBox("Félicitation, vous avez désormais une tâche supplémentaire à effectuer !", "validate");
                         } else {
@@ -55,8 +52,9 @@ if (isset($_GET["form"])) {
                     }
                 }
 
+                //L'id du todo-selector n'existe pas.
                 if ($errorId == true) {
-                    $messageBox = new MessageBox("Ohoh, la Todo sélectionnée est inconnue !", "error");
+                    $messageBox = new MessageBox("Ohoh, le Todo sélectionné est inconnu !", "error");
                 }
             }
             include("../view/form/taskCreate.php");
@@ -64,7 +62,7 @@ if (isset($_GET["form"])) {
 
         case "CreateTodo":
             $messageBox = null;
-            if(isset($_POST["title"])){
+            if (isset($_POST["title"])) {
                 var_dump($_POST["status"]);
             }
             include("../view/form/todoCreate.php");
@@ -72,19 +70,16 @@ if (isset($_GET["form"])) {
     }
 } else {
     $messageBox = null;
-    if (isset($_POST["todo-selector"])) {
-        if ($_POST["date"] == "") {
-            $date = date('Y-m-d');
-        } else {
-            $date = $_POST["date"];
-        }
-        $errorId = true;
+    if (isset($_POST["todo-selector"])) { //Si le formulaire a été soumis.
+        $date = $_POST["date"];
+        $errorId = true; //Variable permettant de verifier que l'id du todo-selector existe bien.
         foreach ($user->getListTodo() as $todo) {
 
-            if ($todo->getId() == $_POST["todo-selector"]) {
+            if ($todo->getId() == $_POST["todo-selector"]) { //L'id est valide.
                 $errorId = false;
                 $resultInsertTask = $taskManager->insertTask($_POST["content"], $date, $_POST["time"], $todo);
 
+                //Affichage de la messageBox success ou error.
                 if ($resultInsertTask["success"] == 1) {
                     $messageBox = new MessageBox("Félicitation, vous avez désormais une tâche supplémentaire à effectuer !", "validate");
                 } else {
@@ -94,8 +89,9 @@ if (isset($_GET["form"])) {
             }
         }
 
+        //L'id du todo-selector n'existe pas.
         if ($errorId == true) {
-            $messageBox = new MessageBox("Ohoh, la Todo sélectionnée est inconnue !", "error");
+            $messageBox = new MessageBox("Ohoh, le Todo sélectionné est inconnu !", "error");
         }
     }
     include("../view/form/taskCreate.php");
