@@ -11,9 +11,9 @@
 
 <body onload="showMessageBox()">
     <?php if ($messageBox != null) {
-        include("messageBox/information.php");
+        include("../view/messageBox/information.php");
     } ?>
-    <img src="assets\icons\chevron_left_127px.png" class="previousPage">
+    <img src="assets\icons\left-arrow.png" class="previousPage" onclick="document.location.href='home.php'">
     <header>
         <div class="header_title">
             <h1>Création d'un Todo</h1>
@@ -21,8 +21,8 @@
     </header>
     <main>
         <form method="post">
-            <div class="form_switcher">
-                <h3 onclick="document.location.href='form_TaskTodo.php?form=CreateTask'">Ajouter une Tâche</h3>
+            <div class="form_switcher" onclick="document.location.href='form_TaskTodo.php?form=CreateTask'">
+                <h3>Ajouter une Tâche</h3>
             </div>
             <h6>Titre</h6>
             <input type="text" name="title" required>

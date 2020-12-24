@@ -140,6 +140,11 @@ form input[type=submit] {
     color: #fff;
     font-family: 'Geomanist', sans-serif;
     font-size: 16px;
+    -webkit-user-select: none; 
+      -webkit-touch-callout: none; 
+      -moz-user-select: none; 
+      -ms-user-select: none; 
+      user-select: none;    
 
 }
 
