@@ -64,6 +64,9 @@ if (isset($_GET["form"])) {
 
         case "CreateTodo":
             $messageBox = null;
+            if(isset($_POST["title"])){
+                var_dump($_POST["status"]);
+            }
             include("../view/form/todoCreate.php");
             break;
     }

@@ -1,7 +1,7 @@
 //TODO Ajout tâche
 - Date et heure de fin par défaut == date et heure fin todo.
 
-//TODO Click TodoForm
+// Click TodoForm
 - JS lors du click modification de l'input hidden et de la color des buttons.
 
 // Class Todo

@@ -25,7 +25,7 @@
                 <h3>Ajouter une Tâche</h3>
             </div>
             <h6>Titre</h6>
-            <input type="text" name="title">
+            <input type="text" name="title" required>
 
             <h6>Description</h6>
             <textarea name="description" required></textarea>
