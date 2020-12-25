@@ -34,13 +34,12 @@ if (isset($_GET["form"])) {
         case "CreateTask":
             $messageBox = null;
             if (isset($_POST["todo-selector"])) { //Si le formulaire a été soumis.
-                $date = $_POST["date"];
                 $errorId = true; //Variable permettant de verifier que l'id du todo-selector existe bien.
                 foreach ($user->getListTodo() as $todo) {
 
                     if ($todo->getId() == $_POST["todo-selector"]) { //L'id est valide.
                         $errorId = false;
-                        $resultInsertTask = $taskManager->insertTask($_POST["content"], $date, $_POST["time"], $todo);
+                        $resultInsertTask = $taskManager->insertTask($_POST["content"], $_POST["date"], $_POST["time"], $todo);
 
                         //Affichage de la messageBox success ou error.
                         if ($resultInsertTask["success"] == 1) {
@@ -63,7 +62,18 @@ if (isset($_GET["form"])) {
         case "CreateTodo":
             $messageBox = null;
             if (isset($_POST["title"])) {
-                var_dump($_POST["status"]);
+                $resultNbTodo = $todoManager->countTodoRow($user->getId());
+                if ($resultNbTodo["nbrow"] < 5) {
+                    $resultInsertTodo = $todoManager->insertTodo($_POST["title"], $_POST["description"], $_POST["status"], $_POST["date"], $_POST["time"], $user);
+                    //Affichage de la messageBox success ou error.
+                    if ($resultInsertTodo["success"] == 1) {
+                        $messageBox = new MessageBox("Félicitation, vous avez désormais une tâche supplémentaire à effectuer !", "validate");
+                    } else {
+                        $messageBox = new MessageBox("Ohoh, il semblerait qu'un problème soit survenue !", "error");
+                    }
+                } else {
+                    $messageBox = new MessageBox("Désole, vous avez atteint le nombre maximum de Todo ! Veuillez en supprimer et recommencer.", "error");
+                }
             }
             include("../view/form/todoCreate.php");
             break;

@@ -79,12 +79,12 @@ class TodoManager extends PdoFactory
         return $response;
     }
 
-    private function countTodoRow($idUser){
+    public function countTodoRow($idUser){
         $response = ["success" => 0];
 
         try{
-            $request = $this->pdo->prepare("SELECT count(id_todo) FROM todo WHERE idtodo_user = :idtodo_user");
-            if($request->execute(array(':idtodo_user' => $idUser))){
+            $request = $this->pdo->prepare("SELECT count(id_todo) FROM todo WHERE iduser_todo = :iduser_todo");
+            if($request->execute(array(':iduser_todo' => $idUser))){
                 $result = $request->fetch();
                 $response = ["success" => 1, "nbrow" => $result["count(id_todo)"]];
             }
@@ -96,7 +96,7 @@ class TodoManager extends PdoFactory
     }
 
 
-    public function insertTodo($title, $status, $description, $endDate, $endTime, $userObject){
+    public function insertTodo($title, $description, $status, $endDate, $endTime, $userObject){
         $response = ["success" => 0];
         //Nombre de Row dans la table TODO avant insertion.
         $resultCount = $this->countTodoRow($userObject->getId());
@@ -104,7 +104,7 @@ class TodoManager extends PdoFactory
         if($resultCount["success"] == 1){
             $nbrow = $resultCount["nbrow"];
             try{
-                $request = $this->pdo->prepare("INSERT INTO todo (title_todo, description_todo, status_todo, enddate_todo, endtime_todo, iduser_todo) VALUES (:title_todo, :description_todo :status_todo, :enddate_todo, :endtime_todo, :iduser_todo)");
+                $request = $this->pdo->prepare("INSERT INTO todo (title_todo, description_todo, status_todo, enddate_todo, endtime_todo, iduser_todo) VALUES (:title_todo, :description_todo, :status_todo, :enddate_todo, :endtime_todo, :iduser_todo)");
                 if($request->execute(array(':title_todo' => $title, ':description_todo' => $description, ':status_todo' => $status, ':enddate_todo' => $endDate, ':endtime_todo' => $endTime, ':iduser_todo' => $userObject->getId()))){
                     //Nombre de Row dans la table TODO après insertion.
                     $resultCount = $this->countTodoRow($userObject->getId());
