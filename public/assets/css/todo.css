@@ -53,9 +53,26 @@
 /*--------------------------TODO_Header------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
+#left {
+  display: inline-block;
+  float: left;
+  text-align: center;
+  padding-right: 20px;
+  margin-left: 12px;
+}
+#filler {
+  display: block;
+  float: none;
+}
+#right {
+  display: inline-block;
+  float: right;
+  text-align: center;
+  margin-left: 20px;
+}
 
 .todo_header{
-  display: flex;
+  display: inline;
   align-items: center;
   height: 10%;
   width: 100%;
@@ -76,10 +93,10 @@
 }
 
 .progressBar_container{
+  display: flex;
   height: 7px;
   border-radius: 5px;
-  width: 45%;
-  margin-left: auto;
+  margin-top: 6px;
   background-color: #0F212D;
 }
 
@@ -97,8 +114,6 @@
   display: flex;
   align-items: center;
   background-color: #0F212D;
-  margin: auto;
-  margin-right: 0px;
 }
 
 .todo_header h3{
@@ -124,7 +139,7 @@
 }
 
 .task_content_validate{
-  background-color: #5C7AFF;
+  background-image: linear-gradient(90deg, #5C7AFF, #5C7AFF);
   display: flex;
   padding-left: 12px;
   align-items: center;
@@ -189,7 +204,7 @@
 
 .todo_container{
   display: flex;
-  width: 100%;
+  width: calc(100% - 30px);
   height: auto;
 }
 

@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="assets/css/todo.css">
   <link rel="stylesheet" href="assets/css/stats.css">
   <link rel="stylesheet" href="assets/css/todoState.css">
+  <link rel="stylesheet" href="assets/css/calendar.css">
   <title>Accueil</title>
 </head>
 
@@ -29,21 +30,32 @@
     </div>
 
     <div class="todo_container">
-      <div class="todo_header" id="test">
-        <h1 id='dateValue'><?= $dateString ?></h1>
-        <div class="progressBar_container">
-          <?php if (isset($taskForToday)) {
-            if (count($taskForToday) > 0) {
-              $value = ($nbTaskValidate / count($taskForToday)) * 100; ?>
-              <div class="progressBar_bar" id='progressValue' style="width: <?= $value ?> %"></div>
-            <?php } else { ?>
-              <div class="progressBar_bar" id='progressValue' style="width: 0%"></div>
-          <?php }
-          } ?>
+      <div class="todo_header">
+
+        <div id="left">
+          <h1 id='dateValue'><?= $dateString ?></h1>
         </div>
-        <div class="taskInfo_container">
-          <h3 id='progressState'><?= $nbTaskValidate . "/" . count($taskForToday) ?></h3>
+        
+        <div id="right">
+          <div class="taskInfo_container">
+            <h3 id='progressState'><?= $nbTaskValidate . "/" . count($taskForToday) ?></h3>
+          </div>
         </div>
+
+        <div id="filler">
+          <div class="progressBar_container">
+            <?php if (isset($taskForToday)) {
+              if (count($taskForToday) > 0) {
+                $value = ($nbTaskValidate / count($taskForToday)) * 100; ?>
+                <div class="progressBar_bar" id='progressValue' style="width: <?= $value ?> %"></div>
+              <?php } else { ?>
+                <div class="progressBar_bar" id='progressValue' style="width: 0%"></div>
+            <?php }
+            } ?>
+          </div>
+        </div>
+        
+        
       </div>
 
       <div class="todo_content" id='todoContent'>
@@ -93,132 +105,71 @@
       </div>
     </div>
 
-    <div class="todoState_container">
-      <div class="todoState_header">
-        <h1>Etat d'avancement de vos Todo</h1>
+    <div class="calendar_container">
+
+      <div class="calendar_header">
+        <div class="switcher_month">
+        </div>
+        <h1>Décembre 2020</h1>
+        <div class="switcher_month">
+        </div>
       </div>
-      <div class="todoState_card_container">
 
-        <div class="card_container">
-          <div class="card_header_date">
-            <h2>19/12/2020</h2>
-          </div>
-          <div class="card_logo_container">
-            <div class="card_logo">
-              <img src="../assets\icons\todo_icon\house_48px.png" alt="house">
-            </div>
-          </div>
-          <div class="card_content">
-            <h3>Décoration Chambre</h3>
-          </div>
-          <div class="card_progressBar_container">
-            <div class="card_progressBar">
-              <div class="card_progressBar_indicator">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card_container">
-          <div class="card_header_date">
-            <h2>19/12/2020</h2>
-          </div>
-          <div class="card_logo_container">
-            <div class="card_logo">
-              <img src="../assets\icons\todo_icon\house_48px.png" alt="house">
-            </div>
-          </div>
-          <div class="card_content">
-            <h3>Décoration Chambre</h3>
-          </div>
-          <div class="card_progressBar_container">
-            <div class="card_progressBar">
-              <div class="card_progressBar_indicator">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card_container">
-          <div class="card_header_date">
-            <h2>19/12/2020</h2>
-          </div>
-          <div class="card_logo_container">
-            <div class="card_logo">
-              <img src="../assets\icons\todo_icon\house_48px.png" alt="house">
-            </div>
-          </div>
-          <div class="card_content">
-            <h3>Décoration Chambre</h3>
-          </div>
-          <div class="card_progressBar_container">
-            <div class="card_progressBar">
-              <div class="card_progressBar_indicator">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card_container">
-          <div class="card_header_date">
-            <h2>19/12/2020</h2>
-          </div>
-          <div class="card_logo_container">
-            <div class="card_logo">
-              <img src="../assets\icons\todo_icon\house_48px.png" alt="house">
-            </div>
-          </div>
-          <div class="card_content">
-            <h3>Décoration Chambre</h3>
-          </div>
-          <div class="card_progressBar_container">
-            <div class="card_progressBar">
-              <div class="card_progressBar_indicator">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card_container">
-          <div class="card_header_date">
-            <h2>19/12/2020</h2>
-          </div>
-          <div class="card_logo_container">
-            <div class="card_logo">
-              <img src="../assets\icons\todo_icon\house_48px.png" alt="house">
-            </div>
-          </div>
-          <div class="card_content">
-            <h3>Décoration Chambre</h3>
-          </div>
-          <div class="card_progressBar_container">
-            <div class="card_progressBar">
-              <div class="card_progressBar_indicator">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card_container">
-          <div class="card_header_date">
-            <h2>19/12/2020</h2>
-          </div>
-          <div class="card_logo_container">
-            <div class="card_logo">
-              <img src="../assets\icons\todo_icon\house_48px.png" alt="house">
-            </div>
-          </div>
-          <div class="card_content">
-            <h3>Nouvel An Soirée</h3>
-          </div>
-          <div class="card_progressBar_container">
-            <div class="card_progressBar">
-              <div class="card_progressBar_indicator">
-              </div>
-            </div>
-          </div>
-        </div>
-
+      <div class="calendar_content">
+        <table>
+          <thead>
+            <th>Lun</th>
+            <th>Mar</th>
+            <th>Mer</th>
+            <th>Jeu</th>
+            <th>Ven</th>
+            <th>Sam</th>
+            <th>Dim</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ab</td>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+              <td>4</td>
+              <td>5</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>8</td>
+              <td>9</td>
+              <td>10</td>
+              <td>11</td>
+              <td>12</td>
+              <td>13</td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>15</td>
+              <td>16</td>
+              <td>17</td>
+              <td>18</td>
+              <td>19</td>
+              <td>20</td>
+            </tr>
+            <tr>
+              <td>21</td>
+              <td>22</td>
+              <td>23</td>
+              <td>24</td>
+              <td>25</td>
+              <td>26</td>
+              <td>27</td>
+            </tr>
+            <tr>
+              <td>28</td>
+              <td>29</td>
+              <td>30</td>
+              <td>31</td>
+          </tbody>
+        </table>
       </div>
     </div>
   </main>

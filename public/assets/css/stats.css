@@ -8,7 +8,7 @@
 
 .stats_container{
   margin: 0px auto;
-  width: 95%;
+  width: calc(100% - 30px);
   height: 50px;
 }
 

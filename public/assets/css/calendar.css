@@ -1,0 +1,62 @@
+.calendar_container {
+  width: 95%;
+  background: rgb(29, 46, 57);
+  background: linear-gradient(
+    42deg,
+    rgba(29, 46, 57, 1) 0%,
+    rgba(15, 33, 45, 1) 44%
+  );
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 8px 0px;
+  border-radius: 16px;
+  align-items: center;
+}
+
+.calendar_header {
+  width: 90%;
+  display: flex;
+  padding: 5px 0px;
+}
+
+.switcher_month {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: solid 2px #384eb2;
+  margin: auto;
+}
+
+.calendar_header h1 {
+  font-family: "geomanistregular", sans-serif;
+  font-weight: normal;
+  font-size: 20px;
+  color: #fff;
+  margin: auto;
+}
+
+.calendar_content {
+  width: 90%;
+  display: flex;
+}
+
+.calendar_content table {
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  font-weight: normal;
+  font-family: "geomanist", sans-serif;
+  color: #fff;
+}
+
+.calendar_content th {
+  font-family: "Geomanist", sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  padding: 2px;
+}
+
+.calendar_content tr {
+  height: 35px;
+}
