@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="assets/css/todo.css">
   <link rel="stylesheet" href="assets/css/stats.css">
   <link rel="stylesheet" href="assets/css/todoState.css">
-  <title></title>
+  <title>Accueil</title>
 </head>
 
 <body>
@@ -80,12 +80,12 @@
         <div class="stats_text_container">
           <h5>Taux d'accomplissement global des tâches</h5>
           <div class="stats_info_container">
-            <h6>78%</h6>
+            <h6 id="globalTaskPourcent"><?= round($user->progressValuePourcent()); ?>%</h6>
           </div>
         </div>
         <div class="stats_progressBar_container">
           <div class="stats_progressBar">
-            <div class="stats_progressBar_indicator">
+            <div class="stats_progressBar_indicator" id="globalTaskProgress" style="width:<?= $user->progressValuePourcent(); ?>%">
 
             </div>
           </div>

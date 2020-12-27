@@ -4,7 +4,7 @@
  * Class to represent the User who can create a Todo with a list of Tasks.
  */
 
- namespace App\Model\Entity;
+namespace App\Model\Entity;
 
 use JsonSerializable;
 
@@ -29,7 +29,7 @@ class User implements JsonSerializable
 
   public function jsonSerialize()
   {
-    return Array(
+    return array(
       'id' => $this->id,
       'name' => $this->name,
       'firstname' => $this->firstname,
@@ -39,47 +39,79 @@ class User implements JsonSerializable
     );
   }
 
-  public function getId(){
+  public function getId()
+  {
     return $this->id;
   }
 
-  public function getName(){
+  public function getName()
+  {
     return $this->name;
   }
 
-  public function getFirstname(){
+  public function getFirstname()
+  {
     return $this->firstname;
   }
 
-  public function getEmail(){
+  public function getEmail()
+  {
     return $this->email;
   }
 
-  public function getListTodo(){
+  public function getListTodo()
+  {
     return $this->listTodo;
   }
 
-  public function getListTask(){
+  public function getListTask()
+  {
     return $this->listTask;
   }
 
-  public function setListTodo($listTodo){
+  public function setListTodo($listTodo)
+  {
     $this->listTodo = $listTodo;
   }
 
-  public function setListTask($listTask){
+  public function setListTask($listTask)
+  {
     $this->listTask = $listTask;
   }
 
-  public function addTodo($todo){
+  public function addTodo($todo)
+  {
     array_push($this->listTodo, $todo);
   }
 
-  public function addTask($task){
+  public function addTask($task)
+  {
     array_push($this->listTask, $task);
   }
 
-  public function deleteTask($task){
-    unset($this->listTask[array_search( $task, $this->listTask)]);
+  public function deleteTask($task)
+  {
+    unset($this->listTask[array_search($task, $this->listTask)]);
+  }
+
+  public function nbTaskValidate()
+  {
+    $nbTaskValidate = 0;
+    foreach ($this->listTask as $value) {
+      if ($value->getActive()) {
+        $nbTaskValidate++;
+      }
+    }
+    return $nbTaskValidate;
+  }
+
+  public function progressValuePourcent()
+  {
+    $retour = 0;
+    if (count($this->listTask) > 0) {
+      $retour = ($this->NbTaskValidate() / count($this->listTask)) * 100;
+    }
+
+    return $retour;
   }
 }

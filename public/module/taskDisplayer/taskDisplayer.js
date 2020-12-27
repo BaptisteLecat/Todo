@@ -23,7 +23,7 @@ function dayNext() {
 function displayTaskByDay() {
     var nbActiveTask = 0;
     var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var res = this.response;
             console.log(res);
@@ -44,7 +44,7 @@ function displayTaskByDay() {
                         <img class="validate_icon" src="../assets/icons/checkmark_52px.png" alt="validate icon">
                     </div>
                   </div>
-                  <img class="bin_icon" src="../assets/icons/trash_52px.png" alt="bin to delete"></div>`);
+                  <img class="bin_icon" src="../assets/icons/trash_52px.png" alt="bin to delete" onclick="deleteTask(this)"></div>`);
                 } else {
                     html = html.concat(`
                 <div class="task_content_todo" id="${task.id}" onclick="activeModifier(this)">
@@ -56,12 +56,12 @@ function displayTaskByDay() {
                   <img class="bin_icon" src="../assets/icons/trash_52px.png" alt="bin to delete" onclick="deleteTask(this)"></div>`);
                 }
             });
-            
+
             document.getElementById('todoContent').innerHTML = html;
             document.getElementById('progressState').innerHTML = nbActiveTask + "/" + res["listTask"].length;
-            if(res["listTask"].length > 0){
-                document.getElementById('progressValue').style.width = (nbActiveTask / res["listTask"].length)*100 + "%";
-            }else{
+            if (res["listTask"].length > 0) {
+                document.getElementById('progressValue').style.width = (nbActiveTask / res["listTask"].length) * 100 + "%";
+            } else {
                 document.getElementById('progressValue').style.width = "0%";
             }
 
@@ -78,14 +78,15 @@ function displayTaskByDay() {
     xhr.send("day=" + encodeURI(day));
 }
 
-function activeModifier(object){
+function activeModifier(object) {
     var idTask = object.parentNode.id;
     var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var res = this.response;
             console.log(res);
             displayTaskByDay();
+            updateGlobalStats();
 
         } else if (this.readyState == 4) {
             alert("Une erreur est survenue..");
@@ -100,14 +101,15 @@ function activeModifier(object){
     xhr.send("idTask=" + encodeURI(idTask));
 }
 
-function deleteTask(object){
+function deleteTask(object) {
     var idTask = object.parentNode.id;
     var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var res = this.response;
             console.log(res);
             displayTaskByDay();
+            updateGlobalStats();
 
         } else if (this.readyState == 4) {
             alert("Une erreur est survenue..");
@@ -120,4 +122,27 @@ function deleteTask(object){
     xhr.responseType = "json";
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("idTask=" + encodeURI(idTask));
+}
+
+function updateGlobalStats() {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var res = this.response;
+            console.log(res);
+
+            document.getElementById('globalTaskPourcent').innerText = res["taskPourcent"] + "%";
+            document.getElementById('globalTaskProgress').style.width = res["taskPourcent"] + "%";
+
+        } else if (this.readyState == 4) {
+            alert("Une erreur est survenue..");
+        } else if (this.statusText == "parsererror") {
+            alert("Erreur Json");
+        }
+    };
+
+    xhr.open("POST", "module/taskDisplayer/ajax/updateGlobalStats.php", true);
+    xhr.responseType = "json";
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send();
 }
