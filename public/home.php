@@ -6,6 +6,7 @@ require 'module/taskDisplayer/function/dayDisplayer.php';
 use App\Model\TodoManager;
 use App\Model\TaskManager;
 use App\Model\Entity\DateFrench;
+use App\Model\Utils\Calendar;
 
 session_start();
 
@@ -50,43 +51,8 @@ $taskForToday = taskForToday($user);
 $nbTaskValidate = nbTaskValidate($taskForToday);
 $dayTitle = dateFrench::dateToDay(strtotime(date('Y-m-d')));
 $dateString= dateFrench::dateToString(strtotime(date('Y-m-d')));
-
-//var_dump(unserialize($_SESSION["User"]));
-
-
-/*function loadTodoTaskFromId($idTask, $todo, $taskManager){
-    $resultLoadTask = $taskManager->loadTaskFromTaskId($idTask, $todo);
-    if($resultLoadTask["success"] == 1){
-        //Success.
-    }
-}
-
-function createTask($user, $taskManager){
-    foreach ($user->getListTodo() as $todo){
-        if($todo->getId() == 10){
-            $resultInsertTask = $taskManager->insertTask("Sortir le chien", date("Y-m-d"), date("18:29:00"), $todo);
-            if($resultInsertTask["success"] == 1){
-                echo("rt:".$resultInsertTask["idTask"].": ");
-                loadTodoTaskFromId($resultInsertTask["idTask"],$todo, $taskManager);
-                break;
-            }
-        }
-    }
-}*/
-
-/*foreach ($user->getListTodo() as $todo){
-    if($todo->getId() == 10){
-        foreach ($todo->getListTask() as $value){
-            echo($value->getId());
-        }
-        break;
-    }
-}
-
-echo '    ';
-
-foreach ($user->getListTask() as $task){
-    echo($task->getContent()."   ");
-}*/
+$test = date("Y-m-d", mktime(0, 0, 0, 1, null, 2021));
+$date = new \DateTime($test);
+$calendar = new Calendar($date->getTimestamp());
 
 include "../view/home.php";
