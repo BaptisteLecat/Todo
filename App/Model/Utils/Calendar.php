@@ -2,9 +2,9 @@
 
 namespace App\Model\Utils;
 
-require_once '../vendor/autoload.php';
-
 use App\Model\Utils\DateFrench;
+use App\Model\Entity\User;
+use App\Model\Entity\Task;
 
 /**
  * Class du Widget Calendar.
@@ -16,9 +16,13 @@ class Calendar
     private $first_day;
     private $first_day_index;
     private $last_day;
-    private $dayArray;
+    private $current_dayArray;
+    private $previous_dayArray;
 
-    function __construct($timestamp = null)
+    private $user;
+    private $currentMonth_task;
+
+    function __construct($timestamp = null, $user)
     {
         if ($timestamp === null) {
             $this->day = getdate();
@@ -29,10 +33,14 @@ class Calendar
         $this->first_day_index = intval(date("w", mktime(0, 0, 0, $this->day["mon"], 1, $this->day["year"])) - 1); // -1 car notre tableau commence à 0.
         //Le Mardi = 2 donc dans notre tableau == 1.
         $this->last_day = intval(date("d", mktime(0, 0, 0, $this->day["mon"] + 1, 0, $this->day["year"])));
-        $this->dayArray = array();
+        $this->current_dayArray = array();
+        $this->previous_dayArray = array();
+        $this->user = $user;
+        $this->currentMonth_task = array();
 
         $this->dayBefore();
         $this->dayCurrent();
+        $this->initCurrentMonthTask();
     }
 
     /**
@@ -71,7 +79,7 @@ class Calendar
     private function dayBefore()
     {
         for ($i = 0; $i < $this->first_day_index; $i++) {
-            $this->dayArray[$i] = "ab";
+            $this->previous_dayArray[$i] = "ab";
         }
     }
 
@@ -83,9 +91,9 @@ class Calendar
     private function dayCurrent()
     {
         $compteur_jour = 0; //S'incrémente jusqu'au nombre de jour max du mois. Représente la valeur des différents jour.
-        for ($i = $this->first_day_index; $i < $this->last_day + $this->first_day_index; $i++) {
+        for ($i = 0; $i < $this->last_day; $i++) {
             $compteur_jour++;
-            $this->dayArray[$i] = $compteur_jour;
+            $this->current_dayArray[$i] = $compteur_jour;
         }
     }
 
@@ -107,10 +115,16 @@ class Calendar
           <th>Dim</th>
         </thead>
         <tbody>";
-        $jour_semaine = 0; //Si == 0 => nouvelle semaine.
+
+        //Meme fonction que celle-ci, permet l'affichage des jours du mois précédent.
+        $previousDay_response = $this->previousDayDisplayer();
+        //On concatene le résultat dans le html.
+        $html .= $previousDay_response["html"];
+        //On continue au jour de la semaine auquel on s'est arrêté lors de l'affichage des jours du mois précédent.
+        $jour_semaine = $previousDay_response["jour_semaine"]; //Si == 0 => nouvelle semaine.
 
         //Affichage du calendrier.
-        for ($i = 0; $i < count($this->dayArray); $i++) {
+        for ($i = 0; $i < count($this->current_dayArray); $i++) {
             //Ouverture de la tr.
             if ($jour_semaine == 0) {
                 $html .= "<tr>";
@@ -135,6 +149,37 @@ class Calendar
         return $html;
     }
 
+    private function previousDayDisplayer()
+    {
+        //Variable permettant la concaténation de l'affichage final.
+        $html = "";
+        $jour_semaine = 0; //Si == 0 => nouvelle semaine.
+
+        //Affichage du calendrier.
+        foreach ($this->previous_dayArray as $previousDay) {
+            //Ouverture de la tr.
+            if ($jour_semaine == 0) {
+                $html .= "<tr>";
+                $jour_semaine++;
+            }
+
+            //Représente 6 itérations -> 6 jours. Qu'on affiche en td.
+            if ($jour_semaine >= 1 && $jour_semaine <= 6) {
+                $html .= "<td class='previousMonth'>" . $previousDay . "</td>";
+                $jour_semaine++;
+                //Pour le dernier jour de la semaine, il faut affiche le jour et close la tr.
+            } else if ($jour_semaine == 7) {
+                $html .= "<td class='previousMonth'>" . $previousDay . "</td>";
+                $html .= "</tr>";
+                $jour_semaine = 0;
+            }
+        }
+
+        $response = ["html" => $html, "jour_semaine" => $jour_semaine];
+
+        return $response;
+    }
+
     /**
      * Gère l'affichage des Jours.
      * Il différencie: les jours du mois précédent, le jour d'aujourd'hui.
@@ -145,18 +190,59 @@ class Calendar
     {
         $html = "";
 
-        //Test si c'est un jour d'un mois précédent.
-        if ($this->dayArray[$index] == "ab") {
-            $html .= "<td class='previousMonth'>" . $this->dayArray[$index] . "</td>";
+        //Test si c'est la date d'aujourd'hui.
+        if ($this->current_dayArray[$index] == $this->day["mday"]) {
+            $html .= "<td class='today'>" . $this->current_dayArray[$index] . "</td>";
         } else {
-            //Test si c'est la date d'aujourd'hui.
-            if ($this->dayArray[$index] == $this->day["mday"]) {
-                $html .= "<td class='today'>" . $this->dayArray[$index] . "</td>";
+            if ($this->dayHaveTask($index) == true) {
+                if ($this->dayStatus($index) == 1) {
+                    $html .= "<td class='dayIsDo'>" . $this->current_dayArray[$index] . "</td>";
+                } else {
+                    $html .= "<td class='dayHaveTodo'>" . $this->current_dayArray[$index] . "</td>";
+                }
             } else {
-                $html .= "<td>" . $this->dayArray[$index] . "</td>";
+                $html .= "<td>" . $this->current_dayArray[$index] . "</td>";
             }
         }
 
         return $html;
+    }
+
+    private function initCurrentMonthTask()
+    {
+        foreach ($this->user->getListTask() as $task) {
+            if (date("m", strtotime($task->getEndDate())) == $this->day["mon"]) {
+                array_push($this->currentMonth_task, $task);
+            }
+        }
+    }
+
+    private function dayHaveTask($index)
+    {
+        $haveTask = false;
+        if (empty($this->currentMonth_task) == false) { //Empty renvoie true si la valeur est vide.
+            foreach ($this->currentMonth_task as $task) {
+                if (date("d", strtotime($task->getEndDate())) == $index + 1) {
+                    $haveTask = true;
+                }
+            }
+        }
+
+        return $haveTask;
+    }
+
+    private function dayStatus($index)
+    {
+        $dayStatus = 1; //Les tâches du jours sont réalisées.
+
+        foreach ($this->currentMonth_task as $task) {
+            if (date("d", strtotime($task->getEndDate())) == $index + 1) {
+                if ($task->getActive() == 0) {
+                    $dayStatus = 0;
+                }
+            }
+        }
+
+        return $dayStatus;
     }
 }

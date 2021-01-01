@@ -62,9 +62,17 @@
 }
 
 .today{
-  color: red;
+  color: blue;
 }
 
 .previousMonth{
   color: grey;
+}
+
+.dayIsDo{
+  color: green;
+}
+
+.dayHaveTodo{
+  color: red;
 }

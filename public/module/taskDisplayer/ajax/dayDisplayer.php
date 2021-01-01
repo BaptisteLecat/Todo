@@ -6,7 +6,7 @@
 
 require_once '../../../../vendor/autoload.php';
 
-use App\Model\Entity\DateFrench;
+use App\Model\Utils\DateFrench;
 
 session_start();
 

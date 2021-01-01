@@ -55,6 +55,6 @@ $dateString= dateFrench::dateToString(strtotime(date('Y-m-d')));
 Si l'on souhaite afficher une date précise.
 $test = date("Y-m-d", mktime(0, 0, 0, 6, null, 2021));
 $date = new \DateTime($test);*/
-$calendar = new Calendar();
+$calendar = new Calendar(null, $user);
 
 include "../view/home.php";
