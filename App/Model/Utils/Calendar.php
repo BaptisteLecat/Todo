@@ -1,15 +1,14 @@
 <?php
 
-/**
- * Class to represent the tasks belonging to a Todo and create by a User.
- */
-
 namespace App\Model\Utils;
 
 require_once '../vendor/autoload.php';
 
 use App\Model\Utils\DateFrench;
 
+/**
+ * Class du Widget Calendar.
+ */
 class Calendar
 {
 
@@ -37,6 +36,35 @@ class Calendar
     }
 
     /**
+     * Fonction permettant de récupérer le jour en Francais.
+     * Utilise une méthode de la classe static dateFrench.
+     * @return string
+     */
+    public function getDay()
+    {
+        return dateFrench::dateTranslate($this->day["weekday"]);
+    }
+
+    /**
+     * Fonction permettant de récupérer le mois en Francais.
+     * Utilise une méthode de la classe static dateFrench.
+     * @return string
+     */
+    public function getMonth()
+    {
+        return dateFrench::dateTranslate($this->day["month"]);
+    }
+
+    /**
+     * Fonction permettant de récupérer l'année.
+     * @return string
+     */
+    public function getYear()
+    {
+        return $this->day["year"];
+    }
+
+    /**
      * Fonction concernant les jours antérieur au mois courant.
      * first_day_index étant le nombre de jour antérieur.
      */
@@ -61,21 +89,10 @@ class Calendar
         }
     }
 
-    public function getDay()
-    {
-        return dateFrench::dateTranslate($this->day["weekday"]);
-    }
-
-    public function getMonth()
-    {
-        return dateFrench::dateTranslate($this->day["month"]);
-    }
-
-    public function getYear()
-    {
-        return $this->day["year"];
-    }
-
+    /**
+     * Permet l'affichage HTML du widget Calendar.
+     * @return string
+     */
     public function calendarDisplayer()
     {
         //Variable permettant la concaténation de l'affichage final.
@@ -118,6 +135,12 @@ class Calendar
         return $html;
     }
 
+    /**
+     * Gère l'affichage des Jours.
+     * Il différencie: les jours du mois précédent, le jour d'aujourd'hui.
+     * @param string $index Représente l'index dans le tableau de jour.
+     * @return string
+     */
     private function dayManager($index)
     {
         $html = "";
