@@ -5,7 +5,7 @@ require 'module/taskDisplayer/function/dayDisplayer.php';
 
 use App\Model\TodoManager;
 use App\Model\TaskManager;
-use App\Model\Entity\DateFrench;
+use App\Model\Utils\DateFrench;
 use App\Model\Utils\Calendar;
 
 session_start();
@@ -51,8 +51,10 @@ $taskForToday = taskForToday($user);
 $nbTaskValidate = nbTaskValidate($taskForToday);
 $dayTitle = dateFrench::dateToDay(strtotime(date('Y-m-d')));
 $dateString= dateFrench::dateToString(strtotime(date('Y-m-d')));
-$test = date("Y-m-d", mktime(0, 0, 0, 1, null, 2021));
-$date = new \DateTime($test);
-$calendar = new Calendar($date->getTimestamp());
+/*
+Si l'on souhaite afficher une date précise.
+$test = date("Y-m-d", mktime(0, 0, 0, 6, null, 2021));
+$date = new \DateTime($test);*/
+$calendar = new Calendar();
 
 include "../view/home.php";

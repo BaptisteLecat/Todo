@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Model\Entity;
+namespace App\Model\Utils;
 
 class DateFrench
 {
     public static $englishdays = array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
     public static $frenchdays = array('Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche');
     public static $englishmonths = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
-    public static $frenchmonths = array('janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre');
+    public static $frenchmonths = array('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre');
 
     /**
      * Permet d'afficher le jour d'une date en francais .
@@ -16,6 +16,28 @@ class DateFrench
     */
     public static function dateToDay($stringDate){
         return str_replace(self::$englishdays, self::$frenchdays, date("l", $stringDate));
+    }
+
+    public static function dateTranslate($dateElement){
+        $translateElement = "";
+
+        foreach(self::$englishdays as $day){
+            if($day == $dateElement){
+                $translateElement = str_replace(self::$englishdays, self::$frenchdays, $dateElement);
+                break;
+            }
+        }
+
+        if($translateElement == ""){
+            foreach(self::$englishmonths as $month){
+                if($month == $dateElement){
+                    $translateElement = str_replace(self::$englishmonths, self::$frenchmonths, $dateElement);
+                    break;
+                }
+            }
+        }
+
+        return $translateElement;
     }
 
     /**

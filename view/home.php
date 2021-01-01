@@ -35,7 +35,7 @@
         <div id="left">
           <h1 id='dateValue'><?= $dateString ?></h1>
         </div>
-        
+
         <div id="right">
           <div class="taskInfo_container">
             <h3 id='progressState'><?= $nbTaskValidate . "/" . count($taskForToday) ?></h3>
@@ -54,8 +54,8 @@
             } ?>
           </div>
         </div>
-        
-        
+
+
       </div>
 
       <div class="todo_content" id='todoContent'>
@@ -110,26 +110,15 @@
       <div class="calendar_header">
         <div class="switcher_month">
         </div>
-        <h1>Décembre 2020</h1>
+        <h1><?= $calendar->getMonth() . " " . $calendar->getYear(); ?></h1>
         <div class="switcher_month">
         </div>
       </div>
 
       <div class="calendar_content">
-        <table>
-          <thead>
-            <th>Lun</th>
-            <th>Mar</th>
-            <th>Mer</th>
-            <th>Jeu</th>
-            <th>Ven</th>
-            <th>Sam</th>
-            <th>Dim</th>
-          </thead>
-          <tbody>
-            <?php echo $calendar->calendarDisplayer(); ?>
-          </tbody>
-        </table>
+
+        <?php echo $calendar->calendarDisplayer(); ?>
+
       </div>
     </div>
   </main>

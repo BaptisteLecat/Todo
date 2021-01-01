@@ -60,3 +60,11 @@
 .calendar_content tr {
   height: 35px;
 }
+
+.today{
+  color: red;
+}
+
+.previousMonth{
+  color: grey;
+}

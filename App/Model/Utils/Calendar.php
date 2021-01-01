@@ -6,6 +6,10 @@
 
 namespace App\Model\Utils;
 
+require_once '../vendor/autoload.php';
+
+use App\Model\Utils\DateFrench;
+
 class Calendar
 {
 
@@ -17,11 +21,10 @@ class Calendar
 
     function __construct($timestamp = null)
     {
-        if($timestamp === null){
+        if ($timestamp === null) {
             $this->day = getdate();
-        }else{
-            $this->day = getdate(intval($timestamp)
-        );
+        } else {
+            $this->day = getdate(intval($timestamp));
         }
         $this->first_day = intval(date("d", mktime(0, 0, 0, $this->day["mon"], 1, $this->day["year"])));
         $this->first_day_index = intval(date("w", mktime(0, 0, 0, $this->day["mon"], 1, $this->day["year"])) - 1); // -1 car notre tableau commence à 0.
@@ -58,9 +61,35 @@ class Calendar
         }
     }
 
+    public function getDay()
+    {
+        return dateFrench::dateTranslate($this->day["weekday"]);
+    }
+
+    public function getMonth()
+    {
+        return dateFrench::dateTranslate($this->day["month"]);
+    }
+
+    public function getYear()
+    {
+        return $this->day["year"];
+    }
+
     public function calendarDisplayer()
     {
-        $html = ""; //Variable permettant la concaténation de l'affichage final.
+        //Variable permettant la concaténation de l'affichage final.
+        $html = "<table>
+        <thead>
+          <th>Lun</th>
+          <th>Mar</th>
+          <th>Mer</th>
+          <th>Jeu</th>
+          <th>Ven</th>
+          <th>Sam</th>
+          <th>Dim</th>
+        </thead>
+        <tbody>";
         $jour_semaine = 0; //Si == 0 => nouvelle semaine.
 
         //Affichage du calendrier.
@@ -72,14 +101,36 @@ class Calendar
             }
 
             //Représente 6 itérations -> 6 jours. Qu'on affiche en td.
-            if ($jour_semaine > 0 && $jour_semaine < 7) {
-                $html .= "<td>" . $this->dayArray[$i] . "</td>";
+            if ($jour_semaine >= 1 && $jour_semaine <= 6) {
+                $html .= $this->dayManager($i);
                 $jour_semaine++;
                 //Pour le dernier jour de la semaine, il faut affiche le jour et close la tr.
             } else if ($jour_semaine == 7) {
-                $html .= "<td>" . $this->dayArray[$i] . "</td>";
+                $html .= $this->dayManager($i);
                 $html .= "</tr>";
                 $jour_semaine = 0;
+            }
+        }
+
+        $html .= "</tbody>
+        </table>";
+
+        return $html;
+    }
+
+    private function dayManager($index)
+    {
+        $html = "";
+
+        //Test si c'est un jour d'un mois précédent.
+        if ($this->dayArray[$index] == "ab") {
+            $html .= "<td class='previousMonth'>" . $this->dayArray[$index] . "</td>";
+        } else {
+            //Test si c'est la date d'aujourd'hui.
+            if ($this->dayArray[$index] == $this->day["mday"]) {
+                $html .= "<td class='today'>" . $this->dayArray[$index] . "</td>";
+            } else {
+                $html .= "<td>" . $this->dayArray[$index] . "</td>";
             }
         }
 
