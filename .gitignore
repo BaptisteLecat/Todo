@@ -7,3 +7,4 @@ view/todoViewer.php
 view/todoViewer.php
 public/function/switch_dayDisplayer.php
 public/form_TaskTodo.php
+App/PdoFactory.php
