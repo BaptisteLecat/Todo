@@ -237,7 +237,7 @@ class Calendar
                 }
             }
         }
-
+        
         return $haveTask;
     }
 

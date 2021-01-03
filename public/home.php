@@ -53,8 +53,12 @@ $dayTitle = dateFrench::dateToDay(strtotime(date('Y-m-d')));
 $dateString= dateFrench::dateToString(strtotime(date('Y-m-d')));
 /*
 Si l'on souhaite afficher une date précise.
-$test = date("Y-m-d", mktime(0, 0, 0, 6, null, 2021));
-$date = new \DateTime($test);*/
+$getdate = getdate();
+$test = date("Y-m-d", mktime(0, 0, 0, 1, 1, $getdate["year"]));
+
+$date = new \DateTime($test);
+$calendar = new Calendar($date->format("U"), $user);*/
+
 $calendar = new Calendar(null, $user);
 
 include "../view/home.php";
