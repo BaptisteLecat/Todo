@@ -6,7 +6,7 @@ require 'module/taskDisplayer/function/dayDisplayer.php';
 use App\Model\TodoManager;
 use App\Model\TaskManager;
 use App\Model\Utils\MessageBox;
-use App\Model\Entity\DateFrench;
+use App\Model\Utils\DateFrench;
 
 session_start();
 
