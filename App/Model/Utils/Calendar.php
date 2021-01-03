@@ -99,7 +99,7 @@ class Calendar
 
     /**
      * Permet l'affichage HTML du widget Calendar.
-     * @return string
+     * @return string $html Contient l'affichage HTML.
      */
     public function calendarDisplayer()
     {
@@ -184,7 +184,7 @@ class Calendar
      * Gère l'affichage des Jours.
      * Il différencie: les jours du mois précédent, le jour d'aujourd'hui.
      * @param string $index Représente l'index dans le tableau de jour.
-     * @return string
+     * @return string $html Contient l'affichage html.
      */
     private function dayManager($index)
     {
@@ -208,6 +208,11 @@ class Calendar
         return $html;
     }
 
+    /**
+     * Remplit la liste des tâches pour le mois courant.
+     * Permet d'éviter par la suite de parcourir toute les tâches du User.
+     * @return void 
+     */
     private function initCurrentMonthTask()
     {
         foreach ($this->user->getListTask() as $task) {
@@ -217,6 +222,11 @@ class Calendar
         }
     }
 
+    /**
+     * Verifie si un jour à une tâche associée.
+     * @param string $index Représente l'index dans le tableau de jour.
+     * @return bool $haveTask True si le jour à une tâche associée.
+     */
     private function dayHaveTask($index)
     {
         $haveTask = false;
@@ -231,6 +241,11 @@ class Calendar
         return $haveTask;
     }
 
+    /**
+     * Permet de connaître l'état actif de la tâche.
+     * @param string $index Représente l'index dans le tableau de jour.
+     * @return bool $dayStatus True si le jour à une tâche associée.
+     */
     private function dayStatus($index)
     {
         $dayStatus = 1; //Les tâches du jours sont réalisées.
