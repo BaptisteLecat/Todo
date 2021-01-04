@@ -10,7 +10,8 @@ use JsonSerializable;
 /**
  * Class du Widget Calendar.
  */
-class Calendar implements JsonSerializable
+class Calendar implements
+    JsonSerializable
 {
 
     private $day;
@@ -44,18 +45,19 @@ class Calendar implements JsonSerializable
         $this->initCurrentMonthTask();
     }
 
-    public function jsonSerialize(){
-        return Array(
-          'day' => $this->day,
-          'first_day' => $this->first_day,
-          'first_day_index' => $this->first_day_index,
-          'last_day' => $this->last_day,
-          'current_dayArray' => $this->current_dayArray,
-          'previous_dayArray' => $this->previous_dayArray,
-          'userObject' => $this->user->jsonSerialize(),
-          'currentMonth_task' => $this->currentMonth_task,
+    public function jsonSerialize()
+    {
+        return array(
+            'day' => $this->day,
+            'first_day' => $this->first_day,
+            'first_day_index' => $this->first_day_index,
+            'last_day' => $this->last_day,
+            'current_dayArray' => $this->current_dayArray,
+            'previous_dayArray' => $this->previous_dayArray,
+            'userObject' => $this->user->jsonSerialize(),
+            'currentMonth_task' => $this->currentMonth_task,
         );
-      }
+    }
 
     /**
      * Fonction permettant de récupérer le jour en Francais.
@@ -230,7 +232,10 @@ class Calendar implements JsonSerializable
     private function initCurrentMonthTask()
     {
         foreach ($this->user->getListTask() as $task) {
-            if (date("m", strtotime($task->getEndDate())) == $this->day["mon"]) {
+            //Vérification de l'année et du mois de la tâche.
+            $condition_year = date("y", strtotime($task->getEndDate())) == $this->day["year"];
+            $condition_month = date("m", strtotime($task->getEndDate())) == $this->day["mon"];
+            if ($condition_year && $condition_month) {
                 array_push($this->currentMonth_task, $task);
             }
         }
@@ -251,7 +256,7 @@ class Calendar implements JsonSerializable
                 }
             }
         }
-        
+
         return $haveTask;
     }
 
