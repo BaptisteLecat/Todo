@@ -1,0 +1,111 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+html{
+  height: 100%;
+  width: 100%;
+  background-color: #02111B;
+}
+
+body{
+  min-height: 90%;
+  width: 100%;
+  min-width: 320px;
+  padding-bottom: 60px;
+}
+
+footer{
+  position: fixed;
+  bottom: 0px;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  background-color: #0F212D;
+}
+
+footer .button_container_menu{
+  height: 80%;
+  width: 80%;
+  display: flex;
+  margin: auto;
+}
+
+.button_menu_1, .button_menu_2, .button_menu_3{
+  height: 100%;
+  width: 12%;
+  background-color: #A5B1E6;
+  margin: auto;
+  border-radius: 10px;
+}
+
+
+
+
+header{
+  height: 30px;
+  width: 100%;
+  display: flex;
+  background-color: #384EB2;
+  padding: 0px 4%;
+}
+
+.headerTodo_switcher_1, .headerTodo_switcher_2{
+  height: 90%;
+  width: 25%;
+  display: flex;
+  margin: auto;
+}
+
+.headerTodo_switcher_1 h6, .headerTodo_switcher_2 h6{
+  color: #fff;
+  margin: auto;
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.headerTodo_switcher_1 img{
+  margin-right: auto;
+  height: 100%;
+}
+
+.headerTodo_switcher_2 img{
+  margin-left: auto;
+  height: 100%;
+}
+
+.headerTodo_title{
+  height: 100%;
+  width: 50%;
+  display: flex;
+}
+
+.headerTodo_title h1{
+  color: #fff;
+  margin: auto;
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: normal;
+  font-size: 18px;
+}
+
+main{
+  height: 100vh;
+  margin-bottom: 20%;
+}
+
+.createBtn{
+  position: fixed;
+  bottom: 60px;
+  right: 1%;
+  z-index: 20;
+  height: 60px;
+  width: 60px;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  box-shadow: -6px 2px 8px #00000099;
+  background-color: #384EB2;
+}
