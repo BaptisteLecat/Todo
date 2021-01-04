@@ -108,14 +108,14 @@
     <div class="calendar_container">
 
       <div class="calendar_header">
-        <div class="switcher_month">
+        <div class="switcher_month" onclick="monthBefore()">
         </div>
-        <h1><?= $calendar->getMonth() . " " . $calendar->getYear(); ?></h1>
-        <div class="switcher_month">
+        <h1 id='calendar_title'><?= $calendar->getMonth() . " " . $calendar->getYear(); ?></h1>
+        <div class="switcher_month" onclick="monthNext()">
         </div>
       </div>
 
-      <div class="calendar_content">
+      <div class="calendar_content" id='calendar_content'>
 
         <?php echo $calendar->calendarDisplayer(); ?>
 
@@ -126,6 +126,7 @@
   <button class="createBtn" onclick="document.location.href='form_TaskTodo.php'"><img src="..\assets\icons\plus_math_52px.png" alt="More"></button>
 
   <script src="module/taskDisplayer/taskDisplayer.js"></script>
+  <script src="module/calendar/calendarDisplayer.js"></script>
 </body>
 
 <footer>

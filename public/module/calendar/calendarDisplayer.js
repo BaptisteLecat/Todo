@@ -3,16 +3,18 @@ var month = 0; //Index du mois.
 function monthBefore() {
     if (month > -12) {
         month--;
+        DisplayCalendar();
     } else {
-       //Error index.
+        alert("Error index out of range -");
     }
 }
 
 function monthNext() {
     if (month < 12) {
         month++;
+        DisplayCalendar();
     } else {
-        //Error Index.
+        alert("Error index out of range +");
     }
 }
 
@@ -22,6 +24,9 @@ function DisplayCalendar() {
         if (this.readyState == 4 && this.status == 200) {
             var res = this.response;
             console.log(res);
+
+            document.getElementById('calendar_title').innerText = res["calendarMonth"] + " " + res["calendarYear"];
+            document.getElementById('calendar_content').innerHTML = res["calendarHTML"];
 
         } else if (this.readyState == 4) {
             alert("Une erreur est survenue..");

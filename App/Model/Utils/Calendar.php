@@ -5,11 +5,12 @@ namespace App\Model\Utils;
 use App\Model\Utils\DateFrench;
 use App\Model\Entity\User;
 use App\Model\Entity\Task;
+use JsonSerializable;
 
 /**
  * Class du Widget Calendar.
  */
-class Calendar
+class Calendar implements JsonSerializable
 {
 
     private $day;
@@ -42,6 +43,19 @@ class Calendar
         $this->dayCurrent();
         $this->initCurrentMonthTask();
     }
+
+    public function jsonSerialize(){
+        return Array(
+          'day' => $this->day,
+          'first_day' => $this->first_day,
+          'first_day_index' => $this->first_day_index,
+          'last_day' => $this->last_day,
+          'current_dayArray' => $this->current_dayArray,
+          'previous_dayArray' => $this->previous_dayArray,
+          'userObject' => $this->user->jsonSerialize(),
+          'currentMonth_task' => $this->currentMonth_task,
+        );
+      }
 
     /**
      * Fonction permettant de récupérer le jour en Francais.
