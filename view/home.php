@@ -131,7 +131,7 @@
 
 <footer>
   <div class="button_container_menu">
-    <div class="button_menu_1">
+    <div class="button_menu_1" onclick="document.location.href = 'todoView.php'">
     </div>
     <div class="button_menu_2">
     </div>

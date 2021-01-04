@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="asset/css/todoView.css">
-  <link rel="stylesheet" href="asset/css/app.css">
+  <link rel="stylesheet" href="assets/css/todoView.css">
+  <link rel="stylesheet" href="assets/css/app.css">
   <title>TODO</title>
 </head>
 
@@ -21,7 +21,7 @@
       <div class="box_todoView">
 
         <div class="box_icon">
-          <img class="img_theme" src="asset/todo_icon/house.png">
+          <img class="img_theme" src="assets/icons/todo_icon/house.png">
         </div>
 
         <div class="box_theme">
@@ -38,7 +38,7 @@
       <div class="box_todoView">
 
         <div class="box_icon">
-          <img class="img_theme" src="asset/todo_icon/shopping-cart.png">
+          <img class="img_theme" src="assets/icons/todo_icon/shopping-cart.png">
         </div>
 
         <div class="box_theme">
@@ -55,7 +55,7 @@
       <div class="box_todoView">
 
         <div class="box_icon">
-          <img class="img_theme" src="asset/todo_icon/businessman.png">
+          <img class="img_theme" src="assets/icons/todo_icon/work.png">
         </div>
 
         <div class="box_theme">
@@ -72,7 +72,7 @@
       <div class="box_todoView">
 
         <div class="box_icon">
-          <img class="img_theme" src="asset/todo_icon/cake.png">
+          <img class="img_theme" src="assets/icons/todo_icon/cake.png">
         </div>
 
         <div class="box_theme">
@@ -89,7 +89,7 @@
       <div class="box_todoView">
 
         <div class="box_icon">
-          <img class="img_theme" src="asset/todo_icon/aircraft.png">
+          <img class="img_theme" src="assets/icons/todo_icon/aircraft.png">
         </div>
 
         <div class="box_theme">
@@ -106,7 +106,7 @@
       <div class="box_todoView">
 
         <div class="box_icon">
-          <img class="img_theme" src="asset/todo_icon/user.png">
+          <img class="img_theme" src="assets/icons/todo_icon/user.png">
         </div>
 
         <div class="box_theme">
@@ -126,5 +126,16 @@
   </main>
 
 </body>
+
+<footer>
+  <div class="button_container_menu">
+    <div class="button_menu_1" onclick="document.location.href = 'todoView.php'">
+    </div>
+    <div class="button_menu_2">
+    </div>
+    <div class="button_menu_3">
+    </div>
+  </div>
+</footer>
 
 </html>
