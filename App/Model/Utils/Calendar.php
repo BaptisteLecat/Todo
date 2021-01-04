@@ -94,8 +94,8 @@ class Calendar implements
      */
     private function dayBefore()
     {
-        for ($i = 0; $i < $this->first_day_index; $i++) {
-            $this->previous_dayArray[$i] = "ab";
+        for ($i = $this->first_day_index; $i > 0; $i--) {
+            $this->previous_dayArray[$i] = intval(date("d", mktime(0, 0, 0, $this->day["mon"], 1 - $i, $this->day["year"])));
         }
     }
 
