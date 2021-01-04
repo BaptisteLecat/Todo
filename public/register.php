@@ -144,4 +144,4 @@ function verifInput($etape, $registerInfo)
     return $error;
 }
 
-include "../view/register.php";
+include "../view/form/register.php";

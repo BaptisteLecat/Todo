@@ -54,4 +54,4 @@ function login($userObject){
     return $error;
 }
 
-include '../view/login.php';
+include '../view/form/login.php';
