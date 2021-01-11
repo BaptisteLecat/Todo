@@ -6,7 +6,7 @@ require 'module/taskDisplayer/function/dayDisplayer.php';
 use App\Model\TodoManager;
 use App\Model\TaskManager;
 use App\Model\Utils\MessageBox;
-use App\Model\Utils\DateFrench;
+use App\Model\TodoIconManager;
 
 session_start();
 
@@ -23,9 +23,10 @@ if ($user->getListTask() != null) {
 if ($user->getListTodo() != null) {
     $user->setListTodo(array());
 }
+$todoIconManager = new TodoIconManager();
 $todoManager = new TodoManager();
 $taskManager = new TaskManager();
-loadUserTodo($user, $todoManager);
+loadUserTodo($user, $todoManager, $todoIconManager);
 loadUserTask($user, $taskManager);
 $_SESSION["User"] = serialize($user);
 
@@ -107,11 +108,14 @@ if (isset($_GET["form"])) {
     include("../view/form/taskCreate.php");
 }
 
-function loadUserTodo($user, $todoManager)
+function loadUserTodo($user, $todoManager, $todoIconManager)
 {
-    $resultLoadTodo = $todoManager->loadTodoFromUserObject($user);
-    if ($resultLoadTodo["success"] == 1) {
-        //Success.
+    $resultLoadIcon = $todoIconManager->loadTodoIcon();
+    if ($resultLoadIcon["success"] == 1) {
+        $resultLoadTodo = $todoManager->loadTodoFromUserObject($user, $resultLoadIcon["list_todoIcons"]);
+        if ($resultLoadTodo["success"] == 1) {
+            //Success.
+        }
     }
 }
 
