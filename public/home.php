@@ -50,7 +50,7 @@ function loadUserTask($user, $taskManager)
     }
 }
 
-loadUserTodo($user, $todoManager);
+loadUserTodo($user, $todoManager, $todoIconManager);
 loadUserTask($user, $taskManager);
 $_SESSION["User"] = serialize($user);
 $taskForToday = taskForToday($user);
