@@ -18,10 +18,12 @@ class Todo implements JsonSerializable
   private $endDate;
   private $endTime;
   private $createDate;
+
+  private $iconObject;
   private $listTask;
   private $userObject;
 
-  function __construct($id, $title, $description, $active, $status, $endDate, $endTime, $createDate, $userObject)
+  function __construct($id, $title, $description, $active, $status, $endDate, $endTime, $createDate, $iconObject, $userObject)
   {
     $this->id = $id;
     $this->title =$title;
@@ -31,7 +33,9 @@ class Todo implements JsonSerializable
     $this->endDate = $endDate;
     $this->endTime = $endTime;
     $this->createDate = $createDate;
+    $this->iconObject = $iconObject;
     $this->userObject = $userObject;
+    $this->iconObject->addTodo($this);
     $this->userObject->AddTodo($this);
     $this->listTask = array();
   }
