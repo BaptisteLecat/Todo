@@ -32,6 +32,11 @@ class TodoManager extends PdoFactory
                             if ($icon->getId() == $result["icon_todo"]) {
                                 $todo = new Todo(intval($result["id_todo"]), $result["title_todo"], $result["description_todo"], intval($result["active_todo"]), $result["status_todo"], $result["enddate_todo"], $result["endtime_todo"], $result["createdate_todo"], $icon, $userObject);
                                 break;
+                            } else {
+                                if ($result["icon_todo"] == null && $icon->getId() == 1) {
+                                    $todo = new Todo(intval($result["id_todo"]), $result["title_todo"], $result["description_todo"], intval($result["active_todo"]), $result["status_todo"], $result["enddate_todo"], $result["endtime_todo"], $result["createdate_todo"], $icon, $userObject);
+                                    break;
+                                }
                             }
                         }
                     }
