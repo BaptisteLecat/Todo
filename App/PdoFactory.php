@@ -8,15 +8,15 @@ class PdoFactory
 
     public function __construct()
     {
-        $dsn = 'mysql:dbname=todo_database;host=mysql-todo.alwaysdata.net';
+        //$dsn = 'mysql:dbname=todo_database;host=mysql-todo.alwaysdata.net';
         //Local
-        //$dsn = 'mysql:dbname=todo;host=127.0.0.1';
-        $user = 'todo';
+        $dsn = 'mysql:dbname=todo;host=127.0.0.1';
+        //$user = 'todo';
         //Local
-        //$user = 'root';
-        $password = 'baptiste24590';
+        $user = 'root';
+        //$password = 'baptiste24590';
         //Local
-        //$password = '';
+        $password = '';
         $this->pdo = new \PDO($dsn, $user, $password);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
