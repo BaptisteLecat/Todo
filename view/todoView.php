@@ -17,108 +17,25 @@
 
 
     <div class="container_todoView">
+    <?php var_dump($user->getListTodo()); ?>
+      <?php foreach ($user->getListTodo() as $todo) { ?>
+        <div class="box_todoView">
 
-      <div class="box_todoView">
+          <div class="box_icon">
+            <img class="img_theme" src="assets/icons/todo_icon/<?= $todo->getIconObject()->getLibelle(); ?>.png">
+          </div>
 
-        <div class="box_icon">
-          <img class="img_theme" src="assets/icons/todo_icon/house.png">
+          <div class="box_theme">
+            <h1 class="text_theme"><?= $todo->getTitle(); ?></h1>
+          </div>
+
+          <p><?= count($todo->getListTask()); ?></p>
+
+          <div class="progressBar">
+            <div class="line_progressBar"></div>
+          </div>
         </div>
-
-        <div class="box_theme">
-          <h1 class="text_theme">Décoration Chambre</h1>
-        </div>
-
-        <p>6 Tâches</p>
-
-        <div class="progressBar">
-          <div class="line_progressBar"></div>
-        </div>
-      </div>
-
-      <div class="box_todoView">
-
-        <div class="box_icon">
-          <img class="img_theme" src="assets/icons/todo_icon/shopping-cart.png">
-        </div>
-
-        <div class="box_theme">
-          <h1 class="text_theme">Course</h1>
-        </div>
-
-        <p>10 Tâches</p>
-
-        <div class="progressBar">
-          <div class="line_progressBar"></div>
-        </div>
-      </div>
-
-      <div class="box_todoView">
-
-        <div class="box_icon">
-          <img class="img_theme" src="assets/icons/todo_icon/work.png">
-        </div>
-
-        <div class="box_theme">
-          <h1 class="text_theme">Travail</h1>
-        </div>
-
-        <p>12 Tâches</p>
-
-        <div class="progressBar">
-          <div class="line_progressBar"></div>
-        </div>
-      </div>
-
-      <div class="box_todoView">
-
-        <div class="box_icon">
-          <img class="img_theme" src="assets/icons/todo_icon/cake.png">
-        </div>
-
-        <div class="box_theme">
-          <h1 class="text_theme">Anniversaire</h1>
-        </div>
-
-        <p>18 Tâches</p>
-
-        <div class="progressBar">
-          <div class="line_progressBar"></div>
-        </div>
-      </div>
-
-      <div class="box_todoView">
-
-        <div class="box_icon">
-          <img class="img_theme" src="assets/icons/todo_icon/aircraft.png">
-        </div>
-
-        <div class="box_theme">
-          <h1 class="text_theme">Voyage</h1>
-        </div>
-
-        <p>124 Tâches</p>
-
-        <div class="progressBar">
-          <div class="line_progressBar"></div>
-        </div>
-      </div>
-
-      <div class="box_todoView">
-
-        <div class="box_icon">
-          <img class="img_theme" src="assets/icons/todo_icon/user.png">
-        </div>
-
-        <div class="box_theme">
-          <h1 class="text_theme">Personnel</h1>
-        </div>
-
-        <p>6 Tâches</p>
-
-        <div class="progressBar">
-          <div class="line_progressBar"></div>
-        </div>
-      </div>
+      <?php } ?>
 
     </div>
 
