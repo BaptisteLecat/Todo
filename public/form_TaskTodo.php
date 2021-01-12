@@ -67,7 +67,7 @@ if (isset($_GET["form"])) {
             if (isset($_POST["title"])) {
                 $resultNbTodo = $todoManager->countTodoRow($user->getId());
                 if ($resultNbTodo["nbrow"] < 5) {
-                    $resultInsertTodo = $todoManager->insertTodo($_POST["title"], $_POST["description"], $_POST["status"], $_POST["date"], $_POST["time"], $user);
+                    $resultInsertTodo = $todoManager->insertTodo($_POST["title"], $_POST["description"], $_POST["icon"], $_POST["date"], $_POST["time"], $user);
                     //Affichage de la messageBox success ou error.
                     if ($resultInsertTodo["success"] == 1) {
                         $messageBox = new MessageBox("Félicitation, vous avez désormais une tâche supplémentaire à effectuer !", "validate");

@@ -32,8 +32,8 @@
 
             <h6>Icone</h6>
             <div class="todoIcon_container">
-                <?php foreach ($list_todoIcons as $icons) { ?>
-                    <img id="<?= $icons->getId(); ?>" src="assets/icons/todo_icon/<?= $icons->getLibelle(); ?>.png" alt="<?= $icons->getLibelle(); ?>">
+                <?php foreach ($list_todoIcons as $index => $icons) { ?>
+                    <img name="<?= $index ?>" id="<?= $icons->getId(); ?>" src="assets/icons/todo_icon/<?= $icons->getLibelle(); ?>.png" alt="<?= $icons->getLibelle(); ?>" onclick="selectIcon(this)">
                 <?php } ?>
             </div>
 
@@ -49,7 +49,7 @@
             </div>
             <input class="bug" name="time" type="time">
 
-            <input type="hidden" name="status" id='status_value' value="private">
+            <input type="hidden" name="icon" id='icon_id' value="1">
             <input type="submit" value="Valider">
         </form>
     </main>
