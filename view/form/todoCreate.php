@@ -30,10 +30,11 @@
             <h6>Description</h6>
             <textarea name="description" required></textarea>
 
-            <h6>Statut</h6>
-            <div class="status_container">
-                <input type="button" id='private' value="Privé" onclick="btnStatus_click(this)" style="background-color: #5C7AFF">
-                <input type="button" id='public' value="Publique" onclick="btnStatus_click(this)">
+            <h6>Icone</h6>
+            <div class="todoIcon_container">
+                <?php foreach ($list_todoIcons as $icons) { ?>
+                    <img id="<?= $icons->getId(); ?>" src="assets/icons/todo_icon/<?= $icons->getLibelle(); ?>.png" alt="<?= $icons->getLibelle(); ?>">
+                <?php } ?>
             </div>
 
             <div class="titleInput_container">

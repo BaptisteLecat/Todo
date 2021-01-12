@@ -26,7 +26,9 @@ if ($user->getListTodo() != null) {
 $todoIconManager = new TodoIconManager();
 $todoManager = new TodoManager();
 $taskManager = new TaskManager();
-loadUserTodo($user, $todoManager, $todoIconManager);
+
+$list_todoIcons = loadTodoIcon($todoIconManager);
+loadUserTodo($user, $todoManager, $list_todoIcons);
 loadUserTask($user, $taskManager);
 $_SESSION["User"] = serialize($user);
 
@@ -108,14 +110,23 @@ if (isset($_GET["form"])) {
     include("../view/form/taskCreate.php");
 }
 
-function loadUserTodo($user, $todoManager, $todoIconManager)
+function loadTodoIcon($todoIconManager)
 {
+    $list_todoIcons = array();
+
     $resultLoadIcon = $todoIconManager->loadTodoIcon();
     if ($resultLoadIcon["success"] == 1) {
-        $resultLoadTodo = $todoManager->loadTodoFromUserObject($user, $resultLoadIcon["list_todoIcons"]);
-        if ($resultLoadTodo["success"] == 1) {
-            //Success.
-        }
+        $list_todoIcons = $resultLoadIcon["list_todoIcons"];
+    }
+
+    return $list_todoIcons;
+}
+
+function loadUserTodo($user, $todoManager, $list_todoIcons)
+{
+    $resultLoadTodo = $todoManager->loadTodoFromUserObject($user, $list_todoIcons);
+    if ($resultLoadTodo["success"] == 1) {
+        //Success.
     }
 }
 

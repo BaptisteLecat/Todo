@@ -14,7 +14,6 @@ class Todo implements JsonSerializable
   private $title;
   private $description;
   private $active;
-  private $status;
   private $endDate;
   private $endTime;
   private $createDate;
@@ -23,13 +22,12 @@ class Todo implements JsonSerializable
   private $listTask;
   private $userObject;
 
-  function __construct($id, $title, $description, $active, $status, $endDate, $endTime, $createDate, $iconObject, $userObject)
+  function __construct($id, $title, $description, $active, $endDate, $endTime, $createDate, $iconObject, $userObject)
   {
     $this->id = $id;
     $this->title = $title;
     $this->description = $description;
     $this->active = $active;
-    $this->status = $status;
     $this->endDate = $endDate;
     $this->endTime = $endTime;
     $this->createDate = $createDate;
@@ -47,7 +45,6 @@ class Todo implements JsonSerializable
       'title' => $this->title,
       'description' => $this->description,
       'active' => $this->active,
-      'status' => $this->status,
       'endDate' => $this->endDate,
       'endTime' => $this->endTime,
       'createDate' => $this->createDate,
@@ -74,11 +71,6 @@ class Todo implements JsonSerializable
   public function getActive()
   {
     return $this->active;
-  }
-
-  public function getStatus()
-  {
-    return $this->status;
   }
 
   public function getEndDate()
@@ -130,11 +122,6 @@ class Todo implements JsonSerializable
   public function setActive($active)
   {
     $this->active = $active;
-  }
-
-  public function setStatus($status)
-  {
-    $this->status = $status;
   }
 
   public function setEndDate($endDate)

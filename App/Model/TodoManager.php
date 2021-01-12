@@ -24,17 +24,17 @@ class TodoManager extends PdoFactory
         $response = ["success" => 0];
 
         try {
-            $request = $this->pdo->prepare("SELECT id_todo, title_todo, description_todo, active_todo, status_todo, icon_todo, enddate_todo, endtime_todo, createdate_todo FROM todo WHERE iduser_todo = :iduser_todo and active_todo = 0");
+            $request = $this->pdo->prepare("SELECT id_todo, title_todo, description_todo, active_todo, icon_todo, enddate_todo, endtime_todo, createdate_todo FROM todo WHERE iduser_todo = :iduser_todo and active_todo = 0");
             if ($request->execute(array(':iduser_todo' => $userObject->getId()))) {
                 if ($request->rowCount() > 0) {
                     while ($result = $request->fetch()) {
                         foreach ($list_todoIcons as $icon) {
                             if ($icon->getId() == $result["icon_todo"]) {
-                                $todo = new Todo(intval($result["id_todo"]), $result["title_todo"], $result["description_todo"], intval($result["active_todo"]), $result["status_todo"], $result["enddate_todo"], $result["endtime_todo"], $result["createdate_todo"], $icon, $userObject);
+                                $todo = new Todo(intval($result["id_todo"]), $result["title_todo"], $result["description_todo"], intval($result["active_todo"]), $result["enddate_todo"], $result["endtime_todo"], $result["createdate_todo"], $icon, $userObject);
                                 break;
                             } else {
                                 if ($result["icon_todo"] == null && $icon->getId() == 1) {
-                                    $todo = new Todo(intval($result["id_todo"]), $result["title_todo"], $result["description_todo"], intval($result["active_todo"]), $result["status_todo"], $result["enddate_todo"], $result["endtime_todo"], $result["createdate_todo"], $icon, $userObject);
+                                    $todo = new Todo(intval($result["id_todo"]), $result["title_todo"], $result["description_todo"], intval($result["active_todo"]), $result["enddate_todo"], $result["endtime_todo"], $result["createdate_todo"], $icon, $userObject);
                                     break;
                                 }
                             }
@@ -118,8 +118,8 @@ class TodoManager extends PdoFactory
         if ($resultCount["success"] == 1) {
             $nbrow = $resultCount["nbrow"];
             try {
-                $request = $this->pdo->prepare("INSERT INTO todo (title_todo, description_todo, status_todo, enddate_todo, endtime_todo, iduser_todo) VALUES (:title_todo, :description_todo, :status_todo, :enddate_todo, :endtime_todo, :iduser_todo)");
-                if ($request->execute(array(':title_todo' => $title, ':description_todo' => $description, ':status_todo' => $status, ':enddate_todo' => $endDate, ':endtime_todo' => $endTime, ':iduser_todo' => $userObject->getId()))) {
+                $request = $this->pdo->prepare("INSERT INTO todo (title_todo, description_todo, enddate_todo, endtime_todo, iduser_todo) VALUES (:title_todo, :description_todo, :enddate_todo, :endtime_todo, :iduser_todo)");
+                if ($request->execute(array(':title_todo' => $title, ':description_todo' => $description, ':enddate_todo' => $endDate, ':endtime_todo' => $endTime, ':iduser_todo' => $userObject->getId()))) {
                     //Nombre de Row dans la table TODO après insertion.
                     $resultCount = $this->countTodoRow($userObject->getId());
                     if ($resultCount["success"] == 1) {
