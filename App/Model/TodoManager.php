@@ -32,11 +32,6 @@ class TodoManager extends PdoFactory
                             if ($icon->getId() == $result["icon_todo"]) {
                                 $todo = new Todo(intval($result["id_todo"]), $result["title_todo"], $result["description_todo"], intval($result["active_todo"]), $result["enddate_todo"], $result["endtime_todo"], $result["createdate_todo"], $icon, $userObject);
                                 break;
-                            } else {
-                                if ($result["icon_todo"] == null && $icon->getId() == 1) {
-                                    $todo = new Todo(intval($result["id_todo"]), $result["title_todo"], $result["description_todo"], intval($result["active_todo"]), $result["enddate_todo"], $result["endtime_todo"], $result["createdate_todo"], $icon, $userObject);
-                                    break;
-                                }
                             }
                         }
                     }
@@ -109,7 +104,7 @@ class TodoManager extends PdoFactory
     }
 
 
-    public function insertTodo($title, $description, $status, $endDate, $endTime, $userObject)
+    public function insertTodo($title, $description, $icon, $endDate, $endTime, $userObject)
     {
         $response = ["success" => 0];
         //Nombre de Row dans la table TODO avant insertion.
@@ -118,8 +113,8 @@ class TodoManager extends PdoFactory
         if ($resultCount["success"] == 1) {
             $nbrow = $resultCount["nbrow"];
             try {
-                $request = $this->pdo->prepare("INSERT INTO todo (title_todo, description_todo, enddate_todo, endtime_todo, iduser_todo) VALUES (:title_todo, :description_todo, :enddate_todo, :endtime_todo, :iduser_todo)");
-                if ($request->execute(array(':title_todo' => $title, ':description_todo' => $description, ':enddate_todo' => $endDate, ':endtime_todo' => $endTime, ':iduser_todo' => $userObject->getId()))) {
+                $request = $this->pdo->prepare("INSERT INTO todo (title_todo, description_todo, icon_todo, enddate_todo, endtime_todo, iduser_todo) VALUES (:title_todo, :description_todo, :icon_todo, :enddate_todo, :endtime_todo, :iduser_todo)");
+                if ($request->execute(array(':title_todo' => $title, ':description_todo' => $description, ':icon_todo' => $icon, ':enddate_todo' => $endDate, ':endtime_todo' => $endTime, ':iduser_todo' => $userObject->getId()))) {
                     //Nombre de Row dans la table TODO après insertion.
                     $resultCount = $this->countTodoRow($userObject->getId());
                     if ($resultCount["success"] == 1) {

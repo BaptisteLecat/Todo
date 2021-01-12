@@ -10,4 +10,6 @@ function selectIcon(object){
         selectedIcon_index = object.name; //Name == index.
         object.src = `assets/icons/todo_icon/selected_${object.alt}.png`;
     }
+
+    document.getElementById('icon_id').value = object.id;
 }
