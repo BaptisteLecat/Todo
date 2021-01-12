@@ -17,9 +17,8 @@
 
 
     <div class="container_todoView">
-    <?php var_dump($user->getListTodo()); ?>
       <?php foreach ($user->getListTodo() as $todo) { ?>
-        <div class="box_todoView">
+        <div class="box_todoView" id="<?= $todo->getId(); ?>">
 
           <div class="box_icon">
             <img class="img_theme" src="assets/icons/todo_icon/<?= $todo->getIconObject()->getLibelle(); ?>.png">
