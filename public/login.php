@@ -1,17 +1,11 @@
 <?php
 
-session_start();
 session_destroy();
 session_start();
 
-require_once '../vendor/autoload.php';
-
-use App\Model\UserManager;
-
-$userManager = new UserManager();
 
 if (isset($_POST['email']) && isset($_POST['password'])) {
-    $error = login($userManager);
+    $error = login($this->userManager);
 }
 
 
@@ -38,7 +32,7 @@ function login($userObject){
                 $resultLoadUser = $userObject->loadUser($resultVerifLogin["id_user"]);
                 if($resultLoadUser["success"] == 1){
                     $_SESSION["User"] = serialize($resultLoadUser["userObject"]);
-                    header("Location: home.php");
+                    header("Location: index.php?view=home");
                 } 
             } else {
                 $error = ["type" => "login", "message" => "Identifiant ou Mot de passe incorrect!"];
