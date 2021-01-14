@@ -80,6 +80,11 @@ if (isset($_GET["form"])) {
             }
             include("../view/form/todoCreate.php");
             break;
+
+        default:
+            $messageBox = null;
+            include("../view/form/taskCreate.php");
+            break;
     }
 } else {
     $messageBox = null;

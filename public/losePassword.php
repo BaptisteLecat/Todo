@@ -121,4 +121,4 @@ function verifToken($object){
     return $error;
 }
 
-include "../view/losePassword.php";
+include "../view/form/losePassword.php";
