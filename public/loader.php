@@ -31,3 +31,15 @@ function drainUser($user){
         $user->setListTodo(array());
     }
 }
+
+function loadTodoIcon($todoIconManager)
+{
+    $list_todoIcons = array();
+
+    $resultLoadIcon = $todoIconManager->loadTodoIcon();
+    if ($resultLoadIcon["success"] == 1) {
+        $list_todoIcons = $resultLoadIcon["list_todoIcons"];
+    }
+
+    return $list_todoIcons;
+}

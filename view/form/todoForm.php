@@ -1,27 +1,13 @@
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="assets/css/app.css">
-    <link rel="stylesheet" href="assets/css/form/createTodo.css">
-    <link rel="stylesheet" href="assets/css/messageBox/information.css">
-    <title>TodoForm</title>
-</head>
-
-<body onload="showMessageBox()">
-    <?php if ($messageBox != null) {
-        include("../view/messageBox/information.php");
-    } ?>
-    <img src="assets\icons\left-arrow.png" class="previousPage" onclick="document.location.href='home.php'">
-    <header>
-        <div class="header_title">
-            <h1>Création d'un Todo</h1>
-        </div>
-    </header>
-    <main>
+  <?php ob_start(); ?>
+  <main>
+      <header>
+            <img src="assets\icons\left-arrow.png" class="previousPage" onclick="document.location.href='index?view=home'">
+            <div class="header_title">
+                <h1>Création d'un Todo</h1>
+            </div>
+        </header>
         <form method="post">
-            <div class="form_switcher" onclick="document.location.href='form_TaskTodo.php?form=CreateTask'">
+            <div class="form_switcher" onclick="document.location.href='index?view=form-TaskTodo&action=CreateTask'">
                 <h3>Ajouter une Tâche</h3>
             </div>
             <h6>Titre</h6>
@@ -56,17 +42,5 @@
 
     <script src="module/form/messageBox/messageBoxDisplayer.js"></script>
     <script src="module/form/todoform/todoCreateDisplayer.js"></script>
-</body>
 
-<footer>
-    <div class="button_container_menu">
-        <div class="button_menu_1">
-        </div>
-        <div class="button_menu_2">
-        </div>
-        <div class="button_menu_3">
-        </div>
-    </div>
-</footer>
-
-</html>
+    <?php $this->content = ob_get_clean();?>

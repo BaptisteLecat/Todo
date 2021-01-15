@@ -1,10 +1,5 @@
 <?php
 
-use App\Model\UserManager;
-
-session_start();
-require_once '../vendor/autoload.php';
-
 if (isset($_POST["etape"])) {
     $etape = $_POST["etape"];
 } else {
@@ -12,7 +7,6 @@ if (isset($_POST["etape"])) {
 }
 
 $registerInfo = array();
-$userManager = new UserManager();
 
 switch ($etape) {
     case 1: //Premier étape de la saisie, début.
@@ -85,13 +79,13 @@ switch ($etape) {
                 if ($flag == 0) {
                     $etape = 1;
                     //Verification de l'email
-                    $resultEmailValid = $userManager->emailIsValid($_POST["email"]);
+                    $resultEmailValid = $this->userManager->emailIsValid($_POST["email"]);
                     if ($resultEmailValid["success"] == 1) {
                         if ($resultEmailValid["isValid"] == true) {
                             //Create Account
-                            $resultCreateAccount = $userManager->createAccount($registerInfo["name"], $registerInfo["firstname"], $_POST["email"], $_POST["password"]);
+                            $resultCreateAccount = $this->userManager->createAccount($registerInfo["name"], $registerInfo["firstname"], $_POST["email"], $_POST["password"]);
                             if($resultCreateAccount["success"] == 1){
-                                header("Location: login.php");
+                                header("Location: index.php?view=login");
                             }
                         }
                     }

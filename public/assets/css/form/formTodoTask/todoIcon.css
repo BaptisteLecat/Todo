@@ -1,0 +1,10 @@
+.todoIcon_container {
+  display: flex;
+  padding: 0px 5px;
+  flex-flow: wrap;
+}
+
+.todoIcon_container img{
+    height: 30px;
+    margin: auto;
+}
