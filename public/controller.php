@@ -102,6 +102,11 @@ class Controller
         return $html_link;
     }
 
+    private function menu(){
+
+        include_once("../view/menu.php");
+    }
+
 
     /****************************************/
     /************DISPLAYER VIEWS************/
@@ -109,10 +114,12 @@ class Controller
 
     public function displayHome()
     {
+        $this->reloadUser();
         $this->title = "Accueil";
         $this->css_link = array("app", "home", "todo", "stats", "todoState", "calendar");
 
         require 'home/home.php';
+        $this->menu();
     }
 
     public function displayForm_LoginRegister($action)
@@ -139,6 +146,14 @@ class Controller
                 require('form/login.php');
                 break;
         }
+    }
+
+    public function displayTodoBoard($action = null){
+        $this->reloadUser();
+        $this->css_link = array('app', 'todoView');
+
+        require('../view/todoView.php');
+        $this->menu();
     }
 
     public function displayForm_TaskTodo($action = null)
@@ -171,5 +186,6 @@ class Controller
                 require('form/taskForm.php');
                 break;
         }
+        $this->menu();
     }
 }

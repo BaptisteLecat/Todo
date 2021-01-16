@@ -8,8 +8,7 @@
     } ?>
 
     <?= $controller->getContent(); ?>
-
-    <?php include_once("menu.php"); ?>
+    
 </body>
 
 

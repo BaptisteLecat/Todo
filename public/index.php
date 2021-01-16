@@ -12,7 +12,11 @@ if (isset($_SESSION["User"])) {
                 break;
 
             case 'todo-board':
-                //displayTodoBoard($_GET["action"]);
+                if(isset($_GET["action"])){
+                    $controller->displayTodoBoard($_GET["action"]);
+                }else{
+                    $controller->displayTodoBoard();
+                }
                 break;
 
             case 'form-TaskTodo':
