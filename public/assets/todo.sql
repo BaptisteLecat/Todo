@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 28 déc. 2020 à 02:05
+-- Généré le : Dim 17 jan. 2021 à 11:17
 -- Version du serveur :  8.0.21
 -- Version de PHP : 7.3.21
 
@@ -79,19 +79,14 @@ CREATE TABLE IF NOT EXISTS `task` (
   PRIMARY KEY (`id_task`),
   KEY `constraint_idUserTask` (`iduser_task`),
   KEY `constraint_idTodoTask` (`idtodo_task`)
-) ENGINE=InnoDB AUTO_INCREMENT=230 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=235 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `task`
 --
 
 INSERT INTO `task` (`id_task`, `content_task`, `enddate_task`, `endtime_task`, `active_task`, `createdate_task`, `iduser_task`, `idtodo_task`) VALUES
-(209, 'Acheter de la viande', '2020-12-25', '19:32:00', 1, '2020-12-25 17:32:17', 2, 17),
-(225, 'Djejrjrbr', '2020-12-27', NULL, 1, '2020-12-27 19:12:56', 2, 17),
-(226, 'Eurkejrrj', '2020-12-27', NULL, 1, '2020-12-27 19:13:01', 2, 17),
-(227, 'sdfsdfsdfsdf', '2020-12-28', NULL, 1, '2020-12-28 01:22:33', 2, 17),
-(228, 'sdfsdfsdfsdf', '2020-12-28', NULL, 0, '2020-12-28 01:22:35', 2, 17),
-(229, 'send nude', '2020-12-29', NULL, 0, '2020-12-28 02:51:12', 2, 17);
+(234, 'sfsdfsdf', '2021-01-14', NULL, 0, '2021-01-15 00:04:34', 2, 27);
 
 -- --------------------------------------------------------
 
@@ -106,24 +101,50 @@ CREATE TABLE IF NOT EXISTS `todo` (
   `description_todo` text,
   `active_todo` int DEFAULT '0',
   `status_todo` varchar(100) NOT NULL,
+  `icon_todo` int DEFAULT '1',
   `enddate_todo` date NOT NULL,
   `endtime_todo` date DEFAULT NULL,
   `createdate_todo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `iduser_todo` int DEFAULT NULL,
   PRIMARY KEY (`id_todo`),
-  KEY `constraint_idUserTodo` (`iduser_todo`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+  KEY `constraint_idUserTodo` (`iduser_todo`),
+  KEY `constraint_idIconTodo` (`icon_todo`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `todo`
 --
 
-INSERT INTO `todo` (`id_todo`, `title_todo`, `description_todo`, `active_todo`, `status_todo`, `enddate_todo`, `endtime_todo`, `createdate_todo`, `iduser_todo`) VALUES
-(17, 'Course', 'Groupe de tâches concernant les courses.', 0, 'private', '2020-12-31', NULL, '2020-12-22 18:50:54', 2),
-(19, 'qsdqsdqsd', 'aqsdqsdqsdqsdqsd', 0, 'private', '2020-12-24', '0000-00-00', '2020-12-24 19:30:48', 2),
-(20, 'qsdqsdqsdqs', 'qsdqsdqsdqsd', 0, 'private', '2020-12-24', '0000-00-00', '2020-12-24 19:30:51', 2),
-(21, 'qsdqsdqsd', 'qsdqsdqsdqsd', 0, 'private', '2020-12-24', '0000-00-00', '2020-12-24 19:30:55', 2),
-(22, 'qsdqsdqsdqsd', 'qsdqsdqsd', 0, 'private', '2020-12-24', '0000-00-00', '2020-12-24 19:30:59', 2);
+INSERT INTO `todo` (`id_todo`, `title_todo`, `description_todo`, `active_todo`, `status_todo`, `icon_todo`, `enddate_todo`, `endtime_todo`, `createdate_todo`, `iduser_todo`) VALUES
+(27, 'bonjour', 'sdfsdf', 0, '', 3, '2021-01-12', '0000-00-00', '2021-01-12 23:46:44', 2),
+(28, 'salut', 'hdfgdfghfgh', 0, '', 6, '2021-01-12', '0000-00-00', '2021-01-12 23:46:56', 2),
+(29, 'voyage', 'sdfsdfsdf', 0, '', 5, '2021-01-12', '0000-00-00', '2021-01-12 23:47:07', 2),
+(30, 'dfgdfgdfgdfg', 'dfgdfgdfg', 0, '', 4, '2021-01-13', '0000-00-00', '2021-01-13 22:08:02', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `todo_icon`
+--
+
+DROP TABLE IF EXISTS `todo_icon`;
+CREATE TABLE IF NOT EXISTS `todo_icon` (
+  `id_icon` int NOT NULL AUTO_INCREMENT,
+  `name_icon` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_icon`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `todo_icon`
+--
+
+INSERT INTO `todo_icon` (`id_icon`, `name_icon`) VALUES
+(1, 'home'),
+(2, 'party'),
+(3, 'personal'),
+(4, 'shopping'),
+(5, 'travel'),
+(6, 'work');
 
 -- --------------------------------------------------------
 
@@ -172,6 +193,7 @@ ALTER TABLE `task`
 -- Contraintes pour la table `todo`
 --
 ALTER TABLE `todo`
+  ADD CONSTRAINT `constraint_idIconTodo` FOREIGN KEY (`icon_todo`) REFERENCES `todo_icon` (`id_icon`) ON DELETE SET NULL,
   ADD CONSTRAINT `constraint_idUserTodo` FOREIGN KEY (`iduser_todo`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 

@@ -1,0 +1,160 @@
+.previousPage {
+  height: 25px;
+  margin: 5px;
+}
+
+header {
+  width: 100%;
+  height: auto;
+}
+
+.header_container {
+  height: auto;
+  width: 100%;
+  display: flex;
+  padding: 8px 3%;
+}
+
+.todo_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 27px;
+}
+
+.todo_info h1 {
+  font-family: "Comfortaa", sans-serif;
+  font-weight: normal;
+  font-size: 28px;
+  color: #fff;
+}
+
+.todo_info h2 {
+  font-family: "Comfortaa", sans-serif;
+  font-weight: normal;
+  font-size: 18px;
+  color: #898f92;
+}
+
+button.btn_header {
+  width: 100px;
+  height: 35px;
+  margin: auto 0px auto auto;
+  outline: none;
+  border: none;
+  display: flex;
+  border-radius: 4px;
+  background: rgb(59, 78, 161);
+  background: linear-gradient(
+    90deg,
+    rgba(59, 78, 161, 1) 0%,
+    rgba(92, 122, 255, 1) 50%
+  );
+}
+
+button.btn_header p {
+  color: #fff;
+  font-family: "Comfortaa", sans-serif;
+  font-weight: normal;
+  font-size: 20px;
+  margin: auto;
+  margin-right: 7px;
+}
+
+button.btn_header img {
+  height: 16px;
+  margin: auto;
+  margin-left: 8px;
+}
+
+.task_wrapper {
+  height: auto;
+  min-height: calc(100% - 105px);
+  display: flex;
+  flex-direction: column;
+  padding: 22px 10px 60px 10px;
+}
+
+.task_container {
+  background: rgb(16, 34, 46);
+  background: linear-gradient(
+    39deg,
+    rgba(16, 34, 46, 1) 48%,
+    rgba(25, 46, 59, 1) 92%
+  );
+  height: 130px;
+  border-radius: 10px;
+  margin: 5px 0px;
+  padding: 8px 15px 10px 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.task_container h6{
+  color: #F25F5C;
+  font-family: "Comfortaa", sans-serif;
+  font-weight: normal;
+  font-size: 12px;
+}
+
+hr {
+  border: 1px solid #223c4e;
+}
+
+.task_body {
+  display: flex;
+  height: 62px;
+  margin-top: auto;
+}
+
+.statut_indicator {
+  height: 100%;
+  background-color: #f25f5c;
+  width: 10px;
+  border-radius: 2px;
+  margin-right: auto;
+}
+
+.task_content {
+  display: flex;
+  flex-direction: column;
+  padding-left: 5px;
+}
+
+.task_content h3 {
+  color: #fff;
+  font-family: "Comfortaa", sans-serif;
+  font-weight: normal;
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+
+.task_content p {
+  color: #c9c9c9;
+  font-family: "Comfortaa", sans-serif;
+  font-weight: normal;
+  font-size: 12px;
+}
+
+.task_footer {
+  display: flex;
+  margin-top: auto;
+}
+
+.task_info {
+  display: flex;
+  margin: auto;
+}
+
+.task_info img {
+  height: 20px;
+  margin: auto 5px;
+}
+
+.task_info p {
+  font-family: "Comfortaa", sans-serif;
+  font-weight: normal;
+  font-size: 12px;
+  color: #879096;
+  margin: auto 5px;
+}

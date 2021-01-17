@@ -11,11 +11,11 @@ if (isset($_SESSION["User"])) {
                 $controller->displayHome();
                 break;
 
-            case 'todo-board':
+            case 'todo':
                 if(isset($_GET["action"])){
-                    $controller->displayTodoBoard($_GET["action"]);
+                    $controller->displayTodo($_GET["action"]);
                 }else{
-                    $controller->displayTodoBoard();
+                    $controller->displayTodo();
                 }
                 break;
 
@@ -29,6 +29,10 @@ if (isset($_SESSION["User"])) {
 
             case 'login':
                 $controller->displayForm_LoginRegister("login");
+                break;
+
+            case 'stats':
+                require('../view/todo/todo.php');
                 break;
 
             default:

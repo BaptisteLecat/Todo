@@ -102,7 +102,8 @@ class Controller
         return $html_link;
     }
 
-    private function menu(){
+    private function menu()
+    {
 
         include_once("../view/menu.php");
     }
@@ -148,11 +149,26 @@ class Controller
         }
     }
 
-    public function displayTodoBoard($action = null){
+    public function displayTodo($action = null)
+    {
         $this->reloadUser();
-        $this->css_link = array('app', 'todoView');
 
-        require('../view/todoView.php');
+        switch ($action) {
+            case 'board':
+                require('../view/todo/todoView.php');
+                $this->css_link = array('app', 'todoView');
+                break;
+
+            case 'todo':
+                require('../view/todo/todo.php');
+                $this->css_link = array('app', 'todo/todo');
+                break;
+
+            default:
+                require('../view/todo/todoView.php');
+                $this->css_link = array('app', 'todoView');
+                break;
+        }
         $this->menu();
     }
 
