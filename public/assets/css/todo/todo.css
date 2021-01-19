@@ -19,7 +19,7 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  line-height: 27px;
+  line-height: 26px;
 }
 
 .todo_info h1 {
@@ -32,7 +32,7 @@ header {
 .todo_info h2 {
   font-family: "Comfortaa", sans-serif;
   font-weight: normal;
-  font-size: 18px;
+  font-size: 16px;
   color: #898f92;
 }
 
@@ -110,7 +110,7 @@ hr {
 .statut_indicator {
   height: 100%;
   background-color: #f25f5c;
-  width: 10px;
+  width: 6px;
   border-radius: 2px;
   margin-right: auto;
 }
@@ -119,6 +119,7 @@ hr {
   display: flex;
   flex-direction: column;
   padding-left: 5px;
+  width: 100%;
 }
 
 .task_content h3 {
@@ -157,4 +158,10 @@ hr {
   font-size: 12px;
   color: #879096;
   margin: auto 5px;
+}
+
+@media screen and (min-width: 321px){
+  .task_wrapper{
+    padding: 22px 25px 60px 25px;
+  }
 }

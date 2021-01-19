@@ -149,7 +149,7 @@ class Controller
         }
     }
 
-    public function displayTodo($action = null)
+    public function displayTodo($action = null, $id = null)
     {
         $this->reloadUser();
 
@@ -160,8 +160,12 @@ class Controller
                 break;
 
             case 'todo':
-                require('../view/todo/todo.php');
-                $this->css_link = array('app', 'todo/todo');
+                foreach ($this->user->getListTodo() as $todo) {
+                    if ($todo->getId() == $id) {
+                        require('../view/todo/todo.php');
+                        $this->css_link = array('app', 'todo/todo');
+                    }
+                }
                 break;
 
             default:

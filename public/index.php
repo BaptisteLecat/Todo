@@ -12,8 +12,8 @@ if (isset($_SESSION["User"])) {
                 break;
 
             case 'todo':
-                if(isset($_GET["action"])){
-                    $controller->displayTodo($_GET["action"]);
+                if(isset($_GET["action"]) && isset($_GET["id"])){
+                    $controller->displayTodo($_GET["action"], $_GET["id"]);
                 }else{
                     $controller->displayTodo();
                 }
