@@ -1,0 +1,6 @@
+TODO Hasher le mot de passe LOGIN / REGISTER.
+TODO Fix changer l'état d'une TASK (actif/inactif).
+TODO Suppression de TASK.
+TODO CALENDAR n'affiche plus les taches et leur progression.
+TODO Formulaire TODO ne fonctionne plus.
+TODO Formulaire TODO/TASK ne renvoie plus de messageBox.
