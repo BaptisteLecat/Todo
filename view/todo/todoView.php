@@ -1,3 +1,4 @@
+<?php ob_start(); ?>
 <main>
 
   <div class="container_todoView">
@@ -23,3 +24,4 @@
   </div>
 
 </main>
+<?php $this->content = ob_get_clean(); ?>

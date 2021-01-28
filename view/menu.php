@@ -1,3 +1,4 @@
+<?php ob_start(); ?>
 <div class="menu">
 
   <div class="widget_plus" onclick="AddTodo()">
@@ -158,3 +159,5 @@
     }
   }
 </script>
+
+<?php $this->content .= ob_get_clean(); ?>

@@ -9,25 +9,22 @@ if (isset($_SESSION["User"])) {
         switch ($_GET["view"]) {
             case 'home':
                 $controller->displayHome();
-                $controller->menu($_GET["view"]);
                 break;
 
             case 'todo-board':
-                if(isset($_GET["action"]) && isset($_GET["id"])){
+                if (isset($_GET["action"]) && isset($_GET["id"])) {
                     $controller->displayTodo($_GET["action"], $_GET["id"]);
-                }else{
+                } else {
                     $controller->displayTodo();
                 }
-                $controller->menu($_GET["view"]);
                 break;
 
             case 'form-TaskTodo':
-                if(isset($_GET["action"])){
+                if (isset($_GET["action"])) {
                     $controller->displayForm_TaskTodo($_GET["action"]);
-                }else{
+                } else {
                     $controller->displayForm_TaskTodo(null);
                 }
-                $controller->menu($_GET["view"]);
                 break;
 
             case 'login':
@@ -40,12 +37,10 @@ if (isset($_SESSION["User"])) {
 
             default:
                 $controller->displayHome();
-                $controller->menu();
                 break;
         }
     } else {
         $controller->displayHome();
-        $controller->menu();
     }
 } else {
     if (isset($_GET["view"])) {
@@ -62,7 +57,7 @@ if (isset($_SESSION["User"])) {
                 $controller->displayForm_LoginRegister("login");
                 break;
         }
-    }else{
+    } else {
         $controller->displayForm_LoginRegister("login");
     }
 }

@@ -102,7 +102,7 @@ class Controller
         return $html_link;
     }
 
-    public function menu($view = null)
+    private function menu($view = null)
     {
         if($view === null){
             $view = "home";
@@ -122,6 +122,8 @@ class Controller
         $this->css_link = array("app", "home", "todo", "stats", "todoState", "calendar");
 
         require 'home/home.php';
+
+        $this->menu();
     }
 
     public function displayForm_LoginRegister($action)
@@ -174,6 +176,8 @@ class Controller
                 $this->css_link = array('app', 'todoView');
                 break;
         }
+
+        $this->menu("todo-board");
     }
 
     public function displayForm_TaskTodo($action = null)
@@ -206,5 +210,7 @@ class Controller
                 require('form/taskForm.php');
                 break;
         }
+
+        $this->menu("todo-board");
     }
 }

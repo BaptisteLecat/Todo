@@ -1,3 +1,4 @@
+<?php ob_start(); ?>
 <main>
 
     <header>
@@ -42,3 +43,5 @@
         <?php } ?>
     </div>
 </main>
+
+<?php $this->content = ob_get_clean(); ?>
