@@ -26,6 +26,7 @@ class Calendar implements
 
     function __construct($timestamp = null, $user)
     {
+        date_default_timezone_set('Europe/Paris');
         if ($timestamp === null) {
             $this->day = getdate();
         } else {

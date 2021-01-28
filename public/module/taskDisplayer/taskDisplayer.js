@@ -84,6 +84,7 @@ function activeModifier(object) {
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var res = this.response;
+            console.log(idTask);
             console.log(res);
             displayTaskByDay();
             updateGlobalStats();

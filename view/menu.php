@@ -6,7 +6,7 @@
 
   <div class="navbar">
     <div class="nav_button" onclick="ChangePage('todo-board')">
-      <?php if ($_GET["view"] == "todo-board") { ?>
+      <?php if ($view == "todo-board") { ?>
         <img id="icon_1" src="assets/icons/navbar/calendar_blue.png">
       <?php } else { ?>
         <img id="icon_1" src="assets/icons/navbar/calendar.png">
@@ -14,7 +14,7 @@
       <h5 id="namePage_1">Todo</h5>
     </div>
     <div class="nav_button" onclick="ChangePage('home')">
-      <?php if ($_GET["view"] == "home") { ?>
+      <?php if ($view == "home") { ?>
         <img id="icon_2" src="assets/icons/navbar/house_blue.png">
       <?php } else { ?>
         <img id="icon_2" src="assets/icons/navbar/house.png">
@@ -22,7 +22,7 @@
       <h5 id="namePage_2">Accueil</h5>
     </div>
     <div class="nav_button" onclick="ChangePage('stats')">
-      <?php if ($_GET["view"] == "stats") { ?>
+      <?php if ($view == "stats") { ?>
         <img id="icon_3" src="assets/icons/navbar/bar-chart_blue.png">
       <?php } else { ?>
         <img id="icon_3" src="assets/icons/navbar/bar-chart.png">
@@ -34,7 +34,7 @@
   <div id="lineUnder"></div>
 </div>
 
-<?php if ($_GET["view"] == "todo-board") { ?>
+<?php if ($view == "todo-board") { ?>
 
   <script type="text/javascript">
     $("#circle_back").css("margin-left", "calc((100% - 204px) / 6 )");
@@ -48,7 +48,7 @@
     $("#namePage_3").css("margin-top", "85px");
   </script>
 
-<?php } else if ($_GET["view"] == "home") { ?>
+<?php } else if ($view == "home") { ?>
 
   <script type="text/javascript">
     $("#circle_back").css("margin-left", "calc(((100% - 204px) / 6 ) * 3 + 68px)");
@@ -62,7 +62,7 @@
     $("#namePage_3").css("margin-top", "85px");
   </script>
 
-<?php } else if ($_GET["view"] == "stats") { ?>
+<?php } else if ($view == "stats") { ?>
 
   <script type="text/javascript">
     $("#circle_back").css("margin-left", "calc(((100% - 204px) / 6 ) * 5 + 136px)");

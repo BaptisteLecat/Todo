@@ -102,9 +102,11 @@ class Controller
         return $html_link;
     }
 
-    private function menu()
+    public function menu($view = null)
     {
-
+        if($view === null){
+            $view = "home";
+        }
         include_once("../view/menu.php");
     }
 
@@ -120,7 +122,6 @@ class Controller
         $this->css_link = array("app", "home", "todo", "stats", "todoState", "calendar");
 
         require 'home/home.php';
-        $this->menu();
     }
 
     public function displayForm_LoginRegister($action)
@@ -173,7 +174,6 @@ class Controller
                 $this->css_link = array('app', 'todoView');
                 break;
         }
-        $this->menu();
     }
 
     public function displayForm_TaskTodo($action = null)
@@ -206,6 +206,5 @@ class Controller
                 require('form/taskForm.php');
                 break;
         }
-        $this->menu();
     }
 }

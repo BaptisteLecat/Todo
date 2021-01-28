@@ -1,5 +1,7 @@
 <?php
 
+use App\Model\Utils\MessageBox;
+
 if (isset($_POST["todo-selector"])) { //Si le formulaire a été soumis.
     $errorId = true; //Variable permettant de verifier que l'id du todo-selector existe bien.
     foreach ($this->user->getListTodo() as $todo) {
@@ -10,9 +12,9 @@ if (isset($_POST["todo-selector"])) { //Si le formulaire a été soumis.
 
             //Affichage de la messageBox success ou error.
             if ($resultInsertTask["success"] == 1) {
-                //$this->messageBox = "Félicitation, vous avez désormais une tâche supplémentaire à effectuer !", "validate");
+                $this->messageBox = new MessageBox("Félicitation, vous avez désormais une tâche supplémentaire à effectuer !", "validate");
             } else {
-                //$this->messageBox = new MessageBox("Ohoh, il semblerait qu'un problème soit survenue !", "error");
+                $this->messageBox = new MessageBox("Ohoh, il semblerait qu'un problème soit survenue !", "error");
             }
             break;
         }
@@ -20,7 +22,7 @@ if (isset($_POST["todo-selector"])) { //Si le formulaire a été soumis.
 
     //L'id du todo-selector n'existe pas.
     if ($errorId == true) {
-        //$messageBox = new MessageBox("Ohoh, le Todo sélectionné est inconnu !", "error");
+        $this->messageBox = new MessageBox("Ohoh, le Todo sélectionné est inconnu !", "error");
     }
 }
 include("../view/form/taskForm.php");
