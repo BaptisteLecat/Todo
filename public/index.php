@@ -11,15 +11,15 @@ if (isset($_SESSION["User"])) {
                 $controller->displayHome();
                 break;
 
-            case 'todo-board':
-                if (isset($_GET["action"]) && isset($_GET["id"])) {
-                    $controller->displayTodo($_GET["action"], $_GET["id"]);
+            case 'todo':
+                if (isset($_GET["id"])) {
+                    $controller->displayTodo($_GET["id"]);
                 } else {
                     $controller->displayTodo();
                 }
                 break;
 
-            case 'form-TaskTodo':
+            case 'form':
                 if (isset($_GET["action"])) {
                     $controller->displayForm_TaskTodo($_GET["action"]);
                 } else {
@@ -63,3 +63,5 @@ if (isset($_SESSION["User"])) {
 }
 
 require("../view/template.php");
+
+

@@ -1,13 +1,13 @@
   <?php ob_start(); ?>
   <main>
       <header>
-          <img src="assets\icons\left-arrow.png" class="previousPage" onclick="document.location.href='index?view=home'">
+          <img src="assets\icons\left-arrow.png" class="previousPage" onclick="document.location.href='home'">
           <div class="header_title">
               <h1>Création d'un Todo</h1>
           </div>
       </header>
       <form method="post">
-          <div class="form_switcher" onclick="document.location.href='index?view=form-TaskTodo&action=CreateTask'">
+          <div class="form_switcher" onclick="document.location.href='form/createTask'">
               <h3>Ajouter une Tâche</h3>
           </div>
           <h6>Titre</h6>

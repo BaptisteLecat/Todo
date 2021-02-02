@@ -27,16 +27,15 @@ BEGIN
 		    SET MYSQL_ERRNO = 10003, MESSAGE_TEXT = "Le token a expirée.";
         ELSE
             -- Verification que la personne ne contribue pas déjà à cette TODO.
-            set _flag = (SELECT 1 FROM contribute WHERE id_user = p_idUser and id_todo = _id_todo);
-            SELECT _flag;
+            set _flag = (SELECT 1 FROM contribute WHERE id_user = p_idUser and id_todo = _id_todo and id_permission = _id_permission);
             -- Si c'est le cas :
             IF(_flag = 1) THEN
-                -- Verification que le user existe bien, dans le cas contraire c'est que l'on participe déjà à la TODO
+                -- Verification que le user existe bien
                 set _flag = (SELECT 1 FROM user WHERE id_user = p_idUser);
                 IF(_flag = 1) THEN
                     -- Message d'erreur : Vous participer déjà à cette todo
                     SIGNAL SQLSTATE '45000' 
-		            SET MYSQL_ERRNO = 10004, MESSAGE_TEXT = "Vous participez déjà à cette todo.";
+		            SET MYSQL_ERRNO = 10004, MESSAGE_TEXT = "Vous participez déjà à cette todo avec cette permission.";
                 ELSE
                     -- Message d'erreur : Le user n'existe pas.
                     SIGNAL SQLSTATE '45000' 
@@ -69,4 +68,4 @@ BEGIN
 END |
 DELIMITER ;
 
-call processCheckToken("abcdef", 3);
+call processCheckToken("abcdef", 15);

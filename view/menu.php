@@ -6,8 +6,8 @@
   </div>
 
   <div class="navbar">
-    <div class="nav_button" onclick="ChangePage('todo-board')">
-      <?php if ($view == "todo-board") { ?>
+    <div class="nav_button" onclick="ChangePage('todo')">
+      <?php if ($view == "todo") { ?>
         <img id="icon_1" src="assets/icons/navbar/calendar_blue.png">
       <?php } else { ?>
         <img id="icon_1" src="assets/icons/navbar/calendar.png">
@@ -35,7 +35,7 @@
   <div id="lineUnder"></div>
 </div>
 
-<?php if ($view == "todo-board") { ?>
+<?php if ($view == "todo") { ?>
 
   <script type="text/javascript">
     $("#circle_back").css("margin-left", "calc((100% - 204px) / 6 )");
@@ -81,13 +81,13 @@
 
 <script type="text/javascript">
   function AddTodo() {
-    window.location = "index?view=form-TaskTodo";
+    window.location = "form";
   }
 
 
   function ChangePage(page) {
     setTimeout(function() {
-      window.location = "index?view=" + page;
+      window.location = page;
     }, 600);
 
 

@@ -21,7 +21,8 @@ function loadUserTask($user, $taskManager)
     }
 }
 
-function drainUser($user){
+function drainUser($user)
+{
     //Permet de recharger la liste de task et de Todo sans avoir de doublon.
     if ($user->getListTask() != null) {
         $user->setListTask(array());

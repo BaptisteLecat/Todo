@@ -17,6 +17,7 @@ class Controller
     private $taskManager;
     private $userManager;
     private $user;
+
     private $css_link; //racine = /css/*****.css
     private $title;
     private $content;
@@ -82,6 +83,7 @@ class Controller
             <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap" rel="stylesheet">
             <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&display=swap" rel="stylesheet">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <base href="http://todo.alwaysdata.net/"/>
             <link rel="stylesheet" href="assets/css/menu.css">';
         $head .= $this->loadcss_link();
         $head .= '<script src="module/form/messageBox/messageBoxDisplayer.js"></script>';
@@ -104,7 +106,7 @@ class Controller
 
     private function menu($view = null)
     {
-        if($view === null){
+        if ($view === null) {
             $view = "home";
         }
         include_once("../view/menu.php");
@@ -121,7 +123,7 @@ class Controller
         $this->title = "Accueil";
         $this->css_link = array("app", "home", "todo", "stats", "todoState", "calendar");
 
-        require 'home/home.php';
+        require 'controllers/home/home.php';
 
         $this->menu();
     }
@@ -133,51 +135,43 @@ class Controller
                 $this->title = "Login";
                 $this->css_link = array("login");
 
-                require('form/login.php');
+                require('controllers/form/login.php');
                 break;
 
             case 'register':
                 $this->title = "Register";
                 $this->css_link = array("register");
 
-                require('form/register.php');
+                require('controllers/form/register.php');
                 break;
 
             default:
                 $this->title = "Login";
                 $this->css_link = array("login");
 
-                require('form/login.php');
+                require('controllers/form/login.php');
                 break;
         }
     }
 
-    public function displayTodo($action = null, $id = null)
+    public function displayTodo($id = null)
     {
         $this->reloadUser();
 
-        switch ($action) {
-            case 'board':
-                require('../view/todo/todoView.php');
-                $this->css_link = array('app', 'todoView');
-                break;
-
-            case 'todo':
-                foreach ($this->user->getListTodo() as $todo) {
-                    if ($todo->getId() == $id) {
-                        require('../view/todo/todo.php');
-                        $this->css_link = array('app', 'todo/todo');
-                    }
+        if ($id !== null) {
+            foreach ($this->user->getListTodo() as $todo) {
+                if ($todo->getId() == $id) {
+                    require('../view/todo/todo.php');
+                    $this->css_link = array('app', 'todo/todo');
+                    break;
                 }
-                break;
-
-            default:
-                require('../view/todo/todoView.php');
-                $this->css_link = array('app', 'todoView');
-                break;
+            }
+        } else {
+            require('../view/todo/todoView.php');
+            $this->css_link = array('app', 'todoView');
         }
 
-        $this->menu("todo-board");
+        $this->menu("todo");
     }
 
     public function displayForm_TaskTodo($action = null)
@@ -189,28 +183,28 @@ class Controller
         $messageBox = null;
 
         switch ($action) {
-            case 'CreateTask':
+            case 'createtask':
                 $this->title = "Ajout Tâche";
                 $this->css_link = array("app", "form/formTodoTask/form", "messageBox/information");
 
-                require('form/taskForm.php');
+                require('controllers/form/taskForm.php');
                 break;
 
-            case 'CreateTodo':
+            case 'createtodo':
                 $this->title = "Ajout Tâche";
                 $this->css_link = array("app", "form/formTodoTask/form", "form/formTodoTask/todoIcon", "messageBox/information");
 
-                require('form/todoForm.php');
+                require('controllers/form/todoForm.php');
                 break;
 
             default:
                 $this->title = "Ajout Tâche";
                 $this->css_link = array("app", "form/formTodoTask/form", "messageBox/information");
 
-                require('form/taskForm.php');
+                require('controllers/form/taskForm.php');
                 break;
         }
 
-        $this->menu("todo-board");
+        $this->menu("todo");
     }
 }
