@@ -191,7 +191,7 @@ class Controller
                 break;
 
             case 'createtodo':
-                $this->title = "Ajout Tâche";
+                $this->title = "Ajout Todo";
                 $this->css_link = array("app", "form/formTodoTask/form", "form/formTodoTask/todoIcon", "messageBox/information");
 
                 require('controllers/form/todoForm.php');
