@@ -4,7 +4,7 @@ namespace App;
 
 //require('../conf.php');
 
-define('PDO_DBNAME', 'gros_prout');
+define('PDO_DBNAME', 'scraven');
 define('PDO_HOST', 'localhost');
 define('PDO_USER', 'root');
 define('PDO_PASSWORD', '');
