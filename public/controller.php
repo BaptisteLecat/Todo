@@ -83,7 +83,7 @@ class Controller
             <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap" rel="stylesheet">
             <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&display=swap" rel="stylesheet">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <base href="http://localhost/todo/"/>
+            <base href="http://todo/"/>
             <link rel="stylesheet" href="assets/css/menu.css">';
         $head .= $this->loadcss_link();
         $head .= '<script src="module/form/messageBox/messageBoxDisplayer.js"></script>';
