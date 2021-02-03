@@ -23,7 +23,7 @@ if (isset($_SESSION["User"])) {
                 if (isset($_GET["action"])) {
                     $controller->displayForm_TaskTodo($_GET["action"]);
                 } else {
-                    $controller->displayForm_TaskTodo(null);
+                    $controller->displayForm_TaskTodo();
                 }
                 break;
 
