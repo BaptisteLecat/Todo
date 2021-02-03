@@ -10,7 +10,7 @@
         <h2>Connexion</h2>
       </div>
       <div class="register_tab" onclick="document.location.href='register';">
-        <h2>Enregistrement</h2>
+        <h2>Enregistrament</h2>
       </div>
     </div>
     <form method="post">

@@ -1,13 +1,13 @@
 {
-    "name": "blecat/todo",
-    "authors": [{
-        "name": "BaptisteLecat",
-        "email": "60200125+BaptisteLecat@users.noreply.github.com"
-    }],
-    "require": {
-        "phpmailer/phpmailer": "^6.1"
-    },
+    "name": "samuel/todo",
+    "authors": [
+        {
+            "name": "BuildTools",
+            "email": "unconfigured@null.spigotmc.org"
+        }
+    ],
+    "require": {},
     "autoload": {
-        "psr-4": { "App\\": "App" }
+        "psr-4" : {"App\\" : "App"}
     }
 }
