@@ -7,7 +7,7 @@
         </div>
     </header>
     <form method="post">
-        <div class="form_switcher" onclick="document.location.href='form/createTodo'">
+        <div class="form_switcher" onclick="document.location.href='form/createtodo'">
             <h3>Ajouter un Todo</h3>
         </div>
         <h6>Todo de référence</h6>

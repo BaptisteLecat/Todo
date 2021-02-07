@@ -7,7 +7,7 @@
           </div>
       </header>
       <form method="post">
-          <div class="form_switcher" onclick="document.location.href='form/createTask'">
+          <div class="form_switcher" onclick="document.location.href='form/createtask'">
               <h3>Ajouter une Tâche</h3>
           </div>
           <h6>Titre</h6>
