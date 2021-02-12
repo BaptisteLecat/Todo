@@ -4,10 +4,14 @@
   box-sizing: border-box;
 }
 
+ui-loader ui-corner-all ui-loader-default ui-body-a{
+  display: none;
+}
+
 html{
   height: 100%;
   width: 100%;
-  background-color: #02111B;
+  background-color: #0D1D27;
 }
 
 body{
