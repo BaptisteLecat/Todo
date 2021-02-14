@@ -162,7 +162,7 @@ class Controller
         if ($id !== null) {
             foreach ($this->user->getListTodo() as $todo) {
                 if ($todo->getId() == $id) {
-                    require('../view/todo/todo.php');
+                    require('controllers/todo/todo.php');
                     $this->css_link = array('app', 'todo/todo');
                     break;
                 }

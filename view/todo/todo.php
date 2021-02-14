@@ -59,8 +59,7 @@
         <?php foreach ($todo->getListTask() as $task) { ?>
             <div class="parent_container">
                 <div class="back_card">
-                    <img src="assets\icons\todo_task\user.png">
-                    <img src="assets\icons\todo_task\user.png">
+                    <img src="assets\icons\writing.png">
                 </div>
                 <div class='task_container'>
                     <h6>URGENT</h6>
