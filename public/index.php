@@ -20,7 +20,6 @@ if (isset($_SESSION["User"])) {
                 break;
 
             case 'form':
-                var_dump("ccc ".$_GET["action"]);
                 if (isset($_GET["action"])) {
                     $controller->displayForm_TaskTodo($_GET["action"]);
                 } else {
