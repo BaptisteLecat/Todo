@@ -8,7 +8,7 @@ BEGIN
     DECLARE _id_permission INT(10);
     DECLARE _id_todo INT(10);
     -- Cursor qui récupère les informations de la token.
-    DECLARE cursor_selectToken CURSOR FOR SELECT expirationdate_token, id_permission, id_todo FROM todo_token WHERE token = p_token;
+    DECLARE cursor_selectToken CURSOR FOR SELECT expirationdate_token, idpermission_token, idtodo_token FROM todo_token WHERE token = p_token;
 
     -- Verification de la validité de la token.
     set _flag = (SELECT 1 FROM todo_token WHERE token = p_token);
@@ -27,7 +27,7 @@ BEGIN
 		    SET MYSQL_ERRNO = 10003, MESSAGE_TEXT = "Le token a expirée.";
         ELSE
             -- Verification que la personne ne contribue pas déjà à cette TODO.
-            set _flag = (SELECT 1 FROM contribute WHERE id_user = p_idUser and id_todo = _id_todo and id_permission = _id_permission);
+            set _flag = (SELECT 1 FROM contribute WHERE iduser_contribute = p_idUser and idtodo_contribute = _id_todo and idpermission_contribute = _id_permission);
             -- Si c'est le cas :
             IF(_flag = 1) THEN
                 -- Verification que le user existe bien
@@ -44,14 +44,14 @@ BEGIN
             ELSE
                 SET _flag = NULL;
                 -- La personne ne contribue pas dèjà à la TODO, alors on verifie qu'elle n'est pas propriétaire
-                SET _flag = (SELECT 1 FROM todo WHERE id_user = p_idUser and id_todo = _id_todo);
+                SET _flag = (SELECT 1 FROM todo WHERE iduser_todo = p_idUser and id_todo = _id_todo);
                 IF(_flag = 1) THEN
                     -- Message d'erreur : Vous êtes le propriétaire de cette todo
                     SIGNAL SQLSTATE '45000' 
 		            SET MYSQL_ERRNO = 10006, MESSAGE_TEXT = "Vous êtes le propriétaire de cette todo.";
                 ELSE
                     -- Ajout dans la table contribute de la nouvelle ligne de contribution
-                    INSERT INTO contribute (id_user, id_permission, id_todo) VALUES (p_idUser, _id_permission, _id_todo);
+                    INSERT INTO contribute (iduser_contribute, idpermission_contribute, idtodo_contribute) VALUES (p_idUser, _id_permission, _id_todo);
                     -- Suppression du token.
                     DELETE FROM todo_token WHERE token = p_token;
                     -- Message de réussite : Succès de la procédure.
