@@ -32,7 +32,7 @@ function login($userObject){
                 $resultLoadUser = $userObject->loadUser($resultVerifLogin["id_user"]);
                 if($resultLoadUser["success"] == 1){
                     $_SESSION["User"] = serialize($resultLoadUser["userObject"]);
-                    header("Location: index.php?view=home");
+                    header("Location: home");
                 } 
             } else {
                 $error = ["type" => "login", "message" => "Identifiant ou Mot de passe incorrect!"];
