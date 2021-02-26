@@ -1,0 +1,5 @@
+L'idée est d'avoir un session user qui contient les informations essentielles.
+Mais de ne charger les tâches todo et autre que au besoins.
+
+Autrement on peut charger les todo et taches
+Mais pas les update etc...

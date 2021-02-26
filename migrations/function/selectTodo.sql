@@ -10,7 +10,7 @@ BEGIN
     DECLARE _id_icon INT(11);
 
     DECLARE cursor_selectTodoUser CURSOR FOR SELECT id_todo, title_todo, description_todo, createdate_todo, id_icon FROM todo WHERE id_user = p_idUser;
-    DECLARE cursor_selectTodoContribute CURSOR FOR SELECT todo.id_todo, title_todo, description_todo, createdate_todo, id_icon FROM contribute, todo WHERE todo.id_todo = contribute.id_todo and accepted_participer = 1 and contribute.id_user = p_idUser;
+    DECLARE cursor_selectTodoContribute CURSOR FOR SELECT todo.id_todo, title_todo, description_todo, createdate_todo, id_icon FROM contribute, todo WHERE todo.id_todo = contribute.id_todo and accepted_contribute = 1 and contribute.id_user = p_idUser;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin = TRUE; 
 
     DROP TEMPORARY TABLE IF EXISTS TMP_TODO;

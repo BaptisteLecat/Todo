@@ -1,6 +1,9 @@
 <?php 
 
-class Task_Archived implements JsonSerializable
+namespace Model\Entity;
+use JsonSerializable;
+
+class TaskUpdated implements JsonSerializable
 {
     private $date;
 

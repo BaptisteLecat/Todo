@@ -1,5 +1,9 @@
 <?php
 
+namespace Model\Entity;
+use Model\Entity\Priority;
+use JsonSerializable;
+
 class Todo implements JsonSerializable
 {
     private $id;
@@ -11,7 +15,7 @@ class Todo implements JsonSerializable
     private $todoIconObject;
 
     private $list_task;
-    private $list_token;
+    private $list_todoToken;
     private $list_contribute;
 
     function __construct($id, $title, $description, $createDate, $userObject, $todoIconObject)
@@ -24,8 +28,11 @@ class Todo implements JsonSerializable
         $this->userObject = $userObject;
         $this->todoIconObject = $todoIconObject;
 
+        $this->userObject->addTodo($this);
+        $this->todoIconObject->addTodo($this);
+
         $this->list_task = array();
-        $this->list_token = array();
+        $this->list_todoToken = array();
         $this->list_contribute = array();
     }
 
@@ -41,7 +48,7 @@ class Todo implements JsonSerializable
             "todoIconObject" => $this->todoIconObject->jsonSerialize(),
 
             "list_task" => $this->list_taskSerialize(),
-            "list_token" => $this->list_tokenSerialize(),
+            "list_todoToken" => $this->list_todoTokenSerialize(),
             "list_contribute" => $this->list_contributeSerialize(),
         );
     }
@@ -81,14 +88,30 @@ class Todo implements JsonSerializable
         return $this->list_task;
     }
 
-    public function getList_Token()
+    public function getlist_todoToken()
     {
-        return $this->list_token;
+        return $this->list_todoToken;
     }
 
     public function getList_Contribute()
     {
         return $this->list_contribute;
+    }
+
+
+    public function setTitle(string $title)
+    {
+        $this->title = $title;
+    }
+
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
+    }
+
+    public function setTodoIconObject(TodoIcon $todoIconObject)
+    {
+        $this->todoIconObject = $todoIconObject;
     }
 
 
@@ -103,14 +126,14 @@ class Todo implements JsonSerializable
         unset($this->list_task[array_search($taskObject, $this->list_task)]);
     }
 
-    public function addToken($tokenObject)
+    public function addTodoToken($todoTokenObject)
     {
-        array_push($this->list_token, $tokenObject);
+        array_push($this->list_todoToken, $todoTokenObject);
     }
 
-    public function removeToken($tokenObject)
+    public function removeTodoToken($todoTokenObject)
     {
-        unset($this->list_token[array_search($tokenObject, $this->list_token)]);
+        unset($this->list_todoToken[array_search($todoTokenObject, $this->list_todoToken)]);
     }
 
     public function addContribute($contributeObject)
@@ -134,14 +157,14 @@ class Todo implements JsonSerializable
         return $list_taskSerialize;
     }
 
-    private function list_tokenSerialize()
+    private function list_todoTokenSerialize()
     {
-        $list_tokenSerialize = array();
-        foreach ($this->list_token as $token) {
-            array_push($list_tokenSerialize, $token->jsonSerialize());
+        $list_todoTokenSerialize = array();
+        foreach ($this->list_todoToken as $token) {
+            array_push($list_todoTokenSerialize, $token->jsonSerialize());
         }
 
-        return $list_tokenSerialize;
+        return $list_todoTokenSerialize;
     }
 
     private function list_contributeSerialize()
@@ -152,5 +175,9 @@ class Todo implements JsonSerializable
         }
 
         return $list_contributeSerialize;
+    }
+
+    public function delete(){
+        $this->userObject->removeTodo($this);
     }
 }

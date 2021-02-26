@@ -1,5 +1,8 @@
 <?php
 
+namespace Model\Entity;
+use JsonSerializable;
+
 class Contribute implements JsonSerializable
 {
     private $accepted;

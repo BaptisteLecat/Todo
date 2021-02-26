@@ -1,5 +1,8 @@
 <?php
 
+namespace Model\Entity;
+use JsonSerializable;
+
 class User implements JsonSerializable
 {
     private $id;
@@ -11,8 +14,7 @@ class User implements JsonSerializable
     private $list_todo;
     private $list_task;
     private $list_contribute;
-    private $list_taskUpdate;
-    private $list_taskArchived;
+    private $list_taskUpdated;
 
     public function __construct($id, $name, $firstName, $email, $createDate)
     {
@@ -25,8 +27,7 @@ class User implements JsonSerializable
         $this->list_todo = array();
         $this->list_task = array();
         $this->list_contribute = array();
-        $this->list_taskUpdate = array();
-        $this->list_taskArchived = array();
+        $this->list_taskUpdated = array();
     }
 
     public function jsonSerialize(){
@@ -41,8 +42,7 @@ class User implements JsonSerializable
             "list_task" => $this->list_taskSerialize(),
             "list_todo" => $this->list_todoSerialize(),
             "list_contribute" => $this->list_contributeSerialize(),
-            "list_taskUpdate" => $this->list_taskUpdateSerialize(),
-            "list_taskArchived" => $this->list_taskArchivedSerialize(),
+            "list_taskUpdated" => $this->list_taskUpdatedSerialize(),
 
             "nbTaskAchieved" => $this->nbTaskAchieved(),
             "progressValue" => $this->progressValuePercent(),
@@ -91,14 +91,9 @@ class User implements JsonSerializable
         return $this->list_contribute;
     }
 
-    public function getList_TaskUpdate()
+    public function getList_taskUpdated()
     {
-        return $this->list_taskUpdate;
-    }
-
-    public function getList_taskArchived()
-    {
-        return $this->list_taskArchived;
+        return $this->list_taskUpdated;
     }
 
 
@@ -153,22 +148,12 @@ class User implements JsonSerializable
 
     public function addTaskUpdate($taskUpdateObject)
     {
-        array_push($this->list_taskUpdate, $taskUpdateObject);
+        array_push($this->list_taskUpdated, $taskUpdateObject);
     }
 
     public function removeTaskUpdate($taskUpdateObject)
     {
-        unset($this->list_taskUpdate[array_search($taskUpdateObject, $this->list_taskUpdate)]);
-    }
-
-    public function addTaskArchived($taskArchivedObject)
-    {
-        array_push($this->list_taskArchived, $taskArchivedObject);
-    }
-
-    public function removeTaskArchived($taskArchivedObject)
-    {
-        unset($this->list_taskArchived[array_search($taskArchivedObject, $this->list_taskArchived)]);
+        unset($this->list_taskUpdated[array_search($taskUpdateObject, $this->list_taskUpdated)]);
     }
 
     // Functions for jsonSerialize()
@@ -202,24 +187,14 @@ class User implements JsonSerializable
         return $list_contributeSerialize;
     }
 
-    private function list_taskUpdateSerialize()
+    private function list_taskUpdatedSerialize()
     {
-        $list_taskUpdateSerialize = array();
-        foreach ($this->list_taskUpdate as $taskUpdate) {
-            array_push($list_taskUpdateSerialize, $taskUpdate->jsonSerialize());
+        $list_taskUpdatedSerialize = array();
+        foreach ($this->list_taskUpdated as $taskUpdate) {
+            array_push($list_taskUpdatedSerialize, $taskUpdate->jsonSerialize());
         }
 
-        return $list_taskUpdateSerialize;
-    }
-
-    private function list_taskArchivedSerialize()
-    {
-        $list_taskArchivedSerialize = array();
-        foreach ($this->list_taskArchived as $taskArchived) {
-            array_push($list_taskArchivedSerialize, $taskArchived->jsonSerialize());
-        }
-
-        return $list_taskArchivedSerialize;
+        return $list_taskUpdatedSerialize;
     }
 
     // Function relative to the user

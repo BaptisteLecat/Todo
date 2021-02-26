@@ -1,20 +1,44 @@
 <?php 
 
-require("User.php");
+session_start();
 
-$user = new User(14, "Lecat", "Baptiste", "baptiste@gmail.com", "14/12/2002");
+require("Model/Entity/User.php");
+require("Model/Entity/Todo.php");
+require("Model/Entity/TodoToken.php");
+require("Model/Entity/TodoIcon.php");
+require("Model/Entity/Task.php");
+require("Model/Entity/TaskUpdated.php");
+require("Model/Entity/TaskArchived.php");
+require("Model/Entity/Permission.php");
+require("Model/Entity/Contribute.php");
 
-echo ($user->getId());
-echo ($user->getName());
-echo ($user->getFirstname());
-echo ($user->getEmail());
-echo ($user->getCreateDate());
-var_dump ($user->getList_Task());
-var_dump ($user->getList_Todo());
-var_dump ($user->getList_Contribute());
-var_dump ($user->getList_TaskUpdate());
-var_dump ($user->getList_TaskCreate());
-var_dump ($user->getList_TaskArchive());
+require("PdoFactory.php");
 
+require("Model/TaskManager.php");
+require("Model/PriorityManager.php");
+require("Model/TaskArchivedManager.php");
+require("Model/TodoTokenManager.php");
+require("Model/PermissionManager.php");
 
-var_dump($user->jsonSerialize());
+use Model\Entity\ {User, Todo, TodoToken, Task, TaskUpdated, TaskArchived, Permission, Contribute, TodoIcon};
+use Model\ {PermissionManager, TaskManager, PriorityManager, TaskArchivedManager, TodoTokenManager};
+use NewFiles\PdoFactory;
+
+PdoFactory::initConnection();
+
+$user = new User(2, "Lecat", "Baptiste", "baptiste@gmail.com", "14/12/2002");
+
+$todoIcon = new TodoIcon(1, "Voyage");
+
+$todo = new Todo(1, "Course", "Liste de course", "19-02-2018", $user, $todoIcon);
+
+$list_priority = PriorityManager::loadPriority();
+
+TaskManager::loadTask($todo, $list_priority);
+
+$list_permission = PermissionManager::loadPermission();
+
+//TodoTokenManager::createToken($user, $list_permission[0], $todo);
+TodoTokenManager::submitToken("QaYfuX", $user);
+
+var_dump($todo->getlist_todoToken());

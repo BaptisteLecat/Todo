@@ -1,32 +1,29 @@
-<?php 
+<?php
 
-namespace App;
+namespace NewFiles;
 
 //require('../conf.php');
 
-define('PDO_DBNAME', 'todo');
+define('PDO_DBNAME', 'todov2');
 define('PDO_HOST', 'localhost');
 define('PDO_USER', 'root');
 define('PDO_PASSWORD', '');
 
 class PdoFactory
 {
-    protected $pdo;
+    private static $pdo;
 
-    public function __construct()
+    public static function initConnection()
     {
-        $dsn = 'mysql:dbname='.PDO_DBNAME.';host='.PDO_HOST;
-        $this->pdo = new \PDO( $dsn, PDO_USER, PDO_PASSWORD);
-        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $dsn = 'mysql:dbname=' . PDO_DBNAME . ';host=' . PDO_HOST;
+        self::$pdo = new \PDO($dsn, PDO_USER, PDO_PASSWORD);
+        self::$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
         //$this->pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
     }
 
-    public function pdo()
+    public static function getPdo()
     {
-        return $this->pdo;
+        return self::$pdo;
     }
-
 }
-
-
