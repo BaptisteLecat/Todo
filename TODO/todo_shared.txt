@@ -1,3 +1,3 @@
 TODO design page de visualisation des todo
 TODO design page de parametres des todo
-TODO design page modal (formulaire) de creation de tâche et de todo.
+TODO design modal (formulaire) de creation de tâche et de todo.
