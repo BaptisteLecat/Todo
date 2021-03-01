@@ -1,6 +1,6 @@
 <?php 
 
-namespace Model\Entity;
+namespace App\Model\Entity;
 use JsonSerializable;
 
 class Priority implements JsonSerializable

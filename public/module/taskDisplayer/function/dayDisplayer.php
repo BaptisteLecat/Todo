@@ -6,7 +6,7 @@
 
 function taskForToday($user){
     $listTaskToday = array();
-    foreach($user->getListTask() as $task){
+    foreach($user->getList_Task() as $task){
         if($task->getEndDate() == date("Y-m-d")){
             array_push($listTaskToday, $task);
         }

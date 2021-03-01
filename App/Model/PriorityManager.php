@@ -1,12 +1,10 @@
 <?php
 
-namespace Model;
-
-require("Entity/Priority.php");
+namespace App\Model;
 
 use Exception;
-use Model\Entity\Priority;
-use NewFiles\PdoFactory;
+use App\Model\Entity\Priority;
+use App\PdoFactory;
 
 /**
  * PriorityManager

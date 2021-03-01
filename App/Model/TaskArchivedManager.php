@@ -1,12 +1,12 @@
 <?php
 
-namespace Model;
+namespace App\Model;
 
 use Exception;
-use Model\Entity\Task;
-use Model\Entity\TaskArchived;
-use Model\Entity\Todo;
-use NewFiles\PdoFactory;
+use App\Model\Entity\Task;
+use App\Model\Entity\TaskArchived;
+use App\Model\Entity\Todo;
+use App\PdoFactory;
 
 /**
  * TaskArchivedManager

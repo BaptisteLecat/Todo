@@ -213,6 +213,55 @@ BEGIN
                         END ;
                     END IF;
 
+                WHEN 'enddate' THEN
+                                    -- Est il propriétaire? -> Pour la todo donné le id_user lié est il == à celui du user.
+                    SET _flag = (SELECT 1 FROM todo WHERE id_todo = _id_todo and id_user = p_idUser);
+                    IF(_flag = 1) THEN
+                        -- Il est propriétaire on effectue l'update.
+                        -- Ajout d'une date dans taskupdate_date.
+                        INSERT INTO taskupdate_date VALUES ();
+                        -- Ajout dans la table de log des updates.
+                        INSERT INTO task_update VALUES(last_insert_id(), p_idTask, p_idUser);
+                        UPDATE task SET enddate_task = p_value WHERE id_todo = _id_todo and id_task = p_idTask;
+                        -- Message succes : Modification réussie.
+                    ELSE
+                        -- Le user n'est pas propriétaire.
+                    
+                        -- A t'il les droits en modification? - 2
+                        BEGIN
+
+                            DECLARE cursor_userPermission CURSOR FOR SELECT id_permission FROM contribute WHERE id_user = p_idUser and id_todo = _id_todo;
+                            DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin = TRUE; 
+                            OPEN cursor_userPermission;
+
+                            loop_cursor_userPermission : LOOP
+                                FETCH cursor_userPermission INTO _id_permission;
+                                IF fin THEN
+			                        LEAVE loop_cursor_userPermission;
+		                        END IF;
+                                -- Si l'_id_permission == 1 -> il a le droit en update_achieved.
+                                IF (_id_permission = 1) THEN
+                                    -- Il a le droit : on effectue l'update.
+                                    -- Ajout d'une date dans taskupdate_date.
+                                    INSERT INTO taskupdate_date VALUES ();
+                                    -- Ajout dans la table de log des updates.
+                                    INSERT INTO task_update VALUES(last_insert_id(), p_idTask, p_idUser);
+                                    UPDATE task SET enddate_task = p_value WHERE id_todo = _id_todo and id_task = p_idTask;
+                                    SET is_allowed = TRUE;
+                                    -- Message succes : Modification réussie.
+                                END IF;
+
+                            END LOOP;
+
+                            IF(is_allowed = FALSE) THEN
+                                -- Message d'erreur : Vous n'avez pas l'autorisation.
+                                SIGNAL SQLSTATE '45000' 
+		                        SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "Vous n'avez pas l'autorisation de modifier une tâche.";
+                            END IF;
+
+                        END ;
+                    END IF;
+
                 WHEN 'priority' THEN
                     -- Est il propriétaire? -> Pour la todo donné le id_user lié est il == à celui du user.
                     SET _flag = (SELECT 1 FROM todo WHERE id_todo = _id_todo and id_user = p_idUser);

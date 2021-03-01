@@ -76,12 +76,12 @@
       <div class="stats_text_container">
         <h5>Taux d'accomplissement global des tâches</h5>
         <div class="stats_info_container">
-          <h6 id="globalTaskPourcent"><?= round($this->user->progressValuePourcent()); ?>%</h6>
+          <h6 id="globalTaskPourcent"><?= round($this->user->progressValuePercent()); ?>%</h6>
         </div>
       </div>
       <div class="stats_progressBar_container">
         <div class="stats_progressBar">
-          <div class="stats_progressBar_indicator" id="globalTaskProgress" style="width:<?= $this->user->progressValuePourcent(); ?>%">
+          <div class="stats_progressBar_indicator" id="globalTaskProgress" style="width:<?= $this->user->progressValuePercent(); ?>%">
 
           </div>
         </div>

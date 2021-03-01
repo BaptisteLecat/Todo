@@ -9,13 +9,15 @@ use App\Model\TaskManager;
 use App\Model\TodoIconManager;
 use App\Model\UserManager;
 use App\Model\Utils\MessageBox;
+use App\PdoFactory;
 
 class Controller
 {
-    private $todoManager;
-    private $todoIconManager;
-    private $taskManager;
-    private $userManager;
+
+    //List constante de la BDD
+    private $list_priority;
+    private $list_todoIcon;
+
     private $user;
 
     private $css_link; //racine = /css/*****.css
@@ -25,18 +27,20 @@ class Controller
 
     function __construct()
     {
-        $this->todoManager = new TodoManager();
-        $this->todoIconManager = new todoIconManager();
-        $this->taskManager = new taskManager();
-        $this->userManager = new UserManager();
+        PdoFactory::initConnection();
+
+        $this->list_priority = loadPriority();
+        $this->list_todoIcon = loadTodoIcon();
         $this->user = null;
         $this->css_link = array();
         $this->title = "Todo";
         $this->messageBox = null;
+
         if (isset($_SESSION["User"])) {
             $this->user = unserialize($_SESSION["User"]);
             $this->reloadUser();
         }
+        //TaskManager::insertTask("Faire les courses", "Acheter du beurre, du jambon et du pain", "2021-02-28", $this->list_priority[0], $this->user->getList_Todo()[0], $this->user);
     }
 
     public function getTitle()
@@ -60,14 +64,14 @@ class Controller
     private function reloadUser()
     {
         drainUser($this->user);
-        loadUserTodo($this->user, $this->todoManager, $this->todoIconManager);
-        loadUserTask($this->user, $this->taskManager);
+        loadUserTodo($this->user, $this->list_todoIcon);
+        loadUserTask($this->user, $this->list_priority);
         $_SESSION["User"] = serialize($this->user);
     }
 
     private function loadTodoIcon()
     {
-        return loadTodoIcon($this->todoIconManager);
+        return loadTodoIcon();
     }
 
     /****************************************/
@@ -161,12 +165,19 @@ class Controller
         $this->reloadUser();
 
         if ($id !== null) {
-            foreach ($this->user->getListTodo() as $todo) {
+            $isFinded = false;
+            foreach ($this->user->getList_Todo() as $todo) {
                 if ($todo->getId() == $id) {
                     require('controllers/todo/todo.php');
                     $this->css_link = array('app', 'todo/todo');
+                    $isFinded = true;
                     break;
                 }
+            }
+
+            if (!$isFinded) {
+                require('../view/todo/todoView.php');
+                $this->css_link = array('app', 'todoView');
             }
         } else {
             require('../view/todo/todoView.php');

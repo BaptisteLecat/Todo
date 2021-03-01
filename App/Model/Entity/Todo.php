@@ -1,184 +1,183 @@
 <?php
 
-/**
- * Class to represent the Todo created by a User, and compose with a list of Tasks.
- */
-
 namespace App\Model\Entity;
-
+use App\Model\Entity\Priority;
 use JsonSerializable;
 
 class Todo implements JsonSerializable
 {
-  private $id;
-  private $title;
-  private $description;
-  private $active;
-  private $endDate;
-  private $endTime;
-  private $createDate;
+    private $id;
+    private $title;
+    private $description;
+    private $createDate;
 
-  private $iconObject;
-  private $listTask;
-  private $userObject;
+    private $userObject;
+    private $todoIconObject;
 
-  function __construct($id, $title, $description, $active, $endDate, $endTime, $createDate, $iconObject, $userObject)
-  {
-    $this->id = $id;
-    $this->title = $title;
-    $this->description = $description;
-    $this->active = $active;
-    $this->endDate = $endDate;
-    $this->endTime = $endTime;
-    $this->createDate = $createDate;
-    $this->iconObject = $iconObject;
-    $this->userObject = $userObject;
-    $this->iconObject->addTodo($this);
-    $this->userObject->AddTodo($this);
-    $this->listTask = array();
-  }
+    private $list_task;
+    private $list_todoToken;
+    private $list_contribute;
 
-  public function jsonSerialize()
-  {
-    return array(
-      'id' => $this->id,
-      'title' => $this->title,
-      'description' => $this->description,
-      'active' => $this->active,
-      'endDate' => $this->endDate,
-      'endTime' => $this->endTime,
-      'createDate' => $this->createDate,
-      'iconObject'   => $this->iconObject,
-      'userObject' => $this->userObject->jsonSerialize()
-    );
-  }
+    function __construct($id, $title, $description, $createDate, $userObject, $todoIconObject)
+    {
+        $this->id = $id;
+        $this->title = $title;
+        $this->description = $description;
+        $this->createDate = $createDate;
 
-  public function getId()
-  {
-    return $this->id;
-  }
+        $this->userObject = $userObject;
+        $this->todoIconObject = $todoIconObject;
 
-  public function getTitle()
-  {
-    return $this->title;
-  }
+        $this->userObject->addTodo($this);
+        $this->todoIconObject->addTodo($this);
 
-  public function getDescription()
-  {
-    return $this->title;
-  }
-
-  public function getActive()
-  {
-    return $this->active;
-  }
-
-  public function getEndDate()
-  {
-    return $this->endDate;
-  }
-
-  public function getEndTime()
-  {
-    return $this->endTime;
-  }
-
-  public function getCreateDate()
-  {
-    return $this->createDate;
-  }
-
-  public function getListTask()
-  {
-    return $this->listTask;
-  }
-
-  public function getIconObject()
-  {
-    return $this->iconObject;
-  }
-
-  public function getUserObject()
-  {
-    return $this->userObject;
-  }
-
-
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
-
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-
-  public function setActive($active)
-  {
-    $this->active = $active;
-  }
-
-  public function setEndDate($endDate)
-  {
-    $this->endDate = $endDate;
-  }
-
-  public function setEndTime($endTime)
-  {
-    $this->endTime = $endTime;
-  }
-
-  public function setCreateDate($createDate)
-  {
-    $this->createDate = $createDate;
-  }
-
-  public function setListTask($listTask)
-  {
-    $this->listTask = $listTask;
-  }
-
-  public function setUserObject($userObject)
-  {
-    $this->userObject = $userObject;
-  }
-
-  public function nbTaskValidate()
-  {
-    $nbTaskValidate = 0;
-    foreach ($this->listeTask as $value) {
-      if ($value->getActive()) {
-        $nbTaskValidate++;
-      }
+        $this->list_task = array();
+        $this->list_todoToken = array();
+        $this->list_contribute = array();
     }
-    return $nbTaskValidate;
-  }
 
-  public function progressValuePourcent()
-  {
-    if (count($this->listeTask) > 0)
-      return ($this->NbTaskValidate() / count($this->listeTask)) * 100;
-  }
+    public function jsonSerialize()
+    {
 
-  public function validateTask($idTask)
-  {
-    foreach ($this->listeTask as $value) {
-      if ($value->getId() == $idTask) {
-        $value->SET_Active(1);
-        break;
-      }
+        return array(
+            "id" => $this->id,
+            "title" => $this->title,
+            "description" => $this->description,
+            "createDate" => $this->createDate,
+            "userObject" => $this->userObject->jsonSerialize(),
+            "todoIconObject" => $this->todoIconObject->jsonSerialize(),
+
+            "list_task" => $this->list_taskSerialize(),
+            "list_todoToken" => $this->list_todoTokenSerialize(),
+            "list_contribute" => $this->list_contributeSerialize(),
+        );
     }
-  }
 
-  public function addTask($task)
-  {
-    array_push($this->listTask, $task);
-    $this->userObject->addTask($task);
-  }
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function getCreateDate()
+    {
+        return $this->createDate;
+    }
+
+    public function getUserObject()
+    {
+        return $this->userObject;
+    }
+
+    public function getTodoIconObject()
+    {
+        return $this->todoIconObject;
+    }
+
+    public function getList_Task()
+    {
+        return $this->list_task;
+    }
+
+    public function getlist_todoToken()
+    {
+        return $this->list_todoToken;
+    }
+
+    public function getList_Contribute()
+    {
+        return $this->list_contribute;
+    }
+
+
+    public function setTitle(string $title)
+    {
+        $this->title = $title;
+    }
+
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
+    }
+
+    public function setTodoIconObject(TodoIcon $todoIconObject)
+    {
+        $this->todoIconObject = $todoIconObject;
+    }
+
+
+
+    public function addTask($taskObject)
+    {
+        array_push($this->list_task, $taskObject);
+    }
+
+    public function removeTask($taskObject)
+    {
+        unset($this->list_task[array_search($taskObject, $this->list_task)]);
+    }
+
+    public function addTodoToken($todoTokenObject)
+    {
+        array_push($this->list_todoToken, $todoTokenObject);
+    }
+
+    public function removeTodoToken($todoTokenObject)
+    {
+        unset($this->list_todoToken[array_search($todoTokenObject, $this->list_todoToken)]);
+    }
+
+    public function addContribute($contributeObject)
+    {
+        array_push($this->list_contribute, $contributeObject);
+    }
+
+    public function removeContribute($contributeObject)
+    {
+        unset($this->list_contribute[array_search($contributeObject, $this->list_contribute)]);
+    }
+
+
+    private function list_taskSerialize()
+    {
+        $list_taskSerialize = array();
+        foreach ($this->list_task as $task) {
+            array_push($list_taskSerialize, $task->jsonSerialize());
+        }
+
+        return $list_taskSerialize;
+    }
+
+    private function list_todoTokenSerialize()
+    {
+        $list_todoTokenSerialize = array();
+        foreach ($this->list_todoToken as $token) {
+            array_push($list_todoTokenSerialize, $token->jsonSerialize());
+        }
+
+        return $list_todoTokenSerialize;
+    }
+
+    private function list_contributeSerialize()
+    {
+        $list_contributeSerialize = array();
+        foreach ($this->list_contribute as $contribute) {
+            array_push($list_contributeSerialize, $contribute->jsonSerialize());
+        }
+
+        return $list_contributeSerialize;
+    }
+
+    public function delete(){
+        $this->userObject->removeTodo($this);
+    }
 }

@@ -12,7 +12,7 @@
         </div>
         <h6>Todo de référence</h6>
         <select name="todo-selector" id="todo">
-            <?php foreach ($this->user->getListTodo() as $todo) { ?>
+            <?php foreach ($this->user->getList_Todo() as $todo) { ?>
                 <option value="<?= $todo->getId() ?>"><?= $todo->getTitle() ?></option>
             <?php } ?>
         </select>
@@ -25,12 +25,6 @@
             <img src="assets\icons\information.png">
         </div>
         <input class="bug" name="date" type="date" value="<?= date('Y-m-d'); ?>">
-
-        <div class="titleInput_container">
-            <h6>Heure de fin</h6>
-            <img src="assets\icons\information.png">
-        </div>
-        <input class="bug" name="time" type="time">
 
         <input type="submit" value="Valider">
     </form>

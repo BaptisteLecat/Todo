@@ -1,6 +1,6 @@
 DROP PROCEDURE IF EXISTS createTask;
 DELIMITER |
-CREATE PROCEDURE createTask(IN p_idUser INT(11), IN p_idTodo INT(11), IN p_titleTask VARCHAR(255), IN p_contentTask VARCHAR(255), IN p_idPriority INT(11))
+CREATE PROCEDURE createTask(IN p_idUser INT(11), IN p_idTodo INT(11), IN p_titleTask VARCHAR(255), IN p_contentTask VARCHAR(255), IN p_enddateTask DATE, IN p_idPriority INT(11))
 BEGIN
 
     DECLARE fin BOOLEAN DEFAULT FALSE;
@@ -18,7 +18,7 @@ BEGIN
         IF(_flag = 1) THEN
             SET _flag = NULL;
             -- Il est propriétaire on effectue le create.
-            INSERT INTO task (title_task, content_task, id_todo, id_priority) VALUES (p_titleTask, p_contentTask, p_idTodo, p_idPriority);
+            INSERT INTO task (title_task, content_task, enddate_task, id_todo, id_priority) VALUES (p_titleTask, p_contentTask, p_enddateTask, p_idTodo, p_idPriority);
             SET _id_task = last_insert_id();
             -- Ajout d'une date dans taskcreate_date.
             INSERT INTO taskcreate_date VALUES ();
@@ -42,7 +42,7 @@ BEGIN
                     -- Si l'_id_permission == 3 -> il a le droit en create.
                     IF (_id_permission = 3) THEN
                         -- Il a le droit : on effectue le create.
-                        INSERT INTO task (title_task, content_task, id_todo, id_priority) VALUES (p_titleTask, p_contentTask, p_idTodo, p_idPriority);
+                        INSERT INTO task (title_task, content_task, enddate_task, id_todo, id_priority) VALUES (p_titleTask, p_contentTask, p_enddateTask, p_idTodo, p_idPriority);
                         SET _id_task = last_insert_id();
                         -- Ajout d'une date dans taskcreate_date.
                         INSERT INTO taskcreate_date VALUES ();
@@ -73,4 +73,4 @@ BEGIN
 END |
 DELIMITER ;
 
-call createTask(2, 1, "montitle", "moncontent", 1);
+call createTask(2, 1, "montitle", "moncontent", "date", 1);

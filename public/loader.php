@@ -1,46 +1,56 @@
 <?php
 
-function loadUserTodo($user, $todoManager, $todoIconManager)
+use App\Model\PriorityManager;
+use App\Model\TaskManager;
+use App\Model\TodoIconManager;
+use App\Model\TodoManager;
+
+function loadUserTodo($user, $list_todoIcon)
 {
-    $resultLoadIcon = $todoIconManager->loadTodoIcon();
-    if ($resultLoadIcon["success"] == 1) {
-        $resultLoadTodo = $todoManager->loadTodoFromUserObject($user, $resultLoadIcon["list_todoIcons"]);
-        if ($resultLoadTodo["success"] == 1) {
-            //Success.
-        }
+    try {
+        TodoManager::loadTodo($user, $list_todoIcon);
+    } catch (Exception $e) {
+        throw new Exception($e);
     }
 }
 
-function loadUserTask($user, $taskManager)
+function loadUserTask($user, $list_priority)
 {
-    foreach ($user->getListTodo() as $todo) {
-        $resultLoadTask = $taskManager->loadTaskFromTodoObject($todo);
-        if ($resultLoadTask["success"] == 1) {
-            //Success.
+    try {
+        foreach ($user->getList_Todo() as $todo) {
+            TaskManager::loadTask($todo, $list_priority);
         }
+    } catch (Exception $e) {
+        throw new Exception($e);
     }
 }
 
 function drainUser($user)
 {
     //Permet de recharger la liste de task et de Todo sans avoir de doublon.
-    if ($user->getListTask() != null) {
-        $user->setListTask(array());
+    if ($user->getList_Task() != null) {
+        $user->drainTask();
     }
 
-    if ($user->getListTodo() != null) {
-        $user->setListTodo(array());
+    if ($user->getList_Todo() != null) {
+        $user->drainTodo();
     }
 }
 
-function loadTodoIcon($todoIconManager)
+function loadTodoIcon()
 {
-    $list_todoIcons = array();
-
-    $resultLoadIcon = $todoIconManager->loadTodoIcon();
-    if ($resultLoadIcon["success"] == 1) {
-        $list_todoIcons = $resultLoadIcon["list_todoIcons"];
+    try {
+        return TodoIconManager::loadTodoIcon();
+    } catch (Exception $e) {
+        throw new Exception($e);
     }
+}
 
-    return $list_todoIcons;
+function loadPriority()
+{
+    try {
+        return PriorityManager::loadPriority();
+    } catch (Exception $e) {
+        throw new Exception($e);
+    }
 }

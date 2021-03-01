@@ -232,7 +232,7 @@ class Calendar implements
      */
     private function initCurrentMonthTask()
     {
-        foreach ($this->user->getListTask() as $task) {
+        foreach ($this->user->getList_Task() as $task) {
             //Vérification de l'année et du mois de la tâche.
             $condition_year = date("y", strtotime($task->getEndDate())) == $this->day["year"];
             $condition_month = date("m", strtotime($task->getEndDate())) == $this->day["mon"];

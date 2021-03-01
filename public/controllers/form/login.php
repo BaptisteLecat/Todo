@@ -1,11 +1,13 @@
 <?php
 
+use App\Model\UserManager;
+
 session_destroy();
 session_start();
 
 
 if (isset($_POST['email']) && isset($_POST['password'])) {
-    $error = login($this->userManager);
+    $error = login();
 }
 
 
@@ -23,26 +25,26 @@ function verifInput(){
     return $error;
 }
 
-function login($userObject){
+function login(){
     $error = "";
-    if($_POST["email"] != "" && $_POST["password"] != ""){
-        if (preg_match("/[a-zA-Z0-9_\-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/", $_POST["email"])) {
-            $resultVerifLogin = $userObject->verifLogin($_POST['email'], $_POST['password']);
-            if ($resultVerifLogin["success"] == 1) {
-                $resultLoadUser = $userObject->loadUser($resultVerifLogin["id_user"]);
-                if($resultLoadUser["success"] == 1){
-                    $_SESSION["User"] = serialize($resultLoadUser["userObject"]);
+    try{
+        if ($_POST["email"] != "" && $_POST["password"] != "") {
+            if (preg_match("/[a-zA-Z0-9_\-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/", $_POST["email"])) {
+                $resultVerifLogin = UserManager::verifLogin($_POST['email'], $_POST['password']);
+                if ($resultVerifLogin ==! null) {
+                    $_SESSION["User"] = serialize(UserManager::loadUser($resultVerifLogin));
                     header("Location: home");
-                } 
+                } else {
+                    $error = ["type" => "login", "message" => "Identifiant ou Mot de passe incorrect!"];
+                }
             } else {
-                $error = ["type" => "login", "message" => "Identifiant ou Mot de passe incorrect!"];
+                $error = ["type" => "email", "message" => "Format de l'email incorrect!"];
             }
         } else {
-            $error = ["type" => "email", "message" => "Format de l'email incorrect!"];
+            $error = verifInput();
         }
-    
-    }else{
-        $error = verifInput();
+    }catch(Exception $e){
+        throw new Exception($e);
     }
 
     return $error;

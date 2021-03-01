@@ -1,133 +1,149 @@
 <?php
 
-/*
-    Cette classe permet la gestion des requetes des Task.
-*/
-
 namespace App\Model;
 
-//Permet de faire appel au class PdoFactory et Todo présente dans des namespaces différents.
-use App\PdoFactory;
 use App\Model\Entity\Todo;
-use App\Model\TodoIconManager;
-use \PDOException;
+use App\Model\Entity\TodoIcon;
+use App\Model\Entity\User;
+use App\PdoFactory;
+use Exception;
 
-class TodoManager extends PdoFactory
+/**
+ * TodoManager
+ * Static class for CRUD Todo requests.
+ * 
+ * @author Lecat Baptiste <baptiste.lecat44@gmail.com>
+ * @version 1.0.0
+ */
+class TodoManager
 {
     /**
-     * Permet de charger tout les TODO d'un USER (non réalisées).
-     * @param User $userObject Afin de récupérer l'id du User.
-     * @return int|Todo[success,listTodo] Success 0 = listTodo none | Success = 1 listTodo ou listTodo = null.
+     * loadTodo
+     * Select todo informations and create TodoObject.
+     *
+     * @param  User $userObject
+     * @param  array $list_TodoIcon
+     * @return void
      */
-    public function loadTodoFromUserObject($userObject, $list_todoIcons)
+    public static function loadTodo(User $userObject, $list_TodoIcon)
     {
-        $response = ["success" => 0];
 
         try {
-            $request = $this->pdo->prepare("SELECT id_todo, title_todo, description_todo, active_todo, icon_todo, enddate_todo, endtime_todo, createdate_todo FROM todo WHERE iduser_todo = :iduser_todo and active_todo = 0");
-            if ($request->execute(array(':iduser_todo' => $userObject->getId()))) {
-                if ($request->rowCount() > 0) {
-                    while ($result = $request->fetch()) {
-                        foreach ($list_todoIcons as $icon) {
-                            if ($icon->getId() == $result["icon_todo"]) {
-                                $todo = new Todo(intval($result["id_todo"]), $result["title_todo"], $result["description_todo"], intval($result["active_todo"]), $result["enddate_todo"], $result["endtime_todo"], $result["createdate_todo"], $icon, $userObject);
-                                break;
-                            }
-                        }
+            $request = PdoFactory::getPdo()->prepare("SELECT id_todo, title_todo, description_todo, createdate_todo, id_icon FROM todo WHERE id_user = :id_user");
+            $request->execute(array(':id_user' => $userObject->getId()));
+
+            while ($result = $request->fetch()) {
+                foreach ($list_TodoIcon as $todoIconObject) {
+                    if ($todoIconObject->getId() == $result["id_icon"]) {
+                        $todo = new Todo($result["id_todo"], $result["title_todo"], $result["description_todo"], $result["createdate_todo"], $userObject, $todoIconObject);
+                        break;
                     }
                 }
-                $response = ["success" => 1];
             }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+        } catch (Exception $e) {
+            throw new Exception($e);
         }
-
-        return $response;
     }
 
     /**
-     * Permet de modifier les informations concernant un TODO: "Active" ou "Title".
-     * @param Todo $idTodo
-     * @param string $stringModif Correspond à l'attribut que l'on souhaite modifier.
-     * @param string|int $value Nouvelle valeur de la propriété.
-     * @return int[] $response 0 -> Echec 1 -> Réussie.
+     * loadTodoFromId
+     * Private function call after an insert to add the new Todo.
+     *
+     * @param  int $idTodo
+     * @param  User $userObject
+     * @param  TodoIcon $todoIconObject
+     * @return void
      */
-    public function updateTodoFromTodoObject($todoObject, $stringModif, $value)
+    private static function loadTodoFromId(int $idTodo, User $userObject, TodoIcon $todoIconObject)
     {
-        $response = ["success" => 0];
 
         try {
-            switch ($stringModif) {
-                case 'title':
-                    $request = $this->pdo->prepare("UPDATE todo SET title_todo = :title_todo WHERE id_todo = :id_todo");
-                    $parameters = array(":title_todo" => $value, ":id_todo" => $todoObject->getId());
-                    if ($request->execute($parameters)) {
-                        $todoObject->setTitle($value);
-                        $response = ["success" => 1];
-                    }
+            $request = PdoFactory::getPdo()->prepare("SELECT title_todo, description_todo, createdate_todo FROM todo WHERE id_todo = :id_todo");
+            $request->execute(array(':id_todo' => $idTodo));
+
+            $result = $request->fetch();
+            $todo = new Todo($idTodo, $result["title_todo"], $result["description_todo"], $result["createdate_todo"], $userObject, $todoIconObject);
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+    }
+
+    /**
+     * insertTodo
+     * Insert a new Todo in database.
+     *
+     * @param  string $title
+     * @param  string $description
+     * @param  User $userObject
+     * @param  TodoIcon $todoIconObject
+     * @return void
+     */
+    public static function insertTodo(string $title, string $description, User $userObject, TodoIcon $todoIconObject)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("INSERT INTO todo (title_todo, description_todo, id_user, id_icon) VALUES (:title_todo, :description_todo, :id_user, :id_icon)");
+            $request->execute(array(':title_todo' => $title, ':description_todo' => $description, ':id_user' => $userObject->getId(), ':id_icon' => $todoIconObject->getId()));
+            self::loadTodoFromId(PdoFactory::getPdo()->lastInsertId(), $userObject, $todoIconObject);
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+    }
+
+    /**
+     * updateTodo
+     * Update the value of a specified attribute.
+     *
+     * @param  string $attribute
+     * @param  mixed $value
+     * @param  Todo $todoObject
+     * @return void
+     */
+    public static function updateTodo(string $attribute, $value, Todo $todoObject)
+    {
+        try {
+            switch ($attribute) {
+                case 'title_todo':
+                    $request = PdoFactory::getPdo()->prepare("UPDATE todo SET title_todo = :title_todo WHERE id_todo = :id_todo");
+                    $request->execute(array(':title_todo' => $value, ':id_todo' => $todoObject->getId()));
+                    $todoObject->setTitle($value);
                     break;
 
-                case 'active':
-                    $request = $this->pdo->prepare("UPDATE todo SET active_todo = :active_todo WHERE id_todo = :id_todo");
-                    $parameters = array(":active_todo" => $value, ":id_todo" => $todoObject->getId());
-                    if ($request->execute($parameters)) {
-                        $todoObject->setActive($value);
-                        $response = ["success" => 1];
-                    }
+                case 'description_todo':
+                    $request = PdoFactory::getPdo()->prepare("UPDATE todo SET description_todo = :description_todo WHERE id_todo = :id_todo");
+                    $request->execute(array(':description_todo' => $value, ':id_todo' => $todoObject->getId()));
+                    $todoObject->setDescription($value);
+                    break;
+
+                case 'id_icon':
+                    $request = PdoFactory::getPdo()->prepare("UPDATE todo SET id_icon = :id_icon WHERE id_todo = :id_todo");
+                    $request->execute(array(':id_icon' => $value->getId(), ':id_todo' => $todoObject->getId()));
+                    $todoObject->setTodoIconObject($value);
                     break;
 
                 default:
+                    # code...
                     break;
             }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+        } catch (Exception $e) {
+            throw new Exception($e);
         }
-
-        return $response;
     }
 
-    public function countTodoRow($idUser)
+    /**
+     * deleteTodo
+     * Delete a todo from database.
+     *
+     * @param  Todo $todoObject
+     * @return void
+     */
+    public static function deleteTodo(Todo $todoObject)
     {
-        $response = ["success" => 0];
-
         try {
-            $request = $this->pdo->prepare("SELECT count(id_todo) FROM todo WHERE iduser_todo = :iduser_todo");
-            if ($request->execute(array(':iduser_todo' => $idUser))) {
-                $result = $request->fetch();
-                $response = ["success" => 1, "nbrow" => $result["count(id_todo)"]];
-            }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+            $request = PdoFactory::getPdo()->prepare("DELETE FROM todo WHERE id_todo = :id_todo");
+            $request->execute(array(':id_todo' => $todoObject->getId()));
+            $todoObject->delete();
+        } catch (Exception $e) {
+            throw new Exception($e);
         }
-
-        return $response;
-    }
-
-
-    public function insertTodo($title, $description, $icon, $endDate, $endTime, $userObject)
-    {
-        $response = ["success" => 0];
-        //Nombre de Row dans la table TODO avant insertion.
-        $resultCount = $this->countTodoRow($userObject->getId());
-
-        if ($resultCount["success"] == 1) {
-            $nbrow = $resultCount["nbrow"];
-            try {
-                $request = $this->pdo->prepare("INSERT INTO todo (title_todo, description_todo, icon_todo, enddate_todo, endtime_todo, iduser_todo) VALUES (:title_todo, :description_todo, :icon_todo, :enddate_todo, :endtime_todo, :iduser_todo)");
-                if ($request->execute(array(':title_todo' => $title, ':description_todo' => $description, ':icon_todo' => $icon, ':enddate_todo' => $endDate, ':endtime_todo' => $endTime, ':iduser_todo' => $userObject->getId()))) {
-                    //Nombre de Row dans la table TODO après insertion.
-                    $resultCount = $this->countTodoRow($userObject->getId());
-                    if ($resultCount["success"] == 1) {
-                        if ($nbrow < $resultCount["nbrow"]) {
-                            $response = ["success" => 1];
-                        }
-                    }
-                }
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-            }
-        }
-
-        return $response;
     }
 }

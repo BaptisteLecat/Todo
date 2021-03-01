@@ -2,31 +2,40 @@
 
 namespace App\Model;
 
-use App\Model\Entity\Todo_icon;
+use App\Model\Entity\TodoIcon;
 use App\PdoFactory;
-use PDOException;
+use Exception;
 
-class TodoIconManager extends PdoFactory
+/**
+ * TodoIconManager
+ * Static class for CRUD TodoIcon requests.
+ * 
+ * @author Lecat Baptiste <baptiste.lecat44@gmail.com>
+ * @version 1.0.0
+ */
+class TodoIconManager
 {
-    public function loadTodoIcon()
-    {
-        $response = ["success" => 0];
-        $list_todoIcons = array();
+    /**
+     * loadTodoIcon
+     * Select TodoIcon informations and create TodoIconObject.
+     *
+     * @return array $list_todoIcon
+     */
+    public static function loadTodoIcon(){
 
-        try {
-            $request = $this->pdo->prepare("SELECT * FROM todo_icon");
-            if ($request->execute()) {
-                while ($result = $request->fetch()) {
-                    $todo_icon = new Todo_icon($result["id_icon"], $result["name_icon"]);
-                    array_push($list_todoIcons, $todo_icon);
-                }
-                $response["success"] = 1;
-                $response["list_todoIcons"] = $list_todoIcons;
+        $list_todoIcon = array();
+
+        try{
+            $request = PdoFactory::getPdo()->prepare("SELECT id_icon, label_icon FROM todo_icon");
+            $request->execute();
+            while ($result = $request->fetch()) {
+                $todoIcon = new TodoIcon($result["id_icon"], $result["label_icon"]);
+                array_push($list_todoIcon, $todoIcon);
             }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+        }catch (Exception $e) {
+            throw new Exception($e);
         }
 
-        return $response;
+        return $list_todoIcon;
     }
 }

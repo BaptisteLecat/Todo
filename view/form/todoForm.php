@@ -19,21 +19,9 @@
           <h6>Icone</h6>
           <div class="todoIcon_container">
               <?php foreach ($list_todoIcons as $index => $icons) { ?>
-                  <img name="<?= $index ?>" id="<?= $icons->getId(); ?>" src="assets/icons/todo_icon/<?= $icons->getLibelle(); ?>.png" alt="<?= $icons->getLibelle(); ?>" onclick="selectIcon(this)">
+                  <img name="<?= $index ?>" id="<?= $icons->getId(); ?>" src="assets/icons/todo_icon/<?= $icons->getLabel(); ?>.png" alt="<?= $icons->getLabel(); ?>" onclick="selectIcon(this)">
               <?php } ?>
           </div>
-
-          <div class="titleInput_container">
-              <h6>Date de fin</h6>
-              <img src="assets\icons\information.png">
-          </div>
-          <input class="bug" name="date" type="date" value="<?= date('Y-m-d'); ?>">
-
-          <div class="titleInput_container">
-              <h6>Heure de fin</h6>
-              <img src="assets\icons\information.png">
-          </div>
-          <input class="bug" name="time" type="time">
 
           <input type="hidden" name="icon" id='icon_id' value="1">
           <input type="submit" value="Valider">

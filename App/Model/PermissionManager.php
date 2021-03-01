@@ -1,10 +1,10 @@
 <?php
 
-namespace Model;
+namespace App\Model;
 
 use Exception;
-use NewFiles\PdoFactory;
-use Model\Entity\Permission;
+use App\PdoFactory;
+use App\Model\Entity\Permission;
 
 /**
  * PermissionManager

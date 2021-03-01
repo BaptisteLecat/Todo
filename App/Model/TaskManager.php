@@ -1,150 +1,156 @@
 <?php
 
-/*
-    Cette classe permet la gestion des requetes des Task.
-*/
-
 namespace App\Model;
 
-//Permet de faire appel au class PdoFactory et Task présente dans des namespaces différents.
-use App\PdoFactory;
+use Exception;
+use App\Model\Entity\Priority;
 use App\Model\Entity\Task;
-use \PDOException;
+use App\Model\Entity\Todo;
+use App\Model\Entity\User;
+use App\PdoFactory;
+use PDOException;
 
-class TaskManager extends PdoFactory
+/**
+ * TaskManager
+ * Static class for CRUD Task requests.
+ * 
+ * @author Lecat Baptiste <baptiste.lecat44@gmail.com>
+ * @version 1.0.0
+ */
+class TaskManager
 {
-
-    public function loadTaskFromTodoObject($todoObject)
+    /**
+     * loadTask
+     * Select task informations and create TaskObject.
+     *
+     * @param  mixed $todoObject
+     * @param  mixed $list_priority
+     * @return void
+     */
+    public static function loadTask(Todo $todoObject, $list_priority)
     {
-        $response = ["success" => 0];
         try {
-            $request = $this->pdo->prepare("SELECT id_task, content_task, enddate_task, endtime_task, active_task, createdate_task FROM task WHERE idtodo_task = :idtodo_task");
-            if ($request->execute(array('idtodo_task' => $todoObject->getId()))) {
-                if ($request->rowCount() > 0) {
-                    while ($result = $request->fetch()) {
-                        //A modifier si update de l'app en online Task.
-                        $task = new Task(intval($result["id_task"]), $result["content_task"], $result["enddate_task"], $result["endtime_task"], $result["active_task"], $result["createdate_task"], $todoObject, $todoObject->getUserObject());
-                    }
-                    $response = ["success" => 1];
-                }
-            }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
-        return $response;
-    }
-
-    public function loadTaskFromTaskId($idTask, $todoObject)
-    {
-        $response = ["success" => 0];
-        try {
-            $request = $this->pdo->prepare("SELECT content_task, enddate_task, endtime_task, active_task, createdate_task FROM task WHERE id_task = :id_task");
-            if ($request->execute(array(':id_task' => $idTask))) {
-                if ($request->rowCount() > 0) {
-                    while ($result = $request->fetch()) {
-                        //A modifier si update de l'app en online Task.
-                        $task = new Task($idTask, $result["content_task"], $result["enddate_task"], $result["endtime_task"], $result["active_task"], $result["createdate_task"], $todoObject, $todoObject->getUserObject());
-                    }
-                    $response = ["success" => 1];
-                }
-            }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
-        return $response;
-    }
-
-    private function countNbTask($idTodo)
-    {
-        $response = ["success" => 0];
-        try {
-            $request = $this->pdo->prepare("SELECT count(id_task) FROM task WHERE idtodo_task = :idtodo_task");
-            if ($request->execute(array(':idtodo_task' => $idTodo))) {
-                $result = $request->fetch();
-                $response = ["success" => 1, "nbrow" => $result["count(id_task)"]];
-            }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
-        return $response;
-    }
-
-    public function insertTask($content, $endDate, $endTime, $todoObject)
-    {
-        $response = ["success" => 0];
-        try {
-            $resultCountTask = $this->countNbTask($todoObject->getId());
-            if ($resultCountTask["success"] == 1) {
-                $nbrow = $resultCountTask["nbrow"];
-                if($endTime == ""){
-                    $endTime = null; //Pour pouvoir spécifier lors de la création de l'objet.
-                    $stringRequest = "INSERT INTO task (content_task, enddate_task, iduser_task, idtodo_task) VALUES (:content_task, :enddate_task, :iduser_task, :idtodo_task)";
-                    $values = array(':content_task' => $content, ':enddate_task' => $endDate, ':iduser_task' => $todoObject->getUserObject()->getId(), ':idtodo_task' => $todoObject->getId());
-                }else{
-                    $stringRequest = "INSERT INTO task (content_task, enddate_task, endtime_task, iduser_task, idtodo_task) VALUES (:content_task, :enddate_task, :endtime_task, :iduser_task, :idtodo_task)";
-                    $values = array(':content_task' => $content, ':enddate_task' => $endDate, ':endtime_task' => $endTime, ':iduser_task' => $todoObject->getUserObject()->getId(), ':idtodo_task' => $todoObject->getId());
-                }
-                $request = $this->pdo->prepare($stringRequest);
-                if ($request->execute($values)) {
-                    $lastId = $this->pdo->lastInsertId();
-                    $resultCountTask = $this->countNbTask($todoObject->getId());
-                    if ($resultCountTask["success"] == 1) {
-                        if ($nbrow < $resultCountTask["nbrow"]) {
-                            $response = ["success" => 1, "idTask" => $lastId];
-                            $task = new Task($lastId, $content, $endDate, $endTime, 0, date('Y-m-d'), $todoObject, $todoObject->getUserObject());
-                        }
+            $request = PdoFactory::getPdo()->prepare("SELECT id_task, title_task, content_task, achieved_task, enddate_task, id_priority FROM task WHERE id_todo = :id_todo");
+            $request->execute(array(':id_todo' => $todoObject->getId()));
+            while ($result = $request->fetch()) {
+                foreach ($list_priority as $priority) {
+                    if ($priority->getId() == $result["id_priority"]) {
+                        $task = new Task($result["id_task"], $result["title_task"], $result["content_task"], $result["achieved_task"], $result["enddate_task"], $todoObject->getUserObject(), $todoObject, $priority);
                     }
                 }
             }
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+    }
+
+    /**
+     * loadTaskFromId
+     * Private function call after an insert to add the new Task.
+     *
+     * @param  mixed $idTask
+     * @param  mixed $priorityObject
+     * @param  mixed $todoObject
+     * @param  mixed $userObject
+     * @return void
+     */
+    private static function loadTaskFromId($idTask, Priority $priorityObject, Todo $todoObject, User $userObject)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("SELECT title_task, content_task, achieved_task, enddate_task FROM task WHERE id_task = :id_task");
+            $request->execute(array(':id_task' => $idTask));
+            $result = $request->fetch();
+            $task = new Task($idTask, $result["title_task"], $result["content_task"], $result["achieved_task"], $result["enddate_task"], $userObject, $todoObject, $priorityObject);
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+    }
+
+    /**
+     * insertTask
+     * Insert a new Task in database.
+     *
+     * @param  mixed $title
+     * @param  mixed $content
+     * @param  mixed $priorityObject
+     * @param  mixed $todoObject
+     * @param  mixed $userObject
+     * @return void
+     */
+    public static function insertTask(string $title, string $content, $enddate, Priority $priorityObject, Todo $todoObject, User $userObject)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("call createTask (:p_idUser, :p_idTodo, :p_titleTask, :p_contentTask, :p_enddateTask, :p_idPriority)");
+            $request->execute(array(':p_idUser' => $userObject->getId(), ':p_idTodo' => $todoObject->getId(), ':p_titleTask' => $title, ':p_contentTask' => $content, ':p_enddateTask' => $enddate, ':p_idPriority' => $priorityObject->getId()));
+            self::loadTaskFromId(PdoFactory::getPdo()->lastInsertId(), $priorityObject, $todoObject, $userObject);
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            echo ($e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception($e);
         }
-        return $response;
     }
 
-    public function updateActive($taskObject, $value){
-        $response = ["success" => 0];
-
-        try{
-            $request = $this->pdo->prepare("UPDATE task SET active_task = :active_task WHERE id_task = :id_task");
-            if($request->execute(array(':active_task' => $value, ':id_task' => $taskObject->getId()))){
-                $taskObject->setActive($value);
-                $response = ["success" => 1];
-            }
-        }catch (PDOException $e) {
-            echo $e->getMessage();
+    /**
+     * updateTask
+     * Update specified attribute of a task and check if user has the right to.
+     *
+     * @param  mixed $label
+     * @param  mixed $value
+     * @param  mixed $taskObject
+     * @param  mixed $userObject
+     * @return void
+     */
+    public static function updateTask(string $label, $value, Task $taskObject, User $userObject)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("call updateTask (:p_idUser, :p_idTask, :p_value, :p_updateLabel)");
+            $request->execute(array(':p_idUser' => $userObject->getId(), ':p_idTask' => $taskObject->getId(), ':p_value' => $value, ':p_updateLabel' => $label));
+            $taskObject->updateAttributeValue($label, $value);
+        } catch (PDOException $e) {
+            echo ($e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception($e);
         }
-
-        return $response;
     }
 
-    public function updateTask($taskObject, $stringModif, $value){
-        $response = ["success" => 0];
-
-        try{
-            $request = $this->pdo->prepare("UPDATE task SET content_task = :content_task, enddate_task = :enddate_task, endtime_task = :endtime_task, idtodo_task = :idtodo_task WHERE id_task = :id_task");
-            if($request->execute(array(':content_task' => $taskObject->getContent(), ':enddate_task' => $taskObject->getEndDate(), ':endtime_task' => $taskObject->getEndTime(), ':idtodo_task' => $taskObject->getTodoObject()->getId(), ':id_task' => $taskObject->getId()))){
-                $response = ["success" => 1];
+    /**
+     * archiveTask
+     * Archive task and check if user have the right to. Once a task is archived it can be removed only by the todo's owner.
+     *
+     * @param  mixed $userObject
+     * @param  mixed $taskObject
+     * @return void
+     */
+    public static function archiveTask(User $userObject, Task $taskObject)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("call archiveTask(:p_idUser, :p_idTask)");
+            $request->execute(array(':p_idUser' => $userObject->getId(), ':p_idTask' => $taskObject->getId()));
+            $result = $request->fetch();
+            $request->closeCursor();
+            if ($result["is_archived"] == 1) {
+                //Load taskarchive et ajout dans la tache.
+                TaskArchivedManager::loadTaskArchiveFromTask($taskObject);
+            } else {
+                $taskObject->removeTaskArchivedObject();
             }
-
-        }catch(PDOException $e){
-            echo $e->getMessage();
+        } catch (PDOException $e) {
+            echo ($e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception($e);
         }
-        return $response;
     }
 
-    public function deleteTask($taskObject){
-        $response = ["success" => 0];
-
-        try{
-            $request = $this->pdo->prepare("DELETE FROM task WHERE id_task = :id_task");
-            if($request->execute(array(':id_task' => $taskObject->getId()))){
-                $taskObject->getUserObject()->deleteTask($taskObject);
-                $response = ["success" => 1];
-            }
-        }catch (PDOException $e) {
-            echo $e->getMessage();
+    public static function deleteTask(User $userObject, Task $taskObject)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("call deleteTask(:p_idUser, :p_idTask)");
+            $request->execute(array(':p_idUser' => $userObject->getId(), ':p_idTask' => $taskObject->getId()));
+            $taskObject->delete();
+        } catch (PDOException $e) {
+            echo ($e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception($e);
         }
-        return $response;
     }
 }

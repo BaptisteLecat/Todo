@@ -1,14 +1,14 @@
 <?php
 
-namespace Model;
+namespace App\Model;
 
 use Exception;
-use Model\Entity\Permission;
-use Model\Entity\Todo;
-use Model\Entity\TodoToken;
+use App\Model\Entity\Permission;
+use App\Model\Entity\Todo;
+use App\Model\Entity\TodoToken;
 use PDOException;
-use Model\Entity\User;
-use NewFiles\PdoFactory;
+use App\Model\Entity\User;
+use App\PdoFactory;
 
 /**
  * TodoTokenManager

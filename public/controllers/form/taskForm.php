@@ -4,11 +4,11 @@ use App\Model\Utils\MessageBox;
 
 if (isset($_POST["todo-selector"])) { //Si le formulaire a été soumis.
     $errorId = true; //Variable permettant de verifier que l'id du todo-selector existe bien.
-    foreach ($this->user->getListTodo() as $todo) {
+    foreach ($this->user->getList_Todo() as $todo) {
 
         if ($todo->getId() == $_POST["todo-selector"]) { //L'id est valide.
             $errorId = false;
-            $resultInsertTask = $this->taskManager->insertTask($_POST["content"], $_POST["date"], $_POST["time"], $todo);
+            $resultInsertTask = $this->taskManager->insertTask($_POST["title"], $_POST["content"], $_POST["date"], $_POST["time"], $todo);
 
             //Affichage de la messageBox success ou error.
             if ($resultInsertTask["success"] == 1) {
