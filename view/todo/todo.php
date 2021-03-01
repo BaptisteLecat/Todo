@@ -90,6 +90,8 @@
     $(".task_container").each(function() {
         this.addEventListener('touchstart', handleTouchStart, false);
         this.addEventListener('touchmove', handleTouchMove, false);
+        this.addEventListener('touchstart', handlerTouchStart, false);
+        this.addEventListener('touchend', handlerTouchEnd, false);
     });
 
     var xDown = null;
@@ -141,66 +143,26 @@
         yDown = null;
     };
 
-    var pressTimer;
+    var onlongtouch;
+    var timer;
+    var touchduration = 500; //length of time we want the user to touch before we do something
 
-    // The item (or items) to press and hold on
-    let item = document.querySelector(".task_container");
-
-    let timerID;
-    let counter = 0;
-
-    let pressHoldEvent = new CustomEvent("pressHold");
-
-    // Increase or decreae value to adjust how long
-    // one should keep pressing down before the pressHold
-    // event fires
-    let pressHoldDuration = 10;
-
-    // Listening for the mouse and touch events    
-    item.addEventListener("mousedown", pressingDown, false);
-    item.addEventListener("mouseup", notPressingDown, false);
-    item.addEventListener("mouseleave", notPressingDown, false);
-
-    item.addEventListener("touchstart", pressingDown, false);
-    item.addEventListener("touchend", notPressingDown, false);
-
-    // Listening for our custom pressHold event
-    item.addEventListener("pressHold", doSomething, false);
-
-    function pressingDown(e) {
-        // Start the timer
-        requestAnimationFrame(timer);
-
-        e.preventDefault();
-
-        console.log("Pressing!");
+    function handlerTouchStart() {
+        timer = setTimeout(onlongtouch, touchduration);
     }
 
-    function notPressingDown(e) {
-        // Stop the timer
-        cancelAnimationFrame(timerID);
-        counter = 0;
+    function handlerTouchEnd() {
 
-        console.log("Not pressing!");
-    }
-
-    //
-    // Runs at 60fps when you are pressing down
-    //
-    function timer() {
-        console.log("Timer tick!");
-
-        if (counter < pressHoldDuration) {
-            counter++;
-            console.log("coucou");
-        } else {
-            alert("Press threshold reached!");
-            item.dispatchEvent(pressHoldEvent);
+        //stops short touches from firing the event
+        if (timer) {
+            clearTimeout(timer); // clearTimeout, not cleartimeout..
         }
     }
 
-    function doSomething(e) {
-        console.log("pressHold event fired!");
+    onlongtouch = function() {
+        $(".task_container").each(function() {
+            this.style.border = "2px solid #f25f5c";
+        });
     }
 </script>
 
