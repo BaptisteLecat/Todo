@@ -124,8 +124,12 @@ header img {
   text-align: left;
 }
 
-.content_right span {
+.span-blue {
   color: #5875f5;
+}
+
+.span-red {
+  color: #f25f5c;
 }
 
 .task_wrapper {
@@ -159,7 +163,7 @@ header img {
   left: 0px;
 }
 
-.back_card img{
+.back_card img {
   height: 34px;
   padding: 5px 2px;
   margin: 5px 0px;
