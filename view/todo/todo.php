@@ -7,11 +7,11 @@
 
         <div class="header_middle">
             <h1>Travail</h1>
-            <h2>Janvier 15 2021</h2>
+            <h2>de Baptiste Lecat</h2>
         </div>
 
         <div class="header_side">
-            <img id="right-side_icon" src="assets\icons\left-arrow.png" class="previousPage" onclick="document.location.href='index?view=home'">
+            <img id="right-side_icon" src="assets\icons\settings.png" class="previousPage" onclick="document.location.href='index?view=home'">
         </div>
     </header>
 
@@ -27,7 +27,7 @@
                     </div>
                     <div class="content_right">
                         <h6>Baptiste Lecat</h6>
-                        <p>Modification des informations de la tâche : <span>Rangement</span></p>
+                        <p>Modification des informations de la tâche : <span class="span-blue">Rangement</span></p>
                     </div>
                 </div>
 
@@ -37,7 +37,7 @@
                     </div>
                     <div class="content_right">
                         <h6>Baptiste Lecat</h6>
-                        <p>Archivage de la tâche : Cahier des charges</p>
+                        <p>Archivage de la tâche : <span class="span-red">Cahier des charges</span></p>
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@
                     </div>
                     <div class="content_right">
                         <h6>Baptiste Lecat</h6>
-                        <p>Réalisation de la tâche : Diagramme de classe</p>
+                        <p>Réalisation de la tâche : <span class="span-blue">Diagramme de classe</span></p>
                     </div>
                 </div>
             </div>
@@ -86,84 +86,8 @@
     </div>
 </main>
 
-<script>
-    $(".task_container").each(function() {
-        this.addEventListener('touchstart', handleTouchStart, false);
-        this.addEventListener('touchmove', handleTouchMove, false);
-        this.addEventListener('touchstart', handlerTouchStart, false);
-        this.addEventListener('touchend', handlerTouchEnd, false);
-    });
-
-    var xDown = null;
-    var yDown = null;
-
-    function getTouches(evt) {
-        return evt.touches || // browser API
-            evt.originalEvent.touches; // jQuery
-    }
-
-    function handleTouchStart(evt) {
-        const firstTouch = getTouches(evt)[0];
-        xDown = firstTouch.clientX;
-        yDown = firstTouch.clientY;
-    };
-
-    function handleTouchMove(evt) {
-        if (!xDown || !yDown) {
-            return;
-        }
-
-        var xUp = evt.touches[0].clientX;
-        var yUp = evt.touches[0].clientY;
-
-        var xDiff = xDown - xUp;
-        var yDiff = yDown - yUp;
-
-        if (Math.abs(xDiff) > Math.abs(yDiff)) {
-            /*most significant*/
-            if (xDiff > 0) {
-                /* left swipe */
-                $(".task_container").each(function() {
-                    $(this).removeClass("retract");
-                });
-                $(this).toggleClass("retract");
-            } else {
-                /* right swipe */
-                $(this).removeClass("retract");
-            }
-        } else {
-            if (yDiff > 0) {
-                /* up swipe */
-            } else {
-                /* down swipe */
-            }
-        }
-        /* reset values */
-        xDown = null;
-        yDown = null;
-    };
-
-    var onlongtouch;
-    var timer;
-    var touchduration = 500; //length of time we want the user to touch before we do something
-
-    function handlerTouchStart() {
-        timer = setTimeout(onlongtouch, touchduration);
-    }
-
-    function handlerTouchEnd() {
-
-        //stops short touches from firing the event
-        if (timer) {
-            clearTimeout(timer); // clearTimeout, not cleartimeout..
-        }
-    }
-
-    onlongtouch = function() {
-        $(".task_container").each(function() {
-            this.style.border = "2px solid #f25f5c";
-        });
-    }
-</script>
+<script src="../js/todo/editSwipeHandler.js"></script>
+<script src="../js/todo/archivePressHandler.js"></script>
+<script src="../js/todo/todo.js"></script>
 
 <?php $this->content = ob_get_clean(); ?>
