@@ -61,7 +61,7 @@
                 <div class="back_card">
                     <img src="assets\icons\writing.png">
                 </div>
-                <div class='task_container'>
+                <div class='task_container' name="<?= $task->getId(); ?>">
                     <h6>URGENT</h6>
                     <hr>
                     <div class='task_body'>
