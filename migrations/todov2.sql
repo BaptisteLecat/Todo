@@ -16,7 +16,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8_general_ci_general_ci */;
 
 --
 -- Base de données : `todov2`
@@ -650,7 +650,7 @@ CREATE TABLE IF NOT EXISTS `contribute` (
   `id_todo` int NOT NULL,
   `id_permission` int NOT NULL,
   PRIMARY KEY (`id_user`,`id_todo`,`id_permission`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci_general_ci;
 
 --
 -- Déchargement des données de la table `contribute`
@@ -673,7 +673,7 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `id_permission` int NOT NULL AUTO_INCREMENT,
   `label_permission` varchar(255) NOT NULL,
   PRIMARY KEY (`id_permission`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `permission`
@@ -702,7 +702,7 @@ CREATE TABLE IF NOT EXISTS `task` (
   `id_priority` int NOT NULL,
   `id_archived` int DEFAULT NULL,
   PRIMARY KEY (`id_task`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `task`
@@ -723,7 +723,7 @@ DROP TABLE IF EXISTS `taskachieve_date`;
 CREATE TABLE IF NOT EXISTS `taskachieve_date` (
   `id_achieve` int NOT NULL,
   `date_achieve` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -736,7 +736,7 @@ CREATE TABLE IF NOT EXISTS `taskarchive_date` (
   `id_archive` int NOT NULL AUTO_INCREMENT,
   `date_archive` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_archive`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `taskarchive_date`
@@ -777,7 +777,7 @@ CREATE TABLE IF NOT EXISTS `taskcreate_date` (
   `id_create` int NOT NULL AUTO_INCREMENT,
   `date_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_create`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `taskcreate_date`
@@ -804,7 +804,7 @@ CREATE TABLE IF NOT EXISTS `taskpriority` (
   `id_priority` int NOT NULL AUTO_INCREMENT,
   `label_priority` varchar(255) NOT NULL,
   PRIMARY KEY (`id_priority`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `taskpriority`
@@ -826,7 +826,7 @@ CREATE TABLE IF NOT EXISTS `taskupdate_date` (
   `id_update` int NOT NULL AUTO_INCREMENT,
   `date_update` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_update`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `taskupdate_date`
@@ -867,7 +867,7 @@ CREATE TABLE IF NOT EXISTS `task_achieve` (
   `id_date` int NOT NULL,
   `id_task` int NOT NULL,
   `id_user` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -881,7 +881,7 @@ CREATE TABLE IF NOT EXISTS `task_archive` (
   `id_task` int NOT NULL,
   `id_user` int NOT NULL,
   PRIMARY KEY (`id_date`,`id_task`,`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `task_archive`
@@ -903,7 +903,7 @@ CREATE TABLE IF NOT EXISTS `task_create` (
   `id_task` int NOT NULL,
   `id_user` int NOT NULL,
   PRIMARY KEY (`id_date`,`id_task`,`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `task_create`
@@ -930,7 +930,7 @@ CREATE TABLE IF NOT EXISTS `task_update` (
   `id_task` int NOT NULL,
   `id_user` int NOT NULL,
   PRIMARY KEY (`id_date`,`id_task`,`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `task_update`
@@ -975,7 +975,7 @@ CREATE TABLE IF NOT EXISTS `todo` (
   `id_user` int NOT NULL,
   `id_icon` int NOT NULL,
   PRIMARY KEY (`id_todo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `todo`
@@ -996,7 +996,7 @@ CREATE TABLE IF NOT EXISTS `todo_icon` (
   `id_icon` int NOT NULL AUTO_INCREMENT,
   `label_icon` varchar(255) NOT NULL,
   PRIMARY KEY (`id_icon`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `todo_icon`
@@ -1023,7 +1023,7 @@ CREATE TABLE IF NOT EXISTS `todo_token` (
   `id_permission` int NOT NULL,
   `id_todo` int NOT NULL,
   PRIMARY KEY (`token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `todo_token`
@@ -1048,7 +1048,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password_user` varchar(255) NOT NULL,
   `createdate_user` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `user`
