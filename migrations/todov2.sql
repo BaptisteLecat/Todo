@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 01 mars 2021 à 22:34
--- Version du serveur :  5.7.31
--- Version de PHP : 7.3.21
+-- Généré le : lun. 08 mars 2021 à 13:07
+-- Version du serveur :  8.0.19
+-- Version de PHP : 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -644,10 +645,10 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `contribute`;
 CREATE TABLE IF NOT EXISTS `contribute` (
-  `accepted_contribute` tinyint(4) NOT NULL DEFAULT '0',
-  `id_user` int(11) NOT NULL,
-  `id_todo` int(11) NOT NULL,
-  `id_permission` int(11) NOT NULL,
+  `accepted_contribute` tinyint NOT NULL DEFAULT '0',
+  `id_user` int NOT NULL,
+  `id_todo` int NOT NULL,
+  `id_permission` int NOT NULL,
   PRIMARY KEY (`id_user`,`id_todo`,`id_permission`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -669,7 +670,7 @@ INSERT INTO `contribute` (`accepted_contribute`, `id_user`, `id_todo`, `id_permi
 
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE IF NOT EXISTS `permission` (
-  `id_permission` int(11) NOT NULL AUTO_INCREMENT,
+  `id_permission` int NOT NULL AUTO_INCREMENT,
   `label_permission` varchar(255) NOT NULL,
   PRIMARY KEY (`id_permission`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
@@ -692,23 +693,37 @@ INSERT INTO `permission` (`id_permission`, `label_permission`) VALUES
 
 DROP TABLE IF EXISTS `task`;
 CREATE TABLE IF NOT EXISTS `task` (
-  `id_task` int(11) NOT NULL AUTO_INCREMENT,
+  `id_task` int NOT NULL AUTO_INCREMENT,
   `title_task` varchar(255) NOT NULL,
   `content_task` text NOT NULL,
-  `achieved_task` tinyint(4) NOT NULL DEFAULT '0',
+  `achieved_task` tinyint NOT NULL DEFAULT '0',
   `enddate_task` date NOT NULL,
-  `id_todo` int(11) NOT NULL,
-  `id_priority` int(11) NOT NULL,
-  `id_archived` int(11) DEFAULT NULL,
+  `id_todo` int NOT NULL,
+  `id_priority` int NOT NULL,
+  `id_archived` int DEFAULT NULL,
   PRIMARY KEY (`id_task`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `task`
 --
 
 INSERT INTO `task` (`id_task`, `title_task`, `content_task`, `achieved_task`, `enddate_task`, `id_todo`, `id_priority`, `id_archived`) VALUES
-(8, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 1, NULL);
+(8, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 1, NULL),
+(9, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 1, NULL),
+(10, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `taskachieve_date`
+--
+
+DROP TABLE IF EXISTS `taskachieve_date`;
+CREATE TABLE IF NOT EXISTS `taskachieve_date` (
+  `id_achieve` int NOT NULL,
+  `date_achieve` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -718,7 +733,7 @@ INSERT INTO `task` (`id_task`, `title_task`, `content_task`, `achieved_task`, `e
 
 DROP TABLE IF EXISTS `taskarchive_date`;
 CREATE TABLE IF NOT EXISTS `taskarchive_date` (
-  `id_archive` int(11) NOT NULL AUTO_INCREMENT,
+  `id_archive` int NOT NULL AUTO_INCREMENT,
   `date_archive` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_archive`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
@@ -759,7 +774,7 @@ INSERT INTO `taskarchive_date` (`id_archive`, `date_archive`) VALUES
 
 DROP TABLE IF EXISTS `taskcreate_date`;
 CREATE TABLE IF NOT EXISTS `taskcreate_date` (
-  `id_create` int(11) NOT NULL AUTO_INCREMENT,
+  `id_create` int NOT NULL AUTO_INCREMENT,
   `date_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_create`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
@@ -786,7 +801,7 @@ INSERT INTO `taskcreate_date` (`id_create`, `date_create`) VALUES
 
 DROP TABLE IF EXISTS `taskpriority`;
 CREATE TABLE IF NOT EXISTS `taskpriority` (
-  `id_priority` int(11) NOT NULL AUTO_INCREMENT,
+  `id_priority` int NOT NULL AUTO_INCREMENT,
   `label_priority` varchar(255) NOT NULL,
   PRIMARY KEY (`id_priority`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -808,10 +823,10 @@ INSERT INTO `taskpriority` (`id_priority`, `label_priority`) VALUES
 
 DROP TABLE IF EXISTS `taskupdate_date`;
 CREATE TABLE IF NOT EXISTS `taskupdate_date` (
-  `id_update` int(11) NOT NULL AUTO_INCREMENT,
+  `id_update` int NOT NULL AUTO_INCREMENT,
   `date_update` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_update`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `taskupdate_date`
@@ -837,7 +852,22 @@ INSERT INTO `taskupdate_date` (`id_update`, `date_update`) VALUES
 (17, '2021-02-24 16:03:09'),
 (18, '2021-02-24 16:03:27'),
 (19, '2021-02-24 16:04:14'),
-(20, '2021-02-24 16:04:22');
+(20, '2021-02-24 16:04:22'),
+(21, '2021-03-08 13:31:02'),
+(22, '2021-03-08 13:31:11');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `task_achieve`
+--
+
+DROP TABLE IF EXISTS `task_achieve`;
+CREATE TABLE IF NOT EXISTS `task_achieve` (
+  `id_date` int NOT NULL,
+  `id_task` int NOT NULL,
+  `id_user` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -847,9 +877,9 @@ INSERT INTO `taskupdate_date` (`id_update`, `date_update`) VALUES
 
 DROP TABLE IF EXISTS `task_archive`;
 CREATE TABLE IF NOT EXISTS `task_archive` (
-  `id_date` int(11) NOT NULL,
-  `id_task` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `id_date` int NOT NULL,
+  `id_task` int NOT NULL,
+  `id_user` int NOT NULL,
   PRIMARY KEY (`id_date`,`id_task`,`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -869,9 +899,9 @@ INSERT INTO `task_archive` (`id_date`, `id_task`, `id_user`) VALUES
 
 DROP TABLE IF EXISTS `task_create`;
 CREATE TABLE IF NOT EXISTS `task_create` (
-  `id_date` int(11) NOT NULL,
-  `id_task` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `id_date` int NOT NULL,
+  `id_task` int NOT NULL,
+  `id_user` int NOT NULL,
   PRIMARY KEY (`id_date`,`id_task`,`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -896,9 +926,9 @@ INSERT INTO `task_create` (`id_date`, `id_task`, `id_user`) VALUES
 
 DROP TABLE IF EXISTS `task_update`;
 CREATE TABLE IF NOT EXISTS `task_update` (
-  `id_date` int(11) NOT NULL,
-  `id_task` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `id_date` int NOT NULL,
+  `id_task` int NOT NULL,
+  `id_user` int NOT NULL,
   PRIMARY KEY (`id_date`,`id_task`,`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -926,7 +956,9 @@ INSERT INTO `task_update` (`id_date`, `id_task`, `id_user`) VALUES
 (17, 3, 2),
 (18, 3, 2),
 (19, 3, 2),
-(20, 3, 2);
+(20, 3, 2),
+(21, 8, 2),
+(22, 8, 2);
 
 -- --------------------------------------------------------
 
@@ -936,12 +968,12 @@ INSERT INTO `task_update` (`id_date`, `id_task`, `id_user`) VALUES
 
 DROP TABLE IF EXISTS `todo`;
 CREATE TABLE IF NOT EXISTS `todo` (
-  `id_todo` int(11) NOT NULL AUTO_INCREMENT,
+  `id_todo` int NOT NULL AUTO_INCREMENT,
   `title_todo` varchar(255) NOT NULL,
   `description_todo` text NOT NULL,
   `createdate_todo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id_user` int(11) NOT NULL,
-  `id_icon` int(11) NOT NULL,
+  `id_user` int NOT NULL,
+  `id_icon` int NOT NULL,
   PRIMARY KEY (`id_todo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -961,7 +993,7 @@ INSERT INTO `todo` (`id_todo`, `title_todo`, `description_todo`, `createdate_tod
 
 DROP TABLE IF EXISTS `todo_icon`;
 CREATE TABLE IF NOT EXISTS `todo_icon` (
-  `id_icon` int(11) NOT NULL AUTO_INCREMENT,
+  `id_icon` int NOT NULL AUTO_INCREMENT,
   `label_icon` varchar(255) NOT NULL,
   PRIMARY KEY (`id_icon`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
@@ -988,8 +1020,8 @@ DROP TABLE IF EXISTS `todo_token`;
 CREATE TABLE IF NOT EXISTS `todo_token` (
   `token` varchar(500) NOT NULL,
   `expirationdate` datetime NOT NULL,
-  `id_permission` int(11) NOT NULL,
-  `id_todo` int(11) NOT NULL,
+  `id_permission` int NOT NULL,
+  `id_todo` int NOT NULL,
   PRIMARY KEY (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1009,7 +1041,7 @@ INSERT INTO `todo_token` (`token`, `expirationdate`, `id_permission`, `id_todo`)
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id_user` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int NOT NULL AUTO_INCREMENT,
   `name_user` varchar(255) NOT NULL,
   `firstname_user` varchar(255) NOT NULL,
   `email_user` varchar(255) NOT NULL,
