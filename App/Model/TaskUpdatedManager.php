@@ -10,7 +10,7 @@ use App\PdoFactory;
 
 /**
  * TaskUpdatedManager
- * Static class for load Task requests.
+ * Static class for load TaskUpdate informations.
  * 
  * @author Lecat Baptiste <baptiste.lecat44@gmail.com>
  * @version 1.0.0
@@ -19,7 +19,6 @@ class TaskUpdatedManager
 {
     /**
      * loadTaskUpdatedFromTodo
-     * Set taskArchiveObject of a task if it was archived.
      * Called for displaying the logs.
      *
      * @param  mixed $todoObject
