@@ -32,6 +32,8 @@ BEGIN
                 INSERT INTO taskarchive_date VALUES ();
                 -- Ajout dans la table de log des archive.
                 INSERT INTO task_archive VALUES(last_insert_id(), p_idTask, p_idUser);
+                -- Mise a jour de l'état archive de la tâche.
+                UPDATE task SET id_archived = last_insert_id() WHERE id_task = p_idTask;
                 -- Message succes : Archivage de la tâche réussi.
                 SET is_archived = TRUE;
                 SELECT is_archived;

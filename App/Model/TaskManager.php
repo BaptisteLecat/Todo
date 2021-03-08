@@ -30,7 +30,7 @@ class TaskManager
     public static function loadTask(Todo $todoObject, $list_priority)
     {
         try {
-            $request = PdoFactory::getPdo()->prepare("SELECT id_task, title_task, content_task, achieved_task, enddate_task, id_priority FROM task WHERE id_todo = :id_todo");
+            $request = PdoFactory::getPdo()->prepare("SELECT id_task, title_task, content_task, achieved_task, enddate_task, id_priority FROM task WHERE id_todo = :id_todo and id_archived IS NULL");
             $request->execute(array(':id_todo' => $todoObject->getId()));
             while ($result = $request->fetch()) {
                 foreach ($list_priority as $priority) {
@@ -128,7 +128,7 @@ class TaskManager
             $request->execute(array(':p_idUser' => $userObject->getId(), ':p_idTask' => $taskObject->getId()));
             $result = $request->fetch();
             $request->closeCursor();
-            if ($result["is_archived"] == 1) {
+            if ($result["is_archived"] == true) {
                 //Load taskarchive et ajout dans la tache.
                 TaskArchivedManager::loadTaskArchiveFromTask($taskObject);
             } else {

@@ -6,7 +6,7 @@
         </div>
 
         <div class="header_middle">
-            <h1>Travail</h1>
+            <h1 id="todoName" name="<?= $todo->getId(); ?>"><?= $todo->getTitle(); ?></h1>
             <h2>de Baptiste Lecat</h2>
         </div>
 
@@ -54,6 +54,8 @@
         </div>
     </div>
 
+    <button onclick="archiveTask()">Archive</button>
+
     <div class='task_wrapper'>
 
         <?php foreach ($todo->getList_Task() as $task) { ?>
@@ -89,5 +91,6 @@
 <script src="../js/todo/editSwipeHandler.js"></script>
 <script src="../js/todo/archivePressHandler.js"></script>
 <script src="../js/todo/todo.js"></script>
+<script src="../module/task/archive.js"></script>
 
 <?php $this->content = ob_get_clean(); ?>

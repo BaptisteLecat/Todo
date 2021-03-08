@@ -177,6 +177,19 @@ class Todo implements JsonSerializable
         return $list_contributeSerialize;
     }
 
+    public function getList_TaskNoArchived()
+    {
+        $list_task = array();
+
+        foreach ($this->list_task as $task) {
+            if ($task->getTaskArchivedObject() === null) {
+                array_push($list_task, $task);
+            }
+        }
+
+        return $list_task;
+    }
+
     public function delete(){
         $this->userObject->removeTodo($this);
     }
