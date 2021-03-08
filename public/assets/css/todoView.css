@@ -1,8 +1,8 @@
 .container_todoView{
-  margin: 0 auto;
-  display: grid;
-  grid-gap: 1.5em;
-  padding: 1.5em;
+  margin: 0;
+  display: flex;
+  grid-gap: 20px;
+
   grid-template-columns: repeat(2, 1fr);
 }
 
@@ -15,6 +15,8 @@
   justify-content: center;
   flex-direction: column;
   box-shadow: -2px 2px 4px 0px #0000003b;
+  width: 140px;
+  height: 180px;
 
 }
 
@@ -73,4 +75,53 @@
   height: 15px;
   background: #384EB2;
   border-radius: 3px;
+}
+
+.name_title{
+  color: #ffff;
+  font-size: 24px;
+  font-family: "geomanistregular", sans-serif;
+  display: flex;
+  margin-top: 45px;
+  margin-left: 25px;
+}
+
+.box_line{
+  margin: 0 auto;
+  width: 80%;
+}
+
+.line{
+  color: #1C303D;
+  border: none;
+  overflow: visible;
+  border-top: 2px double #1C303D;
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 18px;
+} 
+
+.information_todo{
+  display: flex;
+  margin: 0 auto;
+  width: 25%;
+  text-align: center;
+}
+
+.todo_title{
+  color: #ffff;
+  font-size: 24px;
+  font-family: "geomanistregular", sans-serif;
+}
+
+.color_number{
+  background: #0F212D;
+  width: 25px;
+  height: 25px;
+}
+
+.number{
+  color: #ffff;
+  font-size: 18px;
+  font-family: "geomanistregular", sans-serif;
 }

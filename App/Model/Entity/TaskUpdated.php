@@ -7,23 +7,22 @@ class TaskUpdated implements JsonSerializable
 {
     private $date;
 
-    private $userObject;
+    private $userName;
     private $taskObject;
 
-    function __construct($date, $userObject, $taskObject) {
+    function __construct($date, $userName, $taskObject) {
         $this->date = $date;
         
-        $this->userObject = $userObject;
+        $this->userName = $userName;
         $this->taskObject = $taskObject;
 
-        $this->userObject->addTaskArchived();
-        $this->taskObject->addTaskArchived();
+        $this->taskObject->addTaskUpdate();
     }
 
     public function jsonSerialize(){
         return array(
             "date" => $this->date,
-            "userObject" => $this->userObject->jsonSerialize(),
+            "userName" => $this->userName,
             "taskObject" => $this->taskObject->jsonSerialize(),
 
         );
@@ -33,8 +32,8 @@ class TaskUpdated implements JsonSerializable
         return $this->date;
     }
 
-    public function getUserObject(){
-        return $this->userObject;
+    public function getUserName(){
+        return $this->userName;
     }
 
     public function getTaskObject(){

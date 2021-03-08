@@ -10,7 +10,7 @@ use App\PdoFactory;
 
 /**
  * TaskArchivedManager
- * Static class for load Task requests.
+ * Static class for load TaskArchive informations.
  * 
  * @author Lecat Baptiste <baptiste.lecat44@gmail.com>
  * @version 1.0.0
