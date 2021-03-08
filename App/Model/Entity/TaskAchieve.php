@@ -4,7 +4,7 @@ namespace App\Model\Entity;
 
 use JsonSerializable;
 
-class TaskAchive implements JsonSerializable
+class TaskAchieve implements JsonSerializable
 {
     private $date;
     private $userName;
