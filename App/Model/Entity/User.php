@@ -32,17 +32,17 @@ class User implements JsonSerializable
 
     public function jsonSerialize(){
 
-        return array(
+        return Array(
             "id" => $this->id,
             "name" => $this->name,
             "firstName" => $this->firstName,
             "email" => $this->email,
             "createDate" => $this->createDate,
 
-            "list_task" => $this->list_taskSerialize(),
+            /*"list_task" => $this->list_taskSerialize(),
             "list_todo" => $this->list_todoSerialize(),
             "list_contribute" => $this->list_contributeSerialize(),
-            "list_taskUpdated" => $this->list_taskUpdatedSerialize(),
+            "list_taskUpdated" => $this->list_taskUpdatedSerialize(),*/
 
             "nbTaskAchieved" => $this->nbTaskAchieved(),
             "progressValue" => $this->progressValuePercent(),

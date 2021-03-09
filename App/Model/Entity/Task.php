@@ -43,7 +43,7 @@ class Task implements JsonSerializable
     public function jsonSerialize()
     {
 
-        return array(
+        return Array(
             "id" => $this->id,
             "title" => $this->title,
             "content" => $this->content,
@@ -52,10 +52,11 @@ class Task implements JsonSerializable
             "userObject" => $this->userObject->jsonSerialize(),
             "todoObject" => $this->todoObject->jsonSerialize(),
             "priorityObject" => $this->priorityObject->jsonSerialize(),
-            "taskArchivedObject" => $this->taskArchivedObject->jsonSerialize(),
+            
+            "taskArchivedObject" => ($this->taskArchivedObject != null) ? $this-> taskArchivedObject->jsonSerialize() : null,
 
-            "list_contribute" => $this->list_contributeSerialize(),
-            "list_taskUpdate" => $this->list_taskUpdateSerialize(),
+            /*"list_contribute" => $this->list_contributeSerialize(),
+            "list_taskUpdate" => $this->list_taskUpdateSerialize(),*/
         );
     }
 

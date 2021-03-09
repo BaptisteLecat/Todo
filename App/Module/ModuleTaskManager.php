@@ -54,6 +54,6 @@ class ModuleTaskManager
 
     private static function displayTask($todo)
     {
-        return count($todo->getList_TaskNoArchived());
+        return $todo->getList_TaskNoArchived();
     }
 }

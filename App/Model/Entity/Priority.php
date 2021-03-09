@@ -22,7 +22,7 @@ class Priority implements JsonSerializable
         return array(
             'id' => $this->id,
             'label' => $this->label,
-            'list_task' => $this->list_taskSerialize()
+            //'list_task' => $this->list_taskSerialize()
         );
     }
 

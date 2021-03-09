@@ -22,7 +22,7 @@ class TaskAchieve implements JsonSerializable
         return array(
             "date" => $this->date,
             "userName" => $this->userName,
-            "list_task" => $this->list_taskSerialize(),
+            //"list_task" => $this->list_taskSerialize(),
         );
     }
 

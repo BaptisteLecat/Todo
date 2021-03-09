@@ -22,7 +22,7 @@ class TodoIcon implements JsonSerializable
         return array(
             'id' => $this->id,
             'label' => $this->label,
-            'list_todo' => $this->list_todoSerialize()
+            //'list_todo' => $this->list_todoSerialize()
         );
     }
 

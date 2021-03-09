@@ -25,8 +25,8 @@ class Permission implements JsonSerializable
         return array(
             'id' => $this->id,
             'label' => $this->label,
-            'list_todoToken' => $this->list_TodoTokenSerialize(),
-            'list_contribute' => $this->list_ContributeSerialize()
+            /*'list_todoToken' => $this->list_TodoTokenSerialize(),
+            'list_contribute' => $this->list_ContributeSerialize()*/
         );
     }
 

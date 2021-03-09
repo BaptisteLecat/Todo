@@ -39,7 +39,7 @@ class Todo implements JsonSerializable
     public function jsonSerialize()
     {
 
-        return array(
+        return Array(
             "id" => $this->id,
             "title" => $this->title,
             "description" => $this->description,
@@ -47,9 +47,9 @@ class Todo implements JsonSerializable
             "userObject" => $this->userObject->jsonSerialize(),
             "todoIconObject" => $this->todoIconObject->jsonSerialize(),
 
-            "list_task" => $this->list_taskSerialize(),
+            /*"list_task" => $this->list_taskSerialize(),
             "list_todoToken" => $this->list_todoTokenSerialize(),
-            "list_contribute" => $this->list_contributeSerialize(),
+            "list_contribute" => $this->list_contributeSerialize(),*/
         );
     }
 
