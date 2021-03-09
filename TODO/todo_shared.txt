@@ -18,6 +18,7 @@ DO 08-03-2021 @baptiste Base de donnée, garder une trace des changement d'état
 -------MODULE-------
 
 DO 09_03_2021 @baptiste Archivage d'une tâche
+DO 09_03_2021 @baptiste Affichage de l'etat achieved de la tâche.
 TODO Changement de l'etat achieved de la tâche.
 TODO Modification des informations d'une tâche.
 TODO Suppression d'une tâche.
