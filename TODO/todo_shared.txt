@@ -1,11 +1,21 @@
+-------DESIGN--------
+
 TODO design page de visualisation des todo
 - Conserver les cards existantes.
 - Pouvoir différencier les todo PROPRIETAIRE / PARTICIPANTS.
 - Quand on click sur une card, ca nous renvoie vers la todo correspondante.
 
-
-TODO design page de parametres des todo
+DO 05-03-2021 @baptiste design page de parametres des todo
 TODO design modal (formulaire) de creation de tâche et de todo.
 
+--------------------
 
-TODO Base de donnée, garder une trace des changement d'état achieved d'une tâche.
+
+DO 08-03-2021 @baptiste Base de donnée, garder une trace des changement d'état achieved d'une tâche.
+
+
+-------MODULE-------
+
+DO 09_03_2021 @baptiste Archivage d'une tâche
+
+--------------------

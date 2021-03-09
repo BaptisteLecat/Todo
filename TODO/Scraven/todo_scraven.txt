@@ -1,0 +1,3 @@
+TODO Au click sur une todo renvoyer vers la page de cette derniere.
+TODO Responsive (uniquement mobile) de la page de visualisation des todo.
+TODO Intégration (codage de la maquette) de la vue permettant la visualisation des todos.
