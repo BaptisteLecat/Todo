@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 08 mars 2021 à 13:07
--- Version du serveur :  8.0.19
--- Version de PHP : 7.4.2
+-- Généré le : mar. 09 mars 2021 à 22:51
+-- Version du serveur :  5.7.31
+-- Version de PHP : 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -16,7 +15,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8_general_ci_general_ci */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de données : `todov2`
@@ -26,6 +25,100 @@ DELIMITER $$
 --
 -- Procédures
 --
+DROP PROCEDURE IF EXISTS `achieveTask`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `achieveTask` (IN `p_idUser` INT(11), IN `p_idTask` INT(11))  BEGIN
+
+    DECLARE fin BOOLEAN DEFAULT FALSE;
+    DECLARE is_allowed BOOLEAN DEFAULT FALSE;
+    DECLARE _flag  integer          default null;
+    DECLARE _id_permission INT(11);
+    DECLARE is_achieve BOOLEAN;
+
+        -- La tâche existe?
+    SET _flag = (SELECT 1 FROM task WHERE id_task = p_idTask);
+    IF (_flag = 1) THEN
+        SET _flag = NULL;
+        -- Est il propriétaire? -> Pour la todo donné le id_user lié est il == à celui du user.
+        SET _flag = (SELECT 1 FROM todo, task WHERE task.id_todo = todo.id_todo and id_task = p_idTask and id_user = p_idUser);
+        IF(_flag = 1) THEN
+            SET _flag = NULL;
+            -- La tâche est elle déjà achevée?
+            SET _flag = (SELECT 1 FROM task_achieve WHERE id_task = p_idTask);
+            IF(_flag = 1) THEN
+                -- La tâche est déjà achevée, on la remet en inachevée.
+                SET _flag = NULL;
+                -- Suppression de la log task_achieve.
+                DELETE FROM task_achieve WHERE id_task = p_idTask;
+                -- Message succes : Inachevage de la tâche réussi.
+                SET is_achieve = FALSE;
+                SELECT is_achieve;
+            ELSE
+                -- Ajout d'une date dans taskachieve_date.
+                INSERT INTO taskachieve_date VALUES ();
+                -- Ajout dans la table de log des achieve.
+                INSERT INTO task_achieve VALUES(last_insert_id(), p_idTask, p_idUser);
+                -- Message succes : Achevage de la tâche réussi.
+                SET is_achieve = TRUE;
+                SELECT is_achieve;
+            END IF;
+        ELSE
+            -- Le user n'est pas propriétaire.
+                    
+            -- A t'il les droits en achieve? - 1
+            BEGIN
+                DECLARE cursor_userPermission CURSOR FOR SELECT id_permission FROM contribute WHERE id_user = p_idUser and id_todo = (SELECT task.id_todo FROM task, todo WHERE task.id_todo = todo.id_todo and id_task = p_idTask);
+                DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin = TRUE; 
+                OPEN cursor_userPermission;
+
+                loop_cursor_userPermission :LOOP
+                    FETCH cursor_userPermission INTO _id_permission;
+                    IF fin THEN
+			            LEAVE loop_cursor_userPermission;
+		            END IF;
+                    -- Si l'_id_permission == 4 -> il a le droit en achieve.
+                    IF (_id_permission = 1) THEN
+                        SET _flag = NULL;
+                        -- La tâche est elle déjà achevée?
+                        SET _flag = (SELECT 1 FROM task_achieve WHERE id_task = p_idTask);
+                        IF(_flag = 1) THEN
+                            -- La tâche est déjà achevée, on la rétablie.
+                            SET _flag = NULL;
+                            -- Suppression de la log task_achieve.
+                            DELETE FROM task_achieve WHERE id_task = p_idTask;
+                            -- Message succes : Inachevage de la tâche réussi.
+                            SET is_achieve = FALSE;
+                            SELECT is_achieve;
+                        ELSE
+                            -- Ajout d'une date dans taskachieve_date.
+                            INSERT INTO taskachieve_date VALUES ();
+                            -- Ajout dans la table de log des achieve.
+                            INSERT INTO task_achieve VALUES(last_insert_id(), p_idTask, p_idUser);            
+                            -- Message succes : Achevage de la tâche réussi.
+                            SET is_achieve = TRUE;
+                            SELECT is_achieve;
+                        END IF;
+                    END IF;
+
+                END LOOP;
+
+                CLOSE cursor_userPermission;
+
+                IF(is_allowed = FALSE) THEN
+                    -- Message d'erreur : Vous n'avez pas l'autorisation.
+                    SIGNAL SQLSTATE '45000' 
+		            SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "Vous n'avez pas l'autorisation d'achever une tâche.";
+                END IF;
+
+            END ;
+        END IF;
+    ELSE
+        -- Message d'erreur : La todo n'existe pas.
+        SIGNAL SQLSTATE '45000' 
+		SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "La tâche n'existe pas.";
+    END IF;
+
+END$$
+
 DROP PROCEDURE IF EXISTS `archiveTask`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11), IN `p_idTask` INT(11))  BEGIN
 
@@ -50,6 +143,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11)
                 SET _flag = NULL;
                 -- Suppression de la log task_archive.
                 DELETE FROM task_archive WHERE id_task = p_idTask;
+                -- Mise a jour de l'état archive de la tâche.
+                UPDATE task SET id_archived = NULL WHERE id_task = p_idTask;
                 -- Message succes : Rétablissement de la tâche réussi.
                 SET is_archived = FALSE;
                 SELECT is_archived;
@@ -58,6 +153,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11)
                 INSERT INTO taskarchive_date VALUES ();
                 -- Ajout dans la table de log des archive.
                 INSERT INTO task_archive VALUES(last_insert_id(), p_idTask, p_idUser);
+                -- Mise a jour de l'état archive de la tâche.
+                UPDATE task SET id_archived = last_insert_id() WHERE id_task = p_idTask;
                 -- Message succes : Archivage de la tâche réussi.
                 SET is_archived = TRUE;
                 SELECT is_archived;
@@ -86,6 +183,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11)
                             SET _flag = NULL;
                             -- Suppression de la log task_archive.
                             DELETE FROM task_archive WHERE id_task = p_idTask;
+                            -- Mise a jour de l'état archive de la tâche.
+                            UPDATE task SET id_archived = NULL WHERE id_task = p_idTask;
                             -- Message succes : Rétablissement de la tâche réussi.
                             SET is_archived = FALSE;
                             SELECT is_archived;
@@ -93,7 +192,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11)
                             -- Ajout d'une date dans taskarchive_date.
                             INSERT INTO taskarchive_date VALUES ();
                             -- Ajout dans la table de log des archive.
-                            INSERT INTO task_archive VALUES(last_insert_id(), p_idTask, p_idUser);
+                            INSERT INTO task_archive VALUES(last_insert_id(), p_idTask, p_idUser);            
+                            -- Mise a jour de l'état archive de la tâche.
+                            UPDATE task SET id_archived = last_insert_id() WHERE id_task = p_idTask;
                             -- Message succes : Archivage de la tâche réussi.
                             SET is_archived = TRUE;
                             SELECT is_archived;
@@ -102,6 +203,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11)
 
                 END LOOP;
 
+                CLOSE cursor_userPermission;
 
                 IF(is_allowed = FALSE) THEN
                     -- Message d'erreur : Vous n'avez pas l'autorisation.
@@ -109,7 +211,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11)
 		            SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "Vous n'avez pas l'autorisation d'archiver une tâche.";
                 END IF;
 
-                CLOSE cursor_userPermission;
             END ;
         END IF;
     ELSE
@@ -645,12 +746,12 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `contribute`;
 CREATE TABLE IF NOT EXISTS `contribute` (
-  `accepted_contribute` tinyint NOT NULL DEFAULT '0',
-  `id_user` int NOT NULL,
-  `id_todo` int NOT NULL,
-  `id_permission` int NOT NULL,
+  `accepted_contribute` tinyint(4) NOT NULL DEFAULT '0',
+  `id_user` int(11) NOT NULL,
+  `id_todo` int(11) NOT NULL,
+  `id_permission` int(11) NOT NULL,
   PRIMARY KEY (`id_user`,`id_todo`,`id_permission`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `contribute`
@@ -670,10 +771,10 @@ INSERT INTO `contribute` (`accepted_contribute`, `id_user`, `id_todo`, `id_permi
 
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE IF NOT EXISTS `permission` (
-  `id_permission` int NOT NULL AUTO_INCREMENT,
+  `id_permission` int(11) NOT NULL AUTO_INCREMENT,
   `label_permission` varchar(255) NOT NULL,
   PRIMARY KEY (`id_permission`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `permission`
@@ -693,16 +794,16 @@ INSERT INTO `permission` (`id_permission`, `label_permission`) VALUES
 
 DROP TABLE IF EXISTS `task`;
 CREATE TABLE IF NOT EXISTS `task` (
-  `id_task` int NOT NULL AUTO_INCREMENT,
+  `id_task` int(11) NOT NULL AUTO_INCREMENT,
   `title_task` varchar(255) NOT NULL,
   `content_task` text NOT NULL,
-  `achieved_task` tinyint NOT NULL DEFAULT '0',
+  `achieved_task` tinyint(4) NOT NULL DEFAULT '0',
   `enddate_task` date NOT NULL,
-  `id_todo` int NOT NULL,
-  `id_priority` int NOT NULL,
-  `id_archived` int DEFAULT NULL,
+  `id_todo` int(11) NOT NULL,
+  `id_priority` int(11) NOT NULL,
+  `id_archived` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_task`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `task`
@@ -721,9 +822,17 @@ INSERT INTO `task` (`id_task`, `title_task`, `content_task`, `achieved_task`, `e
 
 DROP TABLE IF EXISTS `taskachieve_date`;
 CREATE TABLE IF NOT EXISTS `taskachieve_date` (
-  `id_achieve` int NOT NULL,
-  `date_achieve` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci COLLATE=utf8_general_ci;
+  `id_achieve` int(11) NOT NULL AUTO_INCREMENT,
+  `date_achieve` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_achieve`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `taskachieve_date`
+--
+
+INSERT INTO `taskachieve_date` (`id_achieve`, `date_achieve`) VALUES
+(1, '2021-03-09 23:43:20');
 
 -- --------------------------------------------------------
 
@@ -733,10 +842,10 @@ CREATE TABLE IF NOT EXISTS `taskachieve_date` (
 
 DROP TABLE IF EXISTS `taskarchive_date`;
 CREATE TABLE IF NOT EXISTS `taskarchive_date` (
-  `id_archive` int NOT NULL AUTO_INCREMENT,
+  `id_archive` int(11) NOT NULL AUTO_INCREMENT,
   `date_archive` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_archive`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `taskarchive_date`
@@ -774,10 +883,10 @@ INSERT INTO `taskarchive_date` (`id_archive`, `date_archive`) VALUES
 
 DROP TABLE IF EXISTS `taskcreate_date`;
 CREATE TABLE IF NOT EXISTS `taskcreate_date` (
-  `id_create` int NOT NULL AUTO_INCREMENT,
+  `id_create` int(11) NOT NULL AUTO_INCREMENT,
   `date_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_create`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `taskcreate_date`
@@ -801,10 +910,10 @@ INSERT INTO `taskcreate_date` (`id_create`, `date_create`) VALUES
 
 DROP TABLE IF EXISTS `taskpriority`;
 CREATE TABLE IF NOT EXISTS `taskpriority` (
-  `id_priority` int NOT NULL AUTO_INCREMENT,
+  `id_priority` int(11) NOT NULL AUTO_INCREMENT,
   `label_priority` varchar(255) NOT NULL,
   PRIMARY KEY (`id_priority`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `taskpriority`
@@ -823,10 +932,10 @@ INSERT INTO `taskpriority` (`id_priority`, `label_priority`) VALUES
 
 DROP TABLE IF EXISTS `taskupdate_date`;
 CREATE TABLE IF NOT EXISTS `taskupdate_date` (
-  `id_update` int NOT NULL AUTO_INCREMENT,
+  `id_update` int(11) NOT NULL AUTO_INCREMENT,
   `date_update` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_update`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `taskupdate_date`
@@ -864,10 +973,18 @@ INSERT INTO `taskupdate_date` (`id_update`, `date_update`) VALUES
 
 DROP TABLE IF EXISTS `task_achieve`;
 CREATE TABLE IF NOT EXISTS `task_achieve` (
-  `id_date` int NOT NULL,
-  `id_task` int NOT NULL,
-  `id_user` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci COLLATE=utf8_general_ci;
+  `id_date` int(11) NOT NULL,
+  `id_task` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  PRIMARY KEY (`id_date`,`id_task`,`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `task_achieve`
+--
+
+INSERT INTO `task_achieve` (`id_date`, `id_task`, `id_user`) VALUES
+(1, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -877,11 +994,11 @@ CREATE TABLE IF NOT EXISTS `task_achieve` (
 
 DROP TABLE IF EXISTS `task_archive`;
 CREATE TABLE IF NOT EXISTS `task_archive` (
-  `id_date` int NOT NULL,
-  `id_task` int NOT NULL,
-  `id_user` int NOT NULL,
+  `id_date` int(11) NOT NULL,
+  `id_task` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
   PRIMARY KEY (`id_date`,`id_task`,`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `task_archive`
@@ -899,11 +1016,11 @@ INSERT INTO `task_archive` (`id_date`, `id_task`, `id_user`) VALUES
 
 DROP TABLE IF EXISTS `task_create`;
 CREATE TABLE IF NOT EXISTS `task_create` (
-  `id_date` int NOT NULL,
-  `id_task` int NOT NULL,
-  `id_user` int NOT NULL,
+  `id_date` int(11) NOT NULL,
+  `id_task` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
   PRIMARY KEY (`id_date`,`id_task`,`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `task_create`
@@ -926,11 +1043,11 @@ INSERT INTO `task_create` (`id_date`, `id_task`, `id_user`) VALUES
 
 DROP TABLE IF EXISTS `task_update`;
 CREATE TABLE IF NOT EXISTS `task_update` (
-  `id_date` int NOT NULL,
-  `id_task` int NOT NULL,
-  `id_user` int NOT NULL,
+  `id_date` int(11) NOT NULL,
+  `id_task` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
   PRIMARY KEY (`id_date`,`id_task`,`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `task_update`
@@ -968,14 +1085,14 @@ INSERT INTO `task_update` (`id_date`, `id_task`, `id_user`) VALUES
 
 DROP TABLE IF EXISTS `todo`;
 CREATE TABLE IF NOT EXISTS `todo` (
-  `id_todo` int NOT NULL AUTO_INCREMENT,
+  `id_todo` int(11) NOT NULL AUTO_INCREMENT,
   `title_todo` varchar(255) NOT NULL,
   `description_todo` text NOT NULL,
   `createdate_todo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id_user` int NOT NULL,
-  `id_icon` int NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_icon` int(11) NOT NULL,
   PRIMARY KEY (`id_todo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `todo`
@@ -993,10 +1110,10 @@ INSERT INTO `todo` (`id_todo`, `title_todo`, `description_todo`, `createdate_tod
 
 DROP TABLE IF EXISTS `todo_icon`;
 CREATE TABLE IF NOT EXISTS `todo_icon` (
-  `id_icon` int NOT NULL AUTO_INCREMENT,
+  `id_icon` int(11) NOT NULL AUTO_INCREMENT,
   `label_icon` varchar(255) NOT NULL,
   PRIMARY KEY (`id_icon`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `todo_icon`
@@ -1020,10 +1137,10 @@ DROP TABLE IF EXISTS `todo_token`;
 CREATE TABLE IF NOT EXISTS `todo_token` (
   `token` varchar(500) NOT NULL,
   `expirationdate` datetime NOT NULL,
-  `id_permission` int NOT NULL,
-  `id_todo` int NOT NULL,
+  `id_permission` int(11) NOT NULL,
+  `id_todo` int(11) NOT NULL,
   PRIMARY KEY (`token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `todo_token`
@@ -1041,14 +1158,14 @@ INSERT INTO `todo_token` (`token`, `expirationdate`, `id_permission`, `id_todo`)
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id_user` int NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `name_user` varchar(255) NOT NULL,
   `firstname_user` varchar(255) NOT NULL,
   `email_user` varchar(255) NOT NULL,
   `password_user` varchar(255) NOT NULL,
   `createdate_user` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`
