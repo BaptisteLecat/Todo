@@ -45,14 +45,4 @@ class TaskArchived implements JsonSerializable
     {
         unset($this->list_task[array_search($taskObject, $this->list_task)]);
     }
-
-    private function list_taskSerialize()
-    {
-        $list_taskSerialize = array();
-        foreach ($this->list_task as $task) {
-            array_push($list_taskSerialize, $task->jsonSerialize());
-        }
-
-        return $list_taskSerialize;
-    }
 }

@@ -50,14 +50,4 @@ class TodoIcon implements JsonSerializable
     {
         unset($this->list_todo[array_search($todoObject, $this->list_todo)]);
     }
-
-    private function list_todoSerialize()
-    {
-        $list_todoSerialize = array();
-        foreach ($this->list_todo as $todo) {
-            array_push($list_todoSerialize, $todo->jsonSerialize());
-        }
-
-        return $list_todoSerialize;
-    }
 }

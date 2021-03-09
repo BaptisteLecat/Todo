@@ -145,37 +145,7 @@ class Todo implements JsonSerializable
     {
         unset($this->list_contribute[array_search($contributeObject, $this->list_contribute)]);
     }
-
-
-    private function list_taskSerialize()
-    {
-        $list_taskSerialize = array();
-        foreach ($this->list_task as $task) {
-            array_push($list_taskSerialize, $task->jsonSerialize());
-        }
-
-        return $list_taskSerialize;
-    }
-
-    private function list_todoTokenSerialize()
-    {
-        $list_todoTokenSerialize = array();
-        foreach ($this->list_todoToken as $token) {
-            array_push($list_todoTokenSerialize, $token->jsonSerialize());
-        }
-
-        return $list_todoTokenSerialize;
-    }
-
-    private function list_contributeSerialize()
-    {
-        $list_contributeSerialize = array();
-        foreach ($this->list_contribute as $contribute) {
-            array_push($list_contributeSerialize, $contribute->jsonSerialize());
-        }
-
-        return $list_contributeSerialize;
-    }
+    
 
     public function getList_TaskNoArchived()
     {

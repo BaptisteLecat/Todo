@@ -69,24 +69,4 @@ class Permission implements JsonSerializable
     {
         unset($this->list_contribute[array_search($contributeObject, $this->list_contribute)]);
     }
-
-    private function list_TodoTokenSerialize()
-    {
-        $list_todoTokenSerialize = array();
-        foreach ($this->list_contribute as $todoToken) {
-            array_push($list_todoTokenSerialize, $todoToken->jsonSerialize());
-        }
-
-        return $list_todoTokenSerialize;
-    }
-
-    private function list_ContributeSerialize()
-    {
-        $list_contributeSerialize = array();
-        foreach ($this->list_contribute as $contribute) {
-            array_push($list_contributeSerialize, $contribute->jsonSerialize());
-        }
-
-        return $list_contributeSerialize;
-    }
 }

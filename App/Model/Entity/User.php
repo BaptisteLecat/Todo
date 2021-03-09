@@ -165,47 +165,6 @@ class User implements JsonSerializable
         unset($this->list_taskUpdated[array_search($taskUpdateObject, $this->list_taskUpdated)]);
     }
 
-    // Functions for jsonSerialize()
-
-    private function list_taskSerialize()
-    {
-        $list_taskSerialize = array();
-        foreach ($this->list_task as $task) {
-            array_push($list_taskSerialize, $task->jsonSerialize());
-        }
-
-        return $list_taskSerialize;
-    }
-
-    private function list_todoSerialize(){
-        $list_todoSerialize = array();
-        foreach ($this->list_todo as $todo) {
-            array_push($list_todoSerialize, $todo->jsonSerialize());
-        }
-
-        return $list_todoSerialize;
-    }
-
-    private function list_contributeSerialize()
-    {
-        $list_contributeSerialize = array();
-        foreach ($this->list_contribute as $contribute) {
-            array_push($list_contributeSerialize, $contribute->jsonSerialize());
-        }
-
-        return $list_contributeSerialize;
-    }
-
-    private function list_taskUpdatedSerialize()
-    {
-        $list_taskUpdatedSerialize = array();
-        foreach ($this->list_taskUpdated as $taskUpdate) {
-            array_push($list_taskUpdatedSerialize, $taskUpdate->jsonSerialize());
-        }
-
-        return $list_taskUpdatedSerialize;
-    }
-
     // Function relative to the user
 
     public function nbTaskAchieved()
