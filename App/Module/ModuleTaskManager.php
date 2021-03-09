@@ -27,6 +27,7 @@ class ModuleTaskManager
                     if ($idTask == $taskObject->getId()) {
                         //Archivage
                         TaskManager::archiveTask(self::$userObject, $taskObject);
+                        break;
                     }
                 }
             }
