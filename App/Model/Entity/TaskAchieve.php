@@ -8,21 +8,21 @@ class TaskAchieve implements JsonSerializable
 {
     private $date;
     private $userName;
+    private $taskObject;
     
-    private $list_task;
-
-    function __construct($date, string $userName) {
+    function __construct($date, string $userName, Task $taskObject) {
         $this->date = $date;
         $this->userName = $userName;
-        
-        $this->list_task = array();
+        $this->taskObject = $taskObject;
+
+        $this->taskObject->setTaskAchieveObject($this);
     }
 
     public function jsonSerialize(){
         return array(
             "date" => $this->date,
             "userName" => $this->userName,
-            //"list_task" => $this->list_taskSerialize(),
+            "taskObject" => $this->taskObject
         );
     }
 
@@ -34,26 +34,7 @@ class TaskAchieve implements JsonSerializable
         return $this->userObject;
     }
 
-    public function getList_Task(){
-        return $this->list_task;
-    }
-
-    public function addTask(Task $task){
-        array_push($this->list_task, $task);
-    }
-
-    public function removeTask($taskObject)
-    {
-        unset($this->list_task[array_search($taskObject, $this->list_task)]);
-    }
-
-    private function list_taskSerialize()
-    {
-        $list_taskSerialize = array();
-        foreach ($this->list_task as $task) {
-            array_push($list_taskSerialize, $task->jsonSerialize());
-        }
-
-        return $list_taskSerialize;
+    public function getTaskObject(){
+        return $this->taskObject;
     }
 }

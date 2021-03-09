@@ -64,7 +64,11 @@
                     <img src="assets\icons\writing.png">
                 </div>
                 <div class='task_container' name="<?= $task->getId(); ?>">
-                    <h6>URGENT</h6>
+                    <?php if ($task->isAchieve()) { ?>
+                        <h6>ACHEVEE</h6>
+                    <?php } else { ?>
+                        <h6>INACHEVEE</h6>
+                    <?php } ?>
                     <hr>
                     <div class='task_body'>
                         <div class='task_content'>
@@ -75,7 +79,7 @@
                     <div class='task_footer'>
                         <div class='task_info'>
                             <img src="assets\icons\todo_task\calendar.png" alt="">
-                            <p><?= $task->getEndDate(); ?></p>
+                            <p>nothing</p>
                         </div>
                         <div class='task_info'>
                             <img src="assets\icons\todo_task\user.png" alt="">

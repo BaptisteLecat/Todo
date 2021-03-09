@@ -5,7 +5,6 @@ namespace App\Module;
 session_start();
 
 use App\Model\TaskManager;
-use App\PdoFactory;
 use Exception;
 
 class ModuleTaskManager
@@ -15,7 +14,6 @@ class ModuleTaskManager
     public static function archiveTask($list_idTask, $idTodo)
     {
         try {
-            PdoFactory::initConnection();
             self::$userObject = unserialize($_SESSION["User"]);
             //Récupération de l'object associé à l'id todo passé en paramètre.
             $todoObject = self::getTodoObject($idTodo);
@@ -34,6 +32,27 @@ class ModuleTaskManager
 
             //Retourne la list avec les modifications effectué.
             return self::displayTask($todoObject);
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+    }
+
+    public static function achievedTask($idTask, $idTodo)
+    {
+        try {
+            self::$userObject = unserialize($_SESSION["User"]);
+            //Récupération de l'object associé à l'id todo passé en paramètre.
+            $todoObject = self::getTodoObject($idTodo);
+
+            //Comparaison avec chacune des task présente dans la todo.
+            foreach ($todoObject->getList_Task() as $taskObject) {
+                if ($idTask == $taskObject->getId()) {
+                    //Archivage
+                    TaskManager::archiveTask(self::$userObject, $taskObject);
+                    break;
+                }
+            }
+            
         } catch (Exception $e) {
             throw new Exception($e);
         }
