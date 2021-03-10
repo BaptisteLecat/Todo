@@ -23,6 +23,8 @@ TODO Changement de l'etat achieved de la tâche.
 TODO Modification des informations d'une tâche.
 TODO Suppression d'une tâche.
 TODO Gerer l'evenement click sur le swipe task.
+TODO Modifier le reload des task sur le achieveEvent, todoDisplayer devient taskDisplayer pour permettre de modifier que la tâche.
+En effet pour le moment en supprimant la tache et en la rechargeant elle se place au dernier index de la list, soit en bas de la liste de task.
 
 --------------------
 
