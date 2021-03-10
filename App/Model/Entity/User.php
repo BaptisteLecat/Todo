@@ -44,7 +44,7 @@ class User implements JsonSerializable
             "list_contribute" => $this->list_contributeSerialize(),
             "list_taskUpdated" => $this->list_taskUpdatedSerialize(),*/
 
-            "nbTaskAchieved" => $this->nbTaskAchieved(),
+            "nbTaskAchieved" => $this->nbTaskAchieve(),
             "progressValue" => $this->progressValuePercent(),
         );
     }
