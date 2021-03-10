@@ -63,30 +63,51 @@
                 <div class="back_card">
                     <img src="assets\icons\writing.png">
                 </div>
-                <div class='task_container' name="<?= $task->getId(); ?>">
-                    <h6 style="color: <?= $task->getPriorityObject()->getColor(); ?>"><?= $task->getPriorityObject()->getLabel(); ?></h6>
-                    <hr>
-                    <div class='task_body'>
-                        <div class='task_content'>
-                            <h3>Travail</h3>
-                            <p><?= $task->getContent(); ?></p>
+                <?php if ($task->isAchieve()) { ?>
+                    <div class='task_container' style="background: linear-gradient(90deg, #5C7AFF, #5C7AFF);" name="<?= $task->getId(); ?>">
+                        <h6 style="color: <?= $task->getPriorityObject()->getColor(); ?>"><?= $task->getPriorityObject()->getLabel(); ?></h6>
+                        <hr style="border-color: #90A0E8;">
+                        <div class='task_body'>
+                            <div class='task_content' style="border-color: <?= $task->getPriorityObject()->getColor(); ?>;">
+                                <h3>Travail</h3>
+                                <p><?= $task->getContent(); ?></p>
+                            </div>
+                        </div>
+                        <div class='task_footer'>
+                            <div class='task_info'>
+                                <img src="assets\icons\todo_task\calendar.png" alt="">
+                                <p style="color: #FFF"><?= $task->getEndDate(); ?></p>
+                            </div>
                         </div>
                     </div>
-                    <div class='task_footer'>
-                        <div class='task_info'>
-                            <img src="assets\icons\todo_task\calendar.png" alt="">
-                            <p><?= $task->getEndDate(); ?></p>
-                        </div>
+            </div>
+        <?php } else { ?>
+            <div class='task_container' name="<?= $task->getId(); ?>">
+                <h6 style="color: <?= $task->getPriorityObject()->getColor(); ?>"><?= $task->getPriorityObject()->getLabel(); ?></h6>
+                <hr>
+                <div class='task_body'>
+                    <div class='task_content' style="border-color: <?= $task->getPriorityObject()->getColor(); ?>;">
+                        <h3>Travail</h3>
+                        <p><?= $task->getContent(); ?></p>
+                    </div>
+                </div>
+                <div class='task_footer'>
+                    <div class='task_info'>
+                        <img src="assets\icons\todo_task\calendar.png" alt="">
+                        <p><?= $task->getEndDate(); ?></p>
                     </div>
                 </div>
             </div>
-        <?php } ?>
     </div>
+<?php } ?>
+<?php } ?>
+</div>
 </main>
 
 <script src="../js/todo/editSwipeHandler.js"></script>
 <script src="../js/todo/archivePressHandler.js"></script>
 <script src="../js/todo/todo.js"></script>
+<script src="../module/displayer/todoDisplayer.js"></script>
 <script src="../module/task/archive/archive.js"></script>
 <script src="../module/task/achieve/achieve.js"></script>
 
