@@ -33,9 +33,9 @@ function displayTaskByDay() {
             document.getElementById("dateValue").innerText = res["dateString"];
             res["listTask"].forEach(task => {
                 html = html.concat(`<div class="task_container" id="${task.id}">`);
-                if (task.active == 1) {
-                    nbActiveTask++;
-                    html = html.concat(`
+                if (task.isAchieve == true) {
+                  nbActiveTask++;
+                  html = html.concat(`
                 <div class="task_content_validate" id="${task.id}" onclick="achieveTask(this)">
                     <div class="task_title">
                         <h6>${task.content}</h6>
@@ -46,7 +46,7 @@ function displayTaskByDay() {
                   </div>
                   <img class="bin_icon" src="../assets/icons/trash_52px.png" alt="bin to delete" onclick="deleteTask(this)"></div>`);
                 } else {
-                    html = html.concat(`
+                  html = html.concat(`
                 <div class="task_content_todo" id="${task.id}" onclick="achieveTask(this)">
                     <div class="task_title">
                       <h6>${task.content}</h6>

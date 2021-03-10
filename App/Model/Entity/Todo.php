@@ -46,10 +46,6 @@ class Todo implements JsonSerializable
             "createDate" => $this->createDate,
             "userObject" => $this->userObject->jsonSerialize(),
             "todoIconObject" => $this->todoIconObject->jsonSerialize(),
-
-            /*"list_task" => $this->list_taskSerialize(),
-            "list_todoToken" => $this->list_todoTokenSerialize(),
-            "list_contribute" => $this->list_contributeSerialize(),*/
         );
     }
 

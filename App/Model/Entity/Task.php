@@ -51,13 +51,12 @@ class Task implements JsonSerializable
             "endDate" => $this->endDate,
 
             "taskAchieveObject" => ($this->taskAchieveObject != null) ? $this->taskAchieveObject->jsonSerialize() : null,
-            //"taskArchivedObject" => ($this->taskArchivedObject != null) ? $this->taskArchivedObject->jsonSerialize() : null,
+            "taskArchivedObject" => ($this->taskArchivedObject != null) ? $this->taskArchivedObject->jsonSerialize() : null,
+            "isAchieve" => $this->isAchieve(),
 
             "todoObject" => $this->todoObject->jsonSerialize(),
             "priorityObject" => $this->priorityObject->jsonSerialize(),
             "userObject" => $this->userObject->jsonSerialize(),
-            /*"list_contribute" => $this->list_contributeSerialize(),
-            "list_taskUpdate" => $this->list_taskUpdateSerialize(),*/
         );
     }
 
@@ -203,6 +202,5 @@ class Task implements JsonSerializable
         $this->userObject->removeTask($this);
         $this->todoObject->removeTask($this);
         $this->priorityObject->removeTask($this);
-        ($this->taskArchivedObject != null) ? $this->taskArchivedObject->removeTask($this) : null;
     }
 }
