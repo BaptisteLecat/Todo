@@ -1,0 +1,24 @@
+----------DESIGN---------- 
+
+TODO design page de visualisation des todo
+- Conserver les cards existantes.
+- Pouvoir différencier les todo PROPRIETAIRE / PARTICIPANTS.
+- Quand on click sur une card, ca nous renvoie vers la todo correspondante.
+--------------------------
+
+
+
+---------HTML/CSS---------
+
+TODO Intégration (codage de la maquette) de la vue permettant la visualisation des todos.
+TODO Responsive (uniquement mobile) de la page de visualisation des todo.
+
+--------------------------
+
+
+
+----------DEV/ALGO--------
+
+TODO Au click sur une todo renvoyer vers la page de cette derniere.
+
+--------------------------

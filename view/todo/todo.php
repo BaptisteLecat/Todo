@@ -6,7 +6,7 @@
         </div>
 
         <div class="header_middle">
-            <h1>Travail</h1>
+            <h1 id="todoName" name="<?= $todo->getId(); ?>"><?= $todo->getTitle(); ?></h1>
             <h2>de Baptiste Lecat</h2>
         </div>
 
@@ -54,6 +54,8 @@
         </div>
     </div>
 
+    <button onclick="archiveTask()">Archive</button>
+
     <div class='task_wrapper'>
 
         <?php foreach ($todo->getList_Task() as $task) { ?>
@@ -61,8 +63,12 @@
                 <div class="back_card">
                     <img src="assets\icons\writing.png">
                 </div>
-                <div class='task_container'>
-                    <h6>URGENT</h6>
+                <div class='task_container' name="<?= $task->getId(); ?>">
+                    <?php if ($task->isAchieve()) { ?>
+                        <h6>ACHEVEE</h6>
+                    <?php } else { ?>
+                        <h6>INACHEVEE</h6>
+                    <?php } ?>
                     <hr>
                     <div class='task_body'>
                         <div class='task_content'>
@@ -73,7 +79,7 @@
                     <div class='task_footer'>
                         <div class='task_info'>
                             <img src="assets\icons\todo_task\calendar.png" alt="">
-                            <p><?= $task->getEndDate(); ?></p>
+                            <p>nothing</p>
                         </div>
                         <div class='task_info'>
                             <img src="assets\icons\todo_task\user.png" alt="">
@@ -89,5 +95,7 @@
 <script src="../js/todo/editSwipeHandler.js"></script>
 <script src="../js/todo/archivePressHandler.js"></script>
 <script src="../js/todo/todo.js"></script>
+<script src="../module/task/archive/archive.js"></script>
+<script src="../module/task/achieve/achieve.js"></script>
 
 <?php $this->content = ob_get_clean(); ?>

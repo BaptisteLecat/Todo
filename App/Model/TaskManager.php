@@ -7,6 +7,7 @@ use App\Model\Entity\Priority;
 use App\Model\Entity\Task;
 use App\Model\Entity\Todo;
 use App\Model\Entity\User;
+use App\Model\TaskAchieveManager;
 use App\PdoFactory;
 use PDOException;
 
@@ -30,12 +31,13 @@ class TaskManager
     public static function loadTask(Todo $todoObject, $list_priority)
     {
         try {
-            $request = PdoFactory::getPdo()->prepare("SELECT id_task, title_task, content_task, achieved_task, enddate_task, id_priority FROM task WHERE id_todo = :id_todo");
+            $request = PdoFactory::getPdo()->prepare("SELECT id_task, title_task, content_task, enddate_task, id_priority FROM task WHERE id_todo = :id_todo and id_archived IS NULL");
             $request->execute(array(':id_todo' => $todoObject->getId()));
             while ($result = $request->fetch()) {
                 foreach ($list_priority as $priority) {
                     if ($priority->getId() == $result["id_priority"]) {
-                        $task = new Task($result["id_task"], $result["title_task"], $result["content_task"], $result["achieved_task"], $result["enddate_task"], $todoObject->getUserObject(), $todoObject, $priority);
+                        $task = new Task($result["id_task"], $result["title_task"], $result["content_task"], $result["enddate_task"], $todoObject->getUserObject(), $todoObject, $priority);
+                        TaskAchieveManager::loadTaskAchieveFromTask($task);
                     }
                 }
             }
@@ -57,10 +59,12 @@ class TaskManager
     private static function loadTaskFromId($idTask, Priority $priorityObject, Todo $todoObject, User $userObject)
     {
         try {
-            $request = PdoFactory::getPdo()->prepare("SELECT title_task, content_task, achieved_task, enddate_task FROM task WHERE id_task = :id_task");
+            $request = PdoFactory::getPdo()->prepare("SELECT title_task, content_task, enddate_task FROM task WHERE id_task = :id_task");
             $request->execute(array(':id_task' => $idTask));
             $result = $request->fetch();
-            $task = new Task($idTask, $result["title_task"], $result["content_task"], $result["achieved_task"], $result["enddate_task"], $userObject, $todoObject, $priorityObject);
+            $task = new Task($idTask, $result["title_task"], $result["content_task"], $result["enddate_task"], $userObject, $todoObject, $priorityObject);
+            TaskAchieveManager::loadTaskAchieveFromTask($task);
+            TaskArchivedManager::loadTaskArchivedFromTask($task);
         } catch (Exception $e) {
             throw new Exception($e);
         }
@@ -113,6 +117,26 @@ class TaskManager
         }
     }
 
+    public static function achieveTask(User $userObject, Task $taskObject)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("call achieveTask(:p_idUser, :p_idTask)");
+            $request->execute(array(':p_idUser' => $userObject->getId(), ':p_idTask' => $taskObject->getId()));
+            $result = $request->fetch();
+            $request->closeCursor();
+            if ($result["is_achieve"] == true) {
+                //Load taskachieve et ajout dans la tache.
+                TaskAchieveManager::loadTaskAchieveFromTask($taskObject);
+            } else {
+                $taskObject->deleteTaskAchieveObject();
+            }
+        } catch (PDOException $e) {
+            echo ($e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+    }
+
     /**
      * archiveTask
      * Archive task and check if user have the right to. Once a task is archived it can be removed only by the todo's owner.
@@ -128,11 +152,11 @@ class TaskManager
             $request->execute(array(':p_idUser' => $userObject->getId(), ':p_idTask' => $taskObject->getId()));
             $result = $request->fetch();
             $request->closeCursor();
-            if ($result["is_archived"] == 1) {
+            if ($result["is_archived"] == true) {
                 //Load taskarchive et ajout dans la tache.
-                TaskArchivedManager::loadTaskArchiveFromTask($taskObject);
+                TaskArchivedManager::loadTaskArchivedFromTask($taskObject);
             } else {
-                $taskObject->removeTaskArchivedObject();
+                $taskObject->deleteTaskArchivedObject();
             }
         } catch (PDOException $e) {
             echo ($e->getMessage());

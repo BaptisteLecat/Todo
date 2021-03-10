@@ -32,19 +32,19 @@ class User implements JsonSerializable
 
     public function jsonSerialize(){
 
-        return array(
+        return Array(
             "id" => $this->id,
             "name" => $this->name,
             "firstName" => $this->firstName,
             "email" => $this->email,
             "createDate" => $this->createDate,
 
-            "list_task" => $this->list_taskSerialize(),
+            /*"list_task" => $this->list_taskSerialize(),
             "list_todo" => $this->list_todoSerialize(),
             "list_contribute" => $this->list_contributeSerialize(),
-            "list_taskUpdated" => $this->list_taskUpdatedSerialize(),
+            "list_taskUpdated" => $this->list_taskUpdatedSerialize(),*/
 
-            "nbTaskAchieved" => $this->nbTaskAchieved(),
+            "nbTaskAchieved" => $this->nbTaskAchieve(),
             "progressValue" => $this->progressValuePercent(),
         );
     }
@@ -165,54 +165,13 @@ class User implements JsonSerializable
         unset($this->list_taskUpdated[array_search($taskUpdateObject, $this->list_taskUpdated)]);
     }
 
-    // Functions for jsonSerialize()
-
-    private function list_taskSerialize()
-    {
-        $list_taskSerialize = array();
-        foreach ($this->list_task as $task) {
-            array_push($list_taskSerialize, $task->jsonSerialize());
-        }
-
-        return $list_taskSerialize;
-    }
-
-    private function list_todoSerialize(){
-        $list_todoSerialize = array();
-        foreach ($this->list_todo as $todo) {
-            array_push($list_todoSerialize, $todo->jsonSerialize());
-        }
-
-        return $list_todoSerialize;
-    }
-
-    private function list_contributeSerialize()
-    {
-        $list_contributeSerialize = array();
-        foreach ($this->list_contribute as $contribute) {
-            array_push($list_contributeSerialize, $contribute->jsonSerialize());
-        }
-
-        return $list_contributeSerialize;
-    }
-
-    private function list_taskUpdatedSerialize()
-    {
-        $list_taskUpdatedSerialize = array();
-        foreach ($this->list_taskUpdated as $taskUpdate) {
-            array_push($list_taskUpdatedSerialize, $taskUpdate->jsonSerialize());
-        }
-
-        return $list_taskUpdatedSerialize;
-    }
-
     // Function relative to the user
 
-    public function nbTaskAchieved()
+    public function nbTaskAchieve()
     {
         $nbTaskAchieved = 0;
-        foreach ($this->list_task as $value) {
-            if ($value->getAchieved()) {
+        foreach ($this->list_task as $task) {
+            if ($task->isAchieve()) {
                 $nbTaskAchieved++;
             }
         }
@@ -223,7 +182,7 @@ class User implements JsonSerializable
     {
         $progressValue = 0;
         if (count($this->list_task) > 0) {
-            $retour = ($this->nbTaskAchieved() / count($this->list_task)) * 100;
+            $retour = ($this->nbTaskAchieve() / count($this->list_task)) * 100;
         }
 
         return $progressValue;

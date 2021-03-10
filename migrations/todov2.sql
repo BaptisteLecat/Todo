@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 01 mars 2021 à 22:34
+-- Généré le : mar. 09 mars 2021 à 22:51
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -25,6 +25,100 @@ DELIMITER $$
 --
 -- Procédures
 --
+DROP PROCEDURE IF EXISTS `achieveTask`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `achieveTask` (IN `p_idUser` INT(11), IN `p_idTask` INT(11))  BEGIN
+
+    DECLARE fin BOOLEAN DEFAULT FALSE;
+    DECLARE is_allowed BOOLEAN DEFAULT FALSE;
+    DECLARE _flag  integer          default null;
+    DECLARE _id_permission INT(11);
+    DECLARE is_achieve BOOLEAN;
+
+        -- La tâche existe?
+    SET _flag = (SELECT 1 FROM task WHERE id_task = p_idTask);
+    IF (_flag = 1) THEN
+        SET _flag = NULL;
+        -- Est il propriétaire? -> Pour la todo donné le id_user lié est il == à celui du user.
+        SET _flag = (SELECT 1 FROM todo, task WHERE task.id_todo = todo.id_todo and id_task = p_idTask and id_user = p_idUser);
+        IF(_flag = 1) THEN
+            SET _flag = NULL;
+            -- La tâche est elle déjà achevée?
+            SET _flag = (SELECT 1 FROM task_achieve WHERE id_task = p_idTask);
+            IF(_flag = 1) THEN
+                -- La tâche est déjà achevée, on la remet en inachevée.
+                SET _flag = NULL;
+                -- Suppression de la log task_achieve.
+                DELETE FROM task_achieve WHERE id_task = p_idTask;
+                -- Message succes : Inachevage de la tâche réussi.
+                SET is_achieve = FALSE;
+                SELECT is_achieve;
+            ELSE
+                -- Ajout d'une date dans taskachieve_date.
+                INSERT INTO taskachieve_date VALUES ();
+                -- Ajout dans la table de log des achieve.
+                INSERT INTO task_achieve VALUES(last_insert_id(), p_idTask, p_idUser);
+                -- Message succes : Achevage de la tâche réussi.
+                SET is_achieve = TRUE;
+                SELECT is_achieve;
+            END IF;
+        ELSE
+            -- Le user n'est pas propriétaire.
+                    
+            -- A t'il les droits en achieve? - 1
+            BEGIN
+                DECLARE cursor_userPermission CURSOR FOR SELECT id_permission FROM contribute WHERE id_user = p_idUser and id_todo = (SELECT task.id_todo FROM task, todo WHERE task.id_todo = todo.id_todo and id_task = p_idTask);
+                DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin = TRUE; 
+                OPEN cursor_userPermission;
+
+                loop_cursor_userPermission :LOOP
+                    FETCH cursor_userPermission INTO _id_permission;
+                    IF fin THEN
+			            LEAVE loop_cursor_userPermission;
+		            END IF;
+                    -- Si l'_id_permission == 4 -> il a le droit en achieve.
+                    IF (_id_permission = 1) THEN
+                        SET _flag = NULL;
+                        -- La tâche est elle déjà achevée?
+                        SET _flag = (SELECT 1 FROM task_achieve WHERE id_task = p_idTask);
+                        IF(_flag = 1) THEN
+                            -- La tâche est déjà achevée, on la rétablie.
+                            SET _flag = NULL;
+                            -- Suppression de la log task_achieve.
+                            DELETE FROM task_achieve WHERE id_task = p_idTask;
+                            -- Message succes : Inachevage de la tâche réussi.
+                            SET is_achieve = FALSE;
+                            SELECT is_achieve;
+                        ELSE
+                            -- Ajout d'une date dans taskachieve_date.
+                            INSERT INTO taskachieve_date VALUES ();
+                            -- Ajout dans la table de log des achieve.
+                            INSERT INTO task_achieve VALUES(last_insert_id(), p_idTask, p_idUser);            
+                            -- Message succes : Achevage de la tâche réussi.
+                            SET is_achieve = TRUE;
+                            SELECT is_achieve;
+                        END IF;
+                    END IF;
+
+                END LOOP;
+
+                CLOSE cursor_userPermission;
+
+                IF(is_allowed = FALSE) THEN
+                    -- Message d'erreur : Vous n'avez pas l'autorisation.
+                    SIGNAL SQLSTATE '45000' 
+		            SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "Vous n'avez pas l'autorisation d'achever une tâche.";
+                END IF;
+
+            END ;
+        END IF;
+    ELSE
+        -- Message d'erreur : La todo n'existe pas.
+        SIGNAL SQLSTATE '45000' 
+		SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "La tâche n'existe pas.";
+    END IF;
+
+END$$
+
 DROP PROCEDURE IF EXISTS `archiveTask`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11), IN `p_idTask` INT(11))  BEGIN
 
@@ -49,6 +143,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11)
                 SET _flag = NULL;
                 -- Suppression de la log task_archive.
                 DELETE FROM task_archive WHERE id_task = p_idTask;
+                -- Mise a jour de l'état archive de la tâche.
+                UPDATE task SET id_archived = NULL WHERE id_task = p_idTask;
                 -- Message succes : Rétablissement de la tâche réussi.
                 SET is_archived = FALSE;
                 SELECT is_archived;
@@ -57,6 +153,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11)
                 INSERT INTO taskarchive_date VALUES ();
                 -- Ajout dans la table de log des archive.
                 INSERT INTO task_archive VALUES(last_insert_id(), p_idTask, p_idUser);
+                -- Mise a jour de l'état archive de la tâche.
+                UPDATE task SET id_archived = last_insert_id() WHERE id_task = p_idTask;
                 -- Message succes : Archivage de la tâche réussi.
                 SET is_archived = TRUE;
                 SELECT is_archived;
@@ -85,6 +183,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11)
                             SET _flag = NULL;
                             -- Suppression de la log task_archive.
                             DELETE FROM task_archive WHERE id_task = p_idTask;
+                            -- Mise a jour de l'état archive de la tâche.
+                            UPDATE task SET id_archived = NULL WHERE id_task = p_idTask;
                             -- Message succes : Rétablissement de la tâche réussi.
                             SET is_archived = FALSE;
                             SELECT is_archived;
@@ -92,7 +192,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11)
                             -- Ajout d'une date dans taskarchive_date.
                             INSERT INTO taskarchive_date VALUES ();
                             -- Ajout dans la table de log des archive.
-                            INSERT INTO task_archive VALUES(last_insert_id(), p_idTask, p_idUser);
+                            INSERT INTO task_archive VALUES(last_insert_id(), p_idTask, p_idUser);            
+                            -- Mise a jour de l'état archive de la tâche.
+                            UPDATE task SET id_archived = last_insert_id() WHERE id_task = p_idTask;
                             -- Message succes : Archivage de la tâche réussi.
                             SET is_archived = TRUE;
                             SELECT is_archived;
@@ -101,6 +203,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11)
 
                 END LOOP;
 
+                CLOSE cursor_userPermission;
 
                 IF(is_allowed = FALSE) THEN
                     -- Message d'erreur : Vous n'avez pas l'autorisation.
@@ -108,7 +211,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11)
 		            SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "Vous n'avez pas l'autorisation d'archiver une tâche.";
                 END IF;
 
-                CLOSE cursor_userPermission;
             END ;
         END IF;
     ELSE
@@ -701,14 +803,36 @@ CREATE TABLE IF NOT EXISTS `task` (
   `id_priority` int(11) NOT NULL,
   `id_archived` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_task`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `task`
 --
 
 INSERT INTO `task` (`id_task`, `title_task`, `content_task`, `achieved_task`, `enddate_task`, `id_todo`, `id_priority`, `id_archived`) VALUES
-(8, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 1, NULL);
+(8, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 1, NULL),
+(9, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 1, NULL),
+(10, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `taskachieve_date`
+--
+
+DROP TABLE IF EXISTS `taskachieve_date`;
+CREATE TABLE IF NOT EXISTS `taskachieve_date` (
+  `id_achieve` int(11) NOT NULL AUTO_INCREMENT,
+  `date_achieve` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_achieve`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `taskachieve_date`
+--
+
+INSERT INTO `taskachieve_date` (`id_achieve`, `date_achieve`) VALUES
+(1, '2021-03-09 23:43:20');
 
 -- --------------------------------------------------------
 
@@ -811,7 +935,7 @@ CREATE TABLE IF NOT EXISTS `taskupdate_date` (
   `id_update` int(11) NOT NULL AUTO_INCREMENT,
   `date_update` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_update`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `taskupdate_date`
@@ -837,7 +961,30 @@ INSERT INTO `taskupdate_date` (`id_update`, `date_update`) VALUES
 (17, '2021-02-24 16:03:09'),
 (18, '2021-02-24 16:03:27'),
 (19, '2021-02-24 16:04:14'),
-(20, '2021-02-24 16:04:22');
+(20, '2021-02-24 16:04:22'),
+(21, '2021-03-08 13:31:02'),
+(22, '2021-03-08 13:31:11');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `task_achieve`
+--
+
+DROP TABLE IF EXISTS `task_achieve`;
+CREATE TABLE IF NOT EXISTS `task_achieve` (
+  `id_date` int(11) NOT NULL,
+  `id_task` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  PRIMARY KEY (`id_date`,`id_task`,`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `task_achieve`
+--
+
+INSERT INTO `task_achieve` (`id_date`, `id_task`, `id_user`) VALUES
+(1, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -926,7 +1073,9 @@ INSERT INTO `task_update` (`id_date`, `id_task`, `id_user`) VALUES
 (17, 3, 2),
 (18, 3, 2),
 (19, 3, 2),
-(20, 3, 2);
+(20, 3, 2),
+(21, 8, 2),
+(22, 8, 2);
 
 -- --------------------------------------------------------
 

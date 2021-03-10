@@ -24,6 +24,10 @@ class PdoFactory
 
     public static function getPdo()
     {
+        if (is_null(self::$pdo)) {
+            self::initConnection();
+        }
+
         return self::$pdo;
     }
 }

@@ -25,8 +25,8 @@ class Permission implements JsonSerializable
         return array(
             'id' => $this->id,
             'label' => $this->label,
-            'list_todoToken' => $this->list_TodoTokenSerialize(),
-            'list_contribute' => $this->list_ContributeSerialize()
+            /*'list_todoToken' => $this->list_TodoTokenSerialize(),
+            'list_contribute' => $this->list_ContributeSerialize()*/
         );
     }
 
@@ -68,25 +68,5 @@ class Permission implements JsonSerializable
     public function removeContribute($contributeObject)
     {
         unset($this->list_contribute[array_search($contributeObject, $this->list_contribute)]);
-    }
-
-    private function list_TodoTokenSerialize()
-    {
-        $list_todoTokenSerialize = array();
-        foreach ($this->list_contribute as $todoToken) {
-            array_push($list_todoTokenSerialize, $todoToken->jsonSerialize());
-        }
-
-        return $list_todoTokenSerialize;
-    }
-
-    private function list_ContributeSerialize()
-    {
-        $list_contributeSerialize = array();
-        foreach ($this->list_contribute as $contribute) {
-            array_push($list_contributeSerialize, $contribute->jsonSerialize());
-        }
-
-        return $list_contributeSerialize;
     }
 }

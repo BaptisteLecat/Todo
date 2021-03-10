@@ -9,7 +9,6 @@ use App\Model\TaskManager;
 use App\Model\TodoIconManager;
 use App\Model\UserManager;
 use App\Model\Utils\MessageBox;
-use App\PdoFactory;
 
 class Controller
 {
@@ -27,7 +26,6 @@ class Controller
 
     function __construct()
     {
-        PdoFactory::initConnection();
 
         $this->list_priority = loadPriority();
         $this->list_todoIcon = loadTodoIcon();

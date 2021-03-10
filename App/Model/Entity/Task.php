@@ -10,34 +10,35 @@ class Task implements JsonSerializable
     private $id;
     private $title;
     private $content;
-    private $achieved;
-    
+    private $endDate;
+
     private $userObject;
     private $todoObject;
     private $priorityObject;
+    private $taskAchieveObject;
     private $taskArchivedObject;
     private $list_contribute;
     private $list_taskUpdate;
 
-    public function __construct(int $id, string $title, string $content, int $achieved, $endDate, User $userObject, Todo $todoObject, Priority $priorityObject, TaskArchived $taskArchivedObject = null)
+    public function __construct(int $id, string $title, string $content, $endDate, User $userObject, Todo $todoObject, Priority $priorityObject)
     {
         $this->id = $id;
         $this->title = $title;
         $this->content = $content;
-        $this->achieved = $achieved;
         $this->endDate = $endDate;
         $this->userObject = $userObject;
         $this->todoObject = $todoObject;
         $this->priorityObject = $priorityObject;
-        $this->taskArchivedObject = $taskArchivedObject;
+
+        $this->taskAchieveObject = null;
+        $this->taskArchivedObject = null;
 
         $this->list_contribute = array();
         $this->list_taskUpdate = array();
-        
-        $this->userObject->addTask($this);
-        $this->todoObject->addTask($this);
+
         $this->priorityObject->addTask($this);
-        ($this->taskArchivedObject != null) ? $this->taskArchivedObject->addTask($this) : null;
+        $this->todoObject->addTask($this);
+        $this->userObject->addTask($this);
     }
 
     public function jsonSerialize()
@@ -47,15 +48,15 @@ class Task implements JsonSerializable
             "id" => $this->id,
             "title" => $this->title,
             "content" => $this->content,
-            "achieved" => $this->achieved,
             "endDate" => $this->endDate,
-            "userObject" => $this->userObject->jsonSerialize(),
+
+            "taskAchieveObject" => ($this->taskAchieveObject != null) ? $this->taskAchieveObject->jsonSerialize() : null,
+            "taskArchivedObject" => ($this->taskArchivedObject != null) ? $this->taskArchivedObject->jsonSerialize() : null,
+            "isAchieve" => $this->isAchieve(),
+
             "todoObject" => $this->todoObject->jsonSerialize(),
             "priorityObject" => $this->priorityObject->jsonSerialize(),
-            "taskArchivedObject" => $this->taskArchivedObject->jsonSerialize(),
-
-            "list_contribute" => $this->list_contributeSerialize(),
-            "list_taskUpdate" => $this->list_taskUpdateSerialize(),
+            "userObject" => $this->userObject->jsonSerialize(),
         );
     }
 
@@ -73,15 +74,10 @@ class Task implements JsonSerializable
     {
         return $this->content;
     }
-
-    public function getAchieved()
-    {
-        return $this->achieved;
-    }
-
+    
     public function getEndDate()
     {
-        return $this->achieved;
+        return $this->endDate;
     }
 
     public function getUserObject()
@@ -97,6 +93,11 @@ class Task implements JsonSerializable
     public function getPriorityObject()
     {
         return $this->priorityObject;
+    }
+
+    public function getTaskAchieveObject()
+    {
+        return $this->taskAchieveObject;
     }
 
     public function getTaskArchivedObject()
@@ -119,10 +120,22 @@ class Task implements JsonSerializable
         $this->taskArchivedObject = $taskArchived;
     }
 
-    public function removeTaskArchivedObject(){
-        if($this->taskArchivedObject != null){
-            $this->taskArchivedObject->removeTask($this);
-            unset($this->taskArchivedObject);
+    public function setTaskAchieveObject(TaskAchieve $taskAchieve)
+    {
+        $this->taskAchieveObject = $taskAchieve;
+    }
+
+    public function deleteTaskArchivedObject()
+    {
+        if ($this->taskArchivedObject != null) {
+            $this->taskArchivedObject = null;
+        }
+    }
+
+    public function deleteTaskAchieveObject()
+    {
+        if ($this->taskAchieveObject != null) {
+            $this->taskAchieveObject = null;
         }
     }
 
@@ -148,27 +161,16 @@ class Task implements JsonSerializable
         unset($this->list_taskUpdate[array_search($taskUpdateObject, $this->list_taskUpdate)]);
     }
 
-    private function list_ContributeSerialize()
-    {
-        $list_contributeSerialize = array();
-        foreach ($this->list_contribute as $contribute) {
-            array_push($list_contributeSerialize, $contribute->jsonSerialize());
-        }
-
-        return $list_contributeSerialize;
+    public function isAchieve(){
+       if($this->taskAchieveObject == null){
+           return false;
+       }else{
+           return true;
+       }
     }
 
-    private function list_TaskUpdateSerialize()
+    public function updateAttributeValue($label, $value)
     {
-        $list_taskUpdateSerialize = array();
-        foreach ($this->list_taskUpdate as $taskUpdate) {
-            array_push($list_taskUpdateSerialize, $taskUpdate->jsonSerialize());
-        }
-
-        return $list_taskUpdateSerialize;
-    }
-
-    public function updateAttributeValue($label, $value){
         switch ($label) {
             case 'title':
                 $this->$label = $value;
@@ -178,9 +180,9 @@ class Task implements JsonSerializable
                 $this->$label = $value;
                 break;
 
-            case 'achieved':
+            case 'endDate':
                 $this->$label = $value;
-                break;
+                break;   
 
             case 'priority':
                 //Suppression de la priority précédente.
@@ -188,7 +190,7 @@ class Task implements JsonSerializable
                 $this->$label = $value;
                 $this->$label->addTask($this);
                 break;
-            
+
             default:
                 throw new Exception("Attribut inconnu");
                 break;
@@ -200,6 +202,5 @@ class Task implements JsonSerializable
         $this->userObject->removeTask($this);
         $this->todoObject->removeTask($this);
         $this->priorityObject->removeTask($this);
-        ($this->taskArchivedObject != null) ? $this->taskArchivedObject->removeTask($this) : null;
     }
 }

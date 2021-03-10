@@ -17,7 +17,7 @@ function taskForToday($user){
 function nbTaskValidate($listTask){
     $nbTaskValidate = 0;
     foreach($listTask as $task){
-        if($task->getActive() == 1){
+        if($task->isAchieve() == 1){
             $nbTaskValidate++;
         }
     }

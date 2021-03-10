@@ -22,7 +22,7 @@ class Priority implements JsonSerializable
         return array(
             'id' => $this->id,
             'label' => $this->label,
-            'list_task' => $this->list_taskSerialize()
+            //'list_task' => $this->list_taskSerialize()
         );
     }
 
@@ -49,15 +49,5 @@ class Priority implements JsonSerializable
     public function removeTask($taskObject)
     {
         unset($this->list_task[array_search($taskObject, $this->list_task)]);
-    }
-
-    private function list_taskSerialize()
-    {
-        $list_taskSerialize = array();
-        foreach ($this->list_task as $task) {
-            array_push($list_taskSerialize, $task->jsonSerialize());
-        }
-
-        return $list_taskSerialize;
     }
 }

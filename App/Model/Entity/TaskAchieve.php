@@ -1,30 +1,27 @@
-<?php 
+<?php
 
 namespace App\Model\Entity;
+
 use JsonSerializable;
 
-class TaskUpdated implements JsonSerializable
+class TaskAchieve implements JsonSerializable
 {
     private $date;
-
     private $userName;
     private $taskObject;
-
-    function __construct($date, $userName, $taskObject) {
+    
+    function __construct($date, string $userName, Task $taskObject) {
         $this->date = $date;
-        
         $this->userName = $userName;
         $this->taskObject = $taskObject;
 
-        $this->taskObject->addTaskUpdate();
+        $this->taskObject->setTaskAchieveObject($this);
     }
 
     public function jsonSerialize(){
         return array(
             "date" => $this->date,
             "userName" => $this->userName,
-            "taskObject" => $this->taskObject->jsonSerialize(),
-
         );
     }
 
@@ -33,7 +30,7 @@ class TaskUpdated implements JsonSerializable
     }
 
     public function getUserName(){
-        return $this->userName;
+        return $this->userObject;
     }
 
     public function getTaskObject(){

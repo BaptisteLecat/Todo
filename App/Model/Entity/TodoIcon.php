@@ -22,7 +22,7 @@ class TodoIcon implements JsonSerializable
         return array(
             'id' => $this->id,
             'label' => $this->label,
-            'list_todo' => $this->list_todoSerialize()
+            //'list_todo' => $this->list_todoSerialize()
         );
     }
 
@@ -49,15 +49,5 @@ class TodoIcon implements JsonSerializable
     public function removeTodo($todoObject)
     {
         unset($this->list_todo[array_search($todoObject, $this->list_todo)]);
-    }
-
-    private function list_todoSerialize()
-    {
-        $list_todoSerialize = array();
-        foreach ($this->list_todo as $todo) {
-            array_push($list_todoSerialize, $todo->jsonSerialize());
-        }
-
-        return $list_todoSerialize;
     }
 }
