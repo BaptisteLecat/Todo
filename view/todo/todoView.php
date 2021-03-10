@@ -6,12 +6,14 @@
   </div>
 
   <div class="information_todo">
-    <div class="todo_title">
-      <h3 class="name_todo">Personnelle</h3>
-    </div>
-    <div class="color_number">
-      <div class="number">
-        <h3>3</h3>
+    <div class="test">
+      <div class="todo_title">
+        <h3 class="name_todo">Personnelle</h3>
+      </div>
+      <div class="color_number">
+        <div class="number">
+          <h3>333</h3>
+        </div>
       </div>
     </div>
   </div>
@@ -40,16 +42,18 @@
   </div>
 
   <div class="information_todo">
-    <div class="todo_title">
-      <h3 class="name_todo">Groupe</h3>
-    </div>
-    <div class="color_number">
-      <div class="number">
-        <h3>3</h3>
+    <div class="test">
+      <div class="todo_title">
+        <h3 class="name_todo">Groupe</h3>
+      </div>
+      <div class="color_number">
+        <div class="number">
+          <h3>333</h3>
+        </div>
       </div>
     </div>
   </div>
-  <div class= "box_line">
+    <div class= "box_line">
     <hr class="line">
   </div>
 
