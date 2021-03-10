@@ -7,12 +7,14 @@ class Priority implements JsonSerializable
 {
     private $id;
     private $label;
+    private $color;
 
     private $list_task;
 
-    public function __construct(int $id, string $label) {
+    public function __construct(int $id, string $label, string $color) {
         $this->id = $id;
         $this->label = $label;
+        $this->color = $color;
 
         $this->list_task = array();
     }
@@ -22,7 +24,7 @@ class Priority implements JsonSerializable
         return array(
             'id' => $this->id,
             'label' => $this->label,
-            //'list_task' => $this->list_taskSerialize()
+            'color' => $this->color,
         );
     }
 
@@ -34,6 +36,10 @@ class Priority implements JsonSerializable
     public function getLabel()
     {
         return $this->label;
+    }
+
+    public function getColor(){
+        return $this->color;
     }
 
     public function getList_Task()

@@ -26,10 +26,10 @@ class PriorityManager
         $list_priority = array();
 
         try{
-            $request = PdoFactory::getPdo()->prepare("SELECT id_priority, label_priority FROM taskpriority");
+            $request = PdoFactory::getPdo()->prepare("SELECT id_priority, label_priority, color_priority FROM taskpriority");
             $request->execute();
             while ($result = $request->fetch()) {
-                $priority = new Priority($result["id_priority"], $result["label_priority"]);
+                $priority = new Priority($result["id_priority"], $result["label_priority"], $result["color_priority"]);
                 array_push($list_priority, $priority);
             }
         }catch(Exception $e){

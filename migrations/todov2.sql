@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 09 mars 2021 à 22:51
+-- Généré le : mer. 10 mars 2021 à 21:27
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -810,9 +810,9 @@ CREATE TABLE IF NOT EXISTS `task` (
 --
 
 INSERT INTO `task` (`id_task`, `title_task`, `content_task`, `achieved_task`, `enddate_task`, `id_todo`, `id_priority`, `id_archived`) VALUES
-(8, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 1, NULL),
+(8, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-10', 1, 2, NULL),
 (9, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 1, NULL),
-(10, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 1, NULL);
+(10, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -825,14 +825,48 @@ CREATE TABLE IF NOT EXISTS `taskachieve_date` (
   `id_achieve` int(11) NOT NULL AUTO_INCREMENT,
   `date_achieve` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_achieve`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `taskachieve_date`
 --
 
 INSERT INTO `taskachieve_date` (`id_achieve`, `date_achieve`) VALUES
-(1, '2021-03-09 23:43:20');
+(1, '2021-03-09 23:43:20'),
+(2, '2021-03-10 19:22:14'),
+(3, '2021-03-10 19:22:24'),
+(4, '2021-03-10 19:30:00'),
+(5, '2021-03-10 19:30:17'),
+(6, '2021-03-10 20:28:29'),
+(7, '2021-03-10 20:30:49'),
+(8, '2021-03-10 20:32:07'),
+(9, '2021-03-10 20:35:28'),
+(10, '2021-03-10 20:36:17'),
+(11, '2021-03-10 20:37:25'),
+(12, '2021-03-10 20:38:07'),
+(13, '2021-03-10 20:38:58'),
+(14, '2021-03-10 20:40:45'),
+(15, '2021-03-10 20:42:18'),
+(16, '2021-03-10 20:44:34'),
+(17, '2021-03-10 20:44:38'),
+(18, '2021-03-10 20:47:00'),
+(19, '2021-03-10 20:47:14'),
+(20, '2021-03-10 20:47:51'),
+(21, '2021-03-10 20:48:06'),
+(22, '2021-03-10 20:48:27'),
+(23, '2021-03-10 20:48:29'),
+(24, '2021-03-10 20:48:30'),
+(25, '2021-03-10 21:51:42'),
+(26, '2021-03-10 21:51:59'),
+(27, '2021-03-10 21:52:59'),
+(28, '2021-03-10 21:53:58'),
+(29, '2021-03-10 21:54:03'),
+(30, '2021-03-10 21:54:07'),
+(31, '2021-03-10 21:54:08'),
+(32, '2021-03-10 21:54:11'),
+(33, '2021-03-10 21:54:18'),
+(34, '2021-03-10 21:54:24'),
+(35, '2021-03-10 21:54:44');
 
 -- --------------------------------------------------------
 
@@ -845,7 +879,7 @@ CREATE TABLE IF NOT EXISTS `taskarchive_date` (
   `id_archive` int(11) NOT NULL AUTO_INCREMENT,
   `date_archive` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_archive`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `taskarchive_date`
@@ -873,7 +907,8 @@ INSERT INTO `taskarchive_date` (`id_archive`, `date_archive`) VALUES
 (19, '2021-02-24 22:16:21'),
 (20, '2021-02-24 22:16:26'),
 (21, '2021-02-24 22:16:46'),
-(22, '2021-02-24 22:17:02');
+(22, '2021-02-24 22:17:02'),
+(23, '2021-03-10 21:52:43');
 
 -- --------------------------------------------------------
 
@@ -912,6 +947,7 @@ DROP TABLE IF EXISTS `taskpriority`;
 CREATE TABLE IF NOT EXISTS `taskpriority` (
   `id_priority` int(11) NOT NULL AUTO_INCREMENT,
   `label_priority` varchar(255) NOT NULL,
+  `color_priority` varchar(25) NOT NULL,
   PRIMARY KEY (`id_priority`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -919,10 +955,10 @@ CREATE TABLE IF NOT EXISTS `taskpriority` (
 -- Déchargement des données de la table `taskpriority`
 --
 
-INSERT INTO `taskpriority` (`id_priority`, `label_priority`) VALUES
-(1, 'A FAIRE'),
-(2, 'URGENT'),
-(3, 'TERMINÉ');
+INSERT INTO `taskpriority` (`id_priority`, `label_priority`, `color_priority`) VALUES
+(1, 'A FAIRE', '#5C7AFF'),
+(2, 'URGENT', '#F25F5C'),
+(3, 'TERMINE', '#FFFFFF');
 
 -- --------------------------------------------------------
 
@@ -984,7 +1020,7 @@ CREATE TABLE IF NOT EXISTS `task_achieve` (
 --
 
 INSERT INTO `task_achieve` (`id_date`, `id_task`, `id_user`) VALUES
-(1, 8, 1);
+(26, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -999,14 +1035,6 @@ CREATE TABLE IF NOT EXISTS `task_archive` (
   `id_user` int(11) NOT NULL,
   PRIMARY KEY (`id_date`,`id_task`,`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `task_archive`
---
-
-INSERT INTO `task_archive` (`id_date`, `id_task`, `id_user`) VALUES
-(2, 4, 2),
-(3, 6, 2);
 
 -- --------------------------------------------------------
 
