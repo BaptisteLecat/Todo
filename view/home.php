@@ -46,7 +46,7 @@
       <!-- Container for all the task -->
       <?php foreach ($taskForToday as $task) { ?>
         <div class="task_container" id="<?= $task->getId() ?>">
-          <?php if ($task->getActive() == 1) { ?>
+          <?php if ($task->isAchieve() == true) { ?>
             <div class="task_content_validate" id="<?= $task->getId() ?>" onclick="activeModifier(this)">
               <div class="task_title">
                 <h6><?= $task->getContent() ?></h6>
