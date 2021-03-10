@@ -1,5 +1,6 @@
 .container_todoView{
   margin: 0;
+  margin-left: 20px;
   display: flex;
   grid-gap: 20px;
 
@@ -135,4 +136,9 @@
 .test{
   margin-left: auto;
   margin-right: auto;
+}
+
+.tt{
+  width: 100%;
+  height: 30px;
 }
