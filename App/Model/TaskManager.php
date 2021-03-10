@@ -70,6 +70,25 @@ class TaskManager
         }
     }
 
+    public static function reloadTask(Task $taskObject, $list_priority)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("SELECT title_task, content_task, enddate_task, id_priority FROM task WHERE id_task = :id_task and id_archived IS NULL");
+            $request->execute(array(':id_task' => $taskObject->getId()));
+            while ($result = $request->fetch()) {
+                foreach ($list_priority as $priority) {
+                    if ($priority->getId() == $result["id_priority"]) {
+                        $task = new Task($taskObject->getId(), $result["title_task"], $result["content_task"], $result["enddate_task"], $taskObject->getUserObject(), $taskObject->getTodoObject(), $priority);
+                        TaskAchieveManager::loadTaskAchieveFromTask($task);
+                        $taskObject->delete();
+                    }
+                }
+            }
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+    }
+
     /**
      * insertTask
      * Insert a new Task in database.

@@ -8,30 +8,46 @@ function todoDisplayer(listTaskObject){
                 <div class='task_container' name="<?= $task->getId(); ?>">
                 `);
         if(task.isAchieve){
-
-        }
-                        <h6>ACHEVEE</h6>
-                    <?php } else { ?>
-                        <h6>INACHEVEE</h6>
-                    <?php } ?>
-                    <hr>
-                    <div class='task_body'>
-                        <div class='task_content'>
-                            <h3>Travail</h3>
-                            <p><?= $task->getContent(); ?></p>
+            html = html.concat(`
+                    <div class='task_container' style="background: linear-gradient(90deg, #5C7AFF, #5C7AFF);" name="${task.id}">
+                        <h6 style="color: ${task.priorityObject.color}">${task.priorityObject.label}</h6>
+                        <hr style="border-color: #90A0E8;">
+                        <div class='task_body'>
+                            <div class='task_content' style="border-color: ${task.priorityObject.color};">
+                                <h3>Travail</h3>
+                                <p>${task.content}</p>
+                            </div>
+                        </div>
+                        <div class='task_footer'>
+                            <div class='task_info'>
+                                <img src="assets\\icons\\todo_task\\calendar.png" alt="">
+                                <p style="color: #FFF">${task.endDate}</p>
+                            </div>
                         </div>
                     </div>
-                    <div class='task_footer'>
-                        <div class='task_info'>
-                            <img src="assets\\icons\\todo_task\\calendar.png" alt="">
-                            <p>nothing</p>
-                        </div>
-                        <div class='task_info'>
-                            <img src="assets\\icons\\todo_task\\user.png" alt="">
-                            <p>2 personnes</p>
-                        </div>
+            </div>`);
+        }else{
+            html = html.concat(`            <div class='task_container' name="${task.id}">
+                <h6 style="color: ${task.priorityObject.color}">${task.priorityObject.label}</h6>
+                <hr>
+                <div class='task_body'>
+                    <div class='task_content' style="border-color: ${task.priorityObject.color};">
+                        <h3>Travail</h3>
+                        <p>${task.content}</p>
+                    </div>
+                </div>
+                <div class='task_footer'>
+                    <div class='task_info'>
+                        <img src="assets\\icons\\todo_task\\calendar.png" alt="">
+                        <p>${task.endDate}</p>
                     </div>
                 </div>
             </div>`);
+        }
+
+        html = html.concat(`</div></div>`);
+                        
     });
+
+    return html;
 }

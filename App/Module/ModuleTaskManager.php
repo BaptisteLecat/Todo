@@ -4,6 +4,7 @@ namespace App\Module;
 
 session_start();
 
+use App\Model\PriorityManager;
 use App\Model\TaskManager;
 use Exception;
 
@@ -40,6 +41,7 @@ class ModuleTaskManager
     public static function achieveTask($idTask, $idTodo)
     {
         try {
+            $list_priority = PriorityManager::loadPriority();
             self::$userObject = unserialize($_SESSION["User"]);
             //Récupération de l'object associé à l'id todo passé en paramètre.
             $todoObject = self::getTodoObject($idTodo);
@@ -49,6 +51,7 @@ class ModuleTaskManager
                 if ($idTask == $taskObject->getId()) {
                     //Archivage
                     TaskManager::achieveTask(self::$userObject, $taskObject);
+                    TaskManager::reloadTask($taskObject, $list_priority);
                     break;
                 }
             }
