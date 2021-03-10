@@ -170,8 +170,8 @@ class User implements JsonSerializable
     public function nbTaskAchieve()
     {
         $nbTaskAchieved = 0;
-        foreach ($this->list_task as $value) {
-            if ($value->isAchieve()) {
+        foreach ($this->list_task as $task) {
+            if ($task->isAchieve()) {
                 $nbTaskAchieved++;
             }
         }

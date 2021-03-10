@@ -6,6 +6,6 @@ session_start();
 
 $user = unserialize($_SESSION["User"]);
 
-$response = ["taskPourcent" => round($user->progressValuePourcent())];
+$response = ["taskPourcent" => round($user->progressValuePercent())];
 
 echo json_encode($response);

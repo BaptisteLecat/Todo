@@ -19,7 +19,7 @@ class TaskAchieve implements JsonSerializable
     }
 
     public function jsonSerialize(){
-        return array(
+        return Array(
             "date" => $this->date,
             "userName" => $this->userName,
             "taskObject" => $this->taskObject

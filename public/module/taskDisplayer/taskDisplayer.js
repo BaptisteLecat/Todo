@@ -23,7 +23,7 @@ function dayNext() {
 function displayTaskByDay() {
     var nbActiveTask = 0;
     var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var res = this.response;
             console.log(res);
@@ -36,7 +36,7 @@ function displayTaskByDay() {
                 if (task.active == 1) {
                     nbActiveTask++;
                     html = html.concat(`
-                <div class="task_content_validate" id="${task.id}" onclick="activeModifier(this)">
+                <div class="task_content_validate" id="${task.id}" onclick="achieveTask(this)">
                     <div class="task_title">
                         <h6>${task.content}</h6>
                     </div>
@@ -47,7 +47,7 @@ function displayTaskByDay() {
                   <img class="bin_icon" src="../assets/icons/trash_52px.png" alt="bin to delete" onclick="deleteTask(this)"></div>`);
                 } else {
                     html = html.concat(`
-                <div class="task_content_todo" id="${task.id}" onclick="activeModifier(this)">
+                <div class="task_content_todo" id="${task.id}" onclick="achieveTask(this)">
                     <div class="task_title">
                       <h6>${task.content}</h6>
                     </div>
@@ -78,10 +78,10 @@ function displayTaskByDay() {
     xhr.send("day=" + encodeURI(day));
 }
 
-function activeModifier(object) {
+function achieveTask(object) {
     var idTask = object.parentNode.id;
     var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var res = this.response;
             console.log(idTask);
@@ -96,7 +96,7 @@ function activeModifier(object) {
         }
     };
 
-    xhr.open("POST", "module/taskDisplayer/ajax/activeModifier.php", true);
+    xhr.open("POST", "module/taskDisplayer/ajax/achieveTask.php", true);
     xhr.responseType = "json";
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("idTask=" + encodeURI(idTask));
@@ -105,7 +105,7 @@ function activeModifier(object) {
 function deleteTask(object) {
     var idTask = object.parentNode.id;
     var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var res = this.response;
             console.log(res);
@@ -127,7 +127,7 @@ function deleteTask(object) {
 
 function updateGlobalStats() {
     var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var res = this.response;
             console.log(res);
