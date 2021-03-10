@@ -4,7 +4,7 @@
   <div class="title">
     <h1 class="name_title">Vos Todo</h1>
   </div>
-
+  <div class="tt"></div>
   <div class="information_todo">
     <div class="test">
       <div class="todo_title">
@@ -40,7 +40,7 @@
       </div>
     <?php } ?>
   </div>
-
+  <div class="tt"></div>
   <div class="information_todo">
     <div class="test">
       <div class="todo_title">
