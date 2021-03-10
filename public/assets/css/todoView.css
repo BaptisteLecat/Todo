@@ -1,5 +1,6 @@
 .container_todoView{
   margin: 0;
+  margin-left: 20px;
   display: flex;
   grid-gap: 20px;
 
@@ -87,7 +88,8 @@
 }
 
 .box_line{
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
   width: 80%;
 }
 
@@ -103,9 +105,10 @@
 
 .information_todo{
   display: flex;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
   width: 25%;
-  text-align: center;
+
 }
 
 .todo_title{
@@ -115,13 +118,27 @@
 }
 
 .color_number{
-  background: #0F212D;
-  width: 25px;
-  height: 25px;
+  background: #142734;
+  margin-top: 4px;
+  margin-left: 5px;
+  border-radius: 5px;
 }
 
 .number{
   color: #ffff;
   font-size: 18px;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: 2px;
   font-family: "geomanistregular", sans-serif;
+}
+
+.test{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tt{
+  width: 100%;
+  height: 30px;
 }
