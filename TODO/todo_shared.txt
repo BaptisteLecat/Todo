@@ -22,6 +22,7 @@ DO 09_03_2021 @baptiste Affichage de l'etat achieved de la tâche.
 TODO Changement de l'etat achieved de la tâche.
 TODO Modification des informations d'une tâche.
 TODO Suppression d'une tâche.
+TODO Gerer l'evenement click sur le swipe task.
 
 --------------------
 
