@@ -10,6 +10,7 @@ TODO design modal (formulaire) de creation de tâche et de todo.
 --------BDD---------
 
 DO 08-03-2021 @baptiste Base de donnée, garder une trace des changement d'état achieved d'une tâche.
+TODO Procédure récupération des todo Contribute.
 
 --------------------
 
