@@ -25,7 +25,7 @@ class TaskArchivedManager
      * @param  mixed $todoObject
      * @return void
      */
-    public static function loadTaskArchiveFromTodo(Todo $todoObject){
+    public static function loadTaskArchivedFromTodo(Todo $todoObject){
         try{
             $request = PdoFactory::getPdo()->prepare("SELECT taskarchive_date.date_archive, user.name_user, task.id_task
             FROM user, task_archive, taskarchive_date, todo, task 
@@ -37,10 +37,9 @@ class TaskArchivedManager
             AND DAYOFYEAR(taskarchive_date.date_archive) >= DAYOFYEAR(NOW()) - 10");
              $request->execute(array(':id_todo' => $todoObject->getId()));
              while ($result = $request->fetch()) {
-                $taskArchived = new TaskArchived($result["date_archive"], $result["name_user"]);
                 foreach ($todoObject->getList_Task() as $task) {
                     if($task->getId() == $result["id_task"]){
-                        $task->setTaskArchivedObject($taskArchived);
+                        $taskArchived = new TaskArchived($result["date_archive"], $result["name_user"], $task);
                         break;
                     }
                 }
@@ -58,7 +57,7 @@ class TaskArchivedManager
      * @param  mixed $taskObject
      * @return void
      */
-    public static function loadTaskArchiveFromTask(Task $taskObject){
+    public static function loadTaskArchivedFromTask(Task $taskObject){
         try{
             $request = PdoFactory::getPdo()->prepare("SELECT taskarchive_date.date_archive, user.name_user 
             FROM task, task_archive, taskarchive_date, user 
@@ -69,8 +68,7 @@ class TaskArchivedManager
             $request->execute(array(':id_task' => $taskObject->getId()));
             $result = $request->fetch();
             if($request->rowCount() > 0){
-                $taskArchived = new TaskArchived($result["date_archive"], $result["name_user"]);
-                $taskObject->setTaskArchivedObject($taskArchived);
+                $taskArchived = new TaskArchived($result["date_archive"], $result["name_user"], $taskObject);
             }
         }catch(Exception $e){
             throw new Exception($e);
