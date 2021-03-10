@@ -64,11 +64,7 @@
                     <img src="assets\icons\writing.png">
                 </div>
                 <div class='task_container' name="<?= $task->getId(); ?>">
-                    <?php if ($task->isAchieve()) { ?>
-                        <h6>ACHEVEE</h6>
-                    <?php } else { ?>
-                        <h6>INACHEVEE</h6>
-                    <?php } ?>
+                    <h6 style="color: <?= $task->getPriorityObject()->getColor(); ?>"><?= $task->getPriorityObject()->getLabel(); ?></h6>
                     <hr>
                     <div class='task_body'>
                         <div class='task_content'>
@@ -79,11 +75,7 @@
                     <div class='task_footer'>
                         <div class='task_info'>
                             <img src="assets\icons\todo_task\calendar.png" alt="">
-                            <p>nothing</p>
-                        </div>
-                        <div class='task_info'>
-                            <img src="assets\icons\todo_task\user.png" alt="">
-                            <p>2 personnes</p>
+                            <p><?= $task->getEndDate(); ?></p>
                         </div>
                     </div>
                 </div>
