@@ -201,6 +201,5 @@ class Task implements JsonSerializable
     {
         $this->userObject->removeTask($this);
         $this->todoObject->removeTask($this);
-        $this->priorityObject->removeTask($this);
     }
 }
