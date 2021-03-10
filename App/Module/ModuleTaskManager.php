@@ -37,7 +37,7 @@ class ModuleTaskManager
         }
     }
 
-    public static function achievedTask($idTask, $idTodo)
+    public static function achieveTask($idTask, $idTodo)
     {
         try {
             self::$userObject = unserialize($_SESSION["User"]);

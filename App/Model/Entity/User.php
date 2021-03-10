@@ -167,11 +167,11 @@ class User implements JsonSerializable
 
     // Function relative to the user
 
-    public function nbTaskAchieved()
+    public function nbTaskAchieve()
     {
         $nbTaskAchieved = 0;
         foreach ($this->list_task as $value) {
-            if ($value->getAchieved()) {
+            if ($value->isAchieve()) {
                 $nbTaskAchieved++;
             }
         }
@@ -182,7 +182,7 @@ class User implements JsonSerializable
     {
         $progressValue = 0;
         if (count($this->list_task) > 0) {
-            $retour = ($this->nbTaskAchieved() / count($this->list_task)) * 100;
+            $retour = ($this->nbTaskAchieve() / count($this->list_task)) * 100;
         }
 
         return $progressValue;

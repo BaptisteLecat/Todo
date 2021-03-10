@@ -10,6 +10,7 @@ class Task implements JsonSerializable
     private $id;
     private $title;
     private $content;
+    private $endDate;
 
     private $userObject;
     private $todoObject;
@@ -75,6 +76,11 @@ class Task implements JsonSerializable
     public function getContent()
     {
         return $this->content;
+    }
+    
+    public function getEndDate()
+    {
+        return $this->endDate;
     }
 
     public function getUserObject()
@@ -174,6 +180,10 @@ class Task implements JsonSerializable
             case 'content':
                 $this->$label = $value;
                 break;
+
+            case 'endDate':
+                $this->$label = $value;
+                break;   
 
             case 'priority':
                 //Suppression de la priority précédente.
