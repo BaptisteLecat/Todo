@@ -64,6 +64,7 @@ class TaskManager
             $result = $request->fetch();
             $task = new Task($idTask, $result["title_task"], $result["content_task"], $result["enddate_task"], $userObject, $todoObject, $priorityObject);
             TaskAchieveManager::loadTaskAchieveFromTask($task);
+            TaskArchivedManager::loadTaskArchivedFromTask($task);
         } catch (Exception $e) {
             throw new Exception($e);
         }
@@ -116,7 +117,25 @@ class TaskManager
         }
     }
 
-    //public static function achieveTask()
+    public static function achieveTask(User $userObject, Task $taskObject)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("call achieveTask(:p_idUser, :p_idTask)");
+            $request->execute(array(':p_idUser' => $userObject->getId(), ':p_idTask' => $taskObject->getId()));
+            $result = $request->fetch();
+            $request->closeCursor();
+            if ($result["is_achieve"] == true) {
+                //Load taskachieve et ajout dans la tache.
+                TaskAchieveManager::loadTaskAchieveFromTask($taskObject);
+            } else {
+                $taskObject->deleteTaskAchieveObject();
+            }
+        } catch (PDOException $e) {
+            echo ($e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+    }
 
     /**
      * archiveTask
@@ -135,9 +154,9 @@ class TaskManager
             $request->closeCursor();
             if ($result["is_archived"] == true) {
                 //Load taskarchive et ajout dans la tache.
-                TaskArchivedManager::loadTaskArchiveFromTask($taskObject);
+                TaskArchivedManager::loadTaskArchivedFromTask($taskObject);
             } else {
-                $taskObject->removeTaskArchivedObject();
+                $taskObject->deleteTaskArchivedObject();
             }
         } catch (PDOException $e) {
             echo ($e->getMessage());

@@ -48,11 +48,13 @@ class ModuleTaskManager
             foreach ($todoObject->getList_Task() as $taskObject) {
                 if ($idTask == $taskObject->getId()) {
                     //Archivage
-                    TaskManager::archiveTask(self::$userObject, $taskObject);
+                    TaskManager::achieveTask(self::$userObject, $taskObject);
                     break;
                 }
             }
             
+            //Retourne la list avec les modifications effectué.
+            return self::displayTask($todoObject);
         } catch (Exception $e) {
             throw new Exception($e);
         }
