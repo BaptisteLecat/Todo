@@ -24,6 +24,8 @@ BEGIN
                 SET _flag = NULL;
                 -- Suppression de la log task_achieve.
                 DELETE FROM task_achieve WHERE id_task = p_idTask;
+                -- Changement de la priority pour A FAIRE
+                UPDATE task SET id_priority = 2 WHERE id_task = p_idTask;
                 -- Message succes : Inachevage de la tâche réussi.
                 SET is_achieve = FALSE;
                 SELECT is_achieve;
@@ -32,6 +34,8 @@ BEGIN
                 INSERT INTO taskachieve_date VALUES ();
                 -- Ajout dans la table de log des achieve.
                 INSERT INTO task_achieve VALUES(last_insert_id(), p_idTask, p_idUser);
+                -- Changement de la priority pour TERMINE
+                UPDATE task SET id_priority = 3 WHERE id_task = p_idTask; 
                 -- Message succes : Achevage de la tâche réussi.
                 SET is_achieve = TRUE;
                 SELECT is_achieve;
@@ -60,6 +64,8 @@ BEGIN
                             SET _flag = NULL;
                             -- Suppression de la log task_achieve.
                             DELETE FROM task_achieve WHERE id_task = p_idTask;
+                            -- Changement de la priority pour A FAIRE
+                            UPDATE task SET id_priority = 2 WHERE id_task = p_idTask;
                             -- Message succes : Inachevage de la tâche réussi.
                             SET is_achieve = FALSE;
                             SELECT is_achieve;
@@ -67,7 +73,9 @@ BEGIN
                             -- Ajout d'une date dans taskachieve_date.
                             INSERT INTO taskachieve_date VALUES ();
                             -- Ajout dans la table de log des achieve.
-                            INSERT INTO task_achieve VALUES(last_insert_id(), p_idTask, p_idUser);            
+                            INSERT INTO task_achieve VALUES(last_insert_id(), p_idTask, p_idUser);
+                            -- Changement de la priority pour TERMINE
+                            UPDATE task SET id_priority = 3 WHERE id_task = p_idTask;          
                             -- Message succes : Achevage de la tâche réussi.
                             SET is_achieve = TRUE;
                             SELECT is_achieve;
