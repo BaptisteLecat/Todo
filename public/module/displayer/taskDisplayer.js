@@ -1,12 +1,7 @@
-function todoDisplayer(listTaskObject){
-    var html = "";
-    listTaskObject.forEach(task => {
-        html = html.concat(`            <div class="parent_container">
-                <div class="back_card">
+function taskDisplayer(task){
+    var html = `<div class="back_card">
                     <img src="assets\\icons\\writing.png">
-                </div>
-                <div class='task_container' name="<?= $task->getId(); ?>">
-                `);
+                </div>`;
         if(task.isAchieve){
             html = html.concat(`
                     <div class='task_container' style="background: linear-gradient(90deg, #5C7AFF, #5C7AFF);" name="${task.id}">
@@ -27,7 +22,7 @@ function todoDisplayer(listTaskObject){
                     </div>
             </div>`);
         }else{
-            html = html.concat(`            <div class='task_container' name="${task.id}">
+            html = html.concat(`<div class='task_container' name="${task.id}">
                 <h6 style="color: ${task.priorityObject.color}">${task.priorityObject.label}</h6>
                 <hr>
                 <div class='task_body'>
@@ -44,10 +39,6 @@ function todoDisplayer(listTaskObject){
                 </div>
             </div>`);
         }
-
-        html = html.concat(`</div></div>`);
-                        
-    });
 
     return html;
 }

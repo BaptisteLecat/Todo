@@ -72,6 +72,7 @@ class TaskManager
 
     public static function reloadTask(Task $taskObject, $list_priority)
     {
+        $task = null;
         try {
             $request = PdoFactory::getPdo()->prepare("SELECT title_task, content_task, enddate_task, id_priority FROM task WHERE id_task = :id_task and id_archived IS NULL");
             $request->execute(array(':id_task' => $taskObject->getId()));
@@ -87,6 +88,8 @@ class TaskManager
         } catch (Exception $e) {
             throw new Exception($e);
         }
+
+        return $task;
     }
 
     /**

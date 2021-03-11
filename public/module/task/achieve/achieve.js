@@ -2,11 +2,9 @@ function achieveTask(element) {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      var res = this.response;
-      console.log(res);
-      document.getElementsByClassName(
-        "task_wrapper"
-      )[0].innerHTML = todoDisplayer(res);
+      var task = this.response;
+      console.log(task);
+      element.parentNode.innerHTML = taskDisplayer(task);
 
       $(".task_container").each(function () {
         this.addEventListener("touchstart", swipeEditTouchStart, false);

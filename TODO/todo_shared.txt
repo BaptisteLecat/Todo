@@ -20,11 +20,10 @@ TODO Procédure récupération des todo Contribute.
 
 DO 09_03_2021 @baptiste Archivage d'une tâche
 DO 09_03_2021 @baptiste Affichage de l'etat achieved de la tâche.
-TODO Changement de l'etat achieved de la tâche.
 TODO Modification des informations d'une tâche.
 TODO Suppression d'une tâche.
 TODO Gerer l'evenement click sur le swipe task.
-TODO Modifier le reload des task sur le achieveEvent, todoDisplayer devient taskDisplayer pour permettre de modifier que la tâche.
+DO 11-03-2021 @baptiste Modifier le reload des task sur le achieveEvent, todoDisplayer devient taskDisplayer pour permettre de modifier que la tâche.
 En effet pour le moment en supprimant la tache et en la rechargeant elle se place au dernier index de la list, soit en bas de la liste de task.
 
 --------------------

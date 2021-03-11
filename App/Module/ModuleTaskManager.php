@@ -14,6 +14,8 @@ class ModuleTaskManager
 
     public static function archiveTask($list_idTask, $idTodo)
     {
+        $task_return = null;
+
         try {
             self::$userObject = unserialize($_SESSION["User"]);
             //Récupération de l'object associé à l'id todo passé en paramètre.
@@ -26,13 +28,13 @@ class ModuleTaskManager
                     if ($idTask == $taskObject->getId()) {
                         //Archivage
                         TaskManager::archiveTask(self::$userObject, $taskObject);
+                        $task_return = $taskObject;
                         break;
                     }
                 }
             }
 
-            //Retourne la list avec les modifications effectué.
-            return self::displayTask($todoObject);
+            return $task_return;
         } catch (Exception $e) {
             throw new Exception($e);
         }
@@ -40,6 +42,8 @@ class ModuleTaskManager
 
     public static function achieveTask($idTask, $idTodo)
     {
+        $task_return = null;
+
         try {
             $list_priority = PriorityManager::loadPriority();
             self::$userObject = unserialize($_SESSION["User"]);
@@ -52,12 +56,12 @@ class ModuleTaskManager
                     //Archivage
                     TaskManager::achieveTask(self::$userObject, $taskObject);
                     TaskManager::reloadTask($taskObject, $list_priority);
+                    $task_return = TaskManager::reloadTask($taskObject, $list_priority);
                     break;
                 }
             }
-            
-            //Retourne la list avec les modifications effectué.
-            return self::displayTask($todoObject);
+
+            return $task_return;
         } catch (Exception $e) {
             throw new Exception($e);
         }
@@ -72,12 +76,6 @@ class ModuleTaskManager
                 break;
             }
         }
-
         return $todoObject;
-    }
-
-    private static function displayTask($todo)
-    {
-        return $todo->getList_TaskNoArchived();
     }
 }
