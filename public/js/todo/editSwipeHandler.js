@@ -1,5 +1,7 @@
 var xDown = null;
 var yDown = null;
+var isSwiped = false;
+var isClickable = true;
 
 function getTouches(evt) {
   return (
@@ -9,42 +11,53 @@ function getTouches(evt) {
 }
 
 function swipeEditTouchStart(evt) {
-  const firstTouch = getTouches(evt)[0];
-  xDown = firstTouch.clientX;
-  yDown = firstTouch.clientY;
+  if (!isArchived) {
+    const firstTouch = getTouches(evt)[0];
+    xDown = firstTouch.clientX;
+    yDown = firstTouch.clientY;
+  }
 }
 
 function swipeEditTouchMove(evt) {
-  if (!xDown || !yDown) {
-    return;
-  }
+  if (!isArchived) {
+    if (!xDown || !yDown) {
+      return;
+    }
 
-  var xUp = evt.touches[0].clientX;
-  var yUp = evt.touches[0].clientY;
+    isSwiped = true;
+    isClickable = false;
 
-  var xDiff = xDown - xUp;
-  var yDiff = yDown - yUp;
+    var xUp = evt.touches[0].clientX;
+    var yUp = evt.touches[0].clientY;
 
-  if (Math.abs(xDiff) > Math.abs(yDiff)) {
-    /*most significant*/
-    if (xDiff > 0) {
-      /* left swipe */
-      $(".task_container").each(function () {
+    var xDiff = xDown - xUp;
+    var yDiff = yDown - yUp;
+
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+      /*most significant*/
+      if (xDiff > 0) {
+        /* left swipe */
+        $(".task_container").each(function () {
+          $(this).removeClass("retract");
+        });
+        $(this).toggleClass("retract");
+        setTimeout(() => {
+          isClickable = true;
+        }, 1000);
+      } else {
+        /* right swipe */
         $(this).removeClass("retract");
-      });
-      $(this).toggleClass("retract");
+        isSwiped = false;
+      }
     } else {
-      /* right swipe */
-      $(this).removeClass("retract");
+      if (yDiff > 0) {
+        /* up swipe */
+      } else {
+        /* down swipe */
+      }
     }
-  } else {
-    if (yDiff > 0) {
-      /* up swipe */
-    } else {
-      /* down swipe */
-    }
+    /* reset values */
+    xDown = null;
+    yDown = null;
   }
-  /* reset values */
-  xDown = null;
-  yDown = null;
 }
