@@ -54,7 +54,10 @@
         </div>
     </div>
 
-    <button onclick="archiveTask()">Archive</button>
+    <div class="archive_container">
+        <input id="cancel" type="button" value="Annuler">
+        <input id="archive" onclick="archiveTask()" type="button" value="Archiver">
+    </div>
 
     <div class='task_wrapper'>
 
