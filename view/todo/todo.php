@@ -109,6 +109,7 @@
 
 <script src="../js/todo/editSwipeHandler.js"></script>
 <script src="../js/todo/archivePressHandler.js"></script>
+<script src="../js/todo/archiveButtonManager.js"></script>
 <script src="../js/todo/todo.js"></script>
 <script src="../module/displayer/taskDisplayer.js"></script>
 <script src="../module/task/archive/archive.js"></script>

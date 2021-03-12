@@ -135,7 +135,7 @@ header img {
 
 .archive_container {
     display: flex;
-    height: 30px;
+    height: 0px;
     width: 100%;
     transition-duration: 0.6s;
 }
