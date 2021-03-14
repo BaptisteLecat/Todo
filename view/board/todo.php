@@ -2,7 +2,7 @@
 <main>
     <header>
         <div class="header_side">
-            <img id="left-side_icon" src="assets\icons\left-arrow.png" class="previousPage" onclick="document.location.href='index?view=home'">
+            <img id="left-side_icon" src="assets\icons\left-arrow.png" class="previousPage" onclick="document.location.href='board'">
         </div>
 
         <div class="header_middle">

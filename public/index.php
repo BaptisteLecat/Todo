@@ -11,7 +11,7 @@ if (isset($_SESSION["User"])) {
                 $controller->displayHome();
                 break;
 
-            case 'todo':
+            case 'board':
                 if (isset($_GET["id"])) {
                     $controller->displayTodo($_GET["id"]);
                 } else {

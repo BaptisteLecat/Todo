@@ -12,7 +12,7 @@
       <?php } else { ?>
         <img id="icon_1" src="assets/icons/navbar/calendar.png">
       <?php } ?>
-      <h5 id="namePage_1">Todo</h5>
+      <h5 id="namePage_1">Board</h5>
     </div>
     <div class="nav_button" onclick="ChangePage('home')">
       <?php if ($view == "home") { ?>

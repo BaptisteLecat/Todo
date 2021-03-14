@@ -162,11 +162,11 @@ class Controller
     {
         $this->reloadUser();
 
-        if ($id !== null) {
+        if ($id != null) {
             $isFinded = false;
             foreach ($this->user->getList_Todo() as $todo) {
                 if ($todo->getId() == $id) {
-                    require('controllers/todo/todo.php');
+                    require('controllers/board/todo.php');
                     $this->css_link = array('app', 'todo/todo');
                     $isFinded = true;
                     break;
@@ -174,11 +174,11 @@ class Controller
             }
 
             if (!$isFinded) {
-                require('../view/todo/todoView.php');
+                require('../view/board/todoView.php');
                 $this->css_link = array('app', 'todoView');
             }
         } else {
-            require('../view/todo/todoView.php');
+            require('../view/board/todoView.php');
             $this->css_link = array('app', 'todoView');
         }
 
