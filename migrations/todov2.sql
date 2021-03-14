@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : Dim 14 mars 2021 à 20:40
+-- Généré le : Dim 14 mars 2021 à 23:39
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -49,6 +49,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `achieveTask` (IN `p_idUser` INT(11)
                 SET _flag = NULL;
                 -- Suppression de la log task_achieve.
                 DELETE FROM task_achieve WHERE id_task = p_idTask;
+                -- Changement de la priority pour A FAIRE
+                UPDATE task SET id_priority = 1 WHERE id_task = p_idTask;
                 -- Message succes : Inachevage de la tâche réussi.
                 SET is_achieve = FALSE;
                 SELECT is_achieve;
@@ -57,6 +59,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `achieveTask` (IN `p_idUser` INT(11)
                 INSERT INTO taskachieve_date VALUES ();
                 -- Ajout dans la table de log des achieve.
                 INSERT INTO task_achieve VALUES(last_insert_id(), p_idTask, p_idUser);
+                -- Changement de la priority pour TERMINE
+                UPDATE task SET id_priority = 3 WHERE id_task = p_idTask; 
                 -- Message succes : Achevage de la tâche réussi.
                 SET is_achieve = TRUE;
                 SELECT is_achieve;
@@ -85,6 +89,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `achieveTask` (IN `p_idUser` INT(11)
                             SET _flag = NULL;
                             -- Suppression de la log task_achieve.
                             DELETE FROM task_achieve WHERE id_task = p_idTask;
+                            -- Changement de la priority pour A FAIRE
+                            UPDATE task SET id_priority = 1 WHERE id_task = p_idTask;
                             -- Message succes : Inachevage de la tâche réussi.
                             SET is_achieve = FALSE;
                             SELECT is_achieve;
@@ -92,7 +98,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `achieveTask` (IN `p_idUser` INT(11)
                             -- Ajout d'une date dans taskachieve_date.
                             INSERT INTO taskachieve_date VALUES ();
                             -- Ajout dans la table de log des achieve.
-                            INSERT INTO task_achieve VALUES(last_insert_id(), p_idTask, p_idUser);            
+                            INSERT INTO task_achieve VALUES(last_insert_id(), p_idTask, p_idUser);
+                            -- Changement de la priority pour TERMINE
+                            UPDATE task SET id_priority = 3 WHERE id_task = p_idTask;          
                             -- Message succes : Achevage de la tâche réussi.
                             SET is_achieve = TRUE;
                             SELECT is_achieve;
@@ -810,9 +818,9 @@ CREATE TABLE IF NOT EXISTS `task` (
 --
 
 INSERT INTO `task` (`id_task`, `title_task`, `content_task`, `achieved_task`, `enddate_task`, `id_todo`, `id_priority`, `id_archived`) VALUES
-(8, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-10', 1, 2, NULL),
+(8, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-10', 1, 1, 24),
 (9, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 1, NULL),
-(10, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 3, NULL);
+(10, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -825,7 +833,7 @@ CREATE TABLE IF NOT EXISTS `taskachieve_date` (
   `id_achieve` int(11) NOT NULL AUTO_INCREMENT,
   `date_achieve` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_achieve`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `taskachieve_date`
@@ -866,7 +874,135 @@ INSERT INTO `taskachieve_date` (`id_achieve`, `date_achieve`) VALUES
 (32, '2021-03-10 21:54:11'),
 (33, '2021-03-10 21:54:18'),
 (34, '2021-03-10 21:54:24'),
-(35, '2021-03-10 21:54:44');
+(35, '2021-03-10 21:54:44'),
+(36, '2021-03-14 21:58:30'),
+(37, '2021-03-14 21:58:34'),
+(38, '2021-03-14 21:58:38'),
+(39, '2021-03-14 21:59:01'),
+(40, '2021-03-14 21:59:03'),
+(41, '2021-03-14 21:59:08'),
+(42, '2021-03-14 21:59:44'),
+(43, '2021-03-14 21:59:45'),
+(44, '2021-03-14 21:59:47'),
+(45, '2021-03-14 21:59:52'),
+(46, '2021-03-14 21:59:53'),
+(47, '2021-03-14 22:00:54'),
+(48, '2021-03-14 22:00:59'),
+(49, '2021-03-14 22:01:06'),
+(50, '2021-03-14 22:59:52'),
+(51, '2021-03-14 23:19:27'),
+(52, '2021-03-14 23:19:30'),
+(53, '2021-03-14 23:19:30'),
+(54, '2021-03-14 23:23:30'),
+(55, '2021-03-14 23:25:00'),
+(56, '2021-03-14 23:25:07'),
+(57, '2021-03-14 23:25:12'),
+(58, '2021-03-14 23:25:22'),
+(59, '2021-03-14 23:25:31'),
+(60, '2021-03-14 23:26:19'),
+(61, '2021-03-14 23:26:47'),
+(62, '2021-03-14 23:26:50'),
+(63, '2021-03-14 23:26:51'),
+(64, '2021-03-14 23:26:52'),
+(65, '2021-03-14 23:26:53'),
+(66, '2021-03-14 23:26:54'),
+(67, '2021-03-14 23:26:54'),
+(68, '2021-03-14 23:26:55'),
+(69, '2021-03-14 23:27:01'),
+(70, '2021-03-14 23:27:03'),
+(71, '2021-03-14 23:27:03'),
+(72, '2021-03-14 23:27:04'),
+(73, '2021-03-14 23:27:05'),
+(74, '2021-03-14 23:27:06'),
+(75, '2021-03-14 23:27:06'),
+(76, '2021-03-14 23:27:07'),
+(77, '2021-03-14 23:27:08'),
+(78, '2021-03-14 23:27:09'),
+(79, '2021-03-14 23:27:10'),
+(80, '2021-03-14 23:27:11'),
+(81, '2021-03-14 23:27:11'),
+(82, '2021-03-14 23:27:12'),
+(83, '2021-03-14 23:27:14'),
+(84, '2021-03-14 23:27:14'),
+(85, '2021-03-14 23:27:14'),
+(86, '2021-03-14 23:27:15'),
+(87, '2021-03-14 23:27:16'),
+(88, '2021-03-14 23:27:16'),
+(89, '2021-03-14 23:27:17'),
+(90, '2021-03-14 23:27:17'),
+(91, '2021-03-14 23:27:19'),
+(92, '2021-03-14 23:27:19'),
+(93, '2021-03-14 23:27:19'),
+(94, '2021-03-14 23:27:20'),
+(95, '2021-03-14 23:27:21'),
+(96, '2021-03-14 23:27:21'),
+(97, '2021-03-14 23:27:21'),
+(98, '2021-03-14 23:27:22'),
+(99, '2021-03-14 23:27:25'),
+(100, '2021-03-14 23:27:26'),
+(101, '2021-03-14 23:27:26'),
+(102, '2021-03-14 23:27:26'),
+(103, '2021-03-14 23:27:27'),
+(104, '2021-03-14 23:27:29'),
+(105, '2021-03-14 23:27:29'),
+(106, '2021-03-14 23:28:18'),
+(107, '2021-03-14 23:28:18'),
+(108, '2021-03-14 23:28:18'),
+(109, '2021-03-14 23:28:19'),
+(110, '2021-03-14 23:28:19'),
+(111, '2021-03-14 23:28:19'),
+(112, '2021-03-14 23:28:20'),
+(113, '2021-03-14 23:28:20'),
+(114, '2021-03-14 23:28:20'),
+(115, '2021-03-14 23:28:21'),
+(116, '2021-03-14 23:28:21'),
+(117, '2021-03-14 23:28:21'),
+(118, '2021-03-14 23:28:22'),
+(119, '2021-03-14 23:28:22'),
+(120, '2021-03-14 23:28:22'),
+(121, '2021-03-14 23:28:23'),
+(122, '2021-03-14 23:28:23'),
+(123, '2021-03-14 23:28:23'),
+(124, '2021-03-14 23:28:24'),
+(125, '2021-03-14 23:28:25'),
+(126, '2021-03-14 23:28:25'),
+(127, '2021-03-14 23:28:26'),
+(128, '2021-03-14 23:36:42'),
+(129, '2021-03-14 23:37:03'),
+(130, '2021-03-14 23:37:20'),
+(131, '2021-03-14 23:40:54'),
+(132, '2021-03-14 23:42:08'),
+(133, '2021-03-14 23:46:42'),
+(134, '2021-03-14 23:48:17'),
+(135, '2021-03-14 23:48:18'),
+(136, '2021-03-14 23:48:19'),
+(137, '2021-03-14 23:48:21'),
+(138, '2021-03-14 23:48:23'),
+(139, '2021-03-14 23:48:23'),
+(140, '2021-03-15 00:04:46'),
+(141, '2021-03-15 00:04:47'),
+(142, '2021-03-15 00:05:10'),
+(143, '2021-03-15 00:05:13'),
+(144, '2021-03-15 00:05:14'),
+(145, '2021-03-15 00:05:15'),
+(146, '2021-03-15 00:23:45'),
+(147, '2021-03-15 00:24:15'),
+(148, '2021-03-15 00:24:22'),
+(149, '2021-03-15 00:24:37'),
+(150, '2021-03-15 00:24:39'),
+(151, '2021-03-15 00:24:44'),
+(152, '2021-03-15 00:25:46'),
+(153, '2021-03-15 00:25:47'),
+(154, '2021-03-15 00:25:50'),
+(155, '2021-03-15 00:25:52'),
+(156, '2021-03-15 00:25:54'),
+(157, '2021-03-15 00:25:56'),
+(158, '2021-03-15 00:25:57'),
+(159, '2021-03-15 00:26:00'),
+(160, '2021-03-15 00:26:00'),
+(161, '2021-03-15 00:26:01'),
+(162, '2021-03-15 00:26:02'),
+(163, '2021-03-15 00:26:06');
 
 -- --------------------------------------------------------
 
@@ -879,7 +1015,7 @@ CREATE TABLE IF NOT EXISTS `taskarchive_date` (
   `id_archive` int(11) NOT NULL AUTO_INCREMENT,
   `date_archive` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_archive`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `taskarchive_date`
@@ -908,7 +1044,8 @@ INSERT INTO `taskarchive_date` (`id_archive`, `date_archive`) VALUES
 (20, '2021-02-24 22:16:26'),
 (21, '2021-02-24 22:16:46'),
 (22, '2021-02-24 22:17:02'),
-(23, '2021-03-10 21:52:43');
+(23, '2021-03-10 21:52:43'),
+(24, '2021-03-15 00:26:23');
 
 -- --------------------------------------------------------
 
@@ -1015,13 +1152,6 @@ CREATE TABLE IF NOT EXISTS `task_achieve` (
   PRIMARY KEY (`id_date`,`id_task`,`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Déchargement des données de la table `task_achieve`
---
-
-INSERT INTO `task_achieve` (`id_date`, `id_task`, `id_user`) VALUES
-(26, 8, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -1035,6 +1165,13 @@ CREATE TABLE IF NOT EXISTS `task_archive` (
   `id_user` int(11) NOT NULL,
   PRIMARY KEY (`id_date`,`id_task`,`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `task_archive`
+--
+
+INSERT INTO `task_archive` (`id_date`, `id_task`, `id_user`) VALUES
+(24, 8, 1);
 
 -- --------------------------------------------------------
 
