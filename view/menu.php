@@ -1,4 +1,4 @@
-<?php ob_start(); ?>
+<?php ob_start();?>
 <div class="menu">
 
   <div class="widget_plus" onclick="AddTodo()">
@@ -6,8 +6,8 @@
   </div>
 
   <div class="navbar">
-    <div class="nav_button" onclick="ChangePage('todo')">
-      <?php if ($view == "todo") { ?>
+    <div class="nav_button" onclick="ChangePage('board')">
+      <?php if ($view == "board") { ?>
         <img id="icon_1" src="assets/icons/navbar/calendar_blue.png">
       <?php } else { ?>
         <img id="icon_1" src="assets/icons/navbar/calendar.png">
@@ -35,8 +35,7 @@
   <div id="lineUnder"></div>
 </div>
 
-<?php if ($view == "todo") { ?>
-
+<?php if ($view == "board") { ?>
   <script type="text/javascript">
     $("#circle_back").css("margin-left", "calc((100% - 204px) / 6 )");
     $("#lineUnder").css("margin-left", "calc((100% - 96px) / 6 )");

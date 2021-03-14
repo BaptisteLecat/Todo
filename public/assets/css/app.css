@@ -1,46 +1,53 @@
-*{
+* {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
 }
 
-ui-loader ui-corner-all ui-loader-default ui-body-a{
+ui-loader ui-corner-all ui-loader-default ui-body-a {
   display: none;
 }
 
-html{
+html {
   height: 100%;
   width: 100%;
-  background-color: #0D1D27;
+  background-color: #0d1d27;
 }
 
-body{
+body {
   min-height: 90%;
   width: 100%;
   min-width: 320px;
   padding-bottom: 60px;
+  max-width: 425px;
+  box-shadow: 0px 0px 20px 20px #0000000d;
+  transform: translateX(-50%);
+  position: relative;
+  left: 50%;
 }
 
-footer{
+footer {
   position: fixed;
   bottom: 0px;
   height: 50px;
   width: 100%;
   display: flex;
-  background-color: #0F212D;
+  background-color: #0f212d;
 }
 
-footer .button_container_menu{
+footer .button_container_menu {
   height: 80%;
   width: 80%;
   display: flex;
   margin: auto;
 }
 
-.button_menu_1, .button_menu_2, .button_menu_3{
+.button_menu_1,
+.button_menu_2,
+.button_menu_3 {
   height: 100%;
   width: 12%;
-  background-color: #A5B1E6;
+  background-color: #a5b1e6;
   margin: auto;
   border-radius: 10px;
 }

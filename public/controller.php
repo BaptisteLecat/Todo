@@ -182,7 +182,7 @@ class Controller
             $this->css_link = array('app', 'todoView');
         }
 
-        $this->menu("todo");
+        $this->menu("board");
     }
 
     public function displayForm_TaskTodo($action = null)
