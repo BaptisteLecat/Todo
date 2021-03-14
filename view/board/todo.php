@@ -55,7 +55,7 @@
     </div>
 
     <div class="archive_container">
-        <input id="cancel" type="button" value="Annuler">
+        <input id="cancel" onclick="cancelArchive()" type="button" value="Annuler">
         <input id="archive" onclick="archiveTask()" type="button" value="Archiver">
     </div>
 
@@ -72,7 +72,7 @@
                         <hr style="border-color: #90A0E8;">
                         <div class='task_body'>
                             <div class='task_content' style="border-color: <?= $task->getPriorityObject()->getColor(); ?>;">
-                                <h3>Travail</h3>
+                                <h3><?= $task->getTitle(); ?></h3>
                                 <p><?= $task->getContent(); ?></p>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                 <hr>
                 <div class='task_body'>
                     <div class='task_content' style="border-color: <?= $task->getPriorityObject()->getColor(); ?>;">
-                        <h3>Travail</h3>
+                        <h3><?= $task->getTitle(); ?></h3>
                         <p><?= $task->getContent(); ?></p>
                     </div>
                 </div>

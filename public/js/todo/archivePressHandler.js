@@ -59,7 +59,7 @@ function archiveFunction() {
       archiveButtonManager();
     } else {
       selectedElement.style.border = "2px solid #f25f5c";
-      archiveTaskId.push(selectedElement.getAttribute("name"));
+      archiveTaskId.push(parseInt(selectedElement.getAttribute("name")));
       //Gestion des buttons.
       archiveButtonManager();
     }

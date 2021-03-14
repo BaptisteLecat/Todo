@@ -25,7 +25,7 @@ BEGIN
                 -- Suppression de la log task_achieve.
                 DELETE FROM task_achieve WHERE id_task = p_idTask;
                 -- Changement de la priority pour A FAIRE
-                UPDATE task SET id_priority = 2 WHERE id_task = p_idTask;
+                UPDATE task SET id_priority = 1 WHERE id_task = p_idTask;
                 -- Message succes : Inachevage de la tâche réussi.
                 SET is_achieve = FALSE;
                 SELECT is_achieve;
@@ -65,7 +65,7 @@ BEGIN
                             -- Suppression de la log task_achieve.
                             DELETE FROM task_achieve WHERE id_task = p_idTask;
                             -- Changement de la priority pour A FAIRE
-                            UPDATE task SET id_priority = 2 WHERE id_task = p_idTask;
+                            UPDATE task SET id_priority = 1 WHERE id_task = p_idTask;
                             -- Message succes : Inachevage de la tâche réussi.
                             SET is_achieve = FALSE;
                             SELECT is_achieve;
