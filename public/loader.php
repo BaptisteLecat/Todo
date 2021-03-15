@@ -4,11 +4,20 @@ use App\Model\PriorityManager;
 use App\Model\TaskManager;
 use App\Model\TodoIconManager;
 use App\Model\TodoManager;
+use App\Model\ContributeManager;
 
 function loadUserTodo($user, $list_todoIcon)
 {
     try {
         TodoManager::loadTodo($user, $list_todoIcon);
+    } catch (Exception $e) {
+        throw new Exception($e);
+    }
+}
+
+function loadUserTodoContribute($user, $list_todoIcon){
+    try {
+        ContributeManager::loadTodoContribute($user, $list_todoIcon);
     } catch (Exception $e) {
         throw new Exception($e);
     }

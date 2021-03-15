@@ -199,4 +199,10 @@ class User implements JsonSerializable
         return $nbTaskValidate;
     }
 
+    /*public function getList_TodoOwned(){
+        foreach ($this->getList_Todo() as $todo) {
+            if($todo->getCont)
+        }
+    }*/
+
 }

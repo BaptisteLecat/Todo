@@ -17,7 +17,6 @@ class Task implements JsonSerializable
     private $priorityObject;
     private $taskAchieveObject;
     private $taskArchivedObject;
-    private $list_contribute;
     private $list_taskUpdate;
 
     public function __construct(int $id, string $title, string $content, $endDate, User $userObject, Todo $todoObject, Priority $priorityObject)
@@ -33,7 +32,6 @@ class Task implements JsonSerializable
         $this->taskAchieveObject = null;
         $this->taskArchivedObject = null;
 
-        $this->list_contribute = array();
         $this->list_taskUpdate = array();
 
         $this->priorityObject->addTask($this);
@@ -105,11 +103,6 @@ class Task implements JsonSerializable
         return $this->taskArchivedObject;
     }
 
-    public function getList_Contribute()
-    {
-        return $this->list_contribute;
-    }
-
     public function getList_TaskUpdate()
     {
         return $this->list_taskUpdate;
@@ -140,16 +133,6 @@ class Task implements JsonSerializable
     }
 
 
-
-    public function addContribute($contributeObject)
-    {
-        array_push($this->list_contribute, $contributeObject);
-    }
-
-    public function removeContribute($contributeObject)
-    {
-        unset($this->list_contribute[array_search($contributeObject, $this->list_contribute)]);
-    }
 
     public function addTaskUpdate($taskUpdateObject)
     {

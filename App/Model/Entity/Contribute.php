@@ -10,33 +10,25 @@ class Contribute implements JsonSerializable
 
     private $userObject;
     private $todoObject;
-    private $taskObject;
 
 
-    function __construct($accepted, $joinDate, $userObject, $todoObject, $taskObject)
+    function __construct($accepted, $joinDate, $userObject, $todoObject)
     {
         $this->accepted = $accepted;
         $this->joinDate = $joinDate;
 
         $this->userObject = $userObject;
         $this->todoObject = $todoObject;
-        $this->taskObject = $taskObject;
 
         $this->userObject->addContribute($this);
         $this->todoObject->addContribute($this);
-        $this->taskObject->addContribute($this);
     }
 
     public function jsonSerialize()
     {
-
         return array(
             "accepted" => $this->accepted,
             "joinDate" => $this->joinDate,
-
-            "userObject" => $this->userObject->jsonSerialize(),
-            "todoObject" => $this->todoObject->jsonSerialize(),
-            "taskObject" => $this->taskObject->jsonSerialize(),
         );
     }
 
@@ -58,10 +50,5 @@ class Contribute implements JsonSerializable
     public function getTodoObject()
     {
         return $this->todoObject;
-    }
-
-    public function getTaskObject()
-    {
-        return $this->taskObject;
     }
 }
