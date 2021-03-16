@@ -24,17 +24,21 @@ class ModuleTaskManager
             //Récupération de l'object associé à l'id todo passé en paramètre.
             $todoObject = self::getTodoObject($idTodo);
 
-            //Parcours des idTask selectionné pour l'archivage.
-            foreach ($list_idTask as $idTask) {
-                //Comparaison avec chacune des task présente dans la todo.
-                foreach ($todoObject->getList_Task() as $taskObject) {
-                    if ($idTask == $taskObject->getId()) {
-                        //Archivage
-                        TaskManager::archiveTask(self::$userObject, $taskObject);
-                        $task_return = $taskObject;
-                        break;
+            if ($todoObject != null && $todoObject->havePermissionTo(4)) {
+                //Parcours des idTask selectionné pour l'archivage.
+                foreach ($list_idTask as $idTask) {
+                    //Comparaison avec chacune des task présente dans la todo.
+                    foreach ($todoObject->getList_Task() as $taskObject) {
+                        if ($idTask == $taskObject->getId()) {
+                            //Archivage
+                            TaskManager::archiveTask(self::$userObject, $taskObject);
+                            $task_return = $taskObject;
+                            break;
+                        }
                     }
                 }
+            } else {
+                throw new Exception("Vous n'avez pas le droit d'archiver une tâche.");
             }
 
             return $task_return;
@@ -53,15 +57,19 @@ class ModuleTaskManager
             //Récupération de l'object associé à l'id todo passé en paramètre.
             $todoObject = self::getTodoObject($idTodo);
 
-            //Comparaison avec chacune des task présente dans la todo.
-            foreach ($todoObject->getList_Task() as $taskObject) {
-                if ($idTask == $taskObject->getId()) {
-                    //Archivage
-                    TaskManager::achieveTask(self::$userObject, $taskObject);
-                    TaskManager::reloadTask($taskObject, self::$appObject->getList_Priority());
-                    $task_return = TaskManager::reloadTask($taskObject, self::$appObject->getList_Priority());
-                    break;
+            if ($todoObject != null && $todoObject->havePermissionTo(1)) {
+                //Comparaison avec chacune des task présente dans la todo.
+                foreach ($todoObject->getList_Task() as $taskObject) {
+                    if ($idTask == $taskObject->getId()) {
+                        //Archivage
+                        TaskManager::achieveTask(self::$userObject, $taskObject);
+                        TaskManager::reloadTask($taskObject, self::$appObject->getList_Priority());
+                        $task_return = TaskManager::reloadTask($taskObject, self::$appObject->getList_Priority());
+                        break;
+                    }
                 }
+            } else {
+                throw new Exception("Vous n'avez pas le droit d'achieve une tâche.");
             }
 
             return $task_return;
