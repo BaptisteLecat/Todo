@@ -69,12 +69,11 @@ class TodoTokenManager
      * createToken
      * Generate a new token to invite someone to his todo.
      *
-     * @param  mixed $userObject
      * @param  mixed $permissionObject
      * @param  mixed $todoObject
      * @return void
      */
-    public static function createToken(User $userObject, Permission $permissionObject, Todo $todoObject){
+    public static function createToken(Permission $permissionObject, Todo $todoObject){
         try{
             $request = PdoFactory::getPdo()->prepare("INSERT INTO todo_token VALUES (:token, DATE_ADD(NOW(), INTERVAL 10 DAY), :id_permission, :id_todo)");
             $request->execute(array(':token' => self::tokenGenerator(), ':id_permission' => $permissionObject->getId(), ':id_todo' => $todoObject->getId()));

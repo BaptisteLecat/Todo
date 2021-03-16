@@ -66,4 +66,4 @@ BEGIN
 END |
 DELIMITER ;
 
-call processCheckToken("abcdef", 15);
+call processCheckToken("ypTazg", 1);
