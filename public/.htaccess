@@ -9,3 +9,5 @@ Options -Indexes
 RewriteRule ^([a-z]+)$ index.php?view=$1 [L]
 RewriteRule ^([a-z]+)/([a-z]+)$ index.php?view=$1&action=$2 [L]
 RewriteRule ^([a-z]+)/([0-9]+)$ index.php?view=$1&id=$2 [L]
+RewriteRule ^([a-z]+)/([0-9]+)/([a-z]+)$ index.php?view=$1&id=$2&settings=$3 [L]
+RewriteRule ^([a-z]+)/([0-9]+)/([a-z]+)/([a-z]+)$ index.php?view=$1&id=$2&settings=$3&section=$4 [L]

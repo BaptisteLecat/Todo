@@ -199,6 +199,35 @@ class Controller
         $this->menu("board");
     }
 
+    public function displayTodoSettings($settings, $section = null)
+    {
+        if ($settings == "settings") {
+            switch ($section) {
+                case 'informations':
+                    # code...
+                    break;
+
+                case 'invitations':
+                    # code...
+                    break;
+
+                case 'archives':
+                    # code...
+                    break;
+
+                default:
+                    //Page accueil settings
+                    require('../view/settings/home.php');
+                    $this->css_link = array('app');
+                    break;
+            }
+        } else {
+            //Page accueil settings
+            require('../view/settings/home.php');
+            $this->css_link = array('app');
+        }
+    }
+
     public function displayForm_TaskTodo($action = null)
     {
         $this->reloadUser();

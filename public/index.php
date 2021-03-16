@@ -13,7 +13,15 @@ if (isset($_SESSION["User"])) {
 
             case 'board':
                 if (isset($_GET["id"])) {
-                    $controller->displayTodo($_GET["id"]);
+                    if(isset($_GET["settings"])){
+                        if(isset($_GET["section"])){
+                            $controller->displayTodoSettings($_GET["settings"], $_GET["section"]);
+                        }else{
+                            $controller->displayTodoSettings($_GET["settings"]);
+                        }
+                    }else{
+                        $controller->displayTodo($_GET["id"]);
+                    }
                 } else {
                     $controller->displayTodo();
                 }
