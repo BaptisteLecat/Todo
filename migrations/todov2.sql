@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : Dim 14 mars 2021 à 23:39
+-- Généré le : mar. 16 mars 2021 à 15:47
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -458,6 +458,41 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `selectTodo` (IN `p_idUser` INT(11))
 
 END$$
 
+DROP PROCEDURE IF EXISTS `selectTodoContribute`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selectTodoContribute` (IN `p_idUser` INT(11))  BEGIN 
+
+    DECLARE fin BOOLEAN DEFAULT FALSE;
+    DECLARE flag integer default null;
+    DECLARE _id_todo integer;
+    DECLARE _accepted_contribute TINYINT;
+    DECLARE _joindate_contribute DATETIME;
+    DECLARE _id_permission integer;
+    DECLARE cursor_selectContribute CURSOR FOR SELECT id_todo, accepted_contribute, joindate_contribute, id_permission FROM contribute WHERE id_user = p_idUser;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin = TRUE;
+
+    DROP TEMPORARY TABLE IF EXISTS TMP_TODOCONTRIBUTE;
+	CREATE TEMPORARY TABLE TMP_TODOCONTRIBUTE(
+		_id_todo INT,
+        _accepted_contribute TINYINT,
+        _joindate_contribute DATETIME,
+        _id_permission INT
+	); 
+
+    OPEN cursor_selectContribute;
+
+    loop_cursor_selectContribute:LOOP
+        FETCH cursor_selectContribute INTO _id_todo, _accepted_contribute, _joindate_contribute, _id_permission;
+        IF fin THEN
+            LEAVE loop_cursor_selectContribute;
+        END IF;
+
+        INSERT INTO TMP_TODOCONTRIBUTE VALUES(_id_todo, _accepted_contribute, _joindate_contribute, _id_permission);
+    END LOOP;
+
+    CLOSE cursor_selectContribute;
+
+END$$
+
 DROP PROCEDURE IF EXISTS `updateTask`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateTask` (IN `p_idUser` INT(11), IN `p_idTask` INT(11), IN `p_value` VARCHAR(255), IN `p_updateLabel` VARCHAR(255))  BEGIN
 
@@ -755,6 +790,7 @@ DELIMITER ;
 DROP TABLE IF EXISTS `contribute`;
 CREATE TABLE IF NOT EXISTS `contribute` (
   `accepted_contribute` tinyint(4) NOT NULL DEFAULT '0',
+  `joindate_contribute` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_user` int(11) NOT NULL,
   `id_todo` int(11) NOT NULL,
   `id_permission` int(11) NOT NULL,
@@ -765,11 +801,8 @@ CREATE TABLE IF NOT EXISTS `contribute` (
 -- Déchargement des données de la table `contribute`
 --
 
-INSERT INTO `contribute` (`accepted_contribute`, `id_user`, `id_todo`, `id_permission`) VALUES
-(0, 2, 1, 1),
-(0, 2, 1, 2),
-(0, 2, 1, 3),
-(0, 2, 1, 4);
+INSERT INTO `contribute` (`accepted_contribute`, `joindate_contribute`, `id_user`, `id_todo`, `id_permission`) VALUES
+(0, '2021-03-16 15:08:13', 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -833,7 +866,7 @@ CREATE TABLE IF NOT EXISTS `taskachieve_date` (
   `id_achieve` int(11) NOT NULL AUTO_INCREMENT,
   `date_achieve` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_achieve`)
-) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=166 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `taskachieve_date`
@@ -1002,7 +1035,9 @@ INSERT INTO `taskachieve_date` (`id_achieve`, `date_achieve`) VALUES
 (160, '2021-03-15 00:26:00'),
 (161, '2021-03-15 00:26:01'),
 (162, '2021-03-15 00:26:02'),
-(163, '2021-03-15 00:26:06');
+(163, '2021-03-15 00:26:06'),
+(164, '2021-03-15 11:45:18'),
+(165, '2021-03-15 11:45:21');
 
 -- --------------------------------------------------------
 
@@ -1257,7 +1292,7 @@ CREATE TABLE IF NOT EXISTS `todo` (
   `id_user` int(11) NOT NULL,
   `id_icon` int(11) NOT NULL,
   PRIMARY KEY (`id_todo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `todo`
@@ -1265,7 +1300,8 @@ CREATE TABLE IF NOT EXISTS `todo` (
 
 INSERT INTO `todo` (`id_todo`, `title_todo`, `description_todo`, `createdate_todo`, `id_user`, `id_icon`) VALUES
 (1, 'coucou', 'sdfsdfsdf', '2021-02-14 23:56:54', 1, 2),
-(3, 'rgrg', 'fdgdfgdfgdfg', '2021-02-24 16:27:01', 2, 2);
+(3, 'rgrg', 'fdgdfgdfgdfg', '2021-02-24 16:27:01', 2, 2),
+(4, 'Courses', 'Faire les courses', '2021-03-16 14:52:21', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -1278,7 +1314,7 @@ CREATE TABLE IF NOT EXISTS `todo_icon` (
   `id_icon` int(11) NOT NULL AUTO_INCREMENT,
   `label_icon` varchar(255) NOT NULL,
   PRIMARY KEY (`id_icon`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `todo_icon`
@@ -1312,7 +1348,6 @@ CREATE TABLE IF NOT EXISTS `todo_token` (
 --
 
 INSERT INTO `todo_token` (`token`, `expirationdate`, `id_permission`, `id_todo`) VALUES
-('ypTazg', '2021-03-08 00:35:07', 1, 1),
 ('YqzNDM', '2021-03-08 00:35:54', 1, 1);
 
 -- --------------------------------------------------------
@@ -1330,15 +1365,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password_user` varchar(255) NOT NULL,
   `createdate_user` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`
 --
 
 INSERT INTO `user` (`id_user`, `name_user`, `firstname_user`, `email_user`, `password_user`, `createdate_user`) VALUES
-(1, 'bichour', 'ssdfsdf', 'testEmail@gmail.com', 'test', '2021-02-16 22:55:31'),
-(2, 'tech', 'sdfsdf', 'sdfsdf', 'sdfsdf', '2021-02-16 22:55:31');
+(1, 'Testeur', 'Le Test', 'testEmail@gmail.com', 'test', '2021-02-16 22:55:31'),
+(2, 'Lecat', 'Baptiste', 'baptiste.lecat44@gmail.com', 'baptiste24', '2021-02-16 22:55:31');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
