@@ -217,13 +217,13 @@ class Controller
 
                 default:
                     //Page accueil settings
-                    require('../view/settings/home.php');
+                    require('../view/board/settings/home.php');
                     $this->css_link = array('app');
                     break;
             }
         } else {
             //Page accueil settings
-            require('../view/settings/home.php');
+            require('../view/board/settings/home.php');
             $this->css_link = array('app');
         }
     }

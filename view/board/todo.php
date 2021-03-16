@@ -11,7 +11,7 @@
         </div>
 
         <div class="header_side">
-            <img id="right-side_icon" src="assets\icons\settings.png" class="previousPage" onclick="document.location.href='index?view=home'">
+            <img id="right-side_icon" src="assets\icons\settings.png" class="previousPage" onclick="document.location.href='board/<?= $todo->getId(); ?>/settings'">
         </div>
     </header>
 
