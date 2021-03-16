@@ -24,6 +24,16 @@ function loadUserTodoContribute($user, $list_todoIcon, $list_permission){
     }
 }
 
+function loadTodoContributeTask($user, $list_priority){
+    try{
+        foreach ($user->getList_TodoContribute() as $todoContribute) {
+            TaskManager::loadTask($todoContribute, $list_priority);
+        }
+    }catch (Exception $e) {
+        throw new Exception($e);
+    }
+}
+
 function loadUserTask($user, $list_priority)
 {
     try {

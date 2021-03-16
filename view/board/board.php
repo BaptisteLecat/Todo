@@ -48,7 +48,7 @@
       </div>
       <div class="color_number">
         <div class="number">
-          <h3><?= count($this->user->getList_Todo()); ?></h3>
+          <h3><?= count($this->user->getList_TodoContribute()); ?></h3>
         </div>
       </div>
     </div>

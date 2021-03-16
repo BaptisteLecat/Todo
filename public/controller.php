@@ -163,6 +163,7 @@ class Controller
     {
         $this->reloadUser();
         loadUserTodoContribute($this->user, $this->list_todoIcon, $this->list_permission);
+        loadTodoContributeTask($this->user, $this->list_priority);
 
         if ($id != null) {
             $isFinded = false;
