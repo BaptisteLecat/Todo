@@ -105,9 +105,7 @@
 
 .information_todo{
   display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  width: 25%;
+  width: 100%;
 
 }
 
@@ -133,12 +131,18 @@
   font-family: "geomanistregular", sans-serif;
 }
 
-.test{
+.box_information{
+  display: flex;
   margin-left: auto;
   margin-right: auto;
 }
 
-.tt{
+.margin_top{
   width: 100%;
-  height: 30px;
+  height: 60px;
+}
+
+.margin_bottom{
+  width: 100%;
+  height: 60px;
 }
