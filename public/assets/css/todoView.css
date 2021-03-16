@@ -3,6 +3,7 @@
   margin-left: 20px;
   display: flex;
   grid-gap: 20px;
+  overflow: auto;
 
   grid-template-columns: repeat(2, 1fr);
 }
@@ -18,6 +19,8 @@
   box-shadow: -2px 2px 4px 0px #0000003b;
   width: 140px;
   height: 180px;
+  min-height: 180px;
+  min-width: 140px;
 
 }
 
