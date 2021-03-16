@@ -21,8 +21,8 @@ class ContributeManager
                 $todo = self::loadTodoFromId($result["_id_todo"], $userObject, $list_TodoIcon);
                 foreach ($list_permission as $permission) {
                     if($permission->getId() == $result["_id_permission"]){
-                        
-                        $contribute = new Contribute($result["_accepted_contribute"], $result["_joindate_contribute"], $permission, $userObject, $todo); 
+                        $contribute = new Contribute($result["_accepted_contribute"], $result["_joindate_contribute"], $permission, $userObject, $todo);
+                        break;
                     }
                 }
             }
@@ -38,7 +38,6 @@ class ContributeManager
         try {
             $request = PdoFactory::getPdo()->prepare("SELECT title_todo, description_todo, createdate_todo, id_icon FROM todo WHERE id_todo = :id_todo");
             $request->execute(array(':id_todo' => $idTodo));
-
             while ($result = $request->fetch()) {
                 foreach ($list_TodoIcon as $todoIconObject) {
                     if ($todoIconObject->getId() == $result["id_icon"]) {
