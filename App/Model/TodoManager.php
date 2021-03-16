@@ -35,7 +35,7 @@ class TodoManager
             while ($result = $request->fetch()) {
                 foreach ($list_TodoIcon as $todoIconObject) {
                     if ($todoIconObject->getId() == $result["id_icon"]) {
-                        $todo = new Todo($result["id_todo"], $result["title_todo"], $result["description_todo"], $result["createdate_todo"], $userObject, $todoIconObject);
+                        $todo = new Todo($result["id_todo"], $result["title_todo"], $result["description_todo"], $result["createdate_todo"], $userObject, $todoIconObject, true);
                         break;
                     }
                 }
@@ -62,7 +62,7 @@ class TodoManager
             $request->execute(array(':id_todo' => $idTodo));
 
             $result = $request->fetch();
-            $todo = new Todo($idTodo, $result["title_todo"], $result["description_todo"], $result["createdate_todo"], $userObject, $todoIconObject);
+            $todo = new Todo($idTodo, $result["title_todo"], $result["description_todo"], $result["createdate_todo"], $userObject, $todoIconObject, true);
         } catch (Exception $e) {
             throw new Exception($e);
         }

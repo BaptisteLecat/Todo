@@ -5,6 +5,7 @@ use App\Model\TaskManager;
 use App\Model\TodoIconManager;
 use App\Model\TodoManager;
 use App\Model\ContributeManager;
+use App\Model\PermissionManager;
 
 function loadUserTodo($user, $list_todoIcon)
 {
@@ -15,9 +16,9 @@ function loadUserTodo($user, $list_todoIcon)
     }
 }
 
-function loadUserTodoContribute($user, $list_todoIcon){
+function loadUserTodoContribute($user, $list_todoIcon, $list_permission){
     try {
-        ContributeManager::loadTodoContribute($user, $list_todoIcon);
+        ContributeManager::loadTodoContribute($user, $list_todoIcon, $list_permission);
     } catch (Exception $e) {
         throw new Exception($e);
     }
@@ -61,5 +62,14 @@ function loadPriority()
         return PriorityManager::loadPriority();
     } catch (Exception $e) {
         throw new Exception($e);
+    }
+}
+
+function loadPermission(){
+    try{
+        return PermissionManager::loadPermission();
+    }catch(Exception $e){
+        throw new Exception($e);
+        
     }
 }

@@ -29,6 +29,7 @@ class Controller
 
         $this->list_priority = loadPriority();
         $this->list_todoIcon = loadTodoIcon();
+        $this->list_permission = loadPermission();
         $this->user = null;
         $this->css_link = array();
         $this->title = "Todo";
@@ -174,10 +175,12 @@ class Controller
             }
 
             if (!$isFinded) {
+                loadUserTodoContribute($this->user, $this->list_todoIcon, $this->list_permission);
                 require('../view/board/todoView.php');
                 $this->css_link = array('app', 'todoView');
             }
         } else {
+            loadUserTodoContribute($this->user, $this->list_todoIcon, $this->list_permission);
             require('../view/board/todoView.php');
             $this->css_link = array('app', 'todoView');
         }

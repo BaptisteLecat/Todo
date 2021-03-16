@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Model\Entity;
-use App\Model\Entity\Priority;
 use JsonSerializable;
 
 class Todo implements JsonSerializable
@@ -18,7 +17,8 @@ class Todo implements JsonSerializable
     private $list_todoToken;
     private $list_contribute;
 
-    function __construct($id, $title, $description, $createDate, $userObject, $todoIconObject)
+    //boolean OWNED permet de savoir si il s'agit d'une todo owner ou en tant que participant. 
+    function __construct($id, $title, $description, $createDate, $userObject, $todoIconObject, $owned)
     {
         $this->id = $id;
         $this->title = $title;
@@ -28,7 +28,9 @@ class Todo implements JsonSerializable
         $this->userObject = $userObject;
         $this->todoIconObject = $todoIconObject;
 
-        $this->userObject->addTodo($this);
+        if($owned){
+            $this->userObject->addTodo($this);
+        }
         $this->todoIconObject->addTodo($this);
 
         $this->list_task = array();

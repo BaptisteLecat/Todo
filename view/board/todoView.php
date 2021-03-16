@@ -58,7 +58,7 @@
   </div>
 
   <div class="container_todoView">
-    <?php foreach ($this->user->getList_Todo() as $todo) { ?>
+    <?php foreach ($this->user->getList_TodoContribute() as $todo) { ?>
       <div class="box_todoView" id="<?= $todo->getId(); ?>">
 
         <div class="box_icon">

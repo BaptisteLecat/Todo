@@ -19,33 +19,27 @@ BEGIN
     DECLARE _id_todo integer;
     DECLARE _accepted_contribute TINYINT;
     DECLARE _joindate_contribute DATETIME;
-	DECLARE _title_todo VARCHAR(255);
-	DECLARE _description_todo VARCHAR(255);
-	DECLARE _createdate_todo DATETIME;
-	DECLARE _id_icon INT;
-    DECLARE cursor_selectContribute CURSOR FOR SELECT todo.id_todo, contribute.accepted_contribute, contribute.joindate_contribute, title_todo, description_todo, createdate_todo, id_icon FROM contribute, todo WHERE contribute.id_user = p_idUser and accepted_contribute = 1 and todo.id_todo = contribute.id_todo GROUP BY contribute.id_todo;
+    DECLARE _id_permission integer;
+    DECLARE cursor_selectContribute CURSOR FOR SELECT id_todo, accepted_contribute, joindate_contribute, id_permission FROM contribute WHERE id_user = p_idUser;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin = TRUE;
 
     DROP TEMPORARY TABLE IF EXISTS TMP_TODOCONTRIBUTE;
 	CREATE TEMPORARY TABLE TMP_TODOCONTRIBUTE(
-		_id_todo INT PRIMARY KEY,
+		_id_todo INT,
         _accepted_contribute TINYINT,
         _joindate_contribute DATETIME,
-		_title_todo VARCHAR(255),
-		_description_todo VARCHAR(255),
-		_createdate_todo DATETIME,
-		_id_icon INT
+        _id_permission INT
 	); 
 
     OPEN cursor_selectContribute;
 
     loop_cursor_selectContribute: LOOP
-        FETCH cursor_selectContribute INTO _id_todo, _accepted_contribute, _joindate_contribute, _title_todo, _description_todo, _createdate_todo, _id_icon;
+        FETCH cursor_selectContribute INTO _id_todo, _accepted_contribute, _joindate_contribute, _id_permission;
         IF fin THEN
             LEAVE loop_cursor_selectContribute;
         END IF;
 
-        INSERT INTO TMP_TODOCONTRIBUTE VALUES(_id_todo, _accepted_contribute, _joindate_contribute, _title_todo, _description_todo, _createdate_todo, _id_icon);
+        INSERT INTO TMP_TODOCONTRIBUTE VALUES(_id_todo, _accepted_contribute, _joindate_contribute, _id_permission);
     END LOOP;
 
     CLOSE cursor_selectContribute;
