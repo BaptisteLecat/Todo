@@ -9,6 +9,7 @@ use App\Model\TaskManager;
 use App\Model\TodoIconManager;
 use App\Model\UserManager;
 use App\Model\Utils\MessageBox;
+use App\App;
 
 class Controller
 {
@@ -31,6 +32,7 @@ class Controller
         $this->list_todoIcon = loadTodoIcon();
         $this->list_permission = loadPermission();
         $this->user = null;
+        $this->app = null;
         $this->css_link = array();
         $this->title = "Todo";
         $this->messageBox = null;
@@ -39,7 +41,16 @@ class Controller
             $this->user = unserialize($_SESSION["User"]);
             $this->reloadUser();
         }
-        //TaskManager::insertTask("Faire les courses", "Acheter du beurre, du jambon et du pain", "2021-02-28", $this->list_priority[0], $this->user->getList_Todo()[0], $this->user);
+
+        if (isset($_SESSION["App"])) {
+            $this->app = unserialize($_SESSION["App"]);
+        }else{
+            $this->app = new App();
+            $this->app->setList_Priority(loadPriority());
+            $this->app->setList_TodoIcon(loadTodoIcon());
+            $this->app->setList_Permission(loadPermission());
+            $_SESSION["App"] = serialize($this->app);
+        }
     }
 
     public function getTitle()
@@ -163,6 +174,7 @@ class Controller
     {
         $this->reloadUser();
         loadUserTodoContribute($this->user, $this->list_todoIcon, $this->list_permission);
+        loadTodoContributeTask($this->user, $this->list_priority);
 
         if ($id != null) {
             $isFinded = false;
