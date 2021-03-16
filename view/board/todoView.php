@@ -22,7 +22,7 @@
   </div>
   <div class="container_todoView">
     <?php foreach ($this->user->getList_Todo() as $todo) { ?>
-      <div class="box_todoView" id="<?= $todo->getId(); ?>">
+      <div class="box_todoView" onclick="document.location.href = 'board/<?= $todo->getId(); ?>'" id="<?= $todo->getId(); ?>">
 
         <div class="box_icon">
           <img class="img_theme" src="assets/icons/todo_icon/<?= $todo->getTodoIconObject()->getLabel(); ?>.png">
@@ -59,7 +59,7 @@
 
   <div class="container_todoView">
     <?php foreach ($this->user->getList_TodoContribute() as $todo) { ?>
-      <div class="box_todoView" id="<?= $todo->getId(); ?>">
+      <div class="box_todoView" onclick="document.location.href = 'board/<?= $todo->getId(); ?>'" id="<?= $todo->getId(); ?>">
 
         <div class="box_icon">
           <img class="img_theme" src="assets/icons/todo_icon/<?= $todo->getTodoIconObject()->getLabel(); ?>.png">
