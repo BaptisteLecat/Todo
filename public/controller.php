@@ -168,7 +168,7 @@ class Controller
             $isFinded = false;
             foreach ($this->user->getList_Todo() as $todo) {
                 if ($todo->getId() == $id) {
-                    require('controllers/board/todo.php');
+                    require('controllers/board/todo/todoOwner.php');
                     $this->css_link = array('app', 'todo/todo');
                     $isFinded = true;
                     break;
@@ -179,7 +179,7 @@ class Controller
 
                 foreach ($this->user->getList_TodoContribute() as $todo) {
                     if ($todo->getId() == $id) {
-                        require('controllers/board/todo.php');
+                        require('controllers/board/todo/todoContributor.php');
                         $this->css_link = array('app', 'todo/todo');
                         $isFinded = true;
                         break;
@@ -187,12 +187,12 @@ class Controller
                 }
 
                 if (!$isFinded) {
-                    require('../view/board/todoView.php');
+                    require('../view/board/board.php');
                     $this->css_link = array('app', 'todoView');
                 }
             }
         } else {
-            require('../view/board/todoView.php');
+            require('../view/board/board.php');
             $this->css_link = array('app', 'todoView');
         }
 
