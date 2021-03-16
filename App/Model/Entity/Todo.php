@@ -170,4 +170,16 @@ class Todo implements JsonSerializable
     public function delete(){
         $this->userObject->removeTodo($this);
     }
+
+    public function havePermissionTo($permissionId){
+        $haveRightTo = false;
+        foreach ($this->list_contribute as $contributeObject) {
+            if($contributeObject->getPermissionObject()->getId() == $permissionId){
+                $haveRightTo = true;
+                break;
+            }
+        }
+
+        return $haveRightTo;
+    }
 }
