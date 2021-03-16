@@ -162,6 +162,7 @@ class Controller
     public function displayTodo($id = null)
     {
         $this->reloadUser();
+        loadUserTodoContribute($this->user, $this->list_todoIcon, $this->list_permission);
 
         if ($id != null) {
             $isFinded = false;
@@ -175,12 +176,22 @@ class Controller
             }
 
             if (!$isFinded) {
-                loadUserTodoContribute($this->user, $this->list_todoIcon, $this->list_permission);
-                require('../view/board/todoView.php');
-                $this->css_link = array('app', 'todoView');
+
+                foreach ($this->user->getList_TodoContribute() as $todo) {
+                    if ($todo->getId() == $id) {
+                        require('controllers/board/todo.php');
+                        $this->css_link = array('app', 'todo/todo');
+                        $isFinded = true;
+                        break;
+                    }
+                }
+
+                if (!$isFinded) {
+                    require('../view/board/todoView.php');
+                    $this->css_link = array('app', 'todoView');
+                }
             }
         } else {
-            loadUserTodoContribute($this->user, $this->list_todoIcon, $this->list_permission);
             require('../view/board/todoView.php');
             $this->css_link = array('app', 'todoView');
         }

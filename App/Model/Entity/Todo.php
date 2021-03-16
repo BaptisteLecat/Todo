@@ -10,6 +10,8 @@ class Todo implements JsonSerializable
     private $description;
     private $createDate;
 
+    private $owned;
+
     private $userObject;
     private $todoIconObject;
 
@@ -24,6 +26,8 @@ class Todo implements JsonSerializable
         $this->title = $title;
         $this->description = $description;
         $this->createDate = $createDate;
+
+        $this->owned = $owned;
 
         $this->userObject = $userObject;
         $this->todoIconObject = $todoIconObject;
@@ -69,6 +73,11 @@ class Todo implements JsonSerializable
     public function getCreateDate()
     {
         return $this->createDate;
+    }
+
+    public function getOwned()
+    {
+        return $this->owned;
     }
 
     public function getUserObject()
