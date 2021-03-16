@@ -4,9 +4,9 @@
   <div class="title">
     <h1 class="name_title">Vos Todo</h1>
   </div>
-  <div class="tt"></div>
+  <div class="margin_top"></div>
   <div class="information_todo">
-    <div class="test">
+    <div class="box_information">
       <div class="todo_title">
         <h3 class="name_todo">Personnelle</h3>
       </div>
@@ -40,9 +40,9 @@
       </div>
     <?php } ?>
   </div>
-  <div class="tt"></div>
+  <div class="margin_bottom"></div>
   <div class="information_todo">
-    <div class="test">
+    <div class="box_information">
       <div class="todo_title">
         <h3 class="name_todo">Groupe</h3>
       </div>
