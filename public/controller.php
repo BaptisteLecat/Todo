@@ -230,13 +230,13 @@ class Controller
                 default:
                     //Page accueil settings
                     require('../view/board/settings/home.php');
-                    $this->css_link = array('app');
+                    $this->css_link = array('app', 'board/settings/home');
                     break;
             }
         } else {
             //Page accueil settings
             require('../view/board/settings/home.php');
-            $this->css_link = array('app');
+            $this->css_link = array('app', 'board/settings/home');
         }
     }
 

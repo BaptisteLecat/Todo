@@ -1,0 +1,38 @@
+header {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header_side {
+    display: flex;
+    width: 20%;
+    height: 100%;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+header img {
+    height: 30px;
+}
+
+header h1{
+    margin-left: 25px;
+    color: #fff;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100% - 10%);
+}
+
+.notice_container{
+
+}
