@@ -45,11 +45,6 @@ header{
   font-size: 18px;
 }
 
-main{
-  /*height: 100vh;*/
-  margin-bottom: 20%;
-}
-
 .createBtn{
   position: fixed;
   bottom: 60px;

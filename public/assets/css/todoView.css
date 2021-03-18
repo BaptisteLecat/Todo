@@ -1,15 +1,16 @@
-.container_todoView{
-  margin: 0;
-  margin-left: 20px;
+main {
+  padding: 15px;
+}
+
+.container_todoView {
   display: flex;
   grid-gap: 20px;
   overflow: auto;
-
   grid-template-columns: repeat(2, 1fr);
 }
 
-.box_todoView{
-  background-image: linear-gradient(30deg, #1C2D39, #0F212D);
+.box_todoView {
+  background-image: linear-gradient(30deg, #1c2d39, #0f212d);
   border-radius: 20px;
   color: white;
   padding: 1em;
@@ -21,10 +22,9 @@
   height: 180px;
   min-height: 180px;
   min-width: 140px;
-
 }
 
-.box_theme h1{
+.box_theme h1 {
   font-size: 18px;
   font-weight: normal;
   text-align: center;
@@ -33,17 +33,17 @@
   vertical-align: middle;
 }
 
-.box_todoView p{
+.box_todoView p {
   font-size: 14px;
   margin-top: 10px;
   text-align: center;
   font-family: "geomanistregular", sans-serif;
 }
 
-.box_icon{
+.box_icon {
   width: 51px;
   height: 51px;
-  background: #0F212D;
+  background: #0f212d;
   border-radius: 100px;
   display: flex;
   justify-content: center;
@@ -53,18 +53,18 @@
   box-shadow: 0px 2px 4px 0px #0000004d;
 }
 
-.img_theme{
+.img_theme {
   width: 26px;
   height: 26px;
 }
 
-.box_theme{
+.box_theme {
   display: table;
   margin-top: 10px;
   height: 42px;
 }
 
-.progressBar{
+.progressBar {
   width: 100%;
   height: 15px;
   background: #213543;
@@ -74,78 +74,98 @@
   margin-right: auto;
 }
 
-.line_progressBar{
+.line_progressBar {
   width: 75%;
   height: 15px;
-  background: #384EB2;
+  background: #384eb2;
   border-radius: 3px;
 }
 
-.name_title{
+.name_title {
   color: #ffff;
-  font-size: 24px;
+  font-size: 20px;
   font-family: "geomanistregular", sans-serif;
   display: flex;
-  margin-top: 45px;
-  margin-left: 25px;
+  margin-top: 20px;
 }
 
-.box_line{
+.box_line {
   margin-left: auto;
   margin-right: auto;
   width: 80%;
 }
 
-.line{
-  color: #1C303D;
+.line {
+  color: #1c303d;
   border: none;
   overflow: visible;
-  border-top: 2px double #1C303D;
+  border-top: 2px double #1c303d;
   text-align: center;
   margin-top: 8px;
   margin-bottom: 18px;
-} 
-
-.information_todo{
-  display: flex;
-  width: 100%;
-
 }
 
-.todo_title{
+.todo_title {
   color: #ffff;
   font-size: 24px;
   font-family: "geomanistregular", sans-serif;
 }
 
-.color_number{
+.color_number {
   background: #142734;
   margin-top: 4px;
   margin-left: 5px;
   border-radius: 5px;
 }
 
-.number{
-  color: #ffff;
-  font-size: 18px;
-  margin-left: 4px;
-  margin-right: 4px;
-  margin-top: 2px;
-  font-family: "geomanistregular", sans-serif;
-}
-
-.box_information{
+.box_information {
   display: flex;
   margin-left: auto;
   margin-right: auto;
 }
 
-.margin_top{
+.margin_top {
   width: 100%;
   height: 60px;
 }
 
-.margin_bottom{
+.margin_bottom {
   width: 100%;
   height: 60px;
+}
+
+.information_todo {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  padding: 10px 20px;
+  background: #142734;
+  border-radius: 5px;
+}
+
+div.container_todo {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 25px;
+  margin-bottom: 20px;
+}
+
+h3.name_todo {
+  font-size: 19px;
+  font-weight: normal;
+  font-family: "geomanistregular", sans-serif;
+  color: #fff;
+}
+
+h3.number {
+  color: #ffff;
+  font-size: 18px;
+  font-weight: normal;
+  font-family: "geomanistregular", sans-serif;
+  margin-left: 10px;
+  padding: 2px 7px;
+  background: #5c7aff;
+  border-radius: 3px;
 }
