@@ -6,8 +6,9 @@ session_start();
 
 use Exception;
 use App\Model\TaskManager;
-use App\Model\PriorityManager;
 use App\Model\ContributeManager;
+
+use App\Model\Exceptions\PermissionException;
 
 class ModuleTaskManager
 {
@@ -18,13 +19,12 @@ class ModuleTaskManager
     {
         $task_return = null;
 
-        try {
             self::$userObject = unserialize($_SESSION["User"]);
             self::$appObject = unserialize($_SESSION["App"]);
             //Récupération de l'object associé à l'id todo passé en paramètre.
             $todoObject = self::getTodoObject($idTodo);
 
-            if ($todoObject != null && $todoObject->havePermissionTo(4)) {
+            if ($todoObject != null && ($todoObject->havePermissionTo(4) || $todoObject->getOwned())) {
                 //Parcours des idTask selectionné pour l'archivage.
                 foreach ($list_idTask as $idTask) {
                     //Comparaison avec chacune des task présente dans la todo.
@@ -38,26 +38,22 @@ class ModuleTaskManager
                     }
                 }
             } else {
-                throw new Exception("Vous n'avez pas le droit d'archiver une tâche.");
+                throw new PermissionException(4);
             }
 
             return $task_return;
-        } catch (Exception $e) {
-            throw new Exception($e);
-        }
     }
 
     public static function achieveTask($idTask, $idTodo)
     {
         $task_return = null;
 
-        try {
             self::$userObject = unserialize($_SESSION["User"]);
             self::$appObject = unserialize($_SESSION["App"]);
             //Récupération de l'object associé à l'id todo passé en paramètre.
             $todoObject = self::getTodoObject($idTodo);
 
-            if ($todoObject != null && $todoObject->havePermissionTo(1)) {
+            if ($todoObject != null && ($todoObject->havePermissionTo(1) || $todoObject->getOwned())) {
                 //Comparaison avec chacune des task présente dans la todo.
                 foreach ($todoObject->getList_Task() as $taskObject) {
                     if ($idTask == $taskObject->getId()) {
@@ -69,13 +65,10 @@ class ModuleTaskManager
                     }
                 }
             } else {
-                throw new Exception("Vous n'avez pas le droit d'achieve une tâche.");
+                throw new PermissionException(1);
             }
 
             return $task_return;
-        } catch (Exception $e) {
-            throw new Exception($e);
-        }
     }
 
     private static function getTodoObject($idTodo)

@@ -2,9 +2,16 @@ function achieveTask(element) {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      var task = this.response;
-      console.log(task);
-      element.parentNode.innerHTML = taskDisplayer(task);
+      var response = this.response;
+
+      if(response["error"] == null){
+        console.log(task);
+        element.parentNode.innerHTML = taskDisplayer(response["task"]);
+      }else{
+        console.log(document.getElementById("messageBox_container"));
+        document.getElementById("messageBox_container").innerHTML = response["error"];
+        showMessageBox();
+      }
 
       $(".task_container").each(function () {
         this.addEventListener("touchstart", swipeEditTouchStart, false);

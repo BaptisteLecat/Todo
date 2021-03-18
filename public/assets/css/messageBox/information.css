@@ -1,5 +1,5 @@
-.box_container {
-    top: 0px;
+.messageBox_container {
+    top: 25px;
     height: 0px;
     width: 100%;
     display: flex;
@@ -7,6 +7,8 @@
     background-color: #fff;
     transition: ease-in-out;
     transition-duration: 0.8s;
+    position: fixed;
+    z-index: 25;
     /*min-height: 47px;*/
 }
 

@@ -2,11 +2,17 @@
 
 <?= $controller->head(); ?>
 
-<body onload="showMessageBox()">
-    <?php
-    if ($controller->getMessageBox() != null) {
-        include("../view/messageBox/information.php");
-    } ?>
+<body>
+
+    <div class="messageBox_container" id="messageBox_container" onclick="hideMessageBox()">
+
+        <?php
+        if ($controller->getMessageBox() != null) {
+            include("../view/messageBox/information.php");
+        } ?>
+    </div>
+
+
     <?= $controller->getContent(); ?>
 
 </body>

@@ -100,7 +100,8 @@ class Controller
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         
             <base href="http://todo/"/>
-            <link rel="stylesheet" href="assets/css/menu.css">';
+            <link rel="stylesheet" href="assets/css/menu.css">
+            <link rel="stylesheet" href="assets/css/messageBox/information.css">';
         $head .= $this->loadcss_link();
         $head .= '<script src="module/form/messageBox/messageBoxDisplayer.js"></script>';
         $head .= '<title>
