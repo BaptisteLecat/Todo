@@ -5,11 +5,10 @@ function achieveTask(element) {
       var response = this.response;
 
       if(response["error"] == null){
-        console.log(task);
         element.parentNode.innerHTML = taskDisplayer(response["task"]);
       }else{
         console.log(document.getElementById("messageBox_container"));
-        document.getElementById("messageBox_container").innerHTML = response["error"];
+        document.getElementsByTagName("body")[0].innerHTML += response["error"];
         showMessageBox();
       }
 

@@ -1,14 +1,17 @@
 .messageBox_container {
-    top: 25px;
-    height: 0px;
-    width: 100%;
+    top: 35px;
+    height: 65px;
+    width: 85%;
     display: flex;
-    opacity: 0;
-    background-color: #fff;
+    opacity: 1;
+    background-color: #3E7251;
+    border: solid 2px #2A5132;
+    border-radius: 6px;
     transition: ease-in-out;
     transition-duration: 0.8s;
     position: fixed;
     z-index: 25;
+    left: calc(50% - (85% / 2));
     /*min-height: 47px;*/
 }
 
