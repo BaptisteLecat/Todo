@@ -4,21 +4,33 @@ namespace App\Model\Exceptions;
 
 class MessageBox
 {
-    private $color;
+    private $title;
+    private $message;
     private $icon;
 
     private $level;
 
-    function __construct($color = null, $icon = null, $level = null)
+    function __construct($title, $message, $icon = null, $level = null)
     {
-        $this->color = $color;
+        $this->title = $title;
+        $this->message = $message;
         $this->icon = $icon;
         $this->level = $level;
     }
 
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
     public function getColor()
     {
-        return $this->color;
+        //En fonction du level, dois retourné la couleur configurée.
     }
 
     public function getIcon()
@@ -31,7 +43,7 @@ class MessageBox
         return $this->level;
     }
 
-    public function formatToHTML($errorMessage){
+    public function formatToHTML(){
 
         require(__DIR__. "/../../../view/messageBox/information.php");
 
