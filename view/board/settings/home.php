@@ -26,7 +26,7 @@
             <div class="menu-item_container">
                 <div class="item-icon_container">
                     <div class="icon_box">
-                        <img src="..\..\assets\icons\information.png" alt="">
+                        <img src="..\..\assets\icons\settings\information.png" alt="">
                     </div>
                 </div>
                 <div class="item-content_container">
@@ -43,7 +43,7 @@
             <div class="menu-item_container">
                 <div class="item-icon_container">
                     <div class="icon_box">
-                        <img src="..\..\assets\icons\invite.png" alt="">
+                        <img src="..\..\assets\icons\settings\invite.png" alt="">
                     </div>
                 </div>
                 <div class="item-content_container">
@@ -60,7 +60,7 @@
             <div class="menu-item_container">
                 <div class="item-icon_container">
                     <div class="icon_box">
-                        <img src="..\..\assets\icons\box.png" alt="">
+                        <img src="..\..\assets\icons\settings\archive.png" alt="">
                     </div>
                 </div>
                 <div class="item-content_container">
