@@ -1,4 +1,4 @@
-var timeout = null;
+var timeout = null; //permet de remettre à 0 les timeout lancés.
 
 function showMessageBox() {
   messageBox = document.getElementById("messageBox_container");
@@ -26,6 +26,7 @@ function hideMessageBox() {
   }
 }
 
+//Appeller lors d'un nouvel affichage de messageBox.
 function deleteMessageBox() {
   messageBox = document.getElementById("messageBox_container");
   if (messageBox != null) {
