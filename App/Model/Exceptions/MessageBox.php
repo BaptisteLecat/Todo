@@ -8,9 +8,9 @@ namespace App\Model\Exceptions;
  */
 class MessageBox
 {
-    private $message;
-    private $icon;
-    private $level;
+    protected $message;
+    protected $icon;
+    protected $level;
 
 
     /**

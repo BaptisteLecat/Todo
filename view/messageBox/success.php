@@ -4,7 +4,6 @@
         <img src="<?= '..\..\assets\icons\messageBox\\' . $this->getIcon() . '.png'; ?>">
     </div>
     <div class="text_container">
-        <h6><?= $this->getTitle(); ?></h6>
         <p><?= $this->getMessage(); ?></p>
     </div>
 </div>
