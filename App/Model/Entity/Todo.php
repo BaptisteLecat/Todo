@@ -167,6 +167,31 @@ class Todo implements JsonSerializable
         return $list_task;
     }
 
+    public function taskAchieved(){
+        $list_taskAchieved = array();
+
+        foreach ($this->list_task as $task) {
+            if ($task->isAchieve()) {
+                array_push($list_taskAchieved, $task);
+            }
+        }
+
+        return $list_taskAchieved;
+    }
+
+    public function taskTodo()
+    {
+        $list_taskTodo = array();
+
+        foreach ($this->list_task as $task) {
+            if (!$task->isAchieve()) {
+                array_push($list_taskTodo, $task);
+            }
+        }
+
+        return $list_taskTodo;
+    }
+
     public function delete(){
         $this->userObject->removeTodo($this);
     }
@@ -181,5 +206,15 @@ class Todo implements JsonSerializable
         }
 
         return $haveRightTo;
+    }
+
+    public function progressValuePercent()
+    {
+        $progressValue = 0;
+        if (count($this->list_task) > 0) {
+            $progressValue = (count($this->taskAchieved()) / count($this->list_task)) * 100;
+        }
+
+        return $progressValue;
     }
 }

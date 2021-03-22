@@ -182,7 +182,7 @@ class User implements JsonSerializable
     {
         $progressValue = 0;
         if (count($this->list_task) > 0) {
-            $retour = ($this->nbTaskAchieve() / count($this->list_task)) * 100;
+            $progressValue = ($this->nbTaskAchieve() / count($this->list_task)) * 100;
         }
 
         return $progressValue;
