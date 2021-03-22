@@ -5,7 +5,7 @@ header {
     flex-direction: column;
 }
 
-.header_side {
+.header_top {
     display: flex;
     width: 20%;
     height: 100%;
@@ -17,22 +17,23 @@ header img {
     height: 30px;
 }
 
-header h1{
-    margin-left: 25px;
+.header_bottom {
+    padding-top: 3px;
+    padding-left: 30px;
+}
+
+header h1 {
     color: #fff;
     font-family: 'Comfortaa', sans-serif;
     font-size: 22px;
     font-weight: bold;
 }
 
-
-.wrapper{
+.wrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: calc(100% - 10%);
 }
 
-.notice_container{
-
-}
+.notice_container {}
