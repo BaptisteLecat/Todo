@@ -7,7 +7,7 @@ function achieveTask(element) {
       if(response["error"] == null){
         element.parentNode.innerHTML = taskDisplayer(response["task"]);
       }else{
-        console.log(document.getElementById("messageBox_container"));
+        deleteMessageBox();
         document.getElementsByTagName("body")[0].innerHTML += response["error"];
         showMessageBox();
       }
