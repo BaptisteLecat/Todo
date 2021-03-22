@@ -10,6 +10,10 @@ use App\Model\ContributeManager;
 
 use App\Model\Exceptions\PermissionException;
 
+/**
+ * ModuleTaskManager
+ * Cette classe permet de gerer les fonctionnalitées liés au tâches, dans une todo.
+ */
 class ModuleTaskManager
 {
     private static $userObject;
