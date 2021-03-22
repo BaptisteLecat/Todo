@@ -101,9 +101,9 @@ class Controller
         
             <base href="http://todo/"/>
             <link rel="stylesheet" href="assets/css/menu.css">
-            <link rel="stylesheet" href="assets/css/messageBox/information.css">';
+            <link rel="stylesheet" href="assets/css/messageBox/template.css">';
         $head .= $this->loadcss_link();
-        $head .= '<script src="module/form/messageBox/messageBoxDisplayer.js"></script>';
+        $head .= '<script src="js/messageBox/messageBoxDisplayer.js"></script>';
         $head .= '<title>
             ' . $this->title . '
             </title>

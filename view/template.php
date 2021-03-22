@@ -6,7 +6,8 @@
 
     <?php
     if ($controller->getMessageBox() != null) {
-        include("../view/messageBox/information.php");
+        include("../view/messageBox/error.php");
+        include("../view/messageBox/success.php");
     } ?>
 
 
