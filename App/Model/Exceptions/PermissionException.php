@@ -15,23 +15,23 @@ class PermissionException extends Exception
     {
         switch ($this->code) {
             case 1:
-                $messageBox = new MessageBox("Erreur", "Vous n'avez pas la permission d'achever une tâche", null, "error");
+                $messageBox = new MessageBox("Erreur", "Vous n'avez pas la permission d'achever une tâche", "error", null);
                 break;
 
             case 2:
-                $messageBox = new MessageBox("Erreur", "Vous n'avez pas la permission de modifier une tâche", null, "error");
+                $messageBox = new MessageBox("Erreur", "Vous n'avez pas la permission de modifier une tâche", "error", null);
                 break;
 
             case 3:
-                $messageBox = new MessageBox("Erreur", "Vous n'avez pas la permission de créer une tâche", null, "error");
+                $messageBox = new MessageBox("Erreur", "Vous n'avez pas la permission de créer une tâche", "error", null);
                 break;
 
             case 4:
-                $messageBox = new MessageBox("Erreur", "Vous n'avez pas la permission d'archiver une tâche", null, "error");
+                $messageBox = new MessageBox("Erreur", "Vous n'avez pas la permission d'archiver une tâche", "error", null);
                 break;
 
             default:
-                $messageBox = new MessageBox("Erreur", "Les permissions nécessaires ne vous sont pas accordées.", null, "error");
+                $messageBox = new MessageBox("Erreur", "Les permissions nécessaires ne vous sont pas accordées.", "error", null);
                 break;
         }
 
