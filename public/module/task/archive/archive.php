@@ -3,9 +3,19 @@
 require_once '../../../../vendor/autoload.php';
 
 use App\Module\ModuleTaskManager;
+use App\Model\Exceptions\PermissionException;
 
-$list_idTask = json_decode($_POST["list_idTask"], true);
-$idTodo = $_POST["idTodo"];
+try {
+    $messageBox = null;
+    $task = null;
 
-echo json_encode(ModuleTaskManager::archiveTask($list_idTask, $idTodo));
+    $list_idTask = json_decode($_POST["list_idTask"], true);
+    $idTodo = $_POST["idTodo"];
 
+    $task = ModuleTaskManager::archiveTask($list_idTask, $idTodo);
+} catch (PermissionException $e) {
+    $messageBox = $e->__toString();
+}
+
+$response = ["messageBox" => $messageBox, "task" => $task];
+echo json_encode($response);
