@@ -61,7 +61,7 @@
 
     <div class='task_wrapper'>
 
-        <?php foreach ($todo->getList_Task() as $task) { ?>
+        <?php foreach ($todo->getList_TaskNoArchived() as $task) { ?>
             <div class="parent_container">
                 <div class="back_card">
                     <img src="assets\icons\writing.png">
