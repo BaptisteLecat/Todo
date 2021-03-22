@@ -4,13 +4,37 @@ function archiveTask() {
     if (this.readyState == 4 && this.status == 200) {
       var response = this.response;
 
-      if (response["messageBox"] == null) {
-        element.parentNode.innerHTML = taskDisplayer(response["task"]);
-      } else {
+      if (response["success"] != null) {
+        archiveTaskId.forEach((idTask) => {
+          element = null;
+          Array.from(document.getElementsByClassName("task_container")).forEach(
+            (task) => {
+              console.log(task.getAttribute("name"));
+              console.log(archiveTaskId);
+              if (task.getAttribute("name") == idTask) {
+                element = task;
+                return true;
+              }
+            }
+          );
+          if (element != null) {
+            document
+              .getElementsByClassName("task_wrapper")[0]
+              .removeChild(element.parentNode);
+              console.log(element);
+          }
+        });
         deleteMessageBox();
         document.getElementsByTagName("body")[0].innerHTML +=
-          response["messageBox"];
+          response["success"];
         showMessageBox();
+      } else {
+        if (response["messageBox"] != null) {
+          deleteMessageBox();
+          document.getElementsByTagName("body")[0].innerHTML +=
+            response["messageBox"];
+          showMessageBox();
+        }
       }
 
       $(".task_container").each(function () {

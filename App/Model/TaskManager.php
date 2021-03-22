@@ -80,8 +80,8 @@ class TaskManager
                 foreach ($list_priority as $priority) {
                     if ($priority->getId() == $result["id_priority"]) {
                         $task = new Task($taskObject->getId(), $result["title_task"], $result["content_task"], $result["enddate_task"], $taskObject->getUserObject(), $taskObject->getTodoObject(), $priority);
-                        TaskAchieveManager::loadTaskAchieveFromTask($task);
                         $taskObject->delete();
+                        TaskAchieveManager::loadTaskAchieveFromTask($task);
                     }
                 }
             }

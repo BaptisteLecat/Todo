@@ -21,58 +21,60 @@ class ModuleTaskManager
 
     public static function archiveTask($list_idTask, $idTodo)
     {
-        $task_return = null;
 
-            self::$userObject = unserialize($_SESSION["User"]);
-            self::$appObject = unserialize($_SESSION["App"]);
-            //Récupération de l'object associé à l'id todo passé en paramètre.
-            $todoObject = self::getTodoObject($idTodo);
+        self::$userObject = unserialize($_SESSION["User"]);
+        self::$appObject = unserialize($_SESSION["App"]);
+        //Récupération de l'object associé à l'id todo passé en paramètre.
+        $todoObject = self::getTodoObject($idTodo);
 
-            if ($todoObject != null && ($todoObject->havePermissionTo(4) || $todoObject->getOwned())) {
-                //Parcours des idTask selectionné pour l'archivage.
-                foreach ($list_idTask as $idTask) {
-                    //Comparaison avec chacune des task présente dans la todo.
-                    foreach ($todoObject->getList_Task() as $taskObject) {
-                        if ($idTask == $taskObject->getId()) {
-                            //Archivage
-                            TaskManager::archiveTask(self::$userObject, $taskObject);
-                            $task_return = $taskObject;
-                            break;
-                        }
+        if ($todoObject != null && ($todoObject->havePermissionTo(4) || $todoObject->getOwned())) {
+            //Parcours des idTask selectionné pour l'archivage.
+            foreach ($list_idTask as $idTask) {
+                //Comparaison avec chacune des task présente dans la todo.
+                foreach ($todoObject->getList_Task() as $taskObject) {
+                    if ($idTask == $taskObject->getId()) {
+                        //Archivage
+                        TaskManager::archiveTask(self::$userObject, $taskObject);
+                        //TaskManager::reloadTask($taskObject, self::$appObject->getList_Priority());
+                        break;
                     }
                 }
-            } else {
-                throw new PermissionException(4);
             }
+        } else {
+            throw new PermissionException(4);
+        }
 
-            return $task_return;
+        $_SESSION["User"] = serialize(self::$userObject);
+        $_SESSION["App"] = serialize(self::$appObject);
     }
 
     public static function achieveTask($idTask, $idTodo)
     {
         $task_return = null;
 
-            self::$userObject = unserialize($_SESSION["User"]);
-            self::$appObject = unserialize($_SESSION["App"]);
-            //Récupération de l'object associé à l'id todo passé en paramètre.
-            $todoObject = self::getTodoObject($idTodo);
+        self::$userObject = unserialize($_SESSION["User"]);
+        self::$appObject = unserialize($_SESSION["App"]);
+        //Récupération de l'object associé à l'id todo passé en paramètre.
+        $todoObject = self::getTodoObject($idTodo);
 
-            if ($todoObject != null && ($todoObject->havePermissionTo(1) || $todoObject->getOwned())) {
-                //Comparaison avec chacune des task présente dans la todo.
-                foreach ($todoObject->getList_Task() as $taskObject) {
-                    if ($idTask == $taskObject->getId()) {
-                        //Archivage
-                        TaskManager::achieveTask(self::$userObject, $taskObject);
-                        TaskManager::reloadTask($taskObject, self::$appObject->getList_Priority());
-                        $task_return = TaskManager::reloadTask($taskObject, self::$appObject->getList_Priority());
-                        break;
-                    }
+        if ($todoObject != null && ($todoObject->havePermissionTo(1) || $todoObject->getOwned())) {
+            //Comparaison avec chacune des task présente dans la todo.
+            foreach ($todoObject->getList_Task() as $taskObject) {
+                if ($idTask == $taskObject->getId()) {
+                    //Archivage
+                    TaskManager::achieveTask(self::$userObject, $taskObject);
+                    $task_return = TaskManager::reloadTask($taskObject, self::$appObject->getList_Priority());
+                    break;
                 }
-            } else {
-                throw new PermissionException(1);
             }
+        } else {
+            throw new PermissionException(1);
+        }
 
-            return $task_return;
+        $_SESSION["User"] = serialize(self::$userObject);
+        $_SESSION["App"] = serialize(self::$appObject);
+
+        return $task_return;
     }
 
     private static function getTodoObject($idTodo)
