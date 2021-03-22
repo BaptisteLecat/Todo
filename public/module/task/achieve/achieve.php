@@ -6,16 +6,16 @@ use App\Model\Exceptions\PermissionException;
 use App\Module\ModuleTaskManager;
 
 try {
-    $error = null;
+    $messageBox = null;
     $task = null;
-    
+
     $idTask = $_POST["idTask"];
     $idTodo = $_POST["idTodo"];
 
     $task = ModuleTaskManager::achieveTask($idTask, $idTodo);
 } catch (PermissionException $e) {
-    $error = $e->__toString();
+    $messageBox = $e->__toString();
 }
 
-$response = ["error" => $error, "task" => $task];
+$response = ["messageBox" => $messageBox, "task" => $task];
 echo json_encode($response);

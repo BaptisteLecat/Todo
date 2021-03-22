@@ -4,11 +4,12 @@ function achieveTask(element) {
     if (this.readyState == 4 && this.status == 200) {
       var response = this.response;
 
-      if(response["error"] == null){
+      if (response["messageBox"] == null) {
         element.parentNode.innerHTML = taskDisplayer(response["task"]);
-      }else{
+      } else {
         deleteMessageBox();
-        document.getElementsByTagName("body")[0].innerHTML += response["error"];
+        document.getElementsByTagName("body")[0].innerHTML +=
+          response["messageBox"];
         showMessageBox();
       }
 
