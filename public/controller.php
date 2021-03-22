@@ -181,8 +181,8 @@ class Controller
             $isFinded = false;
             foreach ($this->user->getList_Todo() as $todo) {
                 if ($todo->getId() == $id) {
-                    require('controllers/board/todo/todoOwner.php');
                     $this->css_link = array('app', 'todo/todo');
+                    require('controllers/board/todo/todoOwner.php');
                     $isFinded = true;
                     break;
                 }
@@ -192,8 +192,8 @@ class Controller
 
                 foreach ($this->user->getList_TodoContribute() as $todo) {
                     if ($todo->getId() == $id) {
-                        require('controllers/board/todo/todoContributor.php');
                         $this->css_link = array('app', 'todo/todo');
+                        require('controllers/board/todo/todoContributor.php');
                         $isFinded = true;
                         break;
                     }
@@ -205,8 +205,8 @@ class Controller
                 }
             }
         } else {
-            require('../view/board/board.php');
             $this->css_link = array('app', 'todoView');
+            require('../view/board/board.php');
         }
 
         $this->menu("board");
@@ -239,6 +239,8 @@ class Controller
             require('../view/board/settings/home.php');
             $this->css_link = array('app', 'board/settings/home');
         }
+
+        $this->menu("board");
     }
 
     public function displayForm_TaskTodo($action = null)
