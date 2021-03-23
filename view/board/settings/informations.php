@@ -35,52 +35,47 @@
             <div class="participant_wrapper">
                 <div class="participant_container">
 
-                    <div class="participant-icon_container">
-                        <img src="..\..\assets\icons\validate.png" alt="">
-                    </div>
-                    <div class="participant-content_container">
-                        <div class="user-info">
-                            <p>Lecat</p>
-                            <h5>Baptiste</h5>
+                    <div class="participant-content_wrapper">
+                        <div class="participant-icon_container">
+                            <img src="..\..\assets\icons\validate.png" alt="">
                         </div>
-                        <h6>19-02-2020<h6>
-                    </div>
-                    <div class="participant-develop_container">
-                        <img src="..\..\assets\icons\bottom-chevron.png" alt="">
-                    </div>
-                </div>
-
-                <div class="participant_container">
-
-                    <div class="participant-icon_container">
-                        <img src="..\..\assets\icons\validate.png" alt="">
-                    </div>
-                    <div class="participant-content_container">
-                        <div class="user-info">
-                            <p>Lecat</p>
-                            <h5>Baptiste</h5>
+                        <div class="participant-content_container">
+                            <div class="user-info">
+                                <p>Lecat</p>
+                                <h5>Baptiste</h5>
+                            </div>
+                            <h6>19-02-2020<h6>
                         </div>
-                        <h6>19-02-2020<h6>
-                    </div>
-                    <div class="participant-develop_container">
-                        <img src="..\..\assets\icons\bottom-chevron.png" alt="">
-                    </div>
-                </div>
-
-                <div class="participant_container">
-
-                    <div class="participant-icon_container">
-                        <img src="..\..\assets\icons\validate.png" alt="">
-                    </div>
-                    <div class="participant-content_container">
-                        <div class="user-info">
-                            <p>Lecat</p>
-                            <h5>Baptiste</h5>
+                        <div class="participant-develop_container">
+                            <img src="..\..\assets\icons\bottom-chevron.png" alt="">
                         </div>
-                        <h6>19-02-2020<h6>
                     </div>
-                    <div class="participant-develop_container">
-                        <img src="..\..\assets\icons\bottom-chevron.png" alt="">
+
+                    <div class="participant-info_container">
+                        <ul>
+                            <li>
+                                <img src="..\..\assets\icons\mail-inbox.png" alt="">
+                                <p>baptiste.lecat44@gmail.com</p>
+                            </li>
+                        </ul>
+
+                        <div class="permission_container">
+                            <h6>Gestion des droits</h6>
+                            <ul>
+                                <li>
+                                    <div class="checkBox"></div>
+                                    <p>Réaliser une tâche</p>
+                                </li>
+                                <li>
+                                    <div class="checkBox"></div>
+                                    <p>Réaliser une tâche</p>
+                                </li>
+                                <li>
+                                    <div class="checkBox"></div>
+                                    <p>Réaliser une tâche</p>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
