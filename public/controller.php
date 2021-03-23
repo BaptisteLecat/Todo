@@ -217,7 +217,8 @@ class Controller
         if ($settings == "settings") {
             switch ($section) {
                 case 'informations':
-                    # code...
+                    require('../view/board/settings/informations.php');
+                    $this->css_link = array('app', 'board/settings/informations');
                     break;
 
                 case 'invitations':
