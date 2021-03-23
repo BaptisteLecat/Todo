@@ -155,6 +155,11 @@ class User implements JsonSerializable
         unset($this->list_contribute[array_search($contributeObject, $this->list_contribute)]);
     }
 
+    public function drainTodoContribute()
+    {
+        $this->list_contribute = array();
+    }
+
     public function addTaskUpdate($taskUpdateObject)
     {
         array_push($this->list_taskUpdated, $taskUpdateObject);

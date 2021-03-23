@@ -55,6 +55,10 @@ function drainUser($user)
     if ($user->getList_Todo() != null) {
         $user->drainTodo();
     }
+
+    if ($user->getList_TodoContribute() != null) {
+        $user->drainTodoContribute();
+    }
 }
 
 function loadTodoIcon()
