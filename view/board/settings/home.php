@@ -35,7 +35,7 @@
                         <h6>Gestions des informations</h6>
                     </div>
                     <div class="item-link_container">
-                        <img src="..\..\assets\icons\chevron_right_127px.png" alt="">
+                        <img src="..\..\assets\icons\right-chevron.png" alt="">
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                         <h6>Gestions des invitations</h6>
                     </div>
                     <div class="item-link_container">
-                        <img src="..\..\assets\icons\chevron_right_127px.png" alt="">
+                        <img src="..\..\assets\icons\right-chevron.png" alt="">
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                         <h6>Gestions des archives</h6>
                     </div>
                     <div class="item-link_container">
-                        <img src="..\..\assets\icons\chevron_right_127px.png" alt="">
+                        <img src="..\..\assets\icons\right-chevron.png" alt="">
                     </div>
                 </div>
             </div>
