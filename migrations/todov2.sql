@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 16 mars 2021 à 15:47
+-- Généré le : mer. 24 mars 2021 à 21:26
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -794,7 +794,9 @@ CREATE TABLE IF NOT EXISTS `contribute` (
   `id_user` int(11) NOT NULL,
   `id_todo` int(11) NOT NULL,
   `id_permission` int(11) NOT NULL,
-  PRIMARY KEY (`id_user`,`id_todo`,`id_permission`)
+  PRIMARY KEY (`id_user`,`id_todo`,`id_permission`),
+  KEY `constraint_idContributeTodo` (`id_todo`),
+  KEY `constraint_idContributePermission` (`id_permission`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -802,7 +804,8 @@ CREATE TABLE IF NOT EXISTS `contribute` (
 --
 
 INSERT INTO `contribute` (`accepted_contribute`, `joindate_contribute`, `id_user`, `id_todo`, `id_permission`) VALUES
-(0, '2021-03-16 15:08:13', 1, 3, 1);
+(0, '2021-03-16 15:08:13', 1, 3, 4),
+(0, '2021-03-16 15:08:13', 1, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -815,7 +818,7 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `id_permission` int(11) NOT NULL AUTO_INCREMENT,
   `label_permission` varchar(255) NOT NULL,
   PRIMARY KEY (`id_permission`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `permission`
@@ -843,8 +846,11 @@ CREATE TABLE IF NOT EXISTS `task` (
   `id_todo` int(11) NOT NULL,
   `id_priority` int(11) NOT NULL,
   `id_archived` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_task`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id_task`),
+  KEY `constraint_idPriority` (`id_priority`),
+  KEY `constraint_idArchived` (`id_archived`),
+  KEY `constraint_idTaskTodo` (`id_todo`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `task`
@@ -852,8 +858,14 @@ CREATE TABLE IF NOT EXISTS `task` (
 
 INSERT INTO `task` (`id_task`, `title_task`, `content_task`, `achieved_task`, `enddate_task`, `id_todo`, `id_priority`, `id_archived`) VALUES
 (8, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-10', 1, 1, 24),
-(9, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 1, NULL),
-(10, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 1, 1, NULL);
+(9, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 3, NULL),
+(10, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(11, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, 50),
+(12, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, 48),
+(13, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, 49),
+(14, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, 51),
+(15, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, 52),
+(16, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -866,178 +878,7 @@ CREATE TABLE IF NOT EXISTS `taskachieve_date` (
   `id_achieve` int(11) NOT NULL AUTO_INCREMENT,
   `date_achieve` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_achieve`)
-) ENGINE=InnoDB AUTO_INCREMENT=166 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `taskachieve_date`
---
-
-INSERT INTO `taskachieve_date` (`id_achieve`, `date_achieve`) VALUES
-(1, '2021-03-09 23:43:20'),
-(2, '2021-03-10 19:22:14'),
-(3, '2021-03-10 19:22:24'),
-(4, '2021-03-10 19:30:00'),
-(5, '2021-03-10 19:30:17'),
-(6, '2021-03-10 20:28:29'),
-(7, '2021-03-10 20:30:49'),
-(8, '2021-03-10 20:32:07'),
-(9, '2021-03-10 20:35:28'),
-(10, '2021-03-10 20:36:17'),
-(11, '2021-03-10 20:37:25'),
-(12, '2021-03-10 20:38:07'),
-(13, '2021-03-10 20:38:58'),
-(14, '2021-03-10 20:40:45'),
-(15, '2021-03-10 20:42:18'),
-(16, '2021-03-10 20:44:34'),
-(17, '2021-03-10 20:44:38'),
-(18, '2021-03-10 20:47:00'),
-(19, '2021-03-10 20:47:14'),
-(20, '2021-03-10 20:47:51'),
-(21, '2021-03-10 20:48:06'),
-(22, '2021-03-10 20:48:27'),
-(23, '2021-03-10 20:48:29'),
-(24, '2021-03-10 20:48:30'),
-(25, '2021-03-10 21:51:42'),
-(26, '2021-03-10 21:51:59'),
-(27, '2021-03-10 21:52:59'),
-(28, '2021-03-10 21:53:58'),
-(29, '2021-03-10 21:54:03'),
-(30, '2021-03-10 21:54:07'),
-(31, '2021-03-10 21:54:08'),
-(32, '2021-03-10 21:54:11'),
-(33, '2021-03-10 21:54:18'),
-(34, '2021-03-10 21:54:24'),
-(35, '2021-03-10 21:54:44'),
-(36, '2021-03-14 21:58:30'),
-(37, '2021-03-14 21:58:34'),
-(38, '2021-03-14 21:58:38'),
-(39, '2021-03-14 21:59:01'),
-(40, '2021-03-14 21:59:03'),
-(41, '2021-03-14 21:59:08'),
-(42, '2021-03-14 21:59:44'),
-(43, '2021-03-14 21:59:45'),
-(44, '2021-03-14 21:59:47'),
-(45, '2021-03-14 21:59:52'),
-(46, '2021-03-14 21:59:53'),
-(47, '2021-03-14 22:00:54'),
-(48, '2021-03-14 22:00:59'),
-(49, '2021-03-14 22:01:06'),
-(50, '2021-03-14 22:59:52'),
-(51, '2021-03-14 23:19:27'),
-(52, '2021-03-14 23:19:30'),
-(53, '2021-03-14 23:19:30'),
-(54, '2021-03-14 23:23:30'),
-(55, '2021-03-14 23:25:00'),
-(56, '2021-03-14 23:25:07'),
-(57, '2021-03-14 23:25:12'),
-(58, '2021-03-14 23:25:22'),
-(59, '2021-03-14 23:25:31'),
-(60, '2021-03-14 23:26:19'),
-(61, '2021-03-14 23:26:47'),
-(62, '2021-03-14 23:26:50'),
-(63, '2021-03-14 23:26:51'),
-(64, '2021-03-14 23:26:52'),
-(65, '2021-03-14 23:26:53'),
-(66, '2021-03-14 23:26:54'),
-(67, '2021-03-14 23:26:54'),
-(68, '2021-03-14 23:26:55'),
-(69, '2021-03-14 23:27:01'),
-(70, '2021-03-14 23:27:03'),
-(71, '2021-03-14 23:27:03'),
-(72, '2021-03-14 23:27:04'),
-(73, '2021-03-14 23:27:05'),
-(74, '2021-03-14 23:27:06'),
-(75, '2021-03-14 23:27:06'),
-(76, '2021-03-14 23:27:07'),
-(77, '2021-03-14 23:27:08'),
-(78, '2021-03-14 23:27:09'),
-(79, '2021-03-14 23:27:10'),
-(80, '2021-03-14 23:27:11'),
-(81, '2021-03-14 23:27:11'),
-(82, '2021-03-14 23:27:12'),
-(83, '2021-03-14 23:27:14'),
-(84, '2021-03-14 23:27:14'),
-(85, '2021-03-14 23:27:14'),
-(86, '2021-03-14 23:27:15'),
-(87, '2021-03-14 23:27:16'),
-(88, '2021-03-14 23:27:16'),
-(89, '2021-03-14 23:27:17'),
-(90, '2021-03-14 23:27:17'),
-(91, '2021-03-14 23:27:19'),
-(92, '2021-03-14 23:27:19'),
-(93, '2021-03-14 23:27:19'),
-(94, '2021-03-14 23:27:20'),
-(95, '2021-03-14 23:27:21'),
-(96, '2021-03-14 23:27:21'),
-(97, '2021-03-14 23:27:21'),
-(98, '2021-03-14 23:27:22'),
-(99, '2021-03-14 23:27:25'),
-(100, '2021-03-14 23:27:26'),
-(101, '2021-03-14 23:27:26'),
-(102, '2021-03-14 23:27:26'),
-(103, '2021-03-14 23:27:27'),
-(104, '2021-03-14 23:27:29'),
-(105, '2021-03-14 23:27:29'),
-(106, '2021-03-14 23:28:18'),
-(107, '2021-03-14 23:28:18'),
-(108, '2021-03-14 23:28:18'),
-(109, '2021-03-14 23:28:19'),
-(110, '2021-03-14 23:28:19'),
-(111, '2021-03-14 23:28:19'),
-(112, '2021-03-14 23:28:20'),
-(113, '2021-03-14 23:28:20'),
-(114, '2021-03-14 23:28:20'),
-(115, '2021-03-14 23:28:21'),
-(116, '2021-03-14 23:28:21'),
-(117, '2021-03-14 23:28:21'),
-(118, '2021-03-14 23:28:22'),
-(119, '2021-03-14 23:28:22'),
-(120, '2021-03-14 23:28:22'),
-(121, '2021-03-14 23:28:23'),
-(122, '2021-03-14 23:28:23'),
-(123, '2021-03-14 23:28:23'),
-(124, '2021-03-14 23:28:24'),
-(125, '2021-03-14 23:28:25'),
-(126, '2021-03-14 23:28:25'),
-(127, '2021-03-14 23:28:26'),
-(128, '2021-03-14 23:36:42'),
-(129, '2021-03-14 23:37:03'),
-(130, '2021-03-14 23:37:20'),
-(131, '2021-03-14 23:40:54'),
-(132, '2021-03-14 23:42:08'),
-(133, '2021-03-14 23:46:42'),
-(134, '2021-03-14 23:48:17'),
-(135, '2021-03-14 23:48:18'),
-(136, '2021-03-14 23:48:19'),
-(137, '2021-03-14 23:48:21'),
-(138, '2021-03-14 23:48:23'),
-(139, '2021-03-14 23:48:23'),
-(140, '2021-03-15 00:04:46'),
-(141, '2021-03-15 00:04:47'),
-(142, '2021-03-15 00:05:10'),
-(143, '2021-03-15 00:05:13'),
-(144, '2021-03-15 00:05:14'),
-(145, '2021-03-15 00:05:15'),
-(146, '2021-03-15 00:23:45'),
-(147, '2021-03-15 00:24:15'),
-(148, '2021-03-15 00:24:22'),
-(149, '2021-03-15 00:24:37'),
-(150, '2021-03-15 00:24:39'),
-(151, '2021-03-15 00:24:44'),
-(152, '2021-03-15 00:25:46'),
-(153, '2021-03-15 00:25:47'),
-(154, '2021-03-15 00:25:50'),
-(155, '2021-03-15 00:25:52'),
-(156, '2021-03-15 00:25:54'),
-(157, '2021-03-15 00:25:56'),
-(158, '2021-03-15 00:25:57'),
-(159, '2021-03-15 00:26:00'),
-(160, '2021-03-15 00:26:00'),
-(161, '2021-03-15 00:26:01'),
-(162, '2021-03-15 00:26:02'),
-(163, '2021-03-15 00:26:06'),
-(164, '2021-03-15 11:45:18'),
-(165, '2021-03-15 11:45:21');
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1050,7 +891,7 @@ CREATE TABLE IF NOT EXISTS `taskarchive_date` (
   `id_archive` int(11) NOT NULL AUTO_INCREMENT,
   `date_archive` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_archive`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `taskarchive_date`
@@ -1080,7 +921,35 @@ INSERT INTO `taskarchive_date` (`id_archive`, `date_archive`) VALUES
 (21, '2021-02-24 22:16:46'),
 (22, '2021-02-24 22:17:02'),
 (23, '2021-03-10 21:52:43'),
-(24, '2021-03-15 00:26:23');
+(24, '2021-03-15 00:26:23'),
+(25, '2021-03-20 20:59:43'),
+(26, '2021-03-22 23:09:46'),
+(27, '2021-03-22 23:10:19'),
+(28, '2021-03-22 23:10:43'),
+(29, '2021-03-22 23:15:33'),
+(30, '2021-03-22 23:19:10'),
+(31, '2021-03-22 23:20:50'),
+(32, '2021-03-22 23:21:16'),
+(33, '2021-03-22 23:22:24'),
+(34, '2021-03-22 23:24:27'),
+(35, '2021-03-22 23:24:45'),
+(36, '2021-03-22 23:24:49'),
+(37, '2021-03-22 23:25:26'),
+(38, '2021-03-22 23:25:33'),
+(39, '2021-03-22 23:25:40'),
+(40, '2021-03-22 23:26:46'),
+(41, '2021-03-22 23:29:49'),
+(42, '2021-03-22 23:30:02'),
+(43, '2021-03-22 23:32:40'),
+(44, '2021-03-22 23:33:30'),
+(45, '2021-03-22 23:40:16'),
+(46, '2021-03-22 23:45:12'),
+(47, '2021-03-22 23:46:27'),
+(48, '2021-03-22 23:46:33'),
+(49, '2021-03-22 23:46:33'),
+(50, '2021-03-22 23:54:53'),
+(51, '2021-03-23 22:38:56'),
+(52, '2021-03-23 23:08:25');
 
 -- --------------------------------------------------------
 
@@ -1094,20 +963,6 @@ CREATE TABLE IF NOT EXISTS `taskcreate_date` (
   `date_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_create`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `taskcreate_date`
---
-
-INSERT INTO `taskcreate_date` (`id_create`, `date_create`) VALUES
-(1, '2021-02-22 13:16:38'),
-(2, '2021-02-22 13:20:48'),
-(3, '2021-02-22 13:21:48'),
-(4, '2021-02-24 11:51:14'),
-(5, '2021-02-24 11:52:02'),
-(6, '2021-02-24 11:53:24'),
-(7, '2021-02-24 12:00:04'),
-(8, '2021-02-26 16:54:29');
 
 -- --------------------------------------------------------
 
@@ -1184,7 +1039,9 @@ CREATE TABLE IF NOT EXISTS `task_achieve` (
   `id_date` int(11) NOT NULL,
   `id_task` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  PRIMARY KEY (`id_date`,`id_task`,`id_user`)
+  PRIMARY KEY (`id_date`,`id_task`,`id_user`),
+  KEY `constraint_idAchieveUser` (`id_user`),
+  KEY `constraint_idAchieveTask` (`id_task`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1198,7 +1055,9 @@ CREATE TABLE IF NOT EXISTS `task_archive` (
   `id_date` int(11) NOT NULL,
   `id_task` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  PRIMARY KEY (`id_date`,`id_task`,`id_user`)
+  PRIMARY KEY (`id_date`,`id_task`,`id_user`),
+  KEY `constraint_idArchiveTask` (`id_task`),
+  KEY `constraint_idArchiveUser` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1206,7 +1065,12 @@ CREATE TABLE IF NOT EXISTS `task_archive` (
 --
 
 INSERT INTO `task_archive` (`id_date`, `id_task`, `id_user`) VALUES
-(24, 8, 1);
+(24, 8, 1),
+(50, 11, 1),
+(48, 12, 1),
+(49, 13, 1),
+(51, 14, 1),
+(52, 15, 1);
 
 -- --------------------------------------------------------
 
@@ -1219,21 +1083,10 @@ CREATE TABLE IF NOT EXISTS `task_create` (
   `id_date` int(11) NOT NULL,
   `id_task` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  PRIMARY KEY (`id_date`,`id_task`,`id_user`)
+  PRIMARY KEY (`id_date`,`id_task`,`id_user`),
+  KEY `constraint_idCreateUser` (`id_user`),
+  KEY `constraint_idCreateTask` (`id_task`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `task_create`
---
-
-INSERT INTO `task_create` (`id_date`, `id_task`, `id_user`) VALUES
-(2, 2, 1),
-(3, 3, 2),
-(4, 4, 2),
-(5, 5, 2),
-(6, 6, 2),
-(7, 7, 2),
-(8, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -1246,36 +1099,10 @@ CREATE TABLE IF NOT EXISTS `task_update` (
   `id_date` int(11) NOT NULL,
   `id_task` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  PRIMARY KEY (`id_date`,`id_task`,`id_user`)
+  PRIMARY KEY (`id_date`,`id_task`,`id_user`),
+  KEY `constraint_idUpdateTask` (`id_task`),
+  KEY `constraint_idUpdateUser` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `task_update`
---
-
-INSERT INTO `task_update` (`id_date`, `id_task`, `id_user`) VALUES
-(1, 1, 2),
-(2, 1, 2),
-(3, 1, 2),
-(4, 1, 2),
-(5, 1, 2),
-(6, 1, 2),
-(7, 1, 2),
-(8, 1, 2),
-(9, 3, 1),
-(10, 3, 1),
-(11, 3, 1),
-(12, 3, 1),
-(13, 3, 1),
-(14, 3, 2),
-(15, 3, 2),
-(16, 3, 2),
-(17, 3, 2),
-(18, 3, 2),
-(19, 3, 2),
-(20, 3, 2),
-(21, 8, 2),
-(22, 8, 2);
 
 -- --------------------------------------------------------
 
@@ -1291,8 +1118,10 @@ CREATE TABLE IF NOT EXISTS `todo` (
   `createdate_todo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_user` int(11) NOT NULL,
   `id_icon` int(11) NOT NULL,
-  PRIMARY KEY (`id_todo`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id_todo`),
+  KEY `constraint_idUser` (`id_user`),
+  KEY `constraint_idTodoIcon` (`id_icon`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `todo`
@@ -1301,7 +1130,9 @@ CREATE TABLE IF NOT EXISTS `todo` (
 INSERT INTO `todo` (`id_todo`, `title_todo`, `description_todo`, `createdate_todo`, `id_user`, `id_icon`) VALUES
 (1, 'coucou', 'sdfsdfsdf', '2021-02-14 23:56:54', 1, 2),
 (3, 'rgrg', 'fdgdfgdfgdfg', '2021-02-24 16:27:01', 2, 2),
-(4, 'Courses', 'Faire les courses', '2021-03-16 14:52:21', 2, 2);
+(4, 'Courses', 'Faire les courses', '2021-03-16 14:52:21', 1, 2),
+(5, 'Devoirs', 'Revision', '2021-03-16 14:52:21', 1, 2),
+(6, 'Devoirs', 'Revision', '2021-03-16 14:52:21', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -1340,7 +1171,9 @@ CREATE TABLE IF NOT EXISTS `todo_token` (
   `expirationdate` datetime NOT NULL,
   `id_permission` int(11) NOT NULL,
   `id_todo` int(11) NOT NULL,
-  PRIMARY KEY (`token`)
+  PRIMARY KEY (`token`),
+  KEY `constraint_idTodo` (`id_todo`),
+  KEY `constraint_idPermission` (`id_permission`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1374,6 +1207,72 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`id_user`, `name_user`, `firstname_user`, `email_user`, `password_user`, `createdate_user`) VALUES
 (1, 'Testeur', 'Le Test', 'testEmail@gmail.com', 'test', '2021-02-16 22:55:31'),
 (2, 'Lecat', 'Baptiste', 'baptiste.lecat44@gmail.com', 'baptiste24', '2021-02-16 22:55:31');
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `contribute`
+--
+ALTER TABLE `contribute`
+  ADD CONSTRAINT `constraint_idContributePermission` FOREIGN KEY (`id_permission`) REFERENCES `permission` (`id_permission`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `constraint_idContributeTodo` FOREIGN KEY (`id_todo`) REFERENCES `todo` (`id_todo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `constraint_idContributeUser` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `task`
+--
+ALTER TABLE `task`
+  ADD CONSTRAINT `constraint_idArchived` FOREIGN KEY (`id_archived`) REFERENCES `taskarchive_date` (`id_archive`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `constraint_idPriority` FOREIGN KEY (`id_priority`) REFERENCES `taskpriority` (`id_priority`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `constraint_idTaskTodo` FOREIGN KEY (`id_todo`) REFERENCES `todo` (`id_todo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `task_achieve`
+--
+ALTER TABLE `task_achieve`
+  ADD CONSTRAINT `constraint_idAchieveDate` FOREIGN KEY (`id_date`) REFERENCES `taskachieve_date` (`id_achieve`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `constraint_idAchieveTask` FOREIGN KEY (`id_task`) REFERENCES `task` (`id_task`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `constraint_idAchieveUser` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `task_archive`
+--
+ALTER TABLE `task_archive`
+  ADD CONSTRAINT `constraint_idArchiveDate` FOREIGN KEY (`id_date`) REFERENCES `taskarchive_date` (`id_archive`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `constraint_idArchiveTask` FOREIGN KEY (`id_task`) REFERENCES `task` (`id_task`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `constraint_idArchiveUser` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `task_create`
+--
+ALTER TABLE `task_create`
+  ADD CONSTRAINT `constraint_idCreateDate` FOREIGN KEY (`id_date`) REFERENCES `taskcreate_date` (`id_create`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `constraint_idCreateTask` FOREIGN KEY (`id_task`) REFERENCES `task` (`id_task`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `constraint_idCreateUser` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `task_update`
+--
+ALTER TABLE `task_update`
+  ADD CONSTRAINT `constraint_idUpdateDate` FOREIGN KEY (`id_date`) REFERENCES `taskupdate_date` (`id_update`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `constraint_idUpdateTask` FOREIGN KEY (`id_task`) REFERENCES `task` (`id_task`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `constraint_idUpdateUser` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `todo`
+--
+ALTER TABLE `todo`
+  ADD CONSTRAINT `constraint_idTodoIcon` FOREIGN KEY (`id_icon`) REFERENCES `todo_icon` (`id_icon`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `constraint_idUser` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `todo_token`
+--
+ALTER TABLE `todo_token`
+  ADD CONSTRAINT `constraint_idPermission` FOREIGN KEY (`id_permission`) REFERENCES `permission` (`id_permission`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `constraint_idTodo` FOREIGN KEY (`id_todo`) REFERENCES `todo` (`id_todo`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
