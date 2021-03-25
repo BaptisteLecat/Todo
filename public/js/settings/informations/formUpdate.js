@@ -15,11 +15,11 @@ document.getElementsByClassName("formSubmit")[0].getElementsByTagName("button")[
 
 function hideSubmitButton(button) {
     button.style.display = "none";
-    button.style.height = "0px";
+    button.style.maxHeight = "0px";
 }
 
 
 function showSubmitButton(button) {
     button.style.display = "flex";
-    button.style.height = "auto";
+    button.style.maxHeight = "600px";
 }

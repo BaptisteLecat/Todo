@@ -104,7 +104,8 @@ form textarea {
 
 .formSubmit {
   display: none;
-  height: 0px;
+  height: auto;
+  max-height: 0px;
   width: 100%;
   padding: 14px;
   transition: ease-in-out;
@@ -113,7 +114,7 @@ form textarea {
 
 .formSubmit button {
   outline: none;
-  background-color: green;
+  background-image: linear-gradient(90deg, #5C7AFF, #5C7AFF);
   font-family: "Comfortaa", sans-serif;
   color: #fff;
   font-size: 16px;
@@ -252,7 +253,7 @@ ul {
 }
 
 .permission_container {
-  background-color: #0c2d3a;
+  background-color: #172C3A;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -276,11 +277,11 @@ ul {
   padding-left: 8px;
 }
 
-.permission_container .checkbox {
+.permission_container input {
   height: 20px;
   width: 20px;
   border-radius: 6px;
-  background-color: #07232e;
+  background-color: #10222E;
   margin-right: 12px;
 }
 
