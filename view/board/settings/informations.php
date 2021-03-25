@@ -26,7 +26,7 @@
                 <textarea name="todoDescription" cols="30" rows="10"><?= $todo->getDescription() ?></textarea>
 
                 <div class="formSubmit">
-                  <button>Modifier</button>
+                    <button>Modifier</button>
                 </div>
             </form>
         </section>
@@ -67,15 +67,15 @@
                             <h6>Gestion des droits</h6>
                             <ul>
                                 <li>
-                                    <div class="checkBox"></div>
+                                    <input type="checkbox" id="1">
                                     <p>Réaliser une tâche</p>
                                 </li>
                                 <li>
-                                    <div class="checkBox"></div>
+                                    <input type="checkbox" id="1">
                                     <p>Réaliser une tâche</p>
                                 </li>
                                 <li>
-                                    <div class="checkBox"></div>
+                                    <input type="checkbox" id="1">
                                     <p>Réaliser une tâche</p>
                                 </li>
                             </ul>
