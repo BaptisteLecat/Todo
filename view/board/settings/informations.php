@@ -18,12 +18,16 @@
                 <h2>Détails</h2>
             </div>
 
-            <form>
+            <form method="POST">
                 <h6>Nom de la Todo</h6>
                 <input type="text" name="todoName" value="<?= $todo->getTitle() ?>">
 
                 <h6>Description</h6>
                 <textarea name="todoDescription" cols="30" rows="10"><?= $todo->getDescription() ?></textarea>
+
+                <div class="formSubmit">
+                  <button>Modifier</button>
+                </div>
             </form>
         </section>
 
@@ -83,5 +87,8 @@
     </div>
 
 </main>
+
+<script src="../../js/settings/informations/formUpdate.js"></script>
+<script src="../../js/settings/informations/participantManager.js"></script>
 
 <?php $this->content = ob_get_clean(); ?>

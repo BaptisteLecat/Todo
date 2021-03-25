@@ -102,6 +102,27 @@ form textarea {
   resize: none;
 }
 
+.formSubmit {
+  display: none;
+  height: 0px;
+  width: 100%;
+  padding: 14px;
+  transition: ease-in-out;
+  transition-duration: 1s;
+}
+
+.formSubmit button {
+  outline: none;
+  background-color: green;
+  font-family: "Comfortaa", sans-serif;
+  color: #fff;
+  font-size: 16px;
+  padding: 8px 22px;
+  border: none;
+  border-radius: 5px;
+  margin: auto;
+}
+
 .participant_wrapper {
   display: flex;
   flex-direction: column;
@@ -117,7 +138,6 @@ form textarea {
   background-color: #10222e;
   margin-bottom: 10px;
   padding: 10px 15px;
-  padding-bottom: 20px; /*TODO padding bottom que si en full display*/
 }
 
 .participant-content_wrapper {
@@ -141,6 +161,8 @@ form textarea {
   margin: auto auto auto 0px;
   height: 25px;
   width: 25px;
+  transition: ease-in-out;
+  transition-duration: 0.6;
 }
 
 .participant-content_container {
@@ -190,8 +212,8 @@ form textarea {
   width: 20px;
 }
 
-.participant-info_container{
-  display: flex;
+.participant-info_container {
+  display: none;
   flex-direction: column;
   height: auto;
   width: 100%;
@@ -200,32 +222,32 @@ form textarea {
   padding-top: 10px;
 }
 
-ul{
+ul {
   list-style: none;
 }
 
-.participant-info_container li{
+.participant-info_container li {
   width: 100%;
   height: auto;
   display: flex;
   padding: 8px 10px;
 }
 
-.participant-info_container li img{
+.participant-info_container li img {
   height: 22px;
   width: 22px;
   margin-right: 15px;
 }
 
-.participant-info_container li p{
+.participant-info_container li p {
   color: #fff;
   font-family: "Comfortaa", sans-serif;
   font-size: 14px;
   margin: auto 0px;
 }
 
-.permission_container{
-  background-color: #0C2D3A;
+.permission_container {
+  background-color: #0c2d3a;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -236,28 +258,28 @@ ul{
   margin-top: 10px;
 }
 
-.permission_container h6{
+.permission_container h6 {
   color: #5c7aff;
   font-family: "Comfortaa", sans-serif;
   font-size: 16px;
   margin-bottom: 4px;
 }
 
-.permission_container ul{
+.permission_container ul {
   height: auto;
   width: 100%;
   padding-left: 8px;
 }
 
-.permission_container .checkbox{
+.permission_container .checkbox {
   height: 20px;
   width: 20px;
   border-radius: 6px;
-  background-color: #07232E;
+  background-color: #07232e;
   margin-right: 12px;
 }
 
-.permission_container li{
+.permission_container li {
   width: 100%;
   height: auto;
   display: flex;
