@@ -20,10 +20,10 @@
 
             <form>
                 <h6>Nom de la Todo</h6>
-                <input type="text" name="todoName" value="Travail">
+                <input type="text" name="todoName" value="<?= $todo->getTitle() ?>">
 
                 <h6>Description</h6>
-                <textarea name="todoDescription" cols="30" rows="10">Ceci est une todo pour faire les courses.</textarea>
+                <textarea name="todoDescription" cols="30" rows="10"><?= $todo->getDescription() ?></textarea>
             </form>
         </section>
 

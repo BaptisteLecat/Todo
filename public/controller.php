@@ -44,7 +44,7 @@ class Controller
 
         if (isset($_SESSION["App"])) {
             $this->app = unserialize($_SESSION["App"]);
-        }else{
+        } else {
             $this->app = new App();
             $this->app->setList_Priority(loadPriority());
             $this->app->setList_TodoIcon(loadTodoIcon());
@@ -178,31 +178,18 @@ class Controller
         loadTodoContributeTask($this->user, $this->list_priority);
 
         if ($id != null) {
-            $isFinded = false;
-            foreach ($this->user->getList_Todo() as $todo) {
-                if ($todo->getId() == $id) {
+            $todo = $this->findTodo($id);
+            if (!is_null($todo)) {
+                if ($todo->getOwned()) { //Todo ou le user est propriétaire.
                     $this->css_link = array('app', 'todo/todo');
                     require('controllers/board/todo/todoOwner.php');
-                    $isFinded = true;
-                    break;
+                } else {
+                    $this->css_link = array('app', 'todo/todo');
+                    require('controllers/board/todo/todoContributor.php');
                 }
-            }
-
-            if (!$isFinded) {
-
-                foreach ($this->user->getList_TodoContribute() as $todo) {
-                    if ($todo->getId() == $id) {
-                        $this->css_link = array('app', 'todo/todo');
-                        require('controllers/board/todo/todoContributor.php');
-                        $isFinded = true;
-                        break;
-                    }
-                }
-
-                if (!$isFinded) {
-                    require('../view/board/board.php');
-                    $this->css_link = array('app', 'todoView');
-                }
+            } else {
+                require('../view/board/board.php');
+                $this->css_link = array('app', 'todoView');
             }
         } else {
             $this->css_link = array('app', 'todoView');
@@ -212,13 +199,50 @@ class Controller
         $this->menu("board");
     }
 
+    private function findTodo(int $id)
+    {
+        $todoObject = null;
+        $isFinded = false;
+        foreach ($this->user->getList_Todo() as $todo) {
+            if ($todo->getId() == $id) {
+                $todoObject = $todo;
+                $isFinded = true;
+                break;
+            }
+        }
+
+        if (!$isFinded) {
+
+            foreach ($this->user->getList_TodoContribute() as $todo) {
+                if ($todo->getId() == $id) {
+                    $todoObject = $todo;
+                    $isFinded = true;
+                    break;
+                }
+            }
+        }
+
+        return $todoObject;
+    }
+
     public function displayTodoSettings($settings, $section = null)
     {
+        $this->reloadUser();
+        loadUserTodoContribute($this->user, $this->list_todoIcon, $this->list_permission);
+        loadTodoContributeTask($this->user, $this->list_priority);
+
         if ($settings == "settings") {
             switch ($section) {
                 case 'informations':
-                    require('../view/board/settings/informations.php');
-                    $this->css_link = array('app', 'board/settings/informations');
+                    $todo = $this->findTodo($_REQUEST["idTodo"]);
+                    if (!is_null($todo)) {
+                        require('../view/board/settings/informations.php');
+                        $this->css_link = array('app', 'board/settings/informations');
+                    } else {
+                        //Page accueil settings
+                        require('../view/board/settings/home.php');
+                        $this->css_link = array('app', 'board/settings/home');
+                    }
                     break;
 
                 case 'invitations':
