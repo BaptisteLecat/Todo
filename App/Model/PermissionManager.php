@@ -24,10 +24,10 @@ class PermissionManager
     public static function loadPermission(){
         $list_permission = array();
         try{
-            $request = PdoFactory::getPdo()->prepare("SELECT id_permission, label_permission FROM permission");
+            $request = PdoFactory::getPdo()->prepare("SELECT id_permission, label_permission, content_permission FROM permission");
             $request->execute();
             while ($result = $request->fetch()) {
-                $permission = new Permission($result["id_permission"], $result["label_permission"]);
+                $permission = new Permission($result["id_permission"], $result["label_permission"], $result["content_permission"]);
                 array_push($list_permission, $permission);
             }
         }catch(Exception $e){

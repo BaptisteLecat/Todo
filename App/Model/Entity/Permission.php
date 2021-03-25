@@ -7,14 +7,16 @@ class Permission implements JsonSerializable
 {
     private $id;
     private $label;
+    private $content;
 
     private $list_todoToken;
     private $list_contribute;
 
-    public function __construct($id, $label)
+    public function __construct(int $id, string $label, string $content)
     {
         $this->id = $id;
         $this->label = $label;
+        $this->content = $content;
 
         $this->list_todoToken = array();
         $this->list_contribute = array();
@@ -25,8 +27,7 @@ class Permission implements JsonSerializable
         return array(
             'id' => $this->id,
             'label' => $this->label,
-            /*'list_todoToken' => $this->list_TodoTokenSerialize(),
-            'list_contribute' => $this->list_ContributeSerialize()*/
+            'content' => $this->content
         );
     }
 
@@ -38,6 +39,11 @@ class Permission implements JsonSerializable
     public function getLabel()
     {
         return $this->label;
+    }
+
+    public function getContent()
+    {
+        return $this->content;
     }
 
     public function getList_TodoToken()
