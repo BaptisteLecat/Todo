@@ -138,6 +138,8 @@ form textarea {
   background-color: #10222e;
   margin-bottom: 10px;
   padding: 10px 15px;
+  transition: ease-in-out;
+  transition-duration: 0.3s;
 }
 
 .participant-content_wrapper {
@@ -161,8 +163,6 @@ form textarea {
   margin: auto auto auto 0px;
   height: 25px;
   width: 25px;
-  transition: ease-in-out;
-  transition-duration: 0.6;
 }
 
 .participant-content_container {
@@ -210,16 +210,21 @@ form textarea {
   margin: auto 0px auto auto;
   height: 20px;
   width: 20px;
+  transition: ease-in-out;
+  transition-duration: 0.3s;
 }
 
 .participant-info_container {
   display: none;
   flex-direction: column;
   height: auto;
+  max-height: 0px;
   width: 100%;
   border-top: 2px solid #223c4e;
   margin: auto;
   padding-top: 10px;
+    transition: ease-in-out;
+  transition-duration: 0.3s;
 }
 
 ul {
