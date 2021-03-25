@@ -10,6 +10,7 @@ use App\Model\TodoIconManager;
 use App\Model\UserManager;
 use App\Model\Utils\MessageBox;
 use App\App;
+use App\Model\ContributeManager;
 
 class Controller
 {
@@ -234,7 +235,11 @@ class Controller
         if ($settings == "settings") {
             switch ($section) {
                 case 'informations':
+                    //Récupération de l'object todo associé à l'id passé dans l'url.
                     $todo = $this->findTodo($_REQUEST["idTodo"]);
+                    //Chargement des userContributor et de leur permissions, pour cette todo.
+                    $list_userContributor = ContributeManager::loadUsersOfTodo($todo, $this->list_permission);
+
                     if (!is_null($todo)) {
                         require('../view/board/settings/informations.php');
                         $this->css_link = array('app', 'board/settings/informations');
