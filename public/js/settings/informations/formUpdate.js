@@ -1,6 +1,6 @@
 form_isModified = false;
 
-document.getElementsByTagName("form")[0].addEventListener("change", function 
+document.getElementsByTagName("form")[0].addEventListener("input", function 
 (event) {
     if(!form_isModified){
         form_isModified = true;
