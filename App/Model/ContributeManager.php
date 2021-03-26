@@ -59,7 +59,7 @@ class ContributeManager
         $list_userContributor = array();
 
         try {
-            $request = PdoFactory::getPdo()->prepare("SELECT user.id_user, name_user, firstname_user, email_user, joindate_contribute, contribute.id_permission FROM contribute, user WHERE contribute.id_user = user.id_user");
+            $request = PdoFactory::getPdo()->prepare("SELECT user.id_user, name_user, firstname_user, email_user, joindate_contribute, contribute.id_permission FROM contribute, user WHERE contribute.id_user = user.id_user and contribute.id_todo = :id_todo");
             $request->execute(array(":id_todo" => $todoObject->getId()));
             while ($result = $request->fetch()) {
                 $isFinded = false;
