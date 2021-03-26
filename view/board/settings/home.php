@@ -4,7 +4,7 @@
 
     <header>
         <div class="header_top">
-            <img id="left-side_icon" src="..\..\assets\icons\left-arrow.png" class="previousPage" onclick="document.location.href='board'">
+            <img id="left-side_icon" src="..\..\assets\icons\left-arrow.png" class="previousPage" onclick="document.location.href='<?= $_SERVER['REQUEST_URI'] . '/..' ?>'">
         </div>
 
         <div class="header_bottom">
