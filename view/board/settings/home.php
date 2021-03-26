@@ -23,7 +23,7 @@
         </div>
 
         <section>
-            <div class="menu-item_container">
+            <div class="menu-item_container" onclick="document.location.href ='<?= $_SERVER['REQUEST_URI'] . '/informations' ?>'">
                 <div class="item-icon_container">
                     <div class="icon_box">
                         <img src="..\..\assets\icons\settings\information.png" alt="">
@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <div class="menu-item_container">
+            <div class="menu-item_container" onclick="document.location.href ='<?= $_SERVER['REQUEST_URI'] . '/invitations' ?>'">
                 <div class="item-icon_container">
                     <div class="icon_box">
                         <img src="..\..\assets\icons\settings\invite.png" alt="">
@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <div class="menu-item_container">
+            <div class="menu-item_container" onclick="document.location.href ='<?= $_SERVER['REQUEST_URI'] . '/archives' ?>'">
                 <div class="item-icon_container">
                     <div class="icon_box">
                         <img src="..\..\assets\icons\settings\archive.png" alt="">
