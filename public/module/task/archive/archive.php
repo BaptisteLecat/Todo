@@ -2,7 +2,7 @@
 
 require_once '../../../../vendor/autoload.php';
 
-use App\Module\ModuleTaskManager;
+use App\Module\Todo\ModuleTaskManager;
 use App\Model\Exceptions\SuccessManager;
 use App\Model\Exceptions\PermissionException;
 

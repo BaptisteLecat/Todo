@@ -3,7 +3,7 @@
 require_once '../../../../vendor/autoload.php';
 
 use App\Model\Exceptions\PermissionException;
-use App\Module\ModuleTaskManager;
+use App\Module\Todo\ModuleTaskManager;
 
 try {
     $messageBox = null;
