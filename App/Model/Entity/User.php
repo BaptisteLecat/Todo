@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Model\Entity;
+
 use JsonSerializable;
 
 class User implements JsonSerializable
@@ -30,9 +31,10 @@ class User implements JsonSerializable
         $this->list_taskUpdated = array();
     }
 
-    public function jsonSerialize(){
+    public function jsonSerialize()
+    {
 
-        return Array(
+        return array(
             "id" => $this->id,
             "name" => $this->name,
             "firstName" => $this->firstName,
@@ -47,6 +49,19 @@ class User implements JsonSerializable
             "nbTaskAchieved" => $this->nbTaskAchieve(),
             "progressValue" => $this->progressValuePercent(),
         );
+    }
+
+    public function __sleep()
+    {
+        return array('id', 'name', 'firstName', 'email', 'createDate');
+    }
+
+    public function __wakeup()
+    {
+        $this->list_todo = array();
+        $this->list_task = array();
+        $this->list_contribute = array();
+        $this->list_taskUpdated = array();
     }
 
     //Getter
@@ -80,7 +95,7 @@ class User implements JsonSerializable
     {
         return $this->list_task;
     }
-    
+
     public function getList_Todo()
     {
         return $this->list_todo;
@@ -126,7 +141,8 @@ class User implements JsonSerializable
         unset($this->list_task[array_search($taskObject, $this->list_task)]);
     }
 
-    public function drainTask(){
+    public function drainTask()
+    {
         $this->list_task = array();
     }
 
@@ -204,7 +220,8 @@ class User implements JsonSerializable
         return $nbTaskValidate;
     }
 
-    public function getList_TodoContribute(){
+    public function getList_TodoContribute()
+    {
         $list_todoContribute = array();
         foreach ($this->list_contribute as $contribute) {
             array_push($list_todoContribute, $contribute->getTodoObject());
@@ -212,5 +229,4 @@ class User implements JsonSerializable
 
         return $list_todoContribute;
     }
-
 }

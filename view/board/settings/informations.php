@@ -67,7 +67,7 @@
                             <div class="permission_container">
                                 <h6>Gestion des droits</h6>
                                 <ul>
-                                    <?php foreach ($this->list_permission as $permission) { ?>
+                                    <?php foreach ($this->app->getList_Permission() as $permission) { ?>
                                         <li>
                                             <?php if ($userContributor->havePermission($permission)) { ?>
                                                 <input type="checkbox" id="<?= $permission->getId() ?>" checked>

@@ -4,9 +4,9 @@ namespace App\Module\Todo;
 
 session_start();
 
+use App\Loader;
 use Exception;
 use App\Model\TaskManager;
-use App\Model\ContributeManager;
 
 use App\Model\Exceptions\PermissionException;
 
@@ -16,14 +16,20 @@ use App\Model\Exceptions\PermissionException;
  */
 class ModuleTaskManager
 {
-    private static $userObject;
+    private static $user;
     private static $appObject;
+
+    private static function loading(){
+        self::$appObject = unserialize($_SESSION["App"]);
+
+        self::$user = unserialize($_SESSION["User"]);
+        Loader::LoadUser(self::$user, self::$appObject->getList_TodoIcon(), self::$appObject->getList_Priority());
+        Loader::loadContribute(self::$user, self::$appObject->getList_TodoIcon(), self::$appObject->getList_Permission(), self::$appObject->getList_Priority());
+    }
 
     public static function archiveTask($list_idTask, $idTodo)
     {
-
-        self::$userObject = unserialize($_SESSION["User"]);
-        self::$appObject = unserialize($_SESSION["App"]);
+        self::loading();
         //Récupération de l'object associé à l'id todo passé en paramètre.
         $todoObject = self::getTodoObject($idTodo);
 
@@ -34,7 +40,7 @@ class ModuleTaskManager
                 foreach ($todoObject->getList_Task() as $taskObject) {
                     if ($idTask == $taskObject->getId()) {
                         //Archivage
-                        TaskManager::archiveTask(self::$userObject, $taskObject);
+                        TaskManager::archiveTask(self::$user, $taskObject);
                         //TaskManager::reloadTask($taskObject, self::$appObject->getList_Priority());
                         break;
                     }
@@ -43,17 +49,13 @@ class ModuleTaskManager
         } else {
             throw new PermissionException(4);
         }
-
-        $_SESSION["User"] = serialize(self::$userObject);
-        $_SESSION["App"] = serialize(self::$appObject);
     }
 
     public static function achieveTask($idTask, $idTodo)
     {
         $task_return = null;
 
-        self::$userObject = unserialize($_SESSION["User"]);
-        self::$appObject = unserialize($_SESSION["App"]);
+        self::loading();
         //Récupération de l'object associé à l'id todo passé en paramètre.
         $todoObject = self::getTodoObject($idTodo);
 
@@ -62,7 +64,7 @@ class ModuleTaskManager
             foreach ($todoObject->getList_Task() as $taskObject) {
                 if ($idTask == $taskObject->getId()) {
                     //Archivage
-                    TaskManager::achieveTask(self::$userObject, $taskObject);
+                    TaskManager::achieveTask(self::$user, $taskObject);
                     $task_return = TaskManager::reloadTask($taskObject, self::$appObject->getList_Priority());
                     break;
                 }
@@ -71,20 +73,14 @@ class ModuleTaskManager
             throw new PermissionException(1);
         }
 
-        $_SESSION["User"] = serialize(self::$userObject);
-        $_SESSION["App"] = serialize(self::$appObject);
-
         return $task_return;
     }
 
     private static function getTodoObject($idTodo)
     {
-        self::loadUserTodoContribute(self::$userObject, self::$appObject->getList_TodoIcon(), self::$appObject->getList_Permission());
-        self::loadTodoContributeTask(self::$userObject, self::$appObject->getList_Priority());
-
         $todoObject = null;
         $isFinded = false;
-        foreach (self::$userObject->getList_Todo() as $todo) {
+        foreach (self::$user->getList_Todo() as $todo) {
             if ($todo->getId() == $idTodo) {
                 $todoObject = $todo;
                 $isFinded = true;
@@ -93,7 +89,7 @@ class ModuleTaskManager
         }
 
         if (!$isFinded) {
-            foreach (self::$userObject->getList_TodoContribute() as $todo) {
+            foreach (self::$user->getList_TodoContribute() as $todo) {
                 if ($todo->getId() == $idTodo) {
                     $todoObject = $todo;
                     break;
@@ -101,25 +97,5 @@ class ModuleTaskManager
             }
         }
         return $todoObject;
-    }
-
-    private static function loadUserTodoContribute($user, $list_todoIcon, $list_permission)
-    {
-        try {
-            ContributeManager::loadTodoContribute($user, $list_todoIcon, $list_permission);
-        } catch (Exception $e) {
-            throw new Exception($e);
-        }
-    }
-
-    private static function loadTodoContributeTask($user, $list_priority)
-    {
-        try {
-            foreach ($user->getList_TodoContribute() as $todoContribute) {
-                TaskManager::loadTask($todoContribute, $list_priority);
-            }
-        } catch (Exception $e) {
-            throw new Exception($e);
-        }
     }
 }

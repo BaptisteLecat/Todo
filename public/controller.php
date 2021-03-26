@@ -2,22 +2,21 @@
 session_start();
 
 require_once '../vendor/autoload.php';
-require_once 'loader.php';
 
-use App\Model\TodoManager;
-use App\Model\TaskManager;
-use App\Model\TodoIconManager;
-use App\Model\UserManager;
-use App\Model\Utils\MessageBox;
 use App\App;
+use App\Loader;
+use App\Model\TaskManager;
+use App\Model\TodoManager;
+use App\Model\UserManager;
+use App\Model\TodoIconManager;
+use App\Model\Utils\MessageBox;
 use App\Model\ContributeManager;
 
 class Controller
 {
 
-    //List constante de la BDD
-    private $list_priority;
-    private $list_todoIcon;
+    //App contient les constantes de la BDD.
+    private $app;
 
     private $user;
 
@@ -28,30 +27,15 @@ class Controller
 
     function __construct()
     {
-
-        $this->list_priority = loadPriority();
-        $this->list_todoIcon = loadTodoIcon();
-        $this->list_permission = loadPermission();
         $this->user = null;
-        $this->app = null;
         $this->css_link = array();
         $this->title = "Todo";
         $this->messageBox = null;
-
-        if (isset($_SESSION["User"])) {
+        if(isset($_SESSION["User"])){
             $this->user = unserialize($_SESSION["User"]);
-            $this->reloadUser();
+            $this->loadInformation();
         }
 
-        if (isset($_SESSION["App"])) {
-            $this->app = unserialize($_SESSION["App"]);
-        } else {
-            $this->app = new App();
-            $this->app->setList_Priority(loadPriority());
-            $this->app->setList_TodoIcon(loadTodoIcon());
-            $this->app->setList_Permission(loadPermission());
-            $_SESSION["App"] = serialize($this->app);
-        }
     }
 
     public function getTitle()
@@ -72,17 +56,19 @@ class Controller
     /****************LOADERS*****************/
     /****************************************/
 
-    private function reloadUser()
+    private function loadInformation()
     {
-        drainUser($this->user);
-        loadUserTodo($this->user, $this->list_todoIcon);
-        loadUserTask($this->user, $this->list_priority);
-        $_SESSION["User"] = serialize($this->user);
-    }
+        if (isset($_SESSION["App"])) {
+            $this->app = unserialize($_SESSION["App"]);
+        } else {
+            $this->app = new App();
+            $this->app->setList_Priority(Loader::loadPriority());
+            $this->app->setList_TodoIcon(Loader::loadTodoIcon());
+            $this->app->setList_Permission(Loader::loadPermission());
+            $_SESSION["App"] = serialize($this->app);
+        }
 
-    private function loadTodoIcon()
-    {
-        return loadTodoIcon();
+        Loader::LoadUser($this->user, $this->app->getList_TodoIcon(), $this->app->getList_Priority());
     }
 
     /****************************************/
@@ -137,7 +123,6 @@ class Controller
 
     public function displayHome()
     {
-        $this->reloadUser();
         $this->title = "Accueil";
         $this->css_link = array("app", "home", "todo", "stats", "todoState", "calendar");
 
@@ -174,9 +159,7 @@ class Controller
 
     public function displayTodo($id = null)
     {
-        $this->reloadUser();
-        loadUserTodoContribute($this->user, $this->list_todoIcon, $this->list_permission);
-        loadTodoContributeTask($this->user, $this->list_priority);
+        Loader::loadContribute($this->user, $this->app->getList_TodoIcon(), $this->app->getList_Permission(), $this->app->getList_Priority());
 
         if ($id != null) {
             $todo = $this->findTodo($id);
@@ -228,9 +211,7 @@ class Controller
 
     public function displayTodoSettings($settings, $section = null)
     {
-        $this->reloadUser();
-        loadUserTodoContribute($this->user, $this->list_todoIcon, $this->list_permission);
-        loadTodoContributeTask($this->user, $this->list_priority);
+        Loader::loadContribute($this->user, $this->app->getList_TodoIcon(), $this->app->getList_Permission(), $this->app->getList_Priority());
 
         if ($settings == "settings") {
             switch ($section) {
@@ -238,7 +219,7 @@ class Controller
                     //Récupération de l'object todo associé à l'id passé dans l'url.
                     $todo = $this->findTodo($_REQUEST["idTodo"]);
                     //Chargement des userContributor et de leur permissions, pour cette todo.
-                    $list_userContributor = ContributeManager::loadUsersOfTodo($todo, $this->list_permission);
+                    $list_userContributor = ContributeManager::loadUsersOfTodo($todo, $this->app->getList_Permission());
 
                     if (!is_null($todo)) {
                         require('../view/board/settings/informations.php');
@@ -273,8 +254,7 @@ class Controller
 
     public function displayForm_TaskTodo($action = null)
     {
-        $this->reloadUser();
-        $list_todoIcons = $this->loadTodoIcon();
+        $list_todoIcons = $this->app->getList_TodoIcon();
 
         require 'module/taskDisplayer/function/dayDisplayer.php';
         $messageBox = null;

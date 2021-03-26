@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Loader;
+
 class App
 {
     private $list_priority;
@@ -10,9 +12,9 @@ class App
 
     public function __construct() {
 
-        $this->list_priority = loadPriority();
-        $this->list_todoIcon = loadTodoIcon();
-        $this->list_permission = loadPermission();
+        $this->list_priority = Loader::loadPriority();
+        $this->list_todoIcon = Loader::loadTodoIcon();
+        $this->list_permission = Loader::loadPermission();
     }
 
     public function getList_Priority()
