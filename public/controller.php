@@ -265,9 +265,7 @@ class Controller
                     break;
             }
         } else {
-            //Page accueil settings
-            require('../view/board/settings/home.php');
-            $this->css_link = array('app', 'board/settings/home');
+            $this->displayTodo($_REQUEST["idTodo"]);
         }
 
         $this->menu("board");
