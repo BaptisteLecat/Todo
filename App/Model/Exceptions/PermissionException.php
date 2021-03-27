@@ -30,6 +30,9 @@ class PermissionException extends Exception
                 $messageBox = new MessageBox("Vous n'avez pas la permission d'archiver une tâche.", "error", "error");
                 break;
 
+            case 5:
+                $messageBox = new MessageBox("Vous devez être propriétaire de cette todo pour effectuer cette action.", "error", "error");
+
             default:
                 $messageBox = new MessageBox("Les permissions nécessaires ne vous sont pas accordées.", "error", "error");
                 break;
