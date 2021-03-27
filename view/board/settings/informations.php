@@ -19,14 +19,16 @@
             </div>
 
             <form method="POST">
+                <input type="hidden" id="todoName" name="<?= $todo->getId(); ?>">
+
                 <h6>Nom de la Todo</h6>
-                <input type="text" name="todoName" value="<?= $todo->getTitle() ?>">
+                <input type="text" name="title" value="<?= $todo->getTitle() ?>">
 
                 <h6>Description</h6>
-                <textarea name="todoDescription" cols="30" rows="10"><?= $todo->getDescription() ?></textarea>
+                <textarea name="description" cols="30" rows="10"><?= $todo->getDescription() ?></textarea>
 
                 <div class="formSubmit">
-                    <button>Modifier</button>
+                    <button type="button">Modifier</button>
                 </div>
             </form>
         </section>
@@ -90,5 +92,6 @@
 
 <script src="../../js/settings/informations/formUpdate.js"></script>
 <script src="../../js/settings/informations/participantManager.js"></script>
+<script src="../module/board/settings/informations/updateTodoInfo/updateTodoInfo.js"></script>
 
 <?php $this->content = ob_get_clean(); ?>

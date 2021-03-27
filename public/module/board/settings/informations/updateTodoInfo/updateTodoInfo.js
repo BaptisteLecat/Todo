@@ -1,0 +1,59 @@
+//Cette fonction permet de faire passer le tableau associatif en le séparant en 2 tableau, récupérer en POST.
+function generateAJAXURL(form_elements) {
+    var stringAttribute = "";
+    var stringValue = "";
+    Object.keys(form_elements).forEach((element, index) => {
+        if (index > 0) {
+            stringAttribute += `&form_attributes[]=${element}`;
+            stringValue += `&form_values[]=${form_elements[element]}`;
+        } else {
+            stringAttribute += `form_attributes[]=${element}`;
+            stringValue += `&form_values[]=${form_elements[element]}`;
+        }
+    });
+    return stringAttribute + "&" + stringValue;
+}
+
+function updateTodoInfo(form, form_elements) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var response = this.response;
+            //console.log(response["todo"]);
+            if (response["messageBox"] == null) {
+                form_elements.forEach((attribute) => {
+                    form.getElementsByName(attribute).value = response["todo"].attribute;
+                });
+            } else {
+                deleteMessageBox();
+                document.getElementsByTagName("body")[0].innerHTML +=
+                    response["messageBox"];
+                showMessageBox();
+            }
+
+            $(".task_container").each(function() {
+                this.addEventListener("touchstart", swipeEditTouchStart, false);
+                this.addEventListener("touchmove", swipeEditTouchMove, false);
+                this.addEventListener("touchstart", archivePressTouchStart, false);
+                this.addEventListener("touchend", archivePressTouchEnd, false);
+            });
+        } else if (this.readyState == 4) {
+            alert("Une erreur est survenue..");
+        } else if (this.statusText == "parsererror") {
+            alert("Erreur Json");
+        }
+    };
+
+    xhr.open(
+        "POST",
+        "module/board/settings/informations/updateTodoInfo/updateTodoInfo.php",
+        true
+    );
+    xhr.responseType = "json";
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send(
+        generateAJAXURL(form_elements) +
+        "&idTodo=" +
+        encodeURI(document.getElementById("todoName").getAttribute("name"))
+    );
+}

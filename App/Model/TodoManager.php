@@ -102,13 +102,13 @@ class TodoManager
     {
         try {
             switch ($attribute) {
-                case 'title_todo':
+                case 'title':
                     $request = PdoFactory::getPdo()->prepare("UPDATE todo SET title_todo = :title_todo WHERE id_todo = :id_todo");
                     $request->execute(array(':title_todo' => $value, ':id_todo' => $todoObject->getId()));
                     $todoObject->setTitle($value);
                     break;
 
-                case 'description_todo':
+                case 'description':
                     $request = PdoFactory::getPdo()->prepare("UPDATE todo SET description_todo = :description_todo WHERE id_todo = :id_todo");
                     $request->execute(array(':description_todo' => $value, ':id_todo' => $todoObject->getId()));
                     $todoObject->setDescription($value);
@@ -127,6 +127,8 @@ class TodoManager
         } catch (Exception $e) {
             throw new Exception($e);
         }
+
+        return $todoObject;
     }
 
     /**
