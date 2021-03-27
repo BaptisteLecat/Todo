@@ -7,6 +7,7 @@ use App\PdoFactory;
 use App\Model\Entity\Todo;
 use App\Model\Entity\User;
 use App\Model\Entity\Contribute;
+use App\Model\Entity\Permission;
 use App\Model\Entity\UserContributor;
 
 class ContributeManager
@@ -52,6 +53,26 @@ class ContributeManager
         }
 
         return $todo;
+    }
+
+    public static function insertContribute(UserContributor $userObject, Todo $todoObject, Permission $permissionObject)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("INSERT INTO contribute (id_user, id_todo, id_permission) VALUES (:id_user, :id_todo, :id_permission)");
+            $request->execute(array(':id_user' => $userObject->getId(), ':id_todo' => $todoObject->getId(), 'id_permission' => $permissionObject->getId()));
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+    }
+
+    public static function deleteContribute(UserContributor $userObject, Todo $todoObject, Permission $permissionObject)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("DELETE FROM contribute WHERE id_user = :id_user AND id_todo = :id_todo AND id_permission = :id_permission");
+            $request->execute(array(':id_user' => $userObject->getId(), ':id_todo' => $todoObject->getId(), 'id_permission' => $permissionObject->getId()));
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
     }
 
     public static function loadUsersOfTodo(Todo $todoObject, $list_permission)
