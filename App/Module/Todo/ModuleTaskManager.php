@@ -41,7 +41,6 @@ class ModuleTaskManager
                     if ($idTask == $taskObject->getId()) {
                         //Archivage
                         TaskManager::archiveTask(self::$user, $taskObject);
-                        //TaskManager::reloadTask($taskObject, self::$appObject->getList_Priority());
                         break;
                     }
                 }
