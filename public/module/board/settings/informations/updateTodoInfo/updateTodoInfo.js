@@ -20,15 +20,23 @@ function updateTodoInfo(form, form_elements) {
         if (this.readyState == 4 && this.status == 200) {
             var response = this.response;
             //console.log(response["todo"]);
-            if (response["messageBox"] == null) {
-                form_elements.forEach((attribute) => {
-                    form.getElementsByName(attribute).value = response["todo"].attribute;
+            if (response["success"] != null) {
+                Object.keys(form_elements).forEach((attribute) => {
+                    console.log(attribute);
+                    form.getElementsByName(attribute)[0].value =
+                        response["todo"].attribute;
                 });
-            } else {
                 deleteMessageBox();
                 document.getElementsByTagName("body")[0].innerHTML +=
-                    response["messageBox"];
+                    response["success"];
                 showMessageBox();
+            } else {
+                if (response["messageBox"] != null) {
+                    deleteMessageBox();
+                    document.getElementsByTagName("body")[0].innerHTML +=
+                        response["messageBox"];
+                    showMessageBox();
+                }
             }
 
             $(".task_container").each(function() {
