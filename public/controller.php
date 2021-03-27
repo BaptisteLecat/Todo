@@ -116,6 +116,16 @@ class Controller
         include_once("../view/menu.php");
     }
 
+    private function goBack(){
+        $url = "";
+        if(substr($_SERVER['REQUEST_URI'], -1) == "/"){
+            $url = $_SERVER['REQUEST_URI']."..";
+        }else{
+            $url = $_SERVER['REQUEST_URI'] . "/..";
+        }
+        return $url;
+    }
+
 
     /****************************************/
     /************DISPLAYER VIEWS************/
