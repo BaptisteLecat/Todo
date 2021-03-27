@@ -38,13 +38,6 @@ function updateTodoInfo(form, form_elements) {
                     showMessageBox();
                 }
             }
-
-            $(".task_container").each(function() {
-                this.addEventListener("touchstart", swipeEditTouchStart, false);
-                this.addEventListener("touchmove", swipeEditTouchMove, false);
-                this.addEventListener("touchstart", archivePressTouchStart, false);
-                this.addEventListener("touchend", archivePressTouchEnd, false);
-            });
         } else if (this.readyState == 4) {
             alert("Une erreur est survenue..");
         } else if (this.statusText == "parsererror") {
