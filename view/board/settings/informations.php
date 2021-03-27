@@ -40,7 +40,7 @@
 
             <div class="participant_wrapper">
                 <?php foreach ($list_userContributor as $userContributor) { ?>
-                    <div class="participant_container">
+                    <div class="participant_container" id="<?= $userContributor->getId(); ?>">
 
                         <div class="participant-content_wrapper">
                             <div class="participant-icon_container">
@@ -70,7 +70,7 @@
                                 <h6>Gestion des droits</h6>
                                 <ul>
                                     <?php foreach ($this->app->getList_Permission() as $permission) { ?>
-                                        <li>
+                                        <li class="permission">
                                             <?php if ($userContributor->havePermission($permission)) { ?>
                                                 <input type="checkbox" id="<?= $permission->getId() ?>" checked>
                                             <?php } else { ?>
@@ -92,6 +92,8 @@
 
 <script src="../../js/settings/informations/formUpdate.js"></script>
 <script src="../../js/settings/informations/participantManager.js"></script>
+<script src="../../js/settings/informations/permissionHandler.js"></script>
 <script src="../module/board/settings/informations/updateTodoInfo/updateTodoInfo.js"></script>
+<script src="../module/board/settings/informations/updatePermission/updateContributorPermission.js"></script>
 
 <?php $this->content = ob_get_clean(); ?>

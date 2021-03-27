@@ -7,9 +7,10 @@ session_start();
 use Exception;
 use App\Loader;
 
+use App\Model\Entity\Todo;
+use App\Model\TodoManager;
 use App\Model\ContributeManager;
 use App\Model\Exceptions\PermissionException;
-use App\Model\TodoManager;
 
 /**
  * ModuleTaskManager
@@ -48,6 +49,47 @@ class ModuleInformations
         return $todoObject;
     }
 
+    public static function updateUserRight(int $idTodo, int $idContributor, $right)
+    {
+        $givedPermission = false;
+        self::loading();
+        //Récupération de l'object associé à l'id todo passé en paramètre.
+        $todoObject = self::getTodoObject($idTodo);
+        //Récupération de l'object associé à l'id du contributeur.
+        $contributorObject = self::getContributorObject($idContributor, $todoObject);
+
+        if ($todoObject != null && $todoObject->getOwned()) {
+            if ($contributorObject != null) {
+                $permissionObject = null;
+                foreach ($contributorObject->getList_Permission() as $permission) {
+                    if ($permission->getId() == $right) {
+                        $permissionObject = $permission;
+                        break;
+                    }
+                }
+
+                if ($permissionObject == null) {
+                    //Ajout de la permission.
+                    $permissionObject = self::getPermissionObject($right);
+                    if ($permissionObject != null) {
+                        ContributeManager::insertContribute($contributorObject, $todoObject, $permissionObject);
+                    }
+                    $givedPermission = true;
+                } else {
+                    //Suppression de la permission
+                    ContributeManager::deleteContribute($contributorObject, $todoObject, $permissionObject);
+                    $givedPermission = false;
+                }
+            } else {
+                //TODO user doesn't exist.
+            }
+        } else {
+            throw new PermissionException(5);
+        }
+
+        return $givedPermission;
+    }
+
     private static function getTodoObject(int $idTodo)
     {
         $todoObject = null;
@@ -69,5 +111,35 @@ class ModuleInformations
             }
         }
         return $todoObject;
+    }
+
+    private static function getContributorObject(int $idUser, Todo $todoObject)
+    {
+        $userObject = null;
+
+        $list_contributor = ContributeManager::loadUsersOfTodo($todoObject, self::$appObject->getList_Permission());
+
+        foreach ($list_contributor as $contributor) {
+            if ($contributor->getId() == $idUser) {
+                $userObject = $contributor;
+                break;
+            }
+        }
+
+        return $userObject;
+    }
+
+    private static function getPermissionObject(int $idPermission)
+    {
+        $permissionObject = null;
+
+        foreach (self::$appObject->getList_Permission() as $permission) {
+            if ($permission->getId() == $idPermission) {
+                $permissionObject = $permission;
+                break;
+            }
+        }
+
+        return $permissionObject;
     }
 }
