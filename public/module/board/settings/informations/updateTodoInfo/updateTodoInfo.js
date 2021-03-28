@@ -22,9 +22,8 @@ function updateTodoInfo(form, form_elements) {
             //console.log(response["todo"]);
             if (response["success"] != null) {
                 Object.keys(form_elements).forEach((attribute) => {
-                    console.log(attribute);
-                    form.getElementsByName(attribute)[0].value =
-                        response["todo"].attribute;
+                    document.getElementsByName(attribute)[0].value =
+                        response["todo"][attribute];
                 });
                 createMessageBox(response["success"]);
             } else {
