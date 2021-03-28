@@ -22,10 +22,10 @@
                 <input type="hidden" id="todoName" name="<?= $todo->getId(); ?>">
 
                 <h6>Nom de la Todo</h6>
-                <input type="text" name="title" value="<?= $todo->getTitle() ?>">
+                <input type="text" name="title" maxlength="15" value="<?= $todo->getTitle() ?>">
 
                 <h6>Description</h6>
-                <textarea name="description" cols="30" rows="10"><?= $todo->getDescription() ?></textarea>
+                <textarea name="description" maxlength="200"><?= $todo->getDescription() ?></textarea>
 
                 <div class="formSubmit">
                     <button type="button">Modifier</button>

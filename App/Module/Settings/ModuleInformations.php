@@ -32,6 +32,8 @@ class ModuleInformations
 
     public static function updateTodoInfo(int $idTodo, $elements)
     {
+        //Verification des champs.
+        self::checkElementsInput($elements);
         self::loading();
         //Récupération de l'object associé à l'id todo passé en paramètre.
         $todoObject = self::getTodoObject($idTodo);
@@ -86,6 +88,28 @@ class ModuleInformations
         }
 
         return $contributorObject;
+    }
+
+    private static function checkElementsInput($elements)
+    {
+        foreach (array_keys($elements) as $attribute) {
+            switch ($attribute) {
+                case 'title':
+                    if (strlen($elements[$attribute]) > 15) {
+                        throw new Exception("Longueur trop longue");
+                    }
+                    break;
+
+                case 'description':
+                    if (strlen($elements[$attribute]) > 200) {
+                        throw new Exception("Longueur trop longue");
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
     }
 
     private static function getTodoObject(int $idTodo)
