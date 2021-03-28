@@ -51,7 +51,7 @@ class ModuleInformations
 
     public static function updateUserRight(int $idTodo, int $idContributor, $right)
     {
-        $givedPermission = false;
+        $contributorObject = null;
         self::loading();
         //Récupération de l'object associé à l'id todo passé en paramètre.
         $todoObject = self::getTodoObject($idTodo);
@@ -74,11 +74,9 @@ class ModuleInformations
                     if ($permissionObject != null) {
                         ContributeManager::insertContribute($contributorObject, $todoObject, $permissionObject);
                     }
-                    $givedPermission = true;
                 } else {
                     //Suppression de la permission
                     ContributeManager::deleteContribute($contributorObject, $todoObject, $permissionObject);
-                    $givedPermission = false;
                 }
             } else {
                 //TODO user doesn't exist.
@@ -87,7 +85,7 @@ class ModuleInformations
             throw new PermissionException(5);
         }
 
-        return $givedPermission;
+        return $contributorObject;
     }
 
     private static function getTodoObject(int $idTodo)
