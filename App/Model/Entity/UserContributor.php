@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Model\Entity;
 
@@ -14,7 +14,8 @@ class UserContributor implements JsonSerializable
 
     private $list_permission;
 
-    public function __construct(int $id, string $name, string $firstName, string $email, string $joinDate) {
+    public function __construct(int $id, string $name, string $firstName, string $email, string $joinDate)
+    {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
@@ -24,14 +25,31 @@ class UserContributor implements JsonSerializable
         $this->list_permission = array();
     }
 
-    public function JsonSerialize(){
+    public function JsonSerialize()
+    {
         return array(
             'id' => $this->id,
-            'name' => $this->name,
-            'firstName' => $this->firstName,
-            'email' => $this->email,
-            'joinDate' => $this->joinDate
+            'name' => utf8_encode(
+                $this->name
+            ),
+            'firstName' => utf8_encode(
+                $this->firstName
+            ),
+            'email' => utf8_encode(
+                $this->email
+            ),
+            'joinDate' => $this->joinDate,
+            'permission' => $this->serializePermission()
         );
+    }
+
+    private function serializePermission()
+    {
+        $serializedPermission = array();
+        foreach ($this->list_permission as $permission) {
+            array_push($serializedPermission, $permission->jsonSerialize());
+        }
+        return $serializedPermission;
     }
 
     public function getId()
@@ -65,15 +83,18 @@ class UserContributor implements JsonSerializable
     }
 
 
-    public function addPermission(Permission $permissionObject){
+    public function addPermission(Permission $permissionObject)
+    {
         array_push($this->list_permission, $permissionObject);
     }
 
-    public function removePermission(Permission $permissionObject){
+    public function removePermission(Permission $permissionObject)
+    {
         unset($this->list_permission[array_search($permissionObject, $this->list_permission)]);
     }
 
-    public function havePermission(Permission $permissionObject){
+    public function havePermission(Permission $permissionObject)
+    {
         $havePermission = false;
 
         foreach ($this->list_permission as $permission) {

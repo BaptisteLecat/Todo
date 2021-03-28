@@ -22,12 +22,12 @@ class Permission implements JsonSerializable
         $this->list_contribute = array();
     }
 
-    public function jsonSerialize()
+    public function JsonSerialize()
     {
         return array(
             'id' => $this->id,
-            'label' => $this->label,
-            'content' => $this->content
+            'label' => utf8_encode($this->label),
+            'content' => utf8_encode($this->content)
         );
     }
 
