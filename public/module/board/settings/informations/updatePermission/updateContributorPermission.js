@@ -1,20 +1,16 @@
-function updateContributorPermission(idPermission, idContributor, value) {
+function updateContributorPermission(idPermission, idContributor, value, contributorBox) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var response = this.response;
-            //console.log(response["todo"]);
             if (response["success"] != null) {
-                deleteMessageBox();
-                document.getElementsByTagName("body")[0].innerHTML +=
-                    response["success"];
-                showMessageBox();
+                if (response["contributorObject"].permission.length <= 0) {
+                    contributorBox.remove();
+                }
+                createMessageBox(response["success"]);
             } else {
                 if (response["messageBox"] != null) {
-                    deleteMessageBox();
-                    document.getElementsByTagName("body")[0].innerHTML +=
-                        response["messageBox"];
-                    showMessageBox();
+                    createMessageBox(response["messageBox"]);
                 }
             }
         } else if (this.readyState == 4) {

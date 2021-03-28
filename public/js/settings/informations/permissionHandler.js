@@ -5,8 +5,16 @@ $(".permission")
     });
 
 function updatePermission(event) {
+    //event.preventDefault();
     var idPermission = event.target.id;
-    var idContributor = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
+    var contributorBox =
+        event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
+    var idContributor = contributorBox.id;
     var value = event.target.checked;
-    updateContributorPermission(idPermission, idContributor, value);
+    updateContributorPermission(
+        idPermission,
+        idContributor,
+        value,
+        contributorBox
+    );
 }
