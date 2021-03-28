@@ -24,16 +24,10 @@ function archiveTask() {
                         console.log(element);
                     }
                 });
-                deleteMessageBox();
-                document.getElementsByTagName("body")[0].innerHTML +=
-                    response["success"];
-                showMessageBox();
+                createMessageBox(response["messageBox"]);
             } else {
                 if (response["messageBox"] != null) {
-                    deleteMessageBox();
-                    document.getElementsByTagName("body")[0].innerHTML +=
-                        response["messageBox"];
-                    showMessageBox();
+                    createMessageBox(response["messageBox"]);
                 }
             }
 
