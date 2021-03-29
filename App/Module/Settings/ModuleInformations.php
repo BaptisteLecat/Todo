@@ -10,6 +10,7 @@ use App\Loader;
 use App\Model\Entity\Todo;
 use App\Model\TodoManager;
 use App\Model\ContributeManager;
+use App\Model\Exceptions\InputException;
 use App\Model\Exceptions\PermissionException;
 
 /**
@@ -95,14 +96,14 @@ class ModuleInformations
         foreach (array_keys($elements) as $attribute) {
             switch ($attribute) {
                 case 'title':
-                    if (strlen($elements[$attribute]) > 15) {
-                        throw new Exception("Longueur trop longue");
+                    if (strlen($elements[$attribute]) > 10) {
+                        throw new InputException(1, null, 10);
                     }
                     break;
 
                 case 'description':
                     if (strlen($elements[$attribute]) > 200) {
-                        throw new Exception("Longueur trop longue");
+                        throw new InputException(1, null, 200);
                     }
                     break;
 

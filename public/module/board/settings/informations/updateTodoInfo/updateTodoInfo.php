@@ -2,6 +2,7 @@
 
 require_once '../../../../../../vendor/autoload.php';
 
+use App\Model\Exceptions\InputException;
 use App\Module\Settings\ModuleInformations;
 use App\Model\Exceptions\SuccessManager;
 use App\Model\Exceptions\PermissionException;
@@ -25,6 +26,8 @@ try {
     $success = new SuccessManager("La mise à jour des informations à réussie", "success");
     $success = $success->__toString();
 } catch (PermissionException $e) {
+    $messageBox = $e->__toString();
+} catch (InputException $e) {
     $messageBox = $e->__toString();
 } catch (Exception $e) {
     throw new Exception($e);
