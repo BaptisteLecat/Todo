@@ -14,7 +14,7 @@
             <img id="right-side_icon" src="assets\icons\settings.png" class="previousPage" onclick="document.location.href='board/<?= $todo->getId(); ?>/settings'">
         </div>
     </header>
-
+    <!-- Features
     <div class='log_container'>
         <div class="log_background">
 
@@ -53,6 +53,7 @@
             </div>
         </div>
     </div>
+-->
 
     <div class="archive_container">
         <input id="cancel" onclick="cancelArchive()" type="button" value="Annuler">

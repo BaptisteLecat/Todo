@@ -127,6 +127,17 @@ class Controller
         return $url;
     }
 
+    private function goTodo($idTodo)
+    {
+        $url = "";
+        if (substr($_SERVER['REQUEST_URI'], -1) == "/") {
+            $url = $_SERVER['REQUEST_URI'] . $idTodo;
+        } else {
+            $url = $_SERVER['REQUEST_URI'] . "/". $idTodo;
+        }
+        return $url;
+    }
+
 
     /****************************************/
     /************DISPLAYER VIEWS************/
