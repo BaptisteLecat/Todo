@@ -1,24 +1,34 @@
-$(".participant-develop_container").each(function() {
-    $("img").each(function() {
-        this.addEventListener("click", participantWrapManager)
-    });
-});
+$(".participant_container").click(participantWrapManager);
 
 function participantWrapManager(event) {
-    element = event.target.parentNode.parentNode.parentNode;
     //Le participant est wrappé.
-    if(element.getElementsByClassName("participant-info_container")[0].style.display != "flex"){
-        event.target.style.transform = "rotate(180deg)";
-        element.style.paddingBottom = "20px";
-        element.getElementsByClassName("participant-info_container")[0].style.maxHeight = "600px";
-        setTimeout(() => {
-            element.getElementsByClassName("participant-info_container")[0].style.display = "flex";
-        }, 200);
-    }else{
-        event.target.style.transform = "rotate(0deg)";
-        element.style.paddingBottom = "10px";
-        element.getElementsByClassName("participant-info_container")[0].style.maxHeight = "0px";
-        element.getElementsByClassName("participant-info_container")[0].style.display = "none";
+    if (event.target.type != "checkbox") {
+        element = event.currentTarget;
+        if (
+            element.getElementsByClassName("participant-info_container")[0].style
+            .display != "flex"
+        ) {
+            element
+                .getElementsByClassName("participant-develop_container")[0]
+                .getElementsByTagName("img")[0].style.transform = "rotate(180deg)";
+            element.style.paddingBottom = "20px";
+            element.getElementsByClassName(
+                "participant-info_container"
+            )[0].style.maxHeight = "600px";
+            element.getElementsByClassName(
+                "participant-info_container"
+            )[0].style.display = "flex";
+        } else {
+            element
+                .getElementsByClassName("participant-develop_container")[0]
+                .getElementsByTagName("img")[0].style.transform = "rotate(0deg)";
+            element.style.paddingBottom = "10px";
+            element.getElementsByClassName(
+                "participant-info_container"
+            )[0].style.maxHeight = "0px";
+            element.getElementsByClassName(
+                "participant-info_container"
+            )[0].style.display = "none";
+        }
     }
 }
-

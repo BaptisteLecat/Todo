@@ -6,11 +6,12 @@ $(".permission")
 
 function updatePermission(event) {
     //event.preventDefault();
-    var idPermission = event.target.id;
+    var idPermission = event.currentTarget.id;
     var contributorBox =
-        event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
+        event.currentTarget.parentNode.parentNode.parentNode.parentNode
+        .parentNode;
     var idContributor = contributorBox.id;
-    var value = event.target.checked;
+    var value = event.currentTarget.checked;
     updateContributorPermission(
         idPermission,
         idContributor,
