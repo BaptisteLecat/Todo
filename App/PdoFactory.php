@@ -4,10 +4,10 @@ namespace App;
 
 //require('../conf.php');
 
-define('PDO_DBNAME', 'todov2');
-define('PDO_HOST', 'localhost');
-define('PDO_USER', 'root');
-define('PDO_PASSWORD', '');
+define('PDO_DBNAME', 'todo_database');
+define('PDO_HOST', 'mysql-todo.alwaysdata.net');
+define('PDO_USER', 'todo');
+define('PDO_PASSWORD', 'baptiste24590');
 
 class PdoFactory
 {
