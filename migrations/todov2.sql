@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 24 mars 2021 à 21:26
+-- Généré le : lun. 29 mars 2021 à 22:14
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -805,7 +805,9 @@ CREATE TABLE IF NOT EXISTS `contribute` (
 
 INSERT INTO `contribute` (`accepted_contribute`, `joindate_contribute`, `id_user`, `id_todo`, `id_permission`) VALUES
 (0, '2021-03-16 15:08:13', 1, 3, 4),
-(0, '2021-03-16 15:08:13', 1, 4, 1);
+(0, '2021-03-28 23:28:54', 3, 1, 2),
+(0, '2021-03-28 23:28:32', 4, 1, 1),
+(0, '2021-03-16 15:08:13', 4, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -817,6 +819,7 @@ DROP TABLE IF EXISTS `permission`;
 CREATE TABLE IF NOT EXISTS `permission` (
   `id_permission` int(11) NOT NULL AUTO_INCREMENT,
   `label_permission` varchar(255) NOT NULL,
+  `content_permission` text NOT NULL,
   PRIMARY KEY (`id_permission`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
@@ -824,11 +827,11 @@ CREATE TABLE IF NOT EXISTS `permission` (
 -- Déchargement des données de la table `permission`
 --
 
-INSERT INTO `permission` (`id_permission`, `label_permission`) VALUES
-(1, 'ACHIEVED_UPDATE'),
-(2, 'INFO_UPDATE'),
-(3, 'CREATE'),
-(4, 'ARCHIVE');
+INSERT INTO `permission` (`id_permission`, `label_permission`, `content_permission`) VALUES
+(1, 'ACHIEVED_UPDATE', 'Réaliser une tâche'),
+(2, 'INFO_UPDATE', 'Modifier les informations d\'une tâche'),
+(3, 'CREATE', 'Ajouter une nouvelle tâche'),
+(4, 'ARCHIVE', 'Archiver une tâche');
 
 -- --------------------------------------------------------
 
@@ -850,22 +853,99 @@ CREATE TABLE IF NOT EXISTS `task` (
   KEY `constraint_idPriority` (`id_priority`),
   KEY `constraint_idArchived` (`id_archived`),
   KEY `constraint_idTaskTodo` (`id_todo`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `task`
 --
 
 INSERT INTO `task` (`id_task`, `title_task`, `content_task`, `achieved_task`, `enddate_task`, `id_todo`, `id_priority`, `id_archived`) VALUES
-(8, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-10', 1, 1, 24),
-(9, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 3, NULL),
-(10, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
-(11, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, 50),
-(12, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, 48),
-(13, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, 49),
-(14, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, 51),
-(15, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, 52),
-(16, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL);
+(8, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-10', 1, 3, 56),
+(9, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-27', 1, 3, NULL),
+(10, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 3, NULL),
+(11, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, 54),
+(12, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-26', 3, 1, 55),
+(13, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(14, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(15, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(16, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(17, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-10', 1, 3, NULL),
+(18, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 3, NULL),
+(19, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 3, NULL),
+(20, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(21, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(22, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(23, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(24, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(25, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(26, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-10', 1, 3, NULL),
+(27, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 3, NULL),
+(28, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(29, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(30, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(31, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(32, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(33, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(34, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(35, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-10', 1, 1, NULL),
+(36, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(37, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(38, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(39, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(40, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(41, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(42, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(43, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(44, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-10', 1, 1, NULL),
+(45, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(46, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(47, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(48, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(49, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(50, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(51, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(52, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(53, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-10', 1, 1, NULL),
+(54, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(55, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(56, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(57, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(58, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(59, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(60, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(61, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(62, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-10', 1, 1, NULL),
+(63, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(64, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(65, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(66, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(67, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(68, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(69, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-10', 1, 1, NULL),
+(70, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(71, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(72, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(73, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(74, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(75, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(76, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(77, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(78, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-10', 1, 1, NULL),
+(79, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(80, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(81, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(82, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(83, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(84, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(85, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(86, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(87, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-10', 1, 1, NULL),
+(88, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(89, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 1, 1, NULL),
+(90, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL),
+(91, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-03-21', 3, 1, NULL),
+(92, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 1, NULL),
+(93, 'Faire les courses', 'Acheter du beurre, du jambon et du pain', 0, '2021-02-28', 3, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -878,7 +958,28 @@ CREATE TABLE IF NOT EXISTS `taskachieve_date` (
   `id_achieve` int(11) NOT NULL AUTO_INCREMENT,
   `date_achieve` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_achieve`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `taskachieve_date`
+--
+
+INSERT INTO `taskachieve_date` (`id_achieve`, `date_achieve`) VALUES
+(1, '2021-03-25 23:43:45'),
+(2, '2021-03-25 23:44:20'),
+(3, '2021-03-25 23:44:21'),
+(4, '2021-03-27 00:03:03'),
+(5, '2021-03-27 00:03:05'),
+(6, '2021-03-27 00:03:05'),
+(7, '2021-03-27 00:03:06'),
+(8, '2021-03-27 00:03:07'),
+(9, '2021-03-27 00:03:11'),
+(10, '2021-03-27 00:03:16'),
+(11, '2021-03-27 00:03:25'),
+(12, '2021-03-27 00:50:51'),
+(13, '2021-03-27 00:50:52'),
+(14, '2021-03-27 15:25:09'),
+(15, '2021-03-27 15:25:15');
 
 -- --------------------------------------------------------
 
@@ -891,7 +992,7 @@ CREATE TABLE IF NOT EXISTS `taskarchive_date` (
   `id_archive` int(11) NOT NULL AUTO_INCREMENT,
   `date_archive` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_archive`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `taskarchive_date`
@@ -949,7 +1050,11 @@ INSERT INTO `taskarchive_date` (`id_archive`, `date_archive`) VALUES
 (49, '2021-03-22 23:46:33'),
 (50, '2021-03-22 23:54:53'),
 (51, '2021-03-23 22:38:56'),
-(52, '2021-03-23 23:08:25');
+(52, '2021-03-23 23:08:25'),
+(53, '2021-03-25 23:58:01'),
+(54, '2021-03-27 00:50:44'),
+(55, '2021-03-27 15:25:29'),
+(56, '2021-03-28 22:19:43');
 
 -- --------------------------------------------------------
 
@@ -962,7 +1067,7 @@ CREATE TABLE IF NOT EXISTS `taskcreate_date` (
   `id_create` int(11) NOT NULL AUTO_INCREMENT,
   `date_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_create`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1044,6 +1149,20 @@ CREATE TABLE IF NOT EXISTS `task_achieve` (
   KEY `constraint_idAchieveTask` (`id_task`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `task_achieve`
+--
+
+INSERT INTO `task_achieve` (`id_date`, `id_task`, `id_user`) VALUES
+(5, 19, 1),
+(7, 26, 1),
+(9, 17, 1),
+(11, 27, 1),
+(12, 8, 1),
+(13, 9, 1),
+(14, 10, 1),
+(15, 18, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -1065,12 +1184,10 @@ CREATE TABLE IF NOT EXISTS `task_archive` (
 --
 
 INSERT INTO `task_archive` (`id_date`, `id_task`, `id_user`) VALUES
-(24, 8, 1),
-(50, 11, 1),
-(48, 12, 1),
-(49, 13, 1),
-(51, 14, 1),
-(52, 15, 1);
+(56, 8, 1),
+(54, 11, 1),
+(55, 12, 1),
+(53, 16, 1);
 
 -- --------------------------------------------------------
 
@@ -1128,9 +1245,9 @@ CREATE TABLE IF NOT EXISTS `todo` (
 --
 
 INSERT INTO `todo` (`id_todo`, `title_todo`, `description_todo`, `createdate_todo`, `id_user`, `id_icon`) VALUES
-(1, 'coucou', 'sdfsdfsdf', '2021-02-14 23:56:54', 1, 2),
+(1, 'Anniv', 'Groupe de gestion des anniversaires.', '2021-02-14 23:56:54', 1, 2),
 (3, 'rgrg', 'fdgdfgdfgdfg', '2021-02-24 16:27:01', 2, 2),
-(4, 'Courses', 'Faire les courses', '2021-03-16 14:52:21', 1, 2),
+(4, 'Coursesrtrt', 'Faire les courses', '2021-03-16 14:52:21', 1, 2),
 (5, 'Devoirs', 'Revision', '2021-03-16 14:52:21', 1, 2),
 (6, 'Devoirs', 'Revision', '2021-03-16 14:52:21', 1, 2);
 
@@ -1198,7 +1315,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password_user` varchar(255) NOT NULL,
   `createdate_user` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`
@@ -1206,7 +1323,9 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id_user`, `name_user`, `firstname_user`, `email_user`, `password_user`, `createdate_user`) VALUES
 (1, 'Testeur', 'Le Test', 'testEmail@gmail.com', 'test', '2021-02-16 22:55:31'),
-(2, 'Lecat', 'Baptiste', 'baptiste.lecat44@gmail.com', 'baptiste24', '2021-02-16 22:55:31');
+(2, 'Lecat', 'Baptiste', 'baptiste.lecat44@gmail.com', 'baptiste24', '2021-02-16 22:55:31'),
+(3, 'Lecat', 'Baptiste', 'baptiste.lecat44@gmail.com', 'baptiste24', '2021-02-16 22:55:31'),
+(4, 'Lecat', 'Baptiste', 'baptiste.lecat44@gmail.com', 'baptiste24', '2021-02-16 22:55:31');
 
 --
 -- Contraintes pour les tables déchargées
