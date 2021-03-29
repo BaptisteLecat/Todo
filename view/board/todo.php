@@ -2,7 +2,7 @@
 <main>
     <header>
         <div class="header_side">
-            <img id="left-side_icon" src="assets\icons\left-arrow.png" class="previousPage" onclick="<?= $this->goBack() ?>">
+            <img id="left-side_icon" src="assets\icons\left-arrow.png" class="previousPage" onclick="document.location.href = '<?= $this->goBack() ?>'">
         </div>
 
         <div class="header_middle">
