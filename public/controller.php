@@ -88,7 +88,7 @@ class Controller
         <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&display=swap" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         
-            <base href="http://todo/"/>
+            <base href="//todo.alwaysdata.net/"/>
             <link rel="stylesheet" href="assets/css/menu.css">
             <link rel="stylesheet" href="assets/css/messageBox/template.css">';
         $head .= $this->loadcss_link();
@@ -128,15 +128,26 @@ class Controller
         return $url;
     }
 
-    private function goTodo($idTodo)
+    private function goTo($url)
     {
-        $url = "";
+        $completeUrl = "";
         if (substr($_SERVER['REQUEST_URI'], -1) == "/") {
-            $url = $_SERVER['REQUEST_URI'] . $idTodo;
+            $completeUrl = $_SERVER['REQUEST_URI'] . $url;
         } else {
-            $url = $_SERVER['REQUEST_URI'] . "/". $idTodo;
+            $completeUrl = $_SERVER['REQUEST_URI'] . "/". $url;
         }
-        return $url;
+        return $completeUrl;
+    }
+
+    private function menuManager($page){
+        $completeUrl = "";
+        $view = $_REQUEST["view"];
+        if($view == null){
+            $completeUrl = $this->goTo($page);
+        }else{
+            $completeUrl = $page;
+        }
+        return $completeUrl;
     }
 
 

@@ -1,4 +1,4 @@
-<?php ob_start();?>
+<?php ob_start(); ?>
 <div class="menu">
 
   <div class="widget_plus" onclick="AddTodo()">
@@ -6,7 +6,7 @@
   </div>
 
   <div class="navbar">
-    <div class="nav_button" onclick="ChangePage('board')">
+    <div class="nav_button" onclick="ChangePage('<?= $this->menuManager('board') ?>')">
       <?php if ($view == "board") { ?>
         <img id="icon_1" src="assets/icons/navbar/calendar_blue.png">
       <?php } else { ?>
@@ -14,7 +14,7 @@
       <?php } ?>
       <h5 id="namePage_1">Board</h5>
     </div>
-    <div class="nav_button" onclick="ChangePage('home')">
+    <div class="nav_button" onclick="ChangePage('<?= $this->menuManager('home') ?>')">
       <?php if ($view == "home") { ?>
         <img id="icon_2" src="assets/icons/navbar/house_blue.png">
       <?php } else { ?>
@@ -22,7 +22,7 @@
       <?php } ?>
       <h5 id="namePage_2">Accueil</h5>
     </div>
-    <div class="nav_button" onclick="ChangePage('stats')">
+    <div class="nav_button" onclick="ChangePage('<?= $this->menuManager('stats') ?>')">
       <?php if ($view == "stats") { ?>
         <img id="icon_3" src="assets/icons/navbar/bar-chart_blue.png">
       <?php } else { ?>
