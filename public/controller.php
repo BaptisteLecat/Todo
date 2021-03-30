@@ -170,21 +170,21 @@ class Controller
         switch ($action) {
             case 'login':
                 $this->title = "Login";
-                $this->css_link = array("login");
+                $this->css_link = array("app", "login");
 
                 require('controllers/form/login.php');
                 break;
 
             case 'register':
                 $this->title = "Register";
-                $this->css_link = array("register");
+                $this->css_link = array("app", "register");
 
                 require('controllers/form/register.php');
                 break;
 
             default:
                 $this->title = "Login";
-                $this->css_link = array("login");
+                $this->css_link = array("app", "login");
 
                 require('controllers/form/login.php');
                 break;
