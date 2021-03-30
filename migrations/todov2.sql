@@ -26,7 +26,7 @@ DELIMITER $$
 -- Procédures
 --
 DROP PROCEDURE IF EXISTS `achieveTask`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `achieveTask` (IN `p_idUser` INT(11), IN `p_idTask` INT(11))  BEGIN
+CREATE PROCEDURE `achieveTask` (IN `p_idUser` INT(11), IN `p_idTask` INT(11))  BEGIN
 
     DECLARE fin BOOLEAN DEFAULT FALSE;
     DECLARE is_allowed BOOLEAN DEFAULT FALSE;
@@ -128,7 +128,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `achieveTask` (IN `p_idUser` INT(11)
 END$$
 
 DROP PROCEDURE IF EXISTS `archiveTask`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11), IN `p_idTask` INT(11))  BEGIN
+CREATE PROCEDURE `archiveTask` (IN `p_idUser` INT(11), IN `p_idTask` INT(11))  BEGIN
 
     DECLARE fin BOOLEAN DEFAULT FALSE;
     DECLARE is_allowed BOOLEAN DEFAULT FALSE;
@@ -230,7 +230,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveTask` (IN `p_idUser` INT(11)
 END$$
 
 DROP PROCEDURE IF EXISTS `createTask`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createTask` (IN `p_idUser` INT(11), IN `p_idTodo` INT(11), IN `p_titleTask` VARCHAR(255), IN `p_contentTask` VARCHAR(255), IN `p_enddateTask` DATE, IN `p_idPriority` INT(11))  BEGIN
+CREATE PROCEDURE `createTask` (IN `p_idUser` INT(11), IN `p_idTodo` INT(11), IN `p_titleTask` VARCHAR(255), IN `p_contentTask` VARCHAR(255), IN `p_enddateTask` DATE, IN `p_idPriority` INT(11))  BEGIN
 
     DECLARE fin BOOLEAN DEFAULT FALSE;
     DECLARE is_allowed BOOLEAN DEFAULT FALSE;
@@ -302,7 +302,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `createTask` (IN `p_idUser` INT(11),
 END$$
 
 DROP PROCEDURE IF EXISTS `deleteTask`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteTask` (IN `p_idUser` INT(11), IN `p_idTask` INT(11))  BEGIN
+CREATE PROCEDURE `deleteTask` (IN `p_idUser` INT(11), IN `p_idTask` INT(11))  BEGIN
 
     DECLARE fin BOOLEAN DEFAULT FALSE;
     DECLARE is_allowed BOOLEAN DEFAULT FALSE;
@@ -343,7 +343,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteTask` (IN `p_idUser` INT(11),
 END$$
 
 DROP PROCEDURE IF EXISTS `processCheckToken`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `processCheckToken` (IN `p_token` VARCHAR(255), IN `p_idUser` INT(11))  BEGIN
+CREATE PROCEDURE `processCheckToken` (IN `p_token` VARCHAR(255), IN `p_idUser` INT(11))  BEGIN
     DECLARE _flag integer default NULL;
 
     DECLARE _expirationdate_token TIMESTAMP;
@@ -408,7 +408,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `processCheckToken` (IN `p_token` VA
 END$$
 
 DROP PROCEDURE IF EXISTS `selectTodo`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `selectTodo` (IN `p_idUser` INT(11))  BEGIN
+CREATE PROCEDURE `selectTodo` (IN `p_idUser` INT(11))  BEGIN
     DECLARE fin BOOLEAN DEFAULT FALSE;
     DECLARE _id_todo INT(11);
     DECLARE _title_todo VARCHAR(255);
@@ -459,7 +459,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `selectTodo` (IN `p_idUser` INT(11))
 END$$
 
 DROP PROCEDURE IF EXISTS `selectTodoContribute`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `selectTodoContribute` (IN `p_idUser` INT(11))  BEGIN 
+CREATE PROCEDURE `selectTodoContribute` (IN `p_idUser` INT(11))  BEGIN 
 
     DECLARE fin BOOLEAN DEFAULT FALSE;
     DECLARE flag integer default null;
@@ -494,7 +494,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `selectTodoContribute` (IN `p_idUser
 END$$
 
 DROP PROCEDURE IF EXISTS `updateTask`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateTask` (IN `p_idUser` INT(11), IN `p_idTask` INT(11), IN `p_value` VARCHAR(255), IN `p_updateLabel` VARCHAR(255))  BEGIN
+CREATE PROCEDURE `updateTask` (IN `p_idUser` INT(11), IN `p_idTask` INT(11), IN `p_value` VARCHAR(255), IN `p_updateLabel` VARCHAR(255))  BEGIN
 
     DECLARE fin BOOLEAN DEFAULT FALSE;
     DECLARE is_allowed BOOLEAN DEFAULT FALSE;
