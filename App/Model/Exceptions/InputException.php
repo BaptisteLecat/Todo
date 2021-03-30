@@ -19,12 +19,16 @@ class InputException extends Exception
     public function __toString()
     {
         switch ($this->code) {
+            case 0:
+                $messageBox = new MessageBox("Veuillez remplir le champs : $this->inputName", "error", "error");
+                break;
+
             case 1:
-                $messageBox = new MessageBox("La saisie contient plus de ". $this->info ." caractères", "error", "error");
+                $messageBox = new MessageBox("La saisie contient plus de $this->info caractères", "error", "error");
                 break;
 
             case 2:
-                $messageBox = new MessageBox("La saisie contient moins de ". $this->info ." caractères", "error", "error");
+                $messageBox = new MessageBox("La saisie contient moins de $this->info caractères", "error", "error");
                 break;
 
             default:
