@@ -1,34 +1,28 @@
-<?php 
+<?php
 
-namespace App\Form;
+namespace App\Model\Form\Sign;
+
+use App\Model\SignInManager;
 
 class SignIn extends Sign
 {
+    private $email;
+    private $password;
 
-
-    function login()
+    public function __construct(string $email, string $password)
     {
-        $error = "";
-        try {
-            if ($_POST["email"] != "" && $_POST["password"] != "") {
-                if (preg_match("/[a-zA-Z0-9_\-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/", $_POST["email"])) {
-                    $resultVerifLogin = UserManager::verifLogin($_POST['email'], $_POST['password']);
-                    if ($resultVerifLogin == !null) {
-                        $_SESSION["User"] = serialize(UserManager::loadUser($resultVerifLogin));
-                        header("Location: home");
-                    } else {
-                        $error = ["type" => "login", "message" => "Identifiant ou Mot de passe incorrect!"];
-                    }
-                } else {
-                    $error = ["type" => "email", "message" => "Format de l'email incorrect!"];
-                }
-            } else {
-                $error = verifInput();
-            }
-        } catch (Exception $e) {
-            throw new Exception($e);
-        }
+        parent::__construct();
+        $this->email = $email;
+        $this->password = $password;
+        $this->signIn();
+    }
 
-        return $error;
+    private function signIn()
+    {
+        $list_input = array("email" => $this->email, "password" => $this->password);
+
+        if ($this->verifInput($list_input)) {
+            SignInManager::verifLogin($this->email, $this->password);
+        }
     }
 }

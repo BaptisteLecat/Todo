@@ -104,25 +104,6 @@ class UserManager
         }
     }
 
-    public static function verifLogin($email, $password)
-    {
-        $idUser = null;
-
-        try {
-            $request = PdoFactory::getPdo()->prepare("SELECT id_user FROM user WHERE email_user = :email_user and password_user = :password_user");
-            if ($request->execute(array(':email_user' => $email, ':password_user' => $password))) {
-                if ($request->rowCount() > 0) {
-                    $result = $request->fetch();
-                    $idUser = $result["id_user"];
-                }
-            }
-        } catch (Exception $e) {
-            throw new Exception($e);
-        }
-
-        return $idUser;
-    }
-
     public static function emailIsValid($email)
     {
         $isValid = true;

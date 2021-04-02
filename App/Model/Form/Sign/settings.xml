@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<main>
+    <application version="1.0">
+        <title>Todo</title>
+        <description>Application de gestion de tâches.</description>
+        <author>Baptiste Lecat</author>
+    </application>
+
+    <dbCredentials>
+        <dbName>todo_database</dbName>
+        <dbHost>mysql-todo.alwaysdata.net</dbHost>
+        <dbUser>todo</dbUser>
+        <dbPassword>baptiste24590</dbPassword>
+    </dbCredentials>
+</main>

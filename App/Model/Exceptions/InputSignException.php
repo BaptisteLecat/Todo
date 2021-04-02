@@ -14,11 +14,11 @@ class InputSignException extends InputException
     {
         switch ($this->code) {
             case 1:
-                $messageBox = new MessageBox("La saisie contient plus de $this->info caractères", "error", "error");
+                $messageBox = new MessageBox("Le format de l'email est incorrect !", "error", "error");
                 break;
 
             case 2:
-                $messageBox = new MessageBox("La saisie contient moins de $this->info caractères", "error", "error");
+                $messageBox = new MessageBox("Le format du mot de passe est incorrect !", "error", "error");
                 break;
 
             default:

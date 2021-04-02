@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<main>
+    <inputs>
+        <password>
+            <minLength>8</minLength>
+            <regex>#^(?=.*[A-Za-z])(?=.*\d)(?=.*[&-+!*$@%_])([&-+!*$@%_\w]{8,25})$#</regex>
+        </password>
+
+        <email>
+            <regex>/[a-zA-Z0-9_\-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/</regex>
+        </email>
+
+        <inputText>
+            <regex></regex>
+        </inputText>
+    </inputs>
+</main>
