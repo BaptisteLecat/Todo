@@ -2,12 +2,11 @@
 
 namespace App\Model\Form\Sign;
 
-use Error;
-
 use Exception;
 use App\Model\Exceptions\InputException;
 use App\Model\XMLSettings\XMLInputSettings;
 use App\Model\Exceptions\InputSignException;
+use SimpleXMLElement;
 
 class Sign
 {
@@ -15,11 +14,7 @@ class Sign
 
     public function __construct()
     {
-        try {
-            $this->XMLInputSettingsObject = new XMLInputSettings("settings.xml", 0, true);
-        } catch (Exception $e) {
-            throw new Exception("Chargement de la configuration impossible.");
-        }
+        $this->inputSettings = new XMLInputSettings("../App/Settings/input.xml", null, true);
     }
 
     protected function verifInput($list_input)
@@ -37,7 +32,7 @@ class Sign
     {
         switch ($inputName) {
             case 'email':
-                $emailSettings = $this->XMLInputSettingsObject->getEmailConfig();
+                $emailSettings = $this->inputSettings->getEmailConfig();
                 if (!empty($emailSettings)) {
                     if (!preg_match($emailSettings["regex"], $value)) {
                         throw new InputSignException(1);
@@ -48,10 +43,10 @@ class Sign
                 break;
 
             case 'password':
-                $passwordSettings = $this->XMLInputSettingsObject->getPasswordConfig();
+                $passwordSettings = $this->inputSettings->getPasswordConfig();
                 if (!empty($passwordSettings)) {
-                    if (!preg_match($passwordSettings["regex"], $value)) {
-                        throw new InputSignException(1);
+                    if ($passwordSettings["minLength"] < $value) {
+                        throw new InputSignException(2);
                     }
                 } else {
                     throw new Exception("Chargement de la configuration impossible.");

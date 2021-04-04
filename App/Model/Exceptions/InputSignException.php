@@ -18,7 +18,7 @@ class InputSignException extends InputException
                 break;
 
             case 2:
-                $messageBox = new MessageBox("Le format du mot de passe est incorrect !", "error", "error");
+                $messageBox = new MessageBox("Le mot de passe doit contenir 8 caractères minimum !", "error", "error");
                 break;
 
             default:

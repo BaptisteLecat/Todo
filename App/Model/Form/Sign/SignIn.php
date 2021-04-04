@@ -19,7 +19,7 @@ class SignIn extends Sign
 
     private function signIn()
     {
-        $list_input = array("email" => $this->email, "password" => $this->password);
+        $list_input = array("email" => $this->email);
 
         if ($this->verifInput($list_input)) {
             SignInManager::verifLogin($this->email, $this->password);

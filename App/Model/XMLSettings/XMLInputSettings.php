@@ -6,6 +6,7 @@ use SimpleXMLElement;
 
 class XMLInputSettings extends SimpleXMLElement
 {
+
     public function getPasswordConfig()
     {
         $passwordConfig = array();
