@@ -2,7 +2,10 @@
 
 namespace App\Model\Form\Sign;
 
+use Exception;
+use PDOException;
 use App\Model\SignInManager;
+use App\Model\Exceptions\SignException;
 
 class SignIn extends Sign
 {
@@ -14,15 +17,17 @@ class SignIn extends Sign
         parent::__construct();
         $this->email = $email;
         $this->password = $password;
-        $this->signIn();
     }
 
-    private function signIn()
+    public function signIn()
     {
+        $idUser = null;
         $list_input = array("email" => $this->email);
 
         if ($this->verifInput($list_input)) {
-            SignInManager::verifLogin($this->email, $this->password);
+            $idUser = SignInManager::verifLogin($this->email, $this->password);
         }
+
+        return $idUser;
     }
 }

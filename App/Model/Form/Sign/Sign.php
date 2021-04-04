@@ -19,13 +19,17 @@ class Sign
 
     protected function verifInput($list_input)
     {
+        $success = false;
         foreach (array_keys($list_input) as $inputTitle) {
             if (!is_null($list_input[$inputTitle])) {
                 $this->checkInputSyntax($inputTitle, $list_input[$inputTitle]);
+                $success = true;
             } else {
                 throw new InputException(0, $inputTitle);
             }
         }
+
+        return $success;
     }
 
     private function checkInputSyntax($inputName, $value)
