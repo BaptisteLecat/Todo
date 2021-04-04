@@ -3,7 +3,6 @@
     <inputs>
         <password>
             <minLength>8</minLength>
-            <regex>#^(?=.*[A-Za-z])(?=.*\d)(?=.*[&-+!*$@%_])([&-+!*$@%_\w]{8,25})$#</regex>
         </password>
 
         <email>
