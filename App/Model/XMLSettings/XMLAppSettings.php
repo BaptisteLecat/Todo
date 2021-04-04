@@ -1,5 +1,8 @@
-<?php 
+<?php
 
+namespace App\Model\XMLSettings;
+
+use SimpleXMLElement;
 class XMLAppSettings extends SimpleXMLElement
 {
     public function getDBCredentials()

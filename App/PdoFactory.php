@@ -2,9 +2,7 @@
 
 namespace App;
 
-use XMLAppSettings;
-
-//require('../conf.php');
+use App\Model\XMLSettings\XMLAppSettings;
 
 class PdoFactory
 {
