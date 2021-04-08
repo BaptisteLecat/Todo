@@ -17,6 +17,10 @@ class SignException extends Exception
     public function __toString()
     {
         switch ($this->code) {
+            case 1 :
+                $messageBox = new MessageBox("Cet email n'est pas disponible.", "error", "error");
+                break;
+
             default:
                 $messageBox = new MessageBox("Identifiants incorrects.", "error", "error");
                 break;

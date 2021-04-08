@@ -1,13 +1,61 @@
 <?php
-
+/*
 if (isset($_POST["etape"])) {
     $etape = $_POST["etape"];
 } else {
     $etape = 1;
 }
 
-$registerInfo = array();
+$registerInfo = array();*/
 
+use App\Model\Exceptions\SuccessManager;
+use App\Model\Form\Sign\SignUp;
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (isset($_POST['name']) && isset($_POST['firstname'])) {
+    try{
+        
+        $etape = 1;
+        $signUp = new SignUp($_POST["name"], $_POST["firstname"]);
+        $etape = ($signUp->validFirstStep()) ? 2 : 1;
+        $_SESSION["SignUp"] = serialize($signUp);
+
+    }catch (Exception $e) {
+        $this->messageBox = $e;
+        $etape = 1;
+    }
+}else{
+    if (isset($_POST['email']) && isset($_POST['password'])) {
+        try {
+
+            if(isset($_SESSION["SignUp"])){
+                $etape = 2;
+                $signUp = unserialize($_SESSION["SignUp"]);
+                $etape = $signUp->signUp($_POST['email'], $_POST['password']);
+                header('refresh:2.3;url=login');
+
+                $successMessage = new SuccessManager("Succès de l'authentification ! ", "success");
+                $this->messageBox = $successMessage;
+            }else{
+                //throw new Exception("Une erreur est survenue !");
+                $etape = 1;
+            }
+        } catch (Exception $e) {
+            $this->messageBox = $e;
+            $etape = 2;
+        }
+    }else{
+        $etape = 1;
+    }
+}
+
+include '../view/form/login.php';
+
+
+/*
 switch ($etape) {
     case 1: //Premier étape de la saisie, début.
         $flag = 0;
@@ -98,44 +146,6 @@ switch ($etape) {
     default:
         # code...
         break;
-}
-
-
-function verifInput($etape, $registerInfo)
-{
-    $error = "";
-
-    if ($etape == 1) {
-        if ($_POST["name"] == "") {
-            $error = ["input" => "first", "type" => "emptyName", "message" => "Merci de saisir un Nom!"];
-            
-            $registerInfo["name"] = $_POST["name"];
-            
-        } else {
-            if ($_POST["firstname"] == "") {
-                $error = ["input" => "second", "type" => "emptyFirstName", "message" => "Merci de saisir un Prénom!"];
-                
-                $registerInfo["firstname"] = $_POST["firstname"];
-                
-            }
-        }
-    } else {
-        if ($_POST["email"] == "") {
-            $error = ["input" => "first", "type" => "emptyEmail", "message" => "Merci de saisir un Email!"];
-            
-            $registerInfo["email"] = $_POST["email"];
-            
-        } else {
-            if ($_POST["password"] == "") {
-                $error = ["input" => "second", "type" => "emptyPassword", "message" => "Merci de saisir un Mot de Passe!"];
-                
-                $registerInfo["password"] = $_POST["password"];
-                
-            }
-        }
-    }
-
-    return $error;
-}
+}*/
 
 include "../view/form/register.php";
