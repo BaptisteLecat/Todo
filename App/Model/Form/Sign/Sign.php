@@ -10,11 +10,16 @@ use SimpleXMLElement;
 
 class Sign
 {
-    protected $XMLInputSettingsObject;
+    protected $inputSettings;
 
     public function __construct()
     {
         $this->inputSettings = new XMLInputSettings("../App/Settings/input.xml", null, true);
+    }
+
+    public function __sleep()
+    {
+        return array();
     }
 
     protected function verifInput($list_input)
@@ -49,7 +54,7 @@ class Sign
             case 'password':
                 $passwordSettings = $this->inputSettings->getPasswordConfig();
                 if (!empty($passwordSettings)) {
-                    if ($passwordSettings["minLength"] < $value) {
+                    if (strlen($value) < $passwordSettings["minLength"]) {
                         throw new InputSignException(2);
                     }
                 } else {
@@ -57,8 +62,16 @@ class Sign
                 }
                 break;
 
+            case 'name':
+
+                break;
+
+            case 'firstName':
+
+                break;
+
             default:
-                # code...
+                throw new Exception("Champs inconnu.");
                 break;
         }
     }

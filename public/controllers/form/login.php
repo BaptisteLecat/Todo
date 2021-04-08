@@ -6,7 +6,6 @@ use App\Model\Form\Sign\SignIn;
 session_destroy();
 session_start();
 
-
 if (isset($_POST['email']) && isset($_POST['password'])) {
     try{
         $signIn = new SignIn($_POST["email"], $_POST["password"]);

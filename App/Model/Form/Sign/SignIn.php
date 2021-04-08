@@ -2,6 +2,7 @@
 
 namespace App\Model\Form\Sign;
 
+use App\Model\Exceptions\InputSignException;
 use Exception;
 use PDOException;
 use App\Model\UserManager;
@@ -27,7 +28,7 @@ class SignIn extends Sign
 
         if ($this->verifInput($list_input)) {
             $idUser = SignInManager::verifLogin($this->email, $this->password);
-            $userObject = UserManager::loadUser($idUser);
+            $userObject = SignInManager::loadUser($idUser);
         }
 
         return $userObject;
