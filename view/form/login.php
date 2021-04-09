@@ -1,17 +1,17 @@
 <?php ob_start(); ?>
 
-<header>
-  <img src="../assets/icons/logoTodo.png" alt="Logo Todo">
-  <h1><span>Todo</span>List</h1>
-</header>
 <main>
+  <header>
+    <img src="../assets/icons/logoTodo.png" alt="Logo Todo">
+    <h1><span>Todo</span>List</h1>
+  </header>
   <div class="form_container">
     <div class="form_header">
       <div class="connexion_tab">
         <h2>Connexion</h2>
       </div>
       <div class="register_tab" onclick="document.location.href='register';">
-        <h2>Enregistrament</h2>
+        <h2>Enregistrement</h2>
       </div>
     </div>
     <form method="post">

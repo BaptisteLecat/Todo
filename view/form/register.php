@@ -1,9 +1,9 @@
 <?php ob_start(); ?>
-<header>
-    <img src="../assets/icons/logoTodo.png" alt="Logo Todo">
-    <h1><span>Todo</span>List</h1>
-</header>
 <main>
+    <header>
+        <img src="../assets/icons/logoTodo.png" alt="Logo Todo">
+        <h1><span>Todo</span>List</h1>
+    </header>
     <div class="form_container">
         <div class="form_header">
             <div class="connexion_tab" onclick="document.location.href='login';">
