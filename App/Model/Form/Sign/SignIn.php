@@ -28,7 +28,11 @@ class SignIn extends Sign
 
         if ($this->verifInput($list_input)) {
             $idUser = SignInManager::verifLogin($this->email, $this->password);
-            $userObject = SignInManager::loadUser($idUser);
+            if($idUser != null){
+                $userObject = SignInManager::loadUser($idUser);
+            }else{
+                throw new SignException(null);
+            }
         }
 
         return $userObject;

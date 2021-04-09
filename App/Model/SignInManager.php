@@ -48,8 +48,6 @@ class SignInManager
                 if ($request->rowCount() > 0) {
                     $result = $request->fetch();
                     $idUser = $result["id_user"];
-                } else {
-                    throw new SignException(null);
                 }
             }
         } catch (Exception $e) {
