@@ -6,11 +6,11 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 Options -Indexes
 
-RewriteRule ^([a-z]+)/?$ index.php?view=$1 [L]
-RewriteRule ^([a-z]+)/([a-z]+)/?$ index.php?view=$1&action=$2 [L]
-RewriteRule ^([a-z]+)/([0-9]+)/?$ index.php?view=$1&idTodo=$2 [L]
-RewriteRule ^([a-z]+)/([0-9]+)/([a-z]+)/?$ index.php?view=$1&idTodo=$2&settings=$3 [L]
-RewriteRule ^([a-z]+)/([0-9]+)/([a-z]+)/([a-z]+)/?$ index.php?view=$1&idTodo=$2&settings=$3&section=$4 [L]
+RewriteRule ^([a-zA-Z]+)/?$ index.php?view=$1 [L]
+RewriteRule ^([a-zA-Z]+)/([a-zA-Z]+)/?$ index.php?view=$1&action=$2 [L]
+RewriteRule ^([a-zA-Z]+)/([0-9]+)/?$ index.php?view=$1&idTodo=$2 [L]
+RewriteRule ^([a-zA-Z]]+)/([0-9]+)/([a-zA-Z]+)/?$ index.php?view=$1&idTodo=$2&settings=$3 [L]
+RewriteRule ^([a-zA-Z]+)/([0-9]+)/([a-zA-Z]+)/([a-zA-Z]+)/?$ index.php?view=$1&idTodo=$2&settings=$3&section=$4 [L]
 
 ErrorDocument 404 /index.php?error=404
 ErrorDocument 403 /index.php?error=403

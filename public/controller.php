@@ -168,25 +168,25 @@ class Controller
     public function displayForm_LoginRegister($action)
     {
         switch ($action) {
-            case 'login':
+            case 'signIn':
                 $this->title = "Login";
-                $this->css_link = array("app", "login");
+                $this->css_link = array("app", "sign/sign", "sign/signIn");
 
-                require('controllers/form/login.php');
+                require('controllers/form/signIn.php');
                 break;
 
-            case 'register':
+            case 'signUp':
                 $this->title = "Register";
-                $this->css_link = array("app", "register");
+                $this->css_link = array("app", "sign/sign", "sign/signUp");
 
-                require('controllers/form/register.php');
+                require('controllers/form/signUp.php');
                 break;
 
             default:
                 $this->title = "Login";
-                $this->css_link = array("app", "login");
+                $this->css_link = array("app", "sign/sign", "sign/signIn");
 
-                require('controllers/form/login.php');
+                require('controllers/form/signIn.php');
                 break;
         }
     }
@@ -266,7 +266,8 @@ class Controller
                     break;
 
                 case 'invitations':
-                    # code...
+                    require('../view/board/settings/invitations.php');
+                    $this->css_link = array('app', 'board/settings/invitations');
                     break;
 
                 case 'archives':

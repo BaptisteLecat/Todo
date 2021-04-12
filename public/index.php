@@ -38,7 +38,7 @@ if (isset($_GET["error"])) {
                     }
                     break;
 
-                case 'login':
+                case 'signIn':
                     $controller->displayForm_LoginRegister("login");
                     break;
 
@@ -56,20 +56,20 @@ if (isset($_GET["error"])) {
     } else {
         if (isset($_GET["view"])) {
             switch ($_GET["view"]) {
-                case 'login':
-                    $controller->displayForm_LoginRegister("login");
+                case 'signIn':
+                    $controller->displayForm_LoginRegister("signIn");
                     break;
 
-                case 'register':
-                    $controller->displayForm_LoginRegister("register");
+                case 'signUp':
+                    $controller->displayForm_LoginRegister("signUp");
                     break;
 
                 default:
-                    $controller->displayForm_LoginRegister("login");
+                    $controller->displayForm_LoginRegister("signIn");
                     break;
             }
         } else {
-            $controller->displayForm_LoginRegister("login");
+            $controller->displayForm_LoginRegister("signIn");
         }
     }
 }

@@ -1,0 +1,31 @@
+.connexion_tab {
+    border-radius: 0px 5px;
+    background-color: #5876F8;
+    margin-top: auto;
+    box-shadow: inset 2px -3px 4px #0000005e;
+    height: 70%;
+    width: 45%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.register_tab {
+    z-index: 2;
+    background-color: #0F212D;
+    height: 100%;
+    width: 55%;
+    display: flex;
+    box-shadow: 3px -1px 2px 0px #0a171e, -1px -2px 3px 0px #0a171e;
+    border-radius: 5px 5px 0px 0px;
+    align-items: center;
+    text-align: center;
+}
+
+.register_tab h2,
+.connexion_tab h2 {
+    margin: auto;
+    color: #fff;
+    font-family: 'Geomanist', sans-serif;
+    font-size: 18px;
+}

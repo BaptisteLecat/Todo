@@ -26,4 +26,4 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     //TODO LE Systeme de gestion des erreurs n'est pas fonctionnelle pour les erreurs native, qui ne s'afficheront pas en messageBox.
 }
 
-include '../view/form/login.php';
+include '../view/form/signIn.php';
