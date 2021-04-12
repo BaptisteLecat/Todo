@@ -5,12 +5,14 @@ use JsonSerializable;
 
 class TodoToken implements JsonSerializable
 {
+    private $token;
     private $expirationDate;
 
     private $permissionObject;
     private $todoObject;
 
-    public function __construct($expirationDate, $permissionObject, $todoObject) {
+    public function __construct($token, $expirationDate, $permissionObject, $todoObject) {
+        $this->token = $token;
         $this->expirationDate = $expirationDate;
         $this->permissionObject = $permissionObject;
         $this->todoObject = $todoObject;
@@ -27,6 +29,10 @@ class TodoToken implements JsonSerializable
             'permissionObject' => $this->permissionObject->jsonSerialize(),
             'todoObject' => $this->todoObject->jsonSerialize()
         );
+    }
+
+    public function getToken(){
+        return $this->token;
     }
 
     public function getExpirationDate()
