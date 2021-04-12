@@ -11,7 +11,7 @@ class PdoFactory
 
     public static function initConnection()
     {
-        self::$appSettings = new XMLAppSettings("../App/Settings/settings.xml", null, true);
+        self::$appSettings = new XMLAppSettings($_SERVER['DOCUMENT_ROOT']."/../App/Settings/settings.xml", null, true);
         $dbInfo = self::$appSettings->getDBCredentials();
         $dsn = 'mysql:dbname=' . $dbInfo["dbName"] . ';host=' . $dbInfo["dbHost"];
         self::$pdo = new \PDO($dsn, $dbInfo["dbUser"], $dbInfo["dbPassword"]);
