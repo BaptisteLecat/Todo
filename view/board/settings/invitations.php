@@ -19,17 +19,19 @@
             </div>
 
             <div class="token_wrapper">
-
-                <div class="token_container">
-                    <div class="token_content">
-                        <h6>A6E8RM</h6>
-                        <p>19-02-2020</p>
+                <?php
+                foreach ($todo->getList_TodoToken() as $token) { ?>
+                    <div class="token_container">
+                        <div class="token_content">
+                            <h6><?= $token->getToken(); ?></h6>
+                            <p><?= $token->getExpirationDate(); ?></p>
+                        </div>
+                        <div class="token_button">
+                            <img src="..\..\assets\icons\refresh.png" alt="">
+                            <img src="..\..\assets\icons\trash.png" alt="">
+                        </div>
                     </div>
-                    <div class="token_button">
-                        <img src="..\..\assets\icons\refresh.png" alt="">
-                        <img src="..\..\assets\icons\trash.png" alt="">
-                    </div>
-                </div>
+                <?php } ?>
             </div>
         </section>
 
@@ -40,22 +42,31 @@
 
             <div class="invitation_wrapper">
 
-                <div class="invitation_container">
-                    <div class="invitation_icon">
-                        <img src="..\..\assets\icons\unvalidate.png" alt="">
-                    </div>
-                    <div class="invitation_content">
-                        <div class="invitation_user-info">
-                            <p>Lecat</p>
-                            <h6>Baptiste</h6>
+                <?php
+
+                foreach ($list_userContributor as $contributor) {
+                    if (!$contributor->getAccepted()) { ?>
+
+                        <div class="invitation_container">
+                            <div class="invitation_icon">
+                                <img src="..\..\assets\icons\unvalidate.png" alt="">
+                            </div>
+                            <div class="invitation_content">
+                                <div class="invitation_user-info">
+                                    <p><?= $contributor->getName(); ?></p>
+                                    <h6><?= $contributor->getFirstName(); ?></h6>
+                                </div>
+                                <p><?php $contributor->getJoinDate(); ?></p>
+                            </div>
+                            <div class="invitation_button">
+                                <img src="..\..\assets\icons\accept.png" alt="">
+                                <img src="..\..\assets\icons\cancel.png" alt="">
+                            </div>
                         </div>
-                        <p>25-03-2020</p>
-                    </div>
-                    <div class="invitation_button">
-                        <img src="..\..\assets\icons\accept.png" alt="">
-                        <img src="..\..\assets\icons\cancel.png" alt="">
-                    </div>
-                </div>
+
+                <?php }
+                }
+                ?>
             </div>
         </section>
     </div>

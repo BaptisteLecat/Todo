@@ -82,7 +82,7 @@ class ContributeManager
         $list_userContributor = array();
 
         try {
-            $request = PdoFactory::getPdo()->prepare("SELECT user.id_user, name_user, firstname_user, email_user, joindate_contribute, contribute.id_permission FROM contribute, user WHERE contribute.id_user = user.id_user and contribute.id_todo = :id_todo");
+            $request = PdoFactory::getPdo()->prepare("SELECT user.id_user, name_user, firstname_user, email_user, joindate_contribute, contribute.accepted_contribute, contribute.id_permission FROM contribute, user WHERE contribute.id_user = user.id_user and contribute.id_todo = :id_todo");
             $request->execute(array(":id_todo" => $todoObject->getId()));
             while ($result = $request->fetch()) {
                 $isFinded = false;
@@ -100,7 +100,7 @@ class ContributeManager
                 }
 
                 if (!$isFinded) {
-                    $userContributor = new UserContributor($result["id_user"], $result["name_user"], $result["firstname_user"], $result["email_user"], $result["joindate_contribute"]);
+                    $userContributor = new UserContributor($result["id_user"], $result["name_user"], $result["firstname_user"], $result["email_user"], $result["joindate_contribute"], $result["accepted_contribute"]);
                     foreach ($list_permission as $permission) {
                         if ($permission->getId() == $result["id_permission"]) {
                             $userContributor->addPermission($permission);

@@ -11,6 +11,7 @@ use App\Model\UserManager;
 use App\Model\TodoIconManager;
 use App\Model\Utils\MessageBox;
 use App\Model\ContributeManager;
+use App\Model\TodoTokenManager;
 
 class Controller
 {
@@ -252,10 +253,10 @@ class Controller
                 case 'informations':
                     //Récupération de l'object todo associé à l'id passé dans l'url.
                     $todo = $this->findTodo($_REQUEST["idTodo"]);
-                    //Chargement des userContributor et de leur permissions, pour cette todo.
-                    $list_userContributor = ContributeManager::loadUsersOfTodo($todo, $this->app->getList_Permission());
-
+                    
                     if (!is_null($todo)) {
+                        //Chargement des userContributor et de leur permissions, pour cette todo.
+                        $list_userContributor = ContributeManager::loadUsersOfTodo($todo, $this->app->getList_Permission());
                         require('../view/board/settings/informations.php');
                         $this->css_link = array('app', 'board/settings/informations');
                     } else {
@@ -266,8 +267,20 @@ class Controller
                     break;
 
                 case 'invitations':
-                    require('../view/board/settings/invitations.php');
-                    $this->css_link = array('app', 'board/settings/invitations');
+                    //Récupération de l'object todo associé à l'id passé dans l'url.
+                    $todo = $this->findTodo($_REQUEST["idTodo"]);
+
+                    if (!is_null($todo)) {
+                        //Chargement des token, pour cette todo.
+                        TodoTokenManager::loadTokenFromTodo($todo);
+                        $list_userContributor = ContributeManager::loadUsersOfTodo($todo, $this->app->getList_Permission());
+                        require('../view/board/settings/invitations.php');
+                        $this->css_link = array('app', 'board/settings/invitations');
+                    } else {
+                        //Page accueil settings
+                        require('../view/board/settings/home.php');
+                        $this->css_link = array('app', 'board/settings/home');
+                    }
                     break;
 
                 case 'archives':

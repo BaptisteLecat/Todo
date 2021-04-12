@@ -11,16 +11,18 @@ class UserContributor implements JsonSerializable
     private $firstName;
     private $email;
     private $joinDate;
+    private $accepted;
 
     private $list_permission;
 
-    public function __construct(int $id, string $name, string $firstName, string $email, string $joinDate)
+    public function __construct(int $id, string $name, string $firstName, string $email, string $joinDate, bool $accepted)
     {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->firstName = $firstName;
         $this->joinDate = $joinDate;
+        $this->accepted = $accepted;
 
         $this->list_permission = array();
     }
@@ -76,6 +78,12 @@ class UserContributor implements JsonSerializable
     {
         return $this->joinDate;
     }
+
+    public function getAccepted()
+    {
+        return $this->accepted;
+    }
+
 
     public function getList_Permission()
     {
