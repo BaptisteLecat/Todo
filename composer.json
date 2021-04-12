@@ -6,7 +6,9 @@
             "email": "unconfigured@null.spigotmc.org"
         }
     ],
-    "require": {},
+    "require": {
+        "mobiledetect/mobiledetectlib": "^2.8"
+    },
     "autoload": {
         "psr-4" : {"App\\" : "App"}
     }

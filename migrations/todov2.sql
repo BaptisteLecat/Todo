@@ -812,6 +812,21 @@ INSERT INTO `contribute` (`accepted_contribute`, `joindate_contribute`, `id_user
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `visitor`
+--
+
+DROP TABLE IF EXISTS `visitor`;
+CREATE TABLE IF NOT EXISTS `visitor` (
+  `ip_visitor` varchar(20) NOT NULL,
+  `date_visitor` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `device_visitor` varchar(255) NOT NULL,
+  PRIMARY KEY (`ip_visitor`,`date_visitor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `permission`
 --
 
