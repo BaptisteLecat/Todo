@@ -9,7 +9,7 @@ Options -Indexes
 RewriteRule ^([a-zA-Z]+)/?$ index.php?view=$1 [L]
 RewriteRule ^([a-zA-Z]+)/([a-zA-Z]+)/?$ index.php?view=$1&action=$2 [L]
 RewriteRule ^([a-zA-Z]+)/([0-9]+)/?$ index.php?view=$1&idTodo=$2 [L]
-RewriteRule ^([a-zA-Z]]+)/([0-9]+)/([a-zA-Z]+)/?$ index.php?view=$1&idTodo=$2&settings=$3 [L]
+RewriteRule ^([a-zA-Z]+)/([0-9]+)/([a-zA-Z]+)/?$ index.php?view=$1&idTodo=$2&settings=$3 [L]
 RewriteRule ^([a-zA-Z]+)/([0-9]+)/([a-zA-Z]+)/([a-zA-Z]+)/?$ index.php?view=$1&idTodo=$2&settings=$3&section=$4 [L]
 
 ErrorDocument 404 /index.php?error=404
