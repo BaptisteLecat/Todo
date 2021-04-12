@@ -4,10 +4,11 @@
     <header>
         <div class="header_top">
             <img id="left-side_icon" src="..\..\assets\icons\left-arrow.png" class="previousPage" onclick="document.location.href='<?= $this->goBack() ?>'">
+            <button>Générer</button>
         </div>
 
         <div class="header_bottom">
-            <h1>Informations</h1>
+            <h1>Invitations</h1>
         </div>
     </header>
 
@@ -25,8 +26,8 @@
                         <p>19-02-2020</p>
                     </div>
                     <div class="token_button">
-                        <img src="" alt="">
-                        <img src="" alt="">
+                        <img src="..\..\assets\icons\refresh.png" alt="">
+                        <img src="..\..\assets\icons\trash.png" alt="">
                     </div>
                 </div>
             </div>
@@ -41,15 +42,18 @@
 
                 <div class="invitation_container">
                     <div class="invitation_icon">
-                        <img src="" alt="">
+                        <img src="..\..\assets\icons\unvalidate.png" alt="">
                     </div>
                     <div class="invitation_content">
-                        <h6>A6E8RM</h6>
-                        <p>19-02-2020</p>
+                        <div class="invitation_user-info">
+                            <p>Lecat</p>
+                            <h6>Baptiste</h6>
+                        </div>
+                        <p>25-03-2020</p>
                     </div>
                     <div class="invitation_button">
-                        <img src="" alt="">
-                        <img src="" alt="">
+                        <img src="..\..\assets\icons\accept.png" alt="">
+                        <img src="..\..\assets\icons\cancel.png" alt="">
                     </div>
                 </div>
             </div>
