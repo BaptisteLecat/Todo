@@ -1,4 +1,4 @@
-function generateToken() {
+function generateToken(idTodo) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -27,27 +27,5 @@ function generateToken() {
     );
     xhr.responseType = "json";
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send(
-        "&idTodo=" +
-        encodeURI(document.getElementById("todoName").value)
-    );
-}
-
-
-function displayToken(list_token) {
-    html = "";
-    list_token.forEach(token => {
-        html = html.concat(`<div class="token_container">
-                        <div class="token_content">
-                            <h6>${token.token}</h6>
-                            <p>${token.expirationDate}</p>
-                        </div>
-                        <div class="token_button">
-                            <img src="..\\..\\assets\\icons\\refresh.png" alt="">
-                            <img src="..\\\..\\assets\\icons\\trash.png" alt="">
-                        </div>
-                    </div>`);
-    });
-
-    return html;
+    xhr.send("&idTodo=" + encodeURI(idTodo));
 }
