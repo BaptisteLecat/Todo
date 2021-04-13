@@ -26,8 +26,6 @@ class TodoToken implements JsonSerializable
         return array(
             'token' => $this->token,
             'expirationDate' => $this->expirationDate,
-            'permissionObject' => $this->permissionObject->jsonSerialize(),
-            'todoObject' => $this->todoObject->jsonSerialize()
         );
     }
 
