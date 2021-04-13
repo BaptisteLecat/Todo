@@ -47,4 +47,11 @@ class TodoToken implements JsonSerializable
     {
         return $this->todoObject;
     }
+
+    public function delete()
+    {
+        $this->todoObject->removeToken($this);
+        $this->permissionObject->removeTodoToken($this);
+        unset($this);
+    }
 }
