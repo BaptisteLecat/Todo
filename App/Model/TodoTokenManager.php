@@ -83,6 +83,43 @@ class TodoTokenManager
             throw new Exception($e);
         }
     }
+
+    /**
+     * deleteToken
+     * Delete a token in reference to the todo.
+     *
+     * @param  TodoToken $tokenObject
+     * @return void
+     */
+    public static function deleteToken(TodoToken $tokenObject)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("DELETE FROM todo_token WHERE token = :token");
+            $request->execute(array(':token' => $tokenObject->getToken()));
+            $tokenObject->delete();
+
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+    }
+
+    /**
+     * regenerateToken
+     * Delete a token in reference to the todo.
+     *
+     * @param  TodoToken $tokenObject
+     * @return void
+     */
+    public static function regenerateToken(TodoToken $tokenObject)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("UPDATE token, expirationdate FROM todo_token WHERE token = :token");
+            $request->execute(array(':token' => $tokenObject->getToken()));
+            $tokenObject->delete();
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+    }
     
     /**
      * tokenGenerator
