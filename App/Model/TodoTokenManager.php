@@ -18,7 +18,7 @@ use App\PdoFactory;
  * @version 1.0.0
  */
 class TodoTokenManager
-{    
+{
     /**
      * loadTokenFromTodo
      * Load the todoToken list of a todo.
@@ -27,8 +27,9 @@ class TodoTokenManager
      * @param  mixed $todoObject
      * @return void
      */
-    public static function loadTokenFromTodo(Todo $todoObject){
-        try{
+    public static function loadTokenFromTodo(Todo $todoObject)
+    {
+        try {
             $request = PdoFactory::getPdo()->prepare("SELECT token, expirationdate, id_permission FROM todo_token WHERE id_todo = :id_todo ORDER BY expirationdate ASC");
             $request->execute(array(':id_todo' => $todoObject->getId()));
             while ($result = $request->fetch()) {
@@ -40,11 +41,37 @@ class TodoTokenManager
                     }
                 }
             }
-        }catch(Exception $e){
+        } catch (Exception $e) {
             throw new Exception($e);
         }
     }
-    
+
+    /**
+     * loadTokenFromToken
+     * Load the todoToken from a token string.
+     *
+     * @param  string $token
+     * @param  Todo $todoObject
+     * @return void
+     */
+    public static function loadTokenFromToken(string $token, Todo $todoObject)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("SELECT token, expirationdate, id_permission FROM todo_token WHERE token = :token");
+            $request->execute(array(':token' => $token));
+            $result = $request->fetch();
+            $list_permission = PermissionManager::loadPermission();
+            foreach ($list_permission as $permission) {
+                if ($permission->getId() == $result["id_permission"]) {
+                    $todoToken = new TodoToken($result["token"], $result["expirationdate"], $permission, $todoObject);
+                    break;
+                }
+            }
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+    }
+
     /**
      * submitToken
      * Call the procedure to check a token, and add the user to the todo.
@@ -65,7 +92,7 @@ class TodoTokenManager
             throw new Exception($e);
         }
     }
-    
+
     /**
      * createToken
      * Generate a new token to invite someone to his todo.
@@ -74,12 +101,13 @@ class TodoTokenManager
      * @param  mixed $todoObject
      * @return void
      */
-    public static function createToken(Permission $permissionObject, Todo $todoObject){
-        try{
+    public static function createToken(Permission $permissionObject, Todo $todoObject)
+    {
+        try {
             $request = PdoFactory::getPdo()->prepare("INSERT INTO todo_token VALUES (:token, DATE_ADD(NOW(), INTERVAL 10 DAY), :id_permission, :id_todo)");
             $request->execute(array(':token' => self::tokenGenerator(), ':id_permission' => $permissionObject->getId(), ':id_todo' => $todoObject->getId()));
             self::loadTokenFromTodo($todoObject);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             throw new Exception($e);
         }
     }
@@ -97,7 +125,6 @@ class TodoTokenManager
             $request = PdoFactory::getPdo()->prepare("DELETE FROM todo_token WHERE token = :token");
             $request->execute(array(':token' => $tokenObject->getToken()));
             $tokenObject->delete();
-
         } catch (Exception $e) {
             throw new Exception($e);
         }
@@ -105,7 +132,7 @@ class TodoTokenManager
 
     /**
      * regenerateToken
-     * Delete a token in reference to the todo.
+     * Refresh a token and generate an other token string.
      *
      * @param  TodoToken $tokenObject
      * @return void
@@ -113,14 +140,16 @@ class TodoTokenManager
     public static function regenerateToken(TodoToken $tokenObject)
     {
         try {
-            $request = PdoFactory::getPdo()->prepare("UPDATE token, expirationdate FROM todo_token WHERE token = :token");
-            $request->execute(array(':token' => $tokenObject->getToken()));
+            $newToken = self::tokenGenerator();
+            $request = PdoFactory::getPdo()->prepare("UPDATE todo_token SET token = :newToken, expirationdate = DATE_ADD(NOW(), INTERVAL 10 DAY) WHERE token = :token");
+            $request->execute(array(':newToken' => $newToken, ':token' => $tokenObject->getToken()));
+            self::loadTokenFromToken($newToken, $tokenObject->getTodoObject());
             $tokenObject->delete();
         } catch (Exception $e) {
             throw new Exception($e);
         }
     }
-    
+
     /**
      * tokenGenerator
      * Generate a 6 chars token.
