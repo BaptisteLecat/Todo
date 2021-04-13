@@ -4,7 +4,7 @@
     <header>
         <div class="header_top">
             <img id="left-side_icon" src="..\..\assets\icons\left-arrow.png" class="previousPage" onclick="document.location.href='<?= $this->goBack() ?>'">
-            <button onclick="generateToken()">Générer</button>
+            <button onclick="generateToken(<?= $todo->getId(); ?>)">Générer</button>
         </div>
 
         <div class="header_bottom">
@@ -13,7 +13,6 @@
     </header>
 
     <div class="wrapper">
-    <input type="hidden" id="todoName" value="<?= $todo->getId(); ?>">
         <section>
             <div class="section_title">
                 <h2>Vos Tokens</h2>
@@ -28,8 +27,8 @@
                             <p><?= $token->getExpirationDate(); ?></p>
                         </div>
                         <div class="token_button">
-                            <img src="..\..\assets\icons\refresh.png" alt="">
-                            <img src="..\..\assets\icons\trash.png" alt="">
+                            <img onclick="regenerateToken('<?= $token->getToken(); ?>')" src="..\..\assets\icons\refresh.png" alt="">
+                            <img onclick="deleteToken('<?= $token->getToken(); ?>')" src="..\..\assets\icons\trash.png" alt="">
                         </div>
                     </div>
                 <?php } ?>
@@ -73,6 +72,9 @@
     </div>
 </main>
 
+<script src="../module/board/settings/invitations/displayToken.js"></script>
 <script src="../module/board/settings/invitations/generateToken/generateToken.js"></script>
+<script src="../module/board/settings/invitations/regenerateToken/regenerateToken.js"></script>
+<script src="../module/board/settings/invitations/deleteToken/deleteToken.js"></script>
 
 <?php $this->content = ob_get_clean(); ?>
