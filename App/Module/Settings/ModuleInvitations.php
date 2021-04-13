@@ -40,9 +40,9 @@ class ModuleInvitations
         //Récupération de l'object associé à l'id todo passé en paramètre.
         $todoObject = self::getTodoObject($idTodo);
 
-        if ($todoObject != null && $todoObject->getOwned()){
+        if ($todoObject != null && $todoObject->getOwned()) {
             foreach (self::$appObject->getList_Permission() as $permission) {
-                if($permission->getId() == 1){ //La permission par défaut qui doit être utilisé par la token.
+                if ($permission->getId() == 1) { //La permission par défaut qui doit être utilisé par la token.
                     TodoTokenManager::createToken($permission, $todoObject);
                     $list_token = $todoObject->getList_TodoToken();
                 }
@@ -52,7 +52,42 @@ class ModuleInvitations
         }
 
         return $list_token;
+    }
 
+    public static function deleteToken(string $token)
+    {
+        $list_token = array();
+
+        self::loading();
+        //Récupération de l'object associé au token passé en paramètre.
+        $tokenObject = self::getTokenObject($token);
+
+        if ($tokenObject != null && $tokenObject->getTodoObject()->getOwned()) {
+            TodoTokenManager::deleteToken($tokenObject);
+            $list_token = array_values($tokenObject->getTodoObject()->getList_TodoToken());
+        } else {
+            throw new PermissionException(5);
+        }
+
+        return $list_token;
+    }
+
+    public static function regenerateToken(string $token)
+    {
+        $list_token = array();
+
+        self::loading();
+        //Récupération de l'object associé au token passé en paramètre.
+        $tokenObject = self::getTokenObject($token);
+
+        if ($tokenObject != null && $tokenObject->getTodoObject()->getOwned()) {
+            TodoTokenManager::regenerateToken($tokenObject);
+            $list_token = array_values($tokenObject->getTodoObject()->getList_TodoToken());
+        } else {
+            throw new PermissionException(5);
+        }
+
+        return $list_token;
     }
 
     private static function getTodoObject(int $idTodo)
@@ -78,33 +113,28 @@ class ModuleInvitations
         return $todoObject;
     }
 
-    private static function getContributorObject(int $idUser, Todo $todoObject)
+    private static function getTokenObject(string $token)
     {
-        $userObject = null;
+        $tokenObject = null;
+        $isFinded = false;
 
-        $list_contributor = ContributeManager::loadUsersOfTodo($todoObject, self::$appObject->getList_Permission());
+        
+        foreach (self::$user->getList_Todo() as $todo) {
+            //Il faut load tout les tokens associés aux todo du user.
+            TodoTokenManager::loadTokenFromTodo($todo);
+            foreach ($todo->getList_TodoToken() as $todoToken) {
+                if ($todoToken->getToken() == $token) {
+                    $tokenObject = $todoToken;
+                    $isFinded = true;
+                    break;
+                }
+            }
 
-        foreach ($list_contributor as $contributor) {
-            if ($contributor->getId() == $idUser) {
-                $userObject = $contributor;
+            if($isFinded){
                 break;
             }
         }
 
-        return $userObject;
-    }
-
-    private static function getPermissionObject(int $idPermission)
-    {
-        $permissionObject = null;
-
-        foreach (self::$appObject->getList_Permission() as $permission) {
-            if ($permission->getId() == $idPermission) {
-                $permissionObject = $permission;
-                break;
-            }
-        }
-
-        return $permissionObject;
+        return $tokenObject;
     }
 }
