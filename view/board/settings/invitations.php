@@ -4,7 +4,7 @@
     <header>
         <div class="header_top">
             <img id="left-side_icon" src="..\..\assets\icons\left-arrow.png" class="previousPage" onclick="document.location.href='<?= $this->goBack() ?>'">
-            <button>Générer</button>
+            <button onclick="generateToken()">Générer</button>
         </div>
 
         <div class="header_bottom">
@@ -13,6 +13,7 @@
     </header>
 
     <div class="wrapper">
+    <input type="hidden" id="todoName" value="<?= $todo->getId(); ?>">
         <section>
             <div class="section_title">
                 <h2>Vos Tokens</h2>
@@ -71,5 +72,7 @@
         </section>
     </div>
 </main>
+
+<script src="../module/board/settings/invitations/generateToken/generateToken.js"></script>
 
 <?php $this->content = ob_get_clean(); ?>
