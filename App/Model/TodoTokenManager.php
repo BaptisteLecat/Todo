@@ -29,14 +29,15 @@ class TodoTokenManager
      */
     public static function loadTokenFromTodo(Todo $todoObject){
         try{
-            $request = PdoFactory::getPdo()->prepare("SELECT token, expirationdate, id_permission FROM todo_token WHERE id_todo = :id_todo");
+            $request = PdoFactory::getPdo()->prepare("SELECT token, expirationdate, id_permission FROM todo_token WHERE id_todo = :id_todo ORDER BY expirationdate ASC");
             $request->execute(array(':id_todo' => $todoObject->getId()));
-            $result = $request->fetch();
-            $list_permission = PermissionManager::loadPermission();
-            foreach ($list_permission as $permission) {
-                if($permission->getId() == $result["id_permission"]){
-                    $todoToken = new TodoToken($result["token"], $result["expirationdate"], $permission, $todoObject);
-                    break;
+            while ($result = $request->fetch()) {
+                $list_permission = PermissionManager::loadPermission();
+                foreach ($list_permission as $permission) {
+                    if ($permission->getId() == $result["id_permission"]) {
+                        $todoToken = new TodoToken($result["token"], $result["expirationdate"], $permission, $todoObject);
+                        break;
+                    }
                 }
             }
         }catch(Exception $e){
