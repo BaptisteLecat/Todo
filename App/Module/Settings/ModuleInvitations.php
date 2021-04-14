@@ -35,6 +35,7 @@ class ModuleInvitations
     public static function generateToken(int $idTodo)
     {
         $list_token = array();
+        $isGenerated = false; //Il est possible que l'on ne trouve pas la permission 1 et que donc on n'execute pas la requete.
 
         self::loading();
         //Récupération de l'object associé à l'id todo passé en paramètre.
@@ -44,9 +45,15 @@ class ModuleInvitations
             foreach (self::$appObject->getList_Permission() as $permission) {
                 if ($permission->getId() == 1) { //La permission par défaut qui doit être utilisé par la token.
                     TodoTokenManager::createToken($permission, $todoObject);
-                    $list_token = $todoObject->getList_TodoToken();
+                    $isRefused = true;
+                    break;
                 }
             }
+
+            if (!$isGenerated) {
+                throw new Exception("Le token n'a pas pu être généré.");
+            }
+            $list_token = $todoObject->getList_TodoToken();
         } else {
             throw new PermissionException(5);
         }
@@ -90,6 +97,48 @@ class ModuleInvitations
         return $list_token;
     }
 
+    public static function refuseContributor(int $idContributor, int $idTodo)
+    {
+        $list_participant = array();
+
+        self::loading();
+        //Récupération de l'object associé à l'id todo passé en paramètre.
+        $todoObject = self::getTodoObject($idTodo);
+
+        if ($todoObject != null && $todoObject->getOwned()) {
+            //Récupération de l'object associé à l'id du contributeur.
+            $contributorObject = self::getContributorObject($idContributor, $todoObject);
+
+            ContributeManager::refuseContributor($contributorObject, $todoObject);
+            $list_participant = ContributeManager::loadUsersOfTodo($todoObject, self::$appObject->getList_Permission());
+        } else {
+            throw new PermissionException(5);
+        }
+
+        return $list_participant;
+    }
+
+    public static function acceptContributor(int $idContributor, int $idTodo)
+    {
+        $list_participant = array();
+
+        self::loading();
+        //Récupération de l'object associé à l'id todo passé en paramètre.
+        $todoObject = self::getTodoObject($idTodo);
+
+        if ($todoObject != null && $todoObject->getOwned()) {
+            //Récupération de l'object associé à l'id du contributeur.
+            $contributorObject = self::getContributorObject($idContributor, $todoObject);
+            ContributeManager::acceptContributor($contributorObject, $todoObject);
+
+            $list_participant = ContributeManager::loadUsersOfTodo($todoObject, self::$appObject->getList_Permission());
+        } else {
+            throw new PermissionException(5);
+        }
+
+        return $list_participant;
+    }
+
     private static function getTodoObject(int $idTodo)
     {
         $todoObject = null;
@@ -113,12 +162,28 @@ class ModuleInvitations
         return $todoObject;
     }
 
+    private static function getContributorObject(int $idUser, Todo $todoObject)
+    {
+        $userObject = null;
+
+        $list_contributor = ContributeManager::loadUsersOfTodo($todoObject, self::$appObject->getList_Permission());
+
+        foreach ($list_contributor as $contributor) {
+            if ($contributor->getId() == $idUser) {
+                $userObject = $contributor;
+                break;
+            }
+        }
+
+        return $userObject;
+    }
+
     private static function getTokenObject(string $token)
     {
         $tokenObject = null;
         $isFinded = false;
 
-        
+
         foreach (self::$user->getList_Todo() as $todo) {
             //Il faut load tout les tokens associés aux todo du user.
             TodoTokenManager::loadTokenFromTodo($todo);
@@ -130,7 +195,7 @@ class ModuleInvitations
                 }
             }
 
-            if($isFinded){
+            if ($isFinded) {
                 break;
             }
         }
