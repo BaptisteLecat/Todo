@@ -459,7 +459,7 @@ CREATE PROCEDURE `selectTodo` (IN `p_idUser` INT(11))  BEGIN
 END$$
 
 DROP PROCEDURE IF EXISTS `selectTodoContribute`$$
-CREATE PROCEDURE `selectTodoContribute` (IN `p_idUser` INT(11))  BEGIN 
+CREATE PROCEDURE `selectTodoContribute` (IN `p_idUser` INT(11))  BEGIN
 
     DECLARE fin BOOLEAN DEFAULT FALSE;
     DECLARE flag integer default null;
@@ -467,7 +467,7 @@ CREATE PROCEDURE `selectTodoContribute` (IN `p_idUser` INT(11))  BEGIN
     DECLARE _accepted_contribute TINYINT;
     DECLARE _joindate_contribute DATETIME;
     DECLARE _id_permission integer;
-    DECLARE cursor_selectContribute CURSOR FOR SELECT id_todo, accepted_contribute, joindate_contribute, id_permission FROM contribute WHERE id_user = p_idUser;
+    DECLARE cursor_selectContribute CURSOR FOR SELECT id_todo, accepted_contribute, joindate_contribute, id_permission FROM contribute WHERE id_user = p_idUser AND accepted_contribute = 1;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin = TRUE;
 
     DROP TEMPORARY TABLE IF EXISTS TMP_TODOCONTRIBUTE;
@@ -480,7 +480,7 @@ CREATE PROCEDURE `selectTodoContribute` (IN `p_idUser` INT(11))  BEGIN
 
     OPEN cursor_selectContribute;
 
-    loop_cursor_selectContribute:LOOP
+    loop_cursor_selectContribute: LOOP
         FETCH cursor_selectContribute INTO _id_todo, _accepted_contribute, _joindate_contribute, _id_permission;
         IF fin THEN
             LEAVE loop_cursor_selectContribute;
