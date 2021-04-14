@@ -10,6 +10,8 @@ use App\Model\TaskManager;
 
 use App\Model\Exceptions\PermissionException;
 
+//TODO Gérer si la personne est bien accepté avant de lui autorisé la fonctionnalitée.
+
 /**
  * ModuleTaskManager
  * Cette classe permet de gerer les fonctionnalitées liés au tâches, dans une todo.
