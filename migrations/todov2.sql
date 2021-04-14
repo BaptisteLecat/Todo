@@ -467,7 +467,7 @@ CREATE PROCEDURE `selectTodoContribute` (IN `p_idUser` INT(11))  BEGIN
     DECLARE _accepted_contribute TINYINT;
     DECLARE _joindate_contribute DATETIME;
     DECLARE _id_permission integer;
-    DECLARE cursor_selectContribute CURSOR FOR SELECT id_todo, accepted_contribute, joindate_contribute, id_permission FROM contribute WHERE id_user = p_idUser AND accepted_contribute = 1;
+    DECLARE cursor_selectContribute CURSOR FOR SELECT id_todo, accepted_contribute, joindate_contribute, id_permission FROM contribute WHERE id_user = p_idUser AND accepted_contribute = 1 GROUP BY id_todo;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin = TRUE;
 
     DROP TEMPORARY TABLE IF EXISTS TMP_TODOCONTRIBUTE;
