@@ -59,8 +59,8 @@
                                 <p><?php $contributor->getJoinDate(); ?></p>
                             </div>
                             <div class="invitation_button">
-                                <img src="..\..\assets\icons\accept.png" alt="">
-                                <img src="..\..\assets\icons\cancel.png" alt="">
+                                <img onclick="acceptContributor('<?= $contributor->getId(); ?>', '<?= $todo->getId(); ?>')" src="..\..\assets\icons\accept.png" alt="">
+                                <img onclick="refuseContributor('<?= $contributor->getId(); ?>', '<?= $todo->getId(); ?>')" src="..\..\assets\icons\cancel.png" alt="">
                             </div>
                         </div>
 
@@ -72,9 +72,13 @@
     </div>
 </main>
 
+
+<script src="../module/board/settings/invitations/displayInvitations.js"></script>
 <script src="../module/board/settings/invitations/displayToken.js"></script>
 <script src="../module/board/settings/invitations/generateToken/generateToken.js"></script>
 <script src="../module/board/settings/invitations/regenerateToken/regenerateToken.js"></script>
 <script src="../module/board/settings/invitations/deleteToken/deleteToken.js"></script>
+<script src="../module/board/settings/invitations/refuseContributor/refuseContributor.js"></script>
+<script src="../module/board/settings/invitations/acceptContributor/acceptContributor.js"></script>
 
 <?php $this->content = ob_get_clean(); ?>
