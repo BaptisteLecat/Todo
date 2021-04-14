@@ -41,7 +41,8 @@ class UserContributor implements JsonSerializable
                 $this->email
             ),
             'joinDate' => $this->joinDate,
-            'permission' => $this->serializePermission()
+            'permission' => $this->serializePermission(),
+            'accepted' => $this->accepted,
         );
     }
 
@@ -82,6 +83,11 @@ class UserContributor implements JsonSerializable
     public function getAccepted()
     {
         return $this->accepted;
+    }
+
+    public function setAccepted($accepted)
+    {
+        $this->accepted = $accepted;
     }
 
 
