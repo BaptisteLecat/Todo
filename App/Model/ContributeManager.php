@@ -58,7 +58,7 @@ class ContributeManager
     public static function insertContribute(UserContributor $userContributor, Todo $todoObject, Permission $permissionObject)
     {
         try {
-            $request = PdoFactory::getPdo()->prepare("INSERT INTO contribute (id_user, id_todo, id_permission) VALUES (:id_user, :id_todo, :id_permission)");
+            $request = PdoFactory::getPdo()->prepare("INSERT INTO contribute (id_user, id_todo, id_permission, accepted_contribute) VALUES (:id_user, :id_todo, :id_permission, 1)");
             $request->execute(array(':id_user' => $userContributor->getId(), ':id_todo' => $todoObject->getId(), 'id_permission' => $permissionObject->getId()));
             $userContributor->addPermission($permissionObject);
         } catch (Exception $e) {
@@ -72,6 +72,28 @@ class ContributeManager
             $request = PdoFactory::getPdo()->prepare("DELETE FROM contribute WHERE id_user = :id_user AND id_todo = :id_todo AND id_permission = :id_permission");
             $request->execute(array(':id_user' => $userContributor->getId(), ':id_todo' => $todoObject->getId(), 'id_permission' => $permissionObject->getId()));
             $userContributor->removePermission($permissionObject);
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+    }
+
+    public static function refuseContributor(UserContributor $userContributor, Todo $todoObject)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("DELETE FROM contribute WHERE id_user = :id_user AND id_todo = :id_todo");
+            $request->execute(array(':id_user' => $userContributor->getId(), ':id_todo' => $todoObject->getId()));
+            unset($userContributor);
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+    }
+
+    public static function acceptContributor(UserContributor $userContributor, Todo $todoObject)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("UPDATE contribute SET accepted_contribute = 1 WHERE id_user = :id_user AND id_todo = :id_todo");
+            $request->execute(array(':id_user' => $userContributor->getId(), ':id_todo' => $todoObject->getId()));
+            $userContributor->setAccepted(1);
         } catch (Exception $e) {
             throw new Exception($e);
         }
