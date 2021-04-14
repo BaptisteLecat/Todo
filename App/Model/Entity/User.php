@@ -229,4 +229,19 @@ class User implements JsonSerializable
 
         return $list_todoContribute;
     }
+
+    public function isAcceptedInTodo(Todo $todo)
+    {
+        $isAccepted = false;
+        foreach ($this->list_contribute as $contribute) {
+            if($contribute->getTodoObject()->getId() == $todo->getId()){
+                if($contribute->getAccepted()){
+                    $isAccepted = true;
+                }
+                break;
+            }
+        }
+
+        return $isAccepted;
+    }
 }

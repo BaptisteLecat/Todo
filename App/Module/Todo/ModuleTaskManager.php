@@ -10,8 +10,6 @@ use App\Model\TaskManager;
 
 use App\Model\Exceptions\PermissionException;
 
-//TODO Gérer si la personne est bien accepté avant de lui autorisé la fonctionnalitée.
-
 /**
  * ModuleTaskManager
  * Cette classe permet de gerer les fonctionnalitées liés au tâches, dans une todo.
@@ -21,7 +19,8 @@ class ModuleTaskManager
     private static $user;
     private static $appObject;
 
-    private static function loading(){
+    private static function loading()
+    {
         self::$appObject = unserialize($_SESSION["App"]);
 
         self::$user = unserialize($_SESSION["User"]);
@@ -35,7 +34,15 @@ class ModuleTaskManager
         //Récupération de l'object associé à l'id todo passé en paramètre.
         $todoObject = self::getTodoObject($idTodo);
 
-        if ($todoObject != null && ($todoObject->havePermissionTo(4) || $todoObject->getOwned())) {
+        /*
+        Si on a un todoObject et que :
+        - Le user est propriétaire de la Todo.
+        OU
+            - Le user à la permission nécessaire.
+            ET
+            - Le user est accepté au sein de cette Todo.
+        */
+        if ($todoObject != null && ($todoObject->getOwned() || ($todoObject->havePermissionTo(4) && self::$user->isAcceptedInTodo($todoObject)))) {
             //Parcours des idTask selectionné pour l'archivage.
             foreach ($list_idTask as $idTask) {
                 //Comparaison avec chacune des task présente dans la todo.
@@ -60,7 +67,15 @@ class ModuleTaskManager
         //Récupération de l'object associé à l'id todo passé en paramètre.
         $todoObject = self::getTodoObject($idTodo);
 
-        if ($todoObject != null && ($todoObject->havePermissionTo(1) || $todoObject->getOwned())) {
+        /*
+        Si on a un todoObject et que :
+        - Le user est propriétaire de la Todo.
+        OU
+            - Le user à la permission nécessaire.
+            ET
+            - Le user est accepté au sein de cette Todo.
+        */
+        if ($todoObject != null && ($todoObject->getOwned() || ($todoObject->havePermissionTo(1) && self::$user->isAcceptedInTodo($todoObject)))) {
             //Comparaison avec chacune des task présente dans la todo.
             foreach ($todoObject->getList_Task() as $taskObject) {
                 if ($idTask == $taskObject->getId()) {
