@@ -161,6 +161,8 @@ class Controller
         $this->title = "Accueil";
         $this->css_link = array("app", "home", "todo", "stats", "todoState", "calendar");
 
+        Loader::loadContribute($this->user, $this->app->getList_TodoIcon(), $this->app->getList_Permission(), $this->app->getList_Priority());
+
         require 'controllers/home/home.php';
 
         $this->menu();

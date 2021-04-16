@@ -4,7 +4,16 @@ require 'module/taskDisplayer/function/dayDisplayer.php';
 use App\Model\Utils\DateFrench;
 use App\Model\Utils\Calendar;
 
-$taskForToday = taskForToday($this->user);
+$list_taskUser = array();
+$list_taskUser = $this->user->getList_Task();
+
+foreach ($this->user->getList_TodoContribute() as $todoContribute) {
+    foreach ($todoContribute->getList_Task() as $taskContribute) {
+        array_push($list_taskUser, $taskContribute);
+    }
+}
+
+$taskForToday = taskForToday($list_taskUser);
 $nbTaskValidate = nbTaskValidate($taskForToday);
 $dayTitle = dateFrench::dateToDay(strtotime(date('Y-m-d')));
 $dateString = dateFrench::dateToString(strtotime(date('Y-m-d')));

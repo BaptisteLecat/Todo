@@ -4,9 +4,9 @@
  * Utilisé lors du chargement de la page par le Controleur, pour afficher les tâches du Jour.
  */
 
-function taskForToday($user){
+function taskForToday($list_task){
     $listTaskToday = array();
-    foreach($user->getList_Task() as $task){
+    foreach($list_task as $task){
         if($task->getEndDate() == date("Y-m-d")){
             array_push($listTaskToday, $task);
         }

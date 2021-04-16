@@ -34,8 +34,8 @@ function displayTaskByDay() {
             res["listTask"].forEach(task => {
                 html = html.concat(`<div class="task_container" id="${task.id}">`);
                 if (task.isAchieve == true) {
-                  nbActiveTask++;
-                  html = html.concat(`
+                    nbActiveTask++;
+                    html = html.concat(`
                 <div class="task_content_validate" id="${task.id}" onclick="achieveTask(this)">
                     <div class="task_title">
                         <h6>${task.content}</h6>
@@ -46,7 +46,7 @@ function displayTaskByDay() {
                   </div>
                   <img class="bin_icon" src="../assets/icons/trash_52px.png" alt="bin to delete" onclick="deleteTask(this)"></div>`);
                 } else {
-                  html = html.concat(`
+                    html = html.concat(`
                 <div class="task_content_todo" id="${task.id}" onclick="achieveTask(this)">
                     <div class="task_title">
                       <h6>${task.content}</h6>
@@ -84,8 +84,6 @@ function achieveTask(object) {
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var res = this.response;
-            console.log(idTask);
-            console.log(res);
             displayTaskByDay();
             updateGlobalStats();
 

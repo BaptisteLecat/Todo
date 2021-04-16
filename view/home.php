@@ -64,7 +64,6 @@
               </div>
             </div>
           <?php } ?>
-          <img class="bin_icon" src="../assets\icons\trash_52px.png" alt="bin to delete" onclick="deleteTask(this)">
         </div>
       <?php } ?>
     </div>
