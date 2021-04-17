@@ -32,10 +32,15 @@ class ModuleHome
 
     public static function achieveTask($idTask)
     {
+        $todoObject = null;
         self::loading();
         //Récupération de l'object associé à l'id task passé en paramètre.
         $taskObject = self::getTaskObject($idTask);
-        $todoObject = $taskObject->getTodoObject();
+        if($taskObject != null){
+            $todoObject = $taskObject->getTodoObject();
+        }else{
+            throw new Exception("Cette tâche est inconnue");
+        }
 
         /*
         Si on a un todoObject et que :
@@ -48,9 +53,13 @@ class ModuleHome
         if ($todoObject != null && ($todoObject->getOwned() || ($todoObject->havePermissionTo(1) && self::$user->isAcceptedInTodo($todoObject)))) {
             //Achieve
             TaskManager::achieveTask(self::$user, $taskObject);
+            $todoObject->removeAllTask();
+            TaskManager::loadTask($todoObject, self::$appObject->getList_Priority());
         } else {
             throw new PermissionException(1);
         }
+
+        return $todoObject;
     }
 
     private static function getTaskObject(int $idTask)
