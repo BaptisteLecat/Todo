@@ -31,7 +31,7 @@ class TaskManager
     public static function loadTask(Todo $todoObject, $list_priority)
     {
         try {
-            $request = PdoFactory::getPdo()->prepare("SELECT id_task, title_task, content_task, enddate_task, id_priority FROM task WHERE id_todo = :id_todo and id_archived IS NULL");
+            $request = PdoFactory::getPdo()->prepare("SELECT id_task, title_task, content_task, enddate_task, id_priority FROM task WHERE id_todo = :id_todo and id_archived IS NULL ORDER BY enddate_task ASC");
             $request->execute(array(':id_todo' => $todoObject->getId()));
             while ($result = $request->fetch()) {
                 foreach ($list_priority as $priority) {
@@ -59,7 +59,7 @@ class TaskManager
     private static function loadTaskFromId($idTask, Priority $priorityObject, Todo $todoObject, User $userObject)
     {
         try {
-            $request = PdoFactory::getPdo()->prepare("SELECT title_task, content_task, enddate_task FROM task WHERE id_task = :id_task");
+            $request = PdoFactory::getPdo()->prepare("SELECT title_task, content_task, enddate_task FROM task WHERE id_task = :id_task ORDER BY enddate_task ASC");
             $request->execute(array(':id_task' => $idTask));
             $result = $request->fetch();
             $task = new Task($idTask, $result["title_task"], $result["content_task"], $result["enddate_task"], $userObject, $todoObject, $priorityObject);
