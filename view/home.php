@@ -47,18 +47,18 @@
       <?php foreach ($taskForToday as $task) { ?>
         <div class="task_container" id="<?= $task->getId() ?>">
           <?php if ($task->isAchieve() == true) { ?>
-            <div class="task_content_validate" id="<?= $task->getId() ?>" onclick="achieveTask(this)">
+            <div class="task_content_validate" id="<?= $task->getId() ?>" onclick="achieveTask(<?= $task->getId() ?>)">
               <div class="task_title">
-                <h6><?= $task->getContent() ?></h6>
+                <h6><?= $task->getTitle() ?></h6>
               </div>
               <div class="task_validate">
                 <img class="validate_icon" src="../assets\icons\checkmark_52px.png" alt="validate icon">
               </div>
             </div>
           <?php } else { ?>
-            <div class="task_content_todo" id="<?= $task->getId() ?>" onclick="achieveTask(this)">
+            <div class="task_content_todo" id="<?= $task->getId() ?>" onclick="achieveTask(<?= $task->getId() ?>)">
               <div class="task_title">
-                <h6><?= $task->getContent() ?></h6>
+                <h6><?= $task->getTitle() ?></h6>
               </div>
               <div class="task_todo">
               </div>
@@ -106,7 +106,9 @@
   </div>
 </main>
 
-<script src="module/taskDisplayer/taskDisplayer.js"></script>
+<script src="module/home/taskDisplayer/displayTask.js"></script>
+<script src="module/home/taskDisplayer/switcherDay.js"></script>
+<script src="module/home/taskDisplayer/achieveTask/achieveTask.js"></script>
 <script src="module/calendar/calendarDisplayer.js"></script>
 
 <?php $this->content = ob_get_clean(); ?>
