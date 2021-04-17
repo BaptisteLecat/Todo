@@ -208,6 +208,13 @@ class Todo implements JsonSerializable
         return $haveRightTo;
     }
 
+    public function removeAllTask(){
+        foreach ($this->list_task as $task) {
+            $this->removeTask($task);
+        }
+        $this->list_task = array();
+    }
+
     public function progressValuePercent()
     {
         $progressValue = 0;
