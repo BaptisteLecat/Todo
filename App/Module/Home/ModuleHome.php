@@ -23,7 +23,8 @@ class ModuleHome
     private static $user;
     private static $appObject;
 
-    public static function getUserObject(){
+    public static function getUserObject()
+    {
         return self::$user;
     }
 
@@ -42,13 +43,13 @@ class ModuleHome
         self::loading();
         //Récupération de l'object associé à l'id task passé en paramètre.
         $taskObject = self::getTaskObject($idTask);
-        if($taskObject != null){
+        if ($taskObject != null) {
             $todoObject = $taskObject->getTodoObject();
-        }else{
+        } else {
             throw new Exception("Cette tâche est inconnue");
         }
 
-        
+
         /*
         Si on a un todoObject et que :
         - Le user est propriétaire de la Todo.
@@ -93,11 +94,12 @@ class ModuleHome
         return $taskObject;
     }
 
-    public static function taskForToday($list_task)
+    public static function taskForToday($list_task, $dateSet = null)
     {
         $listTaskToday = array();
+        $date = is_null($dateSet) ? date("Y-m-d") : $dateSet;
         foreach ($list_task as $task) {
-            if ($task->getEndDate() == date("Y-m-d")) {
+            if ($task->getEndDate() == $date) {
                 array_push($listTaskToday, $task);
             }
         }
@@ -115,12 +117,13 @@ class ModuleHome
         return round($nbTaskValidate);
     }
 
-    public static function progressValuePercentToday($list_task){
+    public static function progressValuePercentToday($list_task)
+    {
         $progressValue = 0;
         if (count($list_task) > 0) {
             $nbTaskAchieve = 0;
             foreach ($list_task as $task) {
-                if($task->isAchieve()){
+                if ($task->isAchieve()) {
                     $nbTaskAchieve++;
                 }
             }
