@@ -1,8 +1,10 @@
-function displayTask(list_task, taskPourcent) {
+function displayTask(list_task, taskPourcent, globalTaskPourcent) {
     html = "";
+    nbTaskAchieve = 0;
     list_task.forEach((task) => {
         html = html.concat(`<div class="task_container" id="${task.id}">`);
-        if(task.isAchieve){
+        if (task.isAchieve) {
+            nbTaskAchieve++;
             html = html.concat(`<div class="task_content_validate" id="${task.id}" onclick="achieveTask(${task.id})">
             <div class="task_title">
               <h6>${task.title}</h6>
@@ -11,7 +13,7 @@ function displayTask(list_task, taskPourcent) {
               <img class="validate_icon" src="..\\assets\\icons\\checkmark_52px.png" alt="validate icon">
             </div>
           </div>`);
-        }else{
+        } else {
             html = html.concat(`<div class="task_content_todo" id="${task.id}" onclick="achieveTask(${task.id})">
             <div class="task_title">
               <h6>${task.title}</h6>
@@ -23,8 +25,13 @@ function displayTask(list_task, taskPourcent) {
         html = html.concat(`</div>`);
     });
 
-    document.getElementById('globalTaskPourcent').innerText = taskPourcent + "%";
-    document.getElementById('globalTaskProgress').style.width = taskPourcent + "%";
+    document.getElementById("progressState").innerText = nbTaskAchieve + "/" + list_task.length;
+    document.getElementById("progressValue").style.width = taskPourcent + "%";
+    //Global stats
+    document.getElementById("globalTaskPourcent").innerText =
+        taskPourcent + "%";
+    document.getElementById("globalTaskProgress").style.width =
+        taskPourcent + "%";
 
     return html;
 }

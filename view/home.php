@@ -22,20 +22,13 @@
 
       <div id="right">
         <div class="taskInfo_container">
-          <h3 id='progressState'><?= $nbTaskValidate . "/" . count($taskForToday) ?></h3>
+          <h3 id='progressState'><?= $nbTaskValidateToday . "/" . count($taskForToday) ?></h3>
         </div>
       </div>
 
       <div id="filler">
         <div class="progressBar_container">
-          <?php if (isset($taskForToday)) {
-            if (count($taskForToday) > 0) {
-              $value = ($nbTaskValidate / count($taskForToday)) * 100; ?>
-              <div class="progressBar_bar" id='progressValue' style="width: <?= $value ?>%"></div>
-            <?php } else { ?>
-              <div class="progressBar_bar" id='progressValue' style="width: 0%"></div>
-          <?php }
-          } ?>
+          <div class="progressBar_bar" id='progressValue' style="width: <?= $progressValidateToday ?>%"></div>
         </div>
       </div>
 

@@ -7,8 +7,9 @@ function achieveTask(idTask) {
                 document.getElementsByClassName(
                     "todo_content"
                 )[0].innerHTML = displayTask(
-                    response["list_task"],
-                    response["taskPourcent"]
+                    response["taskForToday"],
+                    response["taskPourcentToday"],
+                    response["globalTaskPourcent"]
                 );
                 createMessageBox(response["success"]);
             } else {

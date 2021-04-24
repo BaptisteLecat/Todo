@@ -1,20 +1,14 @@
 <?php
-require 'module/taskDisplayer/function/dayDisplayer.php';
 
 use App\Model\Utils\DateFrench;
 use App\Model\Utils\Calendar;
+use App\Module\Home\ModuleHome;
 
-$list_taskUser = array();
 $list_taskUser = $this->user->getList_Task();
 
-foreach ($this->user->getList_TodoContribute() as $todoContribute) {
-    foreach ($todoContribute->getList_Task() as $taskContribute) {
-        array_push($list_taskUser, $taskContribute);
-    }
-}
-
-$taskForToday = taskForToday($list_taskUser);
-$nbTaskValidate = nbTaskValidate($taskForToday);
+$taskForToday = ModuleHome::taskForToday($list_taskUser);
+$nbTaskValidateToday = ModuleHome::nbTaskValidate($taskForToday);
+$progressValidateToday = ModuleHome::progressValuePercentToday($taskForToday);
 $dayTitle = dateFrench::dateToDay(strtotime(date('Y-m-d')));
 $dateString = dateFrench::dateToString(strtotime(date('Y-m-d')));
 /*

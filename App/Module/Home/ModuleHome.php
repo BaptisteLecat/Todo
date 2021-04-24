@@ -2,7 +2,9 @@
 
 namespace App\Module\Home;
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 use Exception;
 use App\Loader;
@@ -20,6 +22,10 @@ class ModuleHome
 {
     private static $user;
     private static $appObject;
+
+    public static function getUserObject(){
+        return self::$user;
+    }
 
     private static function loading()
     {
@@ -42,24 +48,21 @@ class ModuleHome
             throw new Exception("Cette tâche est inconnue");
         }
 
+        
         /*
         Si on a un todoObject et que :
         - Le user est propriétaire de la Todo.
         OU
-            - Le user à la permission nécessaire.
-            ET
-            - Le user est accepté au sein de cette Todo.
+        - Le user à la permission nécessaire.
+        ET
+        - Le user est accepté au sein de cette Todo.
         */
         if ($todoObject != null && ($todoObject->getOwned() || ($todoObject->havePermissionTo(1) && self::$user->isAcceptedInTodo($todoObject)))) {
             //Achieve
             TaskManager::achieveTask(self::$user, $taskObject);
-            $todoObject->removeAllTask();
-            TaskManager::loadTask($todoObject, self::$appObject->getList_Priority());
         } else {
             throw new PermissionException(1);
         }
-
-        return $todoObject;
     }
 
     private static function getTaskObject(int $idTask)
@@ -90,6 +93,43 @@ class ModuleHome
         return $taskObject;
     }
 
+    public static function taskForToday($list_task)
+    {
+        $listTaskToday = array();
+        foreach ($list_task as $task) {
+            if ($task->getEndDate() == date("Y-m-d")) {
+                array_push($listTaskToday, $task);
+            }
+        }
+        return $listTaskToday;
+    }
+
+    public static function nbTaskValidate($list_task)
+    {
+        $nbTaskValidate = 0;
+        foreach ($list_task as $task) {
+            if ($task->isAchieve()) {
+                $nbTaskValidate++;
+            }
+        }
+        return round($nbTaskValidate);
+    }
+
+    public static function progressValuePercentToday($list_task){
+        $progressValue = 0;
+        if (count($list_task) > 0) {
+            $nbTaskAchieve = 0;
+            foreach ($list_task as $task) {
+                if($task->isAchieve()){
+                    $nbTaskAchieve++;
+                }
+            }
+            $progressValue = ($nbTaskAchieve / count($list_task)) * 100;
+        }
+
+        return round($progressValue);
+    }
+
     private static function getTodoObject(int $idTodo)
     {
         $todoObject = null;
@@ -111,22 +151,6 @@ class ModuleHome
             }
         }
         return $todoObject;
-    }
-
-    private static function getContributorObject(int $idUser, Todo $todoObject)
-    {
-        $userObject = null;
-
-        $list_contributor = ContributeManager::loadUsersOfTodo($todoObject, self::$appObject->getList_Permission());
-
-        foreach ($list_contributor as $contributor) {
-            if ($contributor->getId() == $idUser) {
-                $userObject = $contributor;
-                break;
-            }
-        }
-
-        return $userObject;
     }
 
     private static function getPermissionObject(int $idPermission)
