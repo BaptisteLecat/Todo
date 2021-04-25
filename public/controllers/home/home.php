@@ -10,7 +10,7 @@ $taskForToday = ModuleHome::taskForToday($list_taskUser);
 $nbTaskValidateToday = ModuleHome::nbTaskValidate($taskForToday);
 $progressValidateToday = ModuleHome::progressValuePercentToday($taskForToday);
 $dayTitle = dateFrench::dateToDay(strtotime(date('Y-m-d')));
-$dateString = dateFrench::dateToString(strtotime(date('Y-m-d')));
+$dateString = dateFrench::dateToString(date('Y-m-d'));
 /*
 Si l'on souhaite afficher une date précise.
 $getdate = getdate();
