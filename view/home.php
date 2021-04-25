@@ -102,6 +102,7 @@
 <script src="module/home/taskDisplayer/displayTask.js"></script>
 <script src="module/home/taskDisplayer/switcherDay.js"></script>
 <script src="module/home/taskDisplayer/achieveTask/achieveTask.js"></script>
+<script src="module/home/taskDisplayer/switchDay/switchDay.js"></script>
 <script src="module/calendar/calendarDisplayer.js"></script>
 
 <?php $this->content = ob_get_clean(); ?>
