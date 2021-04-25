@@ -25,6 +25,9 @@ class ModuleHome
 
     public static function getUserObject()
     {
+        if(is_null(self::$user)){
+            self::loading();
+        }
         return self::$user;
     }
 
@@ -97,7 +100,7 @@ class ModuleHome
     public static function taskForToday($list_task, $dateSet = null)
     {
         $listTaskToday = array();
-        $date = is_null($dateSet) ? date("Y-m-d") : $dateSet;
+        $date = is_null($dateSet) ? date("Y-m-d") : $dateSet; //Vérification unique de la date à comparer.
         foreach ($list_task as $task) {
             if ($task->getEndDate() == $date) {
                 array_push($listTaskToday, $task);
