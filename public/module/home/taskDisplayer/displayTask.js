@@ -1,4 +1,9 @@
-function displayTask(list_task, taskPourcent, globalTaskPourcent) {
+function displayTask(
+    list_task,
+    taskPourcent,
+    globalTaskPourcent,
+    dateSet = null
+) {
     html = "";
     nbTaskAchieve = 0;
     list_task.forEach((task) => {
@@ -25,13 +30,17 @@ function displayTask(list_task, taskPourcent, globalTaskPourcent) {
         html = html.concat(`</div>`);
     });
 
-    document.getElementById("progressState").innerText = nbTaskAchieve + "/" + list_task.length;
+    document.getElementById("progressState").innerText =
+        nbTaskAchieve + "/" + list_task.length;
     document.getElementById("progressValue").style.width = taskPourcent + "%";
     //Global stats
-    document.getElementById("globalTaskPourcent").innerText =
-        taskPourcent + "%";
+    document.getElementById("globalTaskPourcent").innerText = taskPourcent + "%";
     document.getElementById("globalTaskProgress").style.width =
         taskPourcent + "%";
+
+    if (dateSet != null) {
+        document.getElementById("dateValue").innerText = dateSet;
+    }
 
     return html;
 }
