@@ -46,7 +46,7 @@ class DateFrench
      * @return date Date format d-m-Y: "19-02-2018".
     */
     public static function dateToString($stringDate){
-        return date('d-m-Y', $stringDate);
+        return date('d-m-Y', strtotime($stringDate));
     }
 
     /**
