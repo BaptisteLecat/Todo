@@ -11,10 +11,14 @@ try {
     $success = null;
     $list_token = null;
 
-    $idTodo = $_POST["idTodo"];
+    if (isset($_POST["idTodo"]) && !is_null($_POST["idTodo"])) {
+        $idTodo = intval($_POST["idTodo"]);
+    } else {
+        throw new Exception("Cette todo n'existe pas.");
+    }
 
     $list_token = ModuleInvitations::generateToken($idTodo);
-    $success = new SuccessManager("Un nouveau token a été générer.", "success");
+    $success = new SuccessManager("Un nouveau token a été généré.", "success");
     $success = $success->__toString();
 } catch (PermissionException $e) {
     $messageBox = $e->__toString();
