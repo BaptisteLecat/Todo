@@ -2,9 +2,11 @@
 
 require_once '../../../../../vendor/autoload.php';
 
+use App\Model\Utils\DateFrench;
+use App\Module\Home\ModuleHome;
 use App\Model\Exceptions\SuccessManager;
 use App\Model\Exceptions\PermissionException;
-use App\Module\Home\ModuleHome;
+use App\Model\Exceptions\TaskDisplayerException;
 
 try {
     $messageBox = null;
@@ -19,8 +21,21 @@ try {
         throw new Exception("Cette tâche n'existe pas.");
     }
 
+    if (isset($_POST["dayIndex"]) && !is_null($_POST["dayIndex"])) {
+        $dayIndex = intval($_POST["dayIndex"]);
+    } else {
+        throw new Exception("Cette tâche n'existe pas.");
+    }
+
+    //Verification de la valeur de dayIndex. -3 to +3
+    if ($dayIndex > 3 || $dayIndex < -3) {
+        throw new TaskDisplayerException(1);
+    }
+
+    $dateSet = DateFrench::dateFromIndex($dayIndex);
+
     ModuleHome::achieveTask($idTask);
-    $taskForToday = ModuleHome::taskForToday(ModuleHome::getUserObject()->getList_Task());
+    $taskForToday = ModuleHome::taskForToday(ModuleHome::getUserObject()->getList_Task(), $dateSet);
     $taskPourcentToday = ModuleHome::progressValuePercentToday($taskForToday);
     $globalTaskPourcent = ModuleHome::getUserObject()->progressValuePercent();
 

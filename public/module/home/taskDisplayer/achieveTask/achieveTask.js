@@ -28,5 +28,5 @@ function achieveTask(idTask) {
     xhr.open("POST", "module/home/taskDisplayer/achieveTask/achieveTask.php", true);
     xhr.responseType = "json";
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("idTask=" + encodeURI(idTask));
+    xhr.send("idTask=" + encodeURI(idTask) + "&dayIndex=" + encodeURI(day)); //day référence a la variable day du script switcherDay.js
 }
