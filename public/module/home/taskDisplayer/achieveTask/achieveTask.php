@@ -24,7 +24,7 @@ try {
     if (isset($_POST["dayIndex"]) && !is_null($_POST["dayIndex"])) {
         $dayIndex = intval($_POST["dayIndex"]);
     } else {
-        throw new Exception("Cette tâche n'existe pas.");
+        throw new Exception("Ce jour n'existe pas.");
     }
 
     //Verification de la valeur de dayIndex. -3 to +3
