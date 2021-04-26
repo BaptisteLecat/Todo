@@ -1,15 +1,15 @@
-function taskDisplayer(task){
+function taskDisplayer(task) {
     var html = `<div class="back_card">
                     <img src="assets\\icons\\writing.png">
                 </div>`;
-        if(task.isAchieve){
-            html = html.concat(`
+    if (task.isAchieve) {
+        html = html.concat(`
                     <div class='task_container' style="background: linear-gradient(90deg, #5C7AFF, #5C7AFF);" name="${task.id}">
                         <h6 style="color: ${task.priorityObject.color}">${task.priorityObject.label}</h6>
                         <hr style="border-color: #90A0E8;">
                         <div class='task_body'>
                             <div class='task_content' style="border-color: ${task.priorityObject.color};">
-                                <h3>Travail</h3>
+                                <h3>${task.title}</h3>
                                 <p>${task.content}</p>
                             </div>
                         </div>
@@ -21,13 +21,13 @@ function taskDisplayer(task){
                         </div>
                     </div>
             </div>`);
-        }else{
-            html = html.concat(`<div class='task_container' name="${task.id}">
+    } else {
+        html = html.concat(`<div class='task_container' name="${task.id}">
                 <h6 style="color: ${task.priorityObject.color}">${task.priorityObject.label}</h6>
                 <hr>
                 <div class='task_body'>
                     <div class='task_content' style="border-color: ${task.priorityObject.color};">
-                        <h3>Travail</h3>
+                        <h3>${task.title}</h3>
                         <p>${task.content}</p>
                     </div>
                 </div>
@@ -38,7 +38,7 @@ function taskDisplayer(task){
                     </div>
                 </div>
             </div>`);
-        }
+    }
 
     return html;
 }
