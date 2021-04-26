@@ -45,12 +45,12 @@ class ModuleInvitations
             foreach (self::$appObject->getList_Permission() as $permission) {
                 if ($permission->getId() == 1) { //La permission par défaut qui doit être utilisé par la token.
                     TodoTokenManager::createToken($permission, $todoObject);
-                    $isRefused = true;
+                    $isGenerated = true;
                     break;
                 }
             }
 
-            if (!$isGenerated) {
+            if (!$isGenerated) { //Il est possible que l'on ne trouve pas la permission 1 et que donc on n'execute pas la requete.
                 throw new Exception("Le token n'a pas pu être généré.");
             }
             $list_token = $todoObject->getList_TodoToken();
