@@ -42,8 +42,8 @@ if (isset($_GET["error"])) {
                     $controller->displayForm_LoginRegister("login");
                     break;
 
-                case 'stats':
-                    require('../view/todo/todo.php');
+                case 'social':
+                    $controller->displaySocial();
                     break;
 
                 default:

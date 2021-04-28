@@ -22,11 +22,11 @@
       <?php } ?>
       <h5 id="namePage_2">Accueil</h5>
     </div>
-    <div class="nav_button" onclick="ChangePage('<?= $this->menuManager('stats') ?>')">
+    <div class="nav_button" onclick="ChangePage('<?= $this->menuManager('social') ?>')">
       <?php if ($view == "stats") { ?>
-        <img id="icon_3" src="assets/icons/navbar/bar-chart_blue.png">
+        <img id="icon_3" src="assets/icons/navbar/social_blue.png">
       <?php } else { ?>
-        <img id="icon_3" src="assets/icons/navbar/bar-chart.png">
+        <img id="icon_3" src="assets/icons/navbar/social.png">
       <?php } ?>
       <h5 id="namePage_3">Stats</h5>
     </div>
@@ -62,7 +62,7 @@
     $("#namePage_3").css("margin-top", "85px");
   </script>
 
-<?php } else if ($view == "stats") { ?>
+<?php } else if ($view == "social") { ?>
 
   <script type="text/javascript">
     $("#circle_back").css("margin-left", "calc(((100% - 204px) / 6 ) * 5 + 136px)");

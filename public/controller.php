@@ -220,6 +220,16 @@ class Controller
         $this->menu("board");
     }
 
+    public function displaySocial()
+    {
+        $this->title = "Social";
+        $this->css_link = array('app', 'social/social');
+
+        require 'controllers/social/social.php';
+
+        $this->menu();
+    }
+
     private function findTodo(int $id)
     {
         $todoObject = null;

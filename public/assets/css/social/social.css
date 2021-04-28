@@ -1,0 +1,268 @@
+header {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header_top {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 0px 10px;
+    padding-top: 10px;
+}
+
+header img {
+    height: 30px;
+}
+
+header button {
+    background-color: #5C7AFF;
+    color: #fff;
+    font-size: 18px;
+    font-family: "Comfortaa", sans-serif;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    width: 110px;
+    margin-left: auto;
+}
+
+.header_bottom {
+    padding-left: 20px;
+}
+
+header h1 {
+    color: #fff;
+    font-family: "Comfortaa", sans-serif;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0px 20px;
+    margin-top: 15px;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    margin-bottom: 30px;
+}
+
+.section_title {
+    width: 80%;
+    margin-right: auto;
+    border-bottom: 2px solid #223c4e;
+}
+
+.section_title h2 {
+    color: #5c7aff;
+    font-family: "Comfortaa", sans-serif;
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.token_wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.token_container {
+    width: 100%;
+    height: 60px;
+    background-color: #10222E;
+    border-radius: 10px;
+    display: flex;
+    box-shadow: 0px 3px #00000038;
+    margin-bottom: 12px;
+}
+
+.token_content {
+    display: flex;
+    width: 70%;
+    padding: 0px 10px;
+}
+
+.token_content h6 {
+    font-size: 18px;
+    font-family: "Comfortaa", sans-serif;
+    font-weight: normal;
+    color: #fff;
+    margin: auto;
+}
+
+.token_content p {
+    font-size: 16px;
+    font-family: "Comfortaa", sans-serif;
+    font-weight: lighter;
+    color: #fff;
+    opacity: 0.6;
+    margin: auto;
+}
+
+.token_button {
+    display: flex;
+    width: 30%;
+    padding: 0px 10px;
+}
+
+.token_button img {
+    height: 42%;
+    margin: auto;
+}
+
+.invitation_wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.invitation_container {
+    width: 100%;
+    height: 65px;
+    background-color: #10222E;
+    border-radius: 10px;
+    display: flex;
+    box-shadow: 0px 3px #00000038;
+    margin-bottom: 12px;
+}
+
+.invitation_icon {
+    display: flex;
+    width: 15%;
+    padding-left: 10px;
+}
+
+.invitation_icon img {
+    margin: auto;
+    margin-left: 0px;
+    height: 42%;
+}
+
+.invitation_content {
+    display: flex;
+    width: 55%;
+}
+
+.invitation_content p {
+    font-size: 16px;
+    font-family: "Comfortaa", sans-serif;
+    font-weight: lighter;
+    color: #fff;
+    opacity: 0.6;
+    margin: auto;
+}
+
+.invitation_user-info {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.invitation_user-info h6 {
+    font-size: 18px;
+    font-family: "Comfortaa", sans-serif;
+    font-weight: normal;
+    color: #fff;
+    margin: auto;
+    margin-top: 2px;
+    margin-left: 0px;
+}
+
+.invitation_user-info p {
+    font-size: 16px;
+    font-family: "Comfortaa", sans-serif;
+    font-weight: lighter;
+    color: #fff;
+    opacity: 0.6;
+    margin: auto;
+    margin-bottom: 2px;
+    margin-left: 0px;
+}
+
+.invitation_button {
+    display: flex;
+    width: 30%;
+    padding: 0px 10px;
+}
+
+.invitation_button img {
+    height: 42%;
+    margin: auto;
+}
+
+.addToken_form {
+    background-image: linear-gradient(50deg, #5C7AFF, #3B4EA1);
+    padding: 15px;
+    box-shadow: 1px 1px 3px 0px #00000029;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    position: relative;
+    transition: padding 0.3s cubic-bezier(0.53, 0.06, 0.13, 0.94);
+}
+
+.addToken_form h1 {
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: normal;
+    font-size: 16px;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px #00000038;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.addToken_form {
+    text-align: center;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: normal;
+    font-size: 15.5px;
+    color: #ffffffed;
+    transition: opacity 0.5s cubic-bezier(0.53, 0.06, 0.13, 0.94), transform 0.3s cubic-bezier(0.53, 0.06, 0.13, 0.94);
+}
+
+.addToken_form input.code {
+    width: 33px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 0px;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: normal;
+    font-size: 26px;
+    border: 1px solid #d0cdc9;
+    line-height: 30px;
+    background-color: #fff;
+    color: #736e6a;
+    text-align: center;
+    margin: 0px 5px;
+    outline-color: #3b4ea18c;
+    box-shadow: 1px 1px 2px 0px #0000001a;
+}
+
+.addToken_form input.code::placeholder {
+    color: #ccc !important;
+    opacity: 1;
+}
+
+.addToken_form input.code:-ms-input-placeholder {
+    color: #ccc !important;
+}
+
+.addToken_form input.code::-ms-input-placeholder {
+    color: #ccc !important;
+}
+
+.tokenInput_container {
+    display: flex;
+    justify-content: center;
+}
