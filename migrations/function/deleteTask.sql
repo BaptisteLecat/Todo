@@ -25,17 +25,17 @@ BEGIN
                 -- Message succes : Suppression de la tâche réussie.
             ELSE
                 -- Message d'erreur : La tâche n'est pas archivée.
-                SIGNAL SQLSTATE '45000' 
+                SIGNAL SQLSTATE '45106' 
 		        SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "La tâche n'est pas archivée.";
             END IF;
         ELSE
             -- Message d'erreur : Vous n'avez pas l'autorisation de supprimer une tâche.
-            SIGNAL SQLSTATE '45000' 
+            SIGNAL SQLSTATE '45104' 
 		    SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "Vous n'avez pas l'autorisation de supprimer une tâche.";
         END IF;
     ELSE
         -- Message d'erreur : La todo n'existe pas.
-        SIGNAL SQLSTATE '45000' 
+        SIGNAL SQLSTATE '45100' 
 		SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "La tâche n'existe pas.";
     END IF;
 

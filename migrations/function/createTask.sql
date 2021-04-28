@@ -58,7 +58,7 @@ BEGIN
 
                 IF(is_allowed = FALSE) THEN
                     -- Message d'erreur : Vous n'avez pas l'autorisation.
-                    SIGNAL SQLSTATE '45000' 
+                    SIGNAL SQLSTATE '45103' 
 		            SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "Vous n'avez pas l'autorisation de créer une tâche.";
                 END IF;
             END ;
@@ -66,7 +66,7 @@ BEGIN
         END IF;
     ELSE
         -- Message d'erreur : La todo n'existe pas.
-        SIGNAL SQLSTATE '45000' 
+        SIGNAL SQLSTATE '45200' 
 		SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "La todo n'existe pas.";
     END IF;
 

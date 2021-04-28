@@ -23,7 +23,7 @@ BEGIN
             -- Suppression du token
             DELETE FROM todo_token WHERE token = p_token;
             -- Message d'erreur : Le token a expiré.
-            SIGNAL SQLSTATE '45000' 
+            SIGNAL SQLSTATE '45301' 
 		    SET MYSQL_ERRNO = 10003, MESSAGE_TEXT = "Le token a expiré.";
         ELSE
             -- Verification que la personne ne contribue pas déjà à cette TODO.
@@ -34,7 +34,7 @@ BEGIN
                 set _flag = (SELECT 1 FROM user WHERE id_user = p_idUser);
                 IF(_flag = 1) THEN
                     -- Message d'erreur : Vous participer déjà à cette todo
-                    SIGNAL SQLSTATE '45000' 
+                    SIGNAL SQLSTATE '45302' 
 		            SET MYSQL_ERRNO = 10004, MESSAGE_TEXT = "Vous participez déjà à cette todo avec cette permission.";
                 ELSE
                     -- Message d'erreur : Le user n'existe pas.
@@ -47,7 +47,7 @@ BEGIN
                 SET _flag = (SELECT 1 FROM todo WHERE id_user = p_idUser and id_todo = _id_todo);
                 IF(_flag = 1) THEN
                     -- Message d'erreur : Vous êtes le propriétaire de cette todo
-                    SIGNAL SQLSTATE '45000' 
+                    SIGNAL SQLSTATE '45303' 
 		            SET MYSQL_ERRNO = 10006, MESSAGE_TEXT = "Vous êtes le propriétaire de cette todo.";
                 ELSE
                     -- Ajout dans la table contribute de la nouvelle ligne de contribution
@@ -60,7 +60,7 @@ BEGIN
         END IF;
     ELSE
         -- Message d'erreur : Le token n'est pas valide
-        SIGNAL SQLSTATE '45000' 
+        SIGNAL SQLSTATE '45300' 
 		SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "Le token n'est pas valide.";
     END IF;
 END |

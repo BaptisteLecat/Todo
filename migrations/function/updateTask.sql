@@ -57,7 +57,7 @@ BEGIN
         SET _flag = (SELECT 1 FROM task_archive WHERE id_task = p_idTask);
         IF (_flag = 1) THEN
             -- Message d'erreur : La tâche est archivé.
-            SIGNAL SQLSTATE '45000' 
+            SIGNAL SQLSTATE '45107' 
 		    SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "La tâche est archivée.";
         ELSE
             SET _flag = NULL;
@@ -108,7 +108,7 @@ BEGIN
 
                             IF(is_allowed = FALSE) THEN
                                 -- Message d'erreur : Vous n'avez pas l'autorisation.
-                                SIGNAL SQLSTATE '45000' 
+                                SIGNAL SQLSTATE '45105' 
 		                        SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "Vous n'avez pas l'autorisation de modifier une tâche.";
                             END IF;
 
@@ -157,7 +157,7 @@ BEGIN
 
                             IF(is_allowed = FALSE) THEN
                                 -- Message d'erreur : Vous n'avez pas l'autorisation.
-                                SIGNAL SQLSTATE '45000' 
+                                SIGNAL SQLSTATE '45105' 
 		                        SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "Vous n'avez pas l'autorisation de modifier une tâche.";
                             END IF;
 
@@ -206,7 +206,7 @@ BEGIN
 
                             IF(is_allowed = FALSE) THEN
                                 -- Message d'erreur : Vous n'avez pas l'autorisation.
-                                SIGNAL SQLSTATE '45000' 
+                                SIGNAL SQLSTATE '45105' 
 		                        SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "Vous n'avez pas l'autorisation de modifier une tâche.";
                             END IF;
 
@@ -255,7 +255,7 @@ BEGIN
 
                             IF(is_allowed = FALSE) THEN
                                 -- Message d'erreur : Vous n'avez pas l'autorisation.
-                                SIGNAL SQLSTATE '45000' 
+                                SIGNAL SQLSTATE '45105' 
 		                        SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "Vous n'avez pas l'autorisation de modifier une tâche.";
                             END IF;
 
@@ -306,7 +306,7 @@ BEGIN
 
                             IF(is_allowed = FALSE) THEN
                                 -- Message d'erreur : Vous n'avez pas l'autorisation.
-                                SIGNAL SQLSTATE '45000' 
+                                SIGNAL SQLSTATE '45105' 
 		                        SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "Vous n'avez pas l'autorisation de modifier une tâche.";
                             END IF;
 
@@ -314,14 +314,14 @@ BEGIN
                     END IF;
                 ELSE
                     -- Message d'erreur : L'attribut est inconnu.
-                    SIGNAL SQLSTATE '45000' 
+                    SIGNAL SQLSTATE '45001' 
 		            SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "L'attribut est inconnu.";
             END CASE;
         END IF;
     ELSE
-        -- Message d'erreur : La tâche est inconnue.
-        SIGNAL SQLSTATE '45000' 
-		SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "La tâche est inconnue.";
+        -- Message d'erreur : La tâche n'existe pas.
+        SIGNAL SQLSTATE '45100' 
+		SET MYSQL_ERRNO = 10002, MESSAGE_TEXT = "La tâche n'existe pas.";
     END IF;
 
 END |
