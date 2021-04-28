@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<main>
+    <error>
+        <code>45000</code>
+        <content>Le user n'existe pas.</content>
+    </error>
+    <error>
+        <code>45001</code>
+        <content>L'attribut est inconnu.</content>
+    </error>
+    <error>
+        <code>45100</code>
+        <content>La tâche n'existe pas.</content>
+    </error>
+    <error>
+        <code>45101</code>
+        <content>Vous n'avez pas l'autorisation d'achever une tâche.</content>
+    </error>
+    <error>
+        <code>45102</code>
+        <content>Vous n'avez pas l'autorisation d'archiver une tâche.</content>
+    </error>
+    <error>
+        <code>45103</code>
+        <content>Vous n'avez pas l'autorisation de créer une tâche.</content>
+    </error>
+    <error>
+        <code>45104</code>
+        <content>Vous n'avez pas l'autorisation de supprimer une tâche.</content>
+    </error>
+    <error>
+        <code>45105</code>
+        <content>Vous n'avez pas l'autorisation de modifier une tâche.</content>
+    </error>
+    <error>
+        <code>45106</code>
+        <content>La tâche n'est pas archivée.</content>
+    </error>
+    <error>
+        <code>45107</code>
+        <content>La tâche est archivée.</content>
+    </error>
+    <error>
+        <code>45200</code>
+        <content>La todo n'existe pas.</content>
+    </error>
+    <error>
+        <code>45300</code>
+        <content>Le token n'est pas valide.</content>
+    </error>
+    <error>
+        <code>45301</code>
+        <content>Le token a expiré.</content>
+    </error>
+    <error>
+        <code>45302</code>
+        <content>Vous participez déjà à cette todo avec cette permission.</content>
+    </error>
+    <error>
+        <code>45303</code>
+        <content>Vous êtes le propriétaire de cette todo.</content>
+    </error>
+
+</main>
