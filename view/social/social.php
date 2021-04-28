@@ -34,22 +34,23 @@
 
             <div class="invitation_wrapper">
 
-
+                <?php foreach($list_pendingContribute as $pendingContribute){ ?>
                 <div class="invitation_container">
                     <div class="invitation_icon">
                         <img src="..\..\assets\icons\unvalidate.png" alt="">
                     </div>
                     <div class="invitation_content">
                         <div class="invitation_user-info">
-                            <p>Name</p>
-                            <h6>FirstName</h6>
+                            <p><?= $pendingContribute->getTodoOwnerName(); ?></p>
+                            <h6><?= $pendingContribute->getTodoTitle(); ?></h6>
                         </div>
-                        <p>19/02/1855</p>
+                        <p><?= $pendingContribute->getJoinDate(); ?></p>
                     </div>
                     <div class="invitation_button">
                         <img src="..\..\assets\icons\cancel.png" alt="">
                     </div>
                 </div>
+                <?php } ?>
             </div>
         </section>
     </div>
