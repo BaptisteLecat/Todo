@@ -3,12 +3,13 @@
 namespace App\Model;
 
 use Exception;
-use App\Model\Entity\Permission;
-use App\Model\Entity\Todo;
-use App\Model\Entity\TodoToken;
 use PDOException;
-use App\Model\Entity\User;
 use App\PdoFactory;
+use App\Model\Entity\Todo;
+use App\Model\Entity\User;
+use App\Model\Entity\TodoToken;
+use App\Model\Entity\Permission;
+use App\Model\Exceptions\DatabaseException;
 
 /**
  * TodoTokenManager
@@ -41,6 +42,8 @@ class TodoTokenManager
                     }
                 }
             }
+        } catch (PDOException $e) {
+            throw new DatabaseException($e->getCode());
         } catch (Exception $e) {
             throw new Exception($e);
         }
@@ -67,6 +70,8 @@ class TodoTokenManager
                     break;
                 }
             }
+        } catch (PDOException $e) {
+            throw new DatabaseException($e->getCode());
         } catch (Exception $e) {
             throw new Exception($e);
         }
@@ -87,7 +92,7 @@ class TodoTokenManager
             $request->execute(array(':p_Token' => $token, ':p_idUser' => $userObject->getId()));
             //TODO appel fonction dans user pour voir les todo en attente d'acceptation.
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            throw new DatabaseException($e->getCode());
         } catch (Exception $e) {
             throw new Exception($e);
         }
@@ -107,6 +112,8 @@ class TodoTokenManager
             $request = PdoFactory::getPdo()->prepare("INSERT INTO todo_token VALUES (:token, DATE_ADD(NOW(), INTERVAL 10 DAY), :id_permission, :id_todo)");
             $request->execute(array(':token' => self::tokenGenerator(), ':id_permission' => $permissionObject->getId(), ':id_todo' => $todoObject->getId()));
             self::loadTokenFromTodo($todoObject);
+        } catch (PDOException $e) {
+            throw new DatabaseException($e->getCode());
         } catch (Exception $e) {
             throw new Exception($e);
         }
@@ -125,6 +132,8 @@ class TodoTokenManager
             $request = PdoFactory::getPdo()->prepare("DELETE FROM todo_token WHERE token = :token");
             $request->execute(array(':token' => $tokenObject->getToken()));
             $tokenObject->delete();
+        } catch (PDOException $e) {
+            throw new DatabaseException($e->getCode());
         } catch (Exception $e) {
             throw new Exception($e);
         }
@@ -145,6 +154,8 @@ class TodoTokenManager
             $request->execute(array(':newToken' => $newToken, ':token' => $tokenObject->getToken()));
             self::loadTokenFromToken($newToken, $tokenObject->getTodoObject());
             $tokenObject->delete();
+        } catch (PDOException $e) {
+            throw new DatabaseException($e->getCode());
         } catch (Exception $e) {
             throw new Exception($e);
         }
@@ -157,7 +168,7 @@ class TodoTokenManager
      * @param  mixed $length
      * @return void
      */
-    private static function tokenGenerator($length = 6)
+    private static function tokenGenerator($length = 5)
     {
         $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $string = '';
