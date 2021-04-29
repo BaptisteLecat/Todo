@@ -6,7 +6,6 @@ use Exception;
 use App\Model\Exceptions\InputException;
 use App\Model\XMLSettings\XMLInputSettings;
 use App\Model\Exceptions\InputSignException;
-use SimpleXMLElement;
 
 class Sign
 {
