@@ -23,6 +23,10 @@ class FormException extends Exception
                 $messageBox = new MessageBox("Cette priorité n'existe pas.", "error", "error");
                 break;
 
+            case 2:
+                $messageBox = new MessageBox("Cet icone n'existe pas.", "error", "error");
+                break;
+
             default:
                 $messageBox = new MessageBox("Une erreur est survenue.", "error", "error");
                 break;
