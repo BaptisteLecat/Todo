@@ -227,7 +227,7 @@ class Controller
 
         require 'controllers/social/social.php';
 
-        $this->menu();
+        $this->menu("social");
     }
 
     private function findTodo(int $id)
