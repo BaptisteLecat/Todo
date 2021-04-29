@@ -19,7 +19,7 @@ try {
 
     ModuleSocial::submitToken($token);
 
-    $success = new SuccessManager("Le token est valide.", "success");
+    $success = new SuccessManager("Votre demande est désormais en attente.", "success");
     $success = $success->__toString();
 } catch (PDOException $e) {
     $messageBox = $e->__toString();
