@@ -34,30 +34,31 @@
 
             <div class="invitation_wrapper">
 
-                <?php foreach($list_pendingContribute as $pendingContribute){ ?>
-                <div class="invitation_container">
-                    <div class="invitation_icon">
-                        <img src="..\..\assets\icons\unvalidate.png" alt="">
-                    </div>
-                    <div class="invitation_content">
-                        <div class="invitation_user-info">
-                            <p><?= $pendingContribute->getTodoOwnerName(); ?></p>
-                            <h6><?= $pendingContribute->getTodoTitle(); ?></h6>
+                <?php foreach ($list_pendingContribute as $pendingContribute) { ?>
+                    <div class="invitation_container">
+                        <div class="invitation_icon">
+                            <img src="..\..\assets\icons\unvalidate.png" alt="">
                         </div>
-                        <p><?= $pendingContribute->getJoinDate(); ?></p>
+                        <div class="invitation_content">
+                            <div class="invitation_user-info">
+                                <p><?= $pendingContribute->getTodoOwnerName(); ?></p>
+                                <h6><?= $pendingContribute->getTodoTitle(); ?></h6>
+                            </div>
+                            <p><?= $pendingContribute->getJoinDate(); ?></p>
+                        </div>
+                        <div class="invitation_button">
+                            <img onclick="cancelContributeRequest(<?= $pendingContribute->getTodoId(); ?>)" src="..\..\assets\icons\cancel.png" alt="">
+                        </div>
                     </div>
-                    <div class="invitation_button">
-                        <img src="..\..\assets\icons\cancel.png" alt="">
-                    </div>
-                </div>
                 <?php } ?>
             </div>
         </section>
     </div>
 </main>
 
-
+<script src="../module/social/displayPendingContribute.js"></script>
 <script src="../module/social/tokenInput/inputManager.js"></script>
 <script src="../module/social/tokenVerif/tokenVerif.js"></script>
+<script src="../module/social/cancelContributeRequest/cancelContributeRequest.js"></script>
 
 <?php $this->content = ob_get_clean(); ?>

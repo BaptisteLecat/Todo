@@ -1,19 +1,19 @@
-function displayInvitations(list_request, idTodo) {
+function displayPendingContribute(list_pendingContribute) {
     html = "";
-    list_request.forEach((request) => {
+    list_pendingContribute.forEach((pendingContribute) => {
         html = html.concat(`                <div class="invitation_container">
                     <div class="invitation_icon">
                         <img src="..\\..\\assets\\icons\\unvalidate.png" alt="">
                     </div>
                     <div class="invitation_content">
                         <div class="invitation_user-info">
-                            <p>${request.name}</p>
-                            <h6>${request.firstName}</h6>
+                            <p>${pendingContribute.todoOwnerName}</p>
+                            <h6>${pendingContribute.todoTitle}</h6>
                         </div>
-                        <p>19/02/1855</p>
+                        <p>${pendingContribute.joinDate}</p>
                     </div>
                     <div class="invitation_button">
-                        <img src="..\\..\\assets\\icons\\cancel.png" alt="">
+                        <img onclick="cancelContributeRequest(${pendingContribute.todoId})" src="..\\..\\assets\\icons\\cancel.png" alt="">
                     </div>
                 </div>`);
     });

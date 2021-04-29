@@ -9,15 +9,17 @@ class PendingContribute implements JsonSerializable
     private $accepted;
     private $joinDate;
 
+    private $todoId;
     private $todoTitle;
     private $todoOwnerName;
 
 
-    function __construct($accepted, $joinDate, $todoTitle, $todoOwnerName)
+    function __construct($accepted, $joinDate, $todoId, $todoTitle, $todoOwnerName)
     {
         $this->accepted = $accepted;
         $this->joinDate = $joinDate;
 
+        $this->todoId = $todoId;
         $this->todoTitle = $todoTitle;
         $this->todoOwnerName = $todoOwnerName;
     }
@@ -27,6 +29,7 @@ class PendingContribute implements JsonSerializable
         return array(
             "accepted" => $this->accepted,
             "joinDate" => $this->joinDate,
+            "todoId" => $this->todoId,
             "todoTitle" => $this->todoTitle,
             "todoOwnerName" => $this->todoOwnerName
         );
@@ -40,6 +43,11 @@ class PendingContribute implements JsonSerializable
     public function getJoinDate()
     {
         return $this->joinDate;
+    }
+
+    public function getTodoId()
+    {
+        return $this->todoId;
     }
 
     public function getTodoTitle()

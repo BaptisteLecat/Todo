@@ -11,15 +11,15 @@ try {
     $success = null;
     $list_pendingContribute = null;
 
-    if (isset($_POST["token"]) && !is_null($_POST["token"])) {
-        $token = $_POST["token"];
-        $list_pendingContribute = ModuleSocial::submitToken($token);
+    if (isset($_POST["idTodo"]) && !is_null($_POST["idTodo"])) {
+        $idTodo = $_POST["idTodo"];
+        $list_pendingContribute = ModuleSocial::cancelContributeRequest($idTodo);
     } else {
-        throw new Exception("Cette syntaxe semble incorrecte.");
+        throw new Exception("Cette todo n'existe pas.");
     }
 
 
-    $success = new SuccessManager("Votre demande est désormais en attente.", "success");
+    $success = new SuccessManager("Votre demande à été annulé.", "success");
     $success = $success->__toString();
 } catch (PDOException $e) {
     $messageBox = $e->__toString();

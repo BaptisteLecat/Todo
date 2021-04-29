@@ -9,6 +9,8 @@ if (session_status() === PHP_SESSION_NONE) {
 use Exception;
 
 use App\Loader;
+use App\Model\PendingContributeManager;
+use App\Model\TodoManager;
 use PDOException;
 use App\Model\TodoTokenManager;
 
@@ -38,46 +40,25 @@ class ModuleSocial
         Loader::loadContribute(self::$user, self::$appObject->getList_TodoIcon(), self::$appObject->getList_Permission(), self::$appObject->getList_Priority());
     }
 
-    public static function submitToken($token)
+    public static function submitToken(string $token)
     {
         self::loading();
         TodoTokenManager::submitToken($token, self::$user);
+
+        return self::loadPendingContribute();
     }
 
-    private static function getTodoObject(int $idTodo)
+    public static function cancelContributeRequest(int $idTodo)
     {
-        $todoObject = null;
-        $isFinded = false;
-        foreach (self::$user->getList_Todo() as $todo) {
-            if ($todo->getId() == $idTodo) {
-                $todoObject = $todo;
-                $isFinded = true;
-                break;
-            }
-        }
+        self::loading();
 
-        if (!$isFinded) {
-            foreach (self::$user->getList_TodoContribute() as $todo) {
-                if ($todo->getId() == $idTodo) {
-                    $todoObject = $todo;
-                    break;
-                }
-            }
-        }
-        return $todoObject;
+        PendingContributeManager::cancelPendingContribute(self::$user, $idTodo);
+
+        return self::loadPendingContribute();
     }
 
-    private static function getPermissionObject(int $idPermission)
+    private static function loadPendingContribute()
     {
-        $permissionObject = null;
-
-        foreach (self::$appObject->getList_Permission() as $permission) {
-            if ($permission->getId() == $idPermission) {
-                $permissionObject = $permission;
-                break;
-            }
-        }
-
-        return $permissionObject;
+        return PendingContributeManager::loadPendingContribute(self::$user);
     }
 }

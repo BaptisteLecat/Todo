@@ -1,4 +1,4 @@
-function submitToken(token) {
+function cancelContributeRequest(idTodo) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -26,10 +26,10 @@ function submitToken(token) {
 
     xhr.open(
         "POST",
-        "module/social/tokenVerif/tokenVerif.php",
+        "module/social/cancelContributeRequest/cancelContributeRequest.php",
         true
     );
     xhr.responseType = "json";
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("token=" + encodeURI(token)); //day référence a la variable day du script switcherDay.js
+    xhr.send("idTodo=" + encodeURI(idTodo)); //day référence a la variable day du script switcherDay.js
 }
