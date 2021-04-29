@@ -12,7 +12,7 @@
       <?php } else { ?>
         <img id="icon_1" src="assets/icons/navbar/calendar.png">
       <?php } ?>
-      <h5 id="namePage_1">Board</h5>
+      <h5 id="namePage_1"><?= ucfirst($view); ?></h5>
     </div>
     <div class="nav_button" onclick="ChangePage('<?= $this->menuManager('home') ?>')">
       <?php if ($view == "home") { ?>
@@ -20,7 +20,7 @@
       <?php } else { ?>
         <img id="icon_2" src="assets/icons/navbar/house.png">
       <?php } ?>
-      <h5 id="namePage_2">Accueil</h5>
+      <h5 id="namePage_2"><?= ucfirst($view); ?></h5>
     </div>
     <div class="nav_button" onclick="ChangePage('<?= $this->menuManager('social') ?>')">
       <?php if ($view == "stats") { ?>
@@ -28,7 +28,7 @@
       <?php } else { ?>
         <img id="icon_3" src="assets/icons/navbar/social.png">
       <?php } ?>
-      <h5 id="namePage_3">Stats</h5>
+      <h5 id="namePage_3"><?= ucfirst($view); ?></h5>
     </div>
   </div>
   <div id="circle_back"></div>
