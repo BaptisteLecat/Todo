@@ -118,4 +118,18 @@ class Form
 
         return $priorityObject;
     }
+
+    protected function getIconObject(int $idIcon)
+    {
+        $iconObject = null;
+
+        foreach ($this->app->getList_TodoIcon() as $icon) {
+            if ($icon->getId() == $idIcon) {
+                $iconObject = $icon;
+                break;
+            }
+        }
+
+        return $iconObject;
+    }
 }
