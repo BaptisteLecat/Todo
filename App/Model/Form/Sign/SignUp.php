@@ -2,15 +2,11 @@
 
 namespace App\Model\Form\Sign;
 
-use App\Model\Exceptions\InputSignException;
-use Exception;
-use PDOException;
-use App\Model\UserManager;
-use App\Model\SignInManager;
 use App\Model\Exceptions\SignException;
+use App\Model\Form\Form;
 use App\Model\SignUpManager;
 
-class SignUp extends Sign
+class SignUp extends Form
 {
     private $name;
     private $firstName;

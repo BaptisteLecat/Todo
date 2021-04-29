@@ -1,19 +1,26 @@
 <?php
 
-namespace App\Model\Form\Sign;
+namespace App\Model\Form;
 
+use App\App;
 use Exception;
+use App\Model\Entity\User;
 use App\Model\Exceptions\InputException;
 use App\Model\XMLSettings\XMLInputSettings;
 use App\Model\Exceptions\InputSignException;
 
-class Sign
+class Form
 {
     protected $inputSettings;
 
-    public function __construct()
+    protected $user;
+    protected $app;
+
+    public function __construct(User $user, App $app)
     {
-        $this->inputSettings = new XMLInputSettings("../App/Settings/input.xml", null, true);
+        $this->inputSettings = new XMLInputSettings($_SERVER['DOCUMENT_ROOT'] . "/../App/Settings/input.xml", null, true);
+        $this->user = $user;
+        $this->app = $app;
     }
 
     public function __sleep()
@@ -73,5 +80,42 @@ class Sign
                 throw new Exception("Champs inconnu.");
                 break;
         }
+    }
+
+    protected function getTodoObject(int $idTodo)
+    {
+        $todoObject = null;
+        $isFinded = false;
+        foreach ($this->user->getList_Todo() as $todo) {
+            if ($todo->getId() == $idTodo) {
+                $todoObject = $todo;
+                $isFinded = true;
+                break;
+            }
+        }
+
+        if (!$isFinded) {
+            foreach ($this->user->getList_TodoContribute() as $todo) {
+                if ($todo->getId() == $idTodo) {
+                    $todoObject = $todo;
+                    break;
+                }
+            }
+        }
+        return $todoObject;
+    }
+
+    protected function getPriorityObject(int $idPriority)
+    {
+        $priorityObject = null;
+
+        foreach ($this->app->getList_Priority() as $priority) {
+            if ($priority->getId() == $idPriority) {
+                $priorityObject = $priority;
+                break;
+            }
+        }
+
+        return $priorityObject;
     }
 }
