@@ -80,6 +80,17 @@ textarea {
     padding: 5px 5px;
 }
 
+.icon_wrapper {
+    height: auto;
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon_wrapper img {
+    height: 25px;
+}
+
 input:focus {
     border: 2px solid #3554DB;
 }
@@ -114,6 +125,14 @@ button[type="submit"] {
     font-size: 18px;
     font-weight: bold;
     margin: 60px 0px 30px 0px;
+    box-shadow: 0px 3px 0px 0px #3554db87;
+}
+
+button[type="submit"]:active {
+    transition: cubic-bezier(0.65, 0.05, 0.36, 1);
+    transition-duration: 0.1s;
+    transform: translateY(3px);
+    box-shadow: 0px 0px 0px 0px #3554db87;
 }
 
 input[type="button"] {

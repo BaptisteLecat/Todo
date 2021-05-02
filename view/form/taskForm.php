@@ -43,7 +43,9 @@
         </div>
         <div class="input_container">
             <button type="submit">Rajouter du boulot</button>
-            <input type="button" value="Créer une Todo"></input>
+            <a href="form/createtodo">
+                <input type="button" value="Créer une Todo"></input>
+            </a>
         </div>
     </form>
 </main>
