@@ -1,0 +1,126 @@
+header {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header_top {
+    display: flex;
+    width: 20%;
+    height: 100%;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+header img {
+    height: 30px;
+}
+
+.header_bottom {
+    padding-left: 20px;
+}
+
+header h1 {
+    color: #fff;
+    font-family: "Comfortaa", sans-serif;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 20px;
+    align-items: center;
+}
+
+form .input_container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    color: #fff;
+    font-family: "Comfortaa", sans-serif;
+    font-size: 16px;
+    font-weight: bolder;
+    margin-bottom: 5px;
+}
+
+input,
+select,
+textarea {
+    color: #fff;
+    border-radius: 6px;
+    border: 1.8px solid #233846;
+    background-color: #0D1D27;
+    font-family: "Comfortaa", sans-serif;
+    font-size: 15px;
+    height: 35px;
+    width: 300px;
+    padding: 0px 5px;
+    outline: none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background-image: url("../../../icons/calendar.png");
+    width: 20px;
+    height: 20px;
+    border-width: thin;
+}
+
+textarea {
+    resize: none;
+    height: 65px;
+    padding: 5px 5px;
+}
+
+input:focus {
+    border: 2px solid #3554DB;
+}
+
+select:focus {
+    border: 2px solid #3554DB;
+}
+
+textarea:focus {
+    border: 2px solid #3554DB;
+}
+
+textarea::placeholder {
+    color: #616B72;
+    opacity: 0.4;
+}
+
+input::placeholder {
+    color: #616B72;
+    opacity: 0.4;
+}
+
+button[type="submit"] {
+    color: #fff;
+    font-family: "Comfortaa", sans-serif;
+    width: 200px;
+    height: 40px;
+    border-radius: 5px;
+    background: rgb(53, 84, 219);
+    background: linear-gradient(45deg, rgba(53, 84, 219, 1) 50%, rgba(92, 122, 255, 1) 100%);
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 60px 0px 30px 0px;
+}
+
+input[type="button"] {
+    width: 200px;
+    height: 40px;
+    border: none;
+    font-size: 18px;
+    background-color: #0D1D27;
+    font-weight: lighter;
+}
