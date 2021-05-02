@@ -325,27 +325,17 @@ class Controller
 
     public function displayForm_TaskTodo($action = null)
     {
-        $list_todoIcons = $this->app->getList_TodoIcon();
-        $messageBox = null;
-
         switch ($action) {
-            case 'createtask':
-                $this->title = "Ajout Tâche";
-                $this->css_link = array("app", "form/formTask/formTask");
-
-                require('controllers/form/taskForm.php');
-                break;
-
             case 'createtodo':
                 $this->title = "Ajout Todo";
-                $this->css_link = array("app", "form/formTodo/formTodo");
+                $this->css_link = array("app", "form/formTodoTask");
 
                 require('controllers/form/todoForm.php');
                 break;
 
             default:
                 $this->title = "Ajout Tâche";
-                $this->css_link = array("app", "form/formTask/formTask");
+                $this->css_link = array("app", "form/formTodoTask");
 
                 require('controllers/form/taskForm.php');
                 break;
