@@ -2,9 +2,9 @@
 
 namespace App\Model\Form\Sign;
 
-use App\Model\Exceptions\SignException;
 use App\Model\Form\Form;
 use App\Model\SignUpManager;
+use App\Model\Exceptions\SignException;
 
 class SignUp extends Form
 {
@@ -20,8 +20,6 @@ class SignUp extends Form
         $this->firstName = $firstName;
         $this->email = null;
         $this->password = null;
-
-        $this->step = 1;
     }
 
     public function __sleep()
