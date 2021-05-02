@@ -45,4 +45,43 @@ class XMLInputSettings extends SimpleXMLElement
 
         return $inputTextConfig;
     }
+
+    public function getTitleTaskConfig()
+    {
+        $titleTaskConfig = array();
+        $titleTaskXML = $this->xpath('//titleTask');
+        if (!is_null($titleTaskXML)) {
+            foreach ($titleTaskXML[0]->children() as $config) {
+                $titleTaskConfig[$config->getName()] = $config;
+            }
+        }
+
+        return $titleTaskConfig;
+    }
+
+    public function getContentTaskConfig()
+    {
+        $contentTaskConfig = array();
+        $contentTaskXML = $this->xpath('//contentTask');
+        if (!is_null($contentTaskXML)) {
+            foreach ($contentTaskXML[0]->children() as $config) {
+                $contentTaskConfig[$config->getName()] = $config;
+            }
+        }
+
+        return $contentTaskConfig;
+    }
+
+    public function getEndDateTaskConfig()
+    {
+        $endDateTaskConfig = array();
+        $endDateTaskXML = $this->xpath('//endDateTask');
+        if (!is_null($endDateTaskXML)) {
+            foreach ($endDateTaskXML[0]->children() as $config) {
+                $endDateTaskConfig[$config->getName()] = $config;
+            }
+        }
+
+        return $endDateTaskConfig;
+    }
 }

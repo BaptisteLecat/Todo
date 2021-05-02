@@ -9,6 +9,18 @@
             <regex>/[a-zA-Z0-9_\-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/</regex>
         </email>
 
+        <titleTask>
+            <maxLength>25</maxLength>
+        </titleTask>
+
+        <contentTask>
+            <maxLength>145</maxLength>
+        </contentTask>
+
+        <endDateTask>
+            <dateFormat>Y-m-d</dateFormat>
+        </endDateTask>
+
         <inputText>
             <regex></regex>
         </inputText>
