@@ -129,6 +129,17 @@ class Controller
         return $url;
     }
 
+    private function goPrevious()
+    {
+        $url = "";
+        if(isset($_SERVER['HTTP_REFERER'])){
+            $url = $_SERVER['HTTP_REFERER'];
+        }else{
+            $url = $this->goBack();
+        }
+        return $url;
+    }
+
     private function goTo($url)
     {
         $completeUrl = "";
@@ -315,33 +326,31 @@ class Controller
     public function displayForm_TaskTodo($action = null)
     {
         $list_todoIcons = $this->app->getList_TodoIcon();
-
-        require 'module/taskDisplayer/function/dayDisplayer.php';
         $messageBox = null;
 
         switch ($action) {
             case 'createtask':
                 $this->title = "Ajout Tâche";
-                $this->css_link = array("app", "form/formTodoTask/form", "messageBox/information");
+                $this->css_link = array("app", "form/formTask/formTask");
 
                 require('controllers/form/taskForm.php');
                 break;
 
             case 'createtodo':
                 $this->title = "Ajout Todo";
-                $this->css_link = array("app", "form/formTodoTask/form", "form/formTodoTask/todoIcon", "messageBox/information");
+                $this->css_link = array("app", "form/formTodo/formTodo");
 
                 require('controllers/form/todoForm.php');
                 break;
 
             default:
                 $this->title = "Ajout Tâche";
-                $this->css_link = array("app", "form/formTodoTask/form", "messageBox/information");
+                $this->css_link = array("app", "form/formTask/formTask");
 
                 require('controllers/form/taskForm.php');
                 break;
         }
 
-        $this->menu("todo");
+        $this->menu("board");
     }
 }
