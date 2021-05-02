@@ -24,9 +24,14 @@
           <div class="input_container">
               <label>Icone</label>
               <div class="icon_wrapper">
-                  <?php foreach ($this->app->getList_TodoIcon() as $key => $icon) { ?>
-                      <img name="<?= $key ?>" id="<?= $icon->getId() ?>" src="assets/icons/todo_icon/<?= $icon->getLabel() ?>.png" alt="<?= $icon->getLabel() ?>" onclick="selectIcon(this)">
+                  <?php foreach ($this->app->getList_TodoIcon() as $key => $icon) {
+                        if ($key == 0) { ?>
+                          <img class="selected" name="<?= $key ?>" id="<?= $icon->getId() ?>" src="assets/icons/todo_icon/selected_<?= $icon->getLabel() ?>.png" alt="<?= $icon->getLabel() ?>">
+                      <?php } else { ?>
+                          <img name="<?= $key ?>" id="<?= $icon->getId() ?>" src="assets/icons/todo_icon/<?= $icon->getLabel() ?>.png" alt="<?= $icon->getLabel() ?>">
+                      <?php } ?>
                   <?php } ?>
+                  <input type="hidden" name="icon_id" value="1">
               </div>
           </div>
           <div class="input_container">
@@ -39,6 +44,6 @@
   </main>
 
   <script src="module/form/messageBox/messageBoxDisplayer.js"></script>
-  <script src="module/form/todoform/todoCreateDisplayer.js"></script>
+  <script src="js/form/formTodoTask.js"></script>
 
   <?php $this->content = ob_get_clean(); ?>
