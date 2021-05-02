@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Model\Form\CreateForm;
+
 use App\App;
 use App\Model\Form\Form;
 use App\Model\Entity\User;
@@ -8,7 +10,7 @@ use App\Model\Exceptions\PermissionException;
 use App\Model\TaskManager;
 use App\Model\TodoManager;
 
-class FormTask extends Form
+class FormTodo extends Form
 {
     private $title;
     private $description;
