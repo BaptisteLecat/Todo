@@ -257,6 +257,8 @@ hr {
     font-family: "Comfortaa", sans-serif;
     font-weight: normal;
     font-size: 18px;
+    overflow: hidden;
+    overflow-wrap: break-word;
     margin-bottom: 2px;
 }
 
@@ -264,7 +266,10 @@ hr {
     color: #c9c9c9;
     font-family: "Comfortaa", sans-serif;
     font-weight: normal;
+    overflow-wrap: break-word;
+    width: 100%;
     font-size: 12px;
+    overflow: hidden;
 }
 
 .task_footer {
