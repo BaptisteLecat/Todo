@@ -108,7 +108,11 @@ class TaskManager
         try {
             $request = PdoFactory::getPdo()->prepare("call createTask (:p_idUser, :p_idTodo, :p_titleTask, :p_contentTask, :p_enddateTask, :p_idPriority)");
             $request->execute(array(':p_idUser' => $userObject->getId(), ':p_idTodo' => $todoObject->getId(), ':p_titleTask' => $title, ':p_contentTask' => $content, ':p_enddateTask' => $enddate, ':p_idPriority' => $priorityObject->getId()));
-            self::loadTaskFromId(PdoFactory::getPdo()->lastInsertId(), $priorityObject, $todoObject, $userObject);
+            if($request->rowCount() > 0){
+                $result = $request->fetch();
+                $request->closeCursor();
+                self::loadTaskFromId($result["_id_task"], $priorityObject, $todoObject, $userObject);
+            }
         } catch (PDOException $e) {
             echo ($e->getMessage());
         } catch (Exception $e) {

@@ -3,6 +3,7 @@
 namespace App\Model\Form;
 
 use App\App;
+use DateTime;
 use Exception;
 use App\Model\Entity\User;
 use App\Model\Exceptions\InputException;
@@ -16,7 +17,7 @@ class Form
     protected $user;
     protected $app;
 
-    public function __construct(User $user, App $app)
+    public function __construct(User $user = null, App $app = null)
     {
         $this->inputSettings = new XMLInputSettings($_SERVER['DOCUMENT_ROOT'] . "/../App/Settings/input.xml", null, true);
         $this->user = $user;
@@ -74,6 +75,47 @@ class Form
 
             case 'firstName':
 
+                break;
+
+            case 'title_task':
+                $titleTaskSettings = $this->inputSettings->getTitleTaskConfig();
+                if (!empty($titleTaskSettings)) {
+                    if (strlen($value) > $titleTaskSettings["maxLength"]) {
+                        throw new InputException(4, "titre", $titleTaskSettings["maxLength"]);
+                    }
+                } else {
+                    throw new Exception("Chargement de la configuration impossible.");
+                }
+                break;
+
+            case 'content_task':
+                $contentTaskSettings = $this->inputSettings->getContentTaskConfig();
+                if (!empty($contentTaskSettings)) {
+                    if (strlen($value) > $contentTaskSettings["maxLength"]) {
+                        throw new InputException(4, "contenu", $contentTaskSettings["maxLength"]);
+                    }
+                } else {
+                    throw new Exception("Chargement de la configuration impossible.");
+                }
+                break;
+
+            case 'endDate_task':
+                //Conformité de la date : format, postériorité
+                $endDateTaskSettings = $this->inputSettings->getEndDateTaskConfig();
+                if (!empty($endDateTaskSettings)) {
+                    //Verification du format de la date.
+                    $date = DateTime::createFromFormat($endDateTaskSettings["dateFormat"], $value);
+                    if ($date) {
+                        //Vérification de la postériorité de la date.
+                        if($date < date("Y-m-d")){
+                            throw new InputException(6);
+                        }
+                    }else{    
+                        throw new InputException(5);
+                    }
+                } else {
+                    throw new Exception("Chargement de la configuration impossible.");
+                }
                 break;
 
             default:

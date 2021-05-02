@@ -25,6 +25,7 @@ BEGIN
             -- Ajout dans la table de log des updates.
             INSERT INTO task_create VALUES(last_insert_id(), _id_task, p_idUser);
             -- Message succes : Création réussie.
+            SELECT _id_task;
         ELSE
             -- Le user n'est pas propriétaire.
                     
@@ -50,6 +51,7 @@ BEGIN
                         INSERT INTO task_create VALUES(last_insert_id(), _id_task, p_idUser);
                         SET is_allowed = TRUE;
                         -- Message succes : Création réussie.
+                        SELECT _id_task;
                     END IF;
 
                 END LOOP;

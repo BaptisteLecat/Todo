@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Model\Form\CreateForm;
+
 use App\App;
 use App\Model\Form\Form;
 use App\Model\Entity\User;

@@ -31,6 +31,22 @@ class InputException extends Exception
                 $messageBox = new MessageBox("La saisie contient moins de $this->info caractères", "error", "error");
                 break;
 
+            case 3:
+                $messageBox = new MessageBox("La saisie de $this->inputName contient moins de $this->info caractères", "error", "error");
+                break;
+
+            case 4:
+                $messageBox = new MessageBox("La saisie de $this->inputName contient plus de $this->info caractères", "error", "error");
+                break;
+
+            case 5:
+                $messageBox = new MessageBox("Le format de la date est incorrect.", "error", "error");
+                break;
+
+            case 6:
+                $messageBox = new MessageBox("Cette date est antérieure à la date actuelle.", "error", "error");
+                break;
+
             default:
                 $messageBox = new MessageBox("Erreur de saisie.", "error", "error");
                 break;
