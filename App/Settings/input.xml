@@ -21,6 +21,14 @@
             <dateFormat>Y-m-d</dateFormat>
         </endDateTask>
 
+        <titleTodo>
+            <maxLength>10</maxLength>
+        </titleTodo>
+
+        <descriptionTodo>
+            <maxLength>200</maxLength>
+        </descriptionTodo>
+
         <inputText>
             <regex></regex>
         </inputText>

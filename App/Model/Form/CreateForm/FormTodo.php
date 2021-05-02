@@ -31,10 +31,15 @@ class FormTodo extends Form
         //Verification de la syntaxe des champs.
         if ($this->verifInput($list_input)) {
             //Verification de l'existance des id passé en paramètres. Récupération des objects associés.
-            $iconObject = $this->getIconObject($this->idPriority);
+            $iconObject = $this->getIconObject($this->idIcon);
             if (!is_null($iconObject)) {
-                //Insertion des informations.
-                TodoManager::insertTodo($this->title, $this->description, $this->user, $iconObject);
+                if(TodoManager::countTodo($this->user) < 6){
+                    //Insertion des informations.
+                    TodoManager::insertTodo($this->title, $this->description, $this->user, $iconObject);
+                }else{
+                    throw new FormException(3);
+                    
+                }
             } else {
                 throw new FormException(2);
             }

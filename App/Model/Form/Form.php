@@ -118,6 +118,28 @@ class Form
                 }
                 break;
 
+            case 'title_todo':
+                $titleTodoSettings = $this->inputSettings->getTitleTodoConfig();
+                if (!empty($titleTodoSettings)) {
+                    if (strlen($value) > $titleTodoSettings["maxLength"]) {
+                        throw new InputException(4, "titre", $titleTodoSettings["maxLength"]);
+                    }
+                } else {
+                    throw new Exception("Chargement de la configuration impossible.");
+                }
+                break;
+
+            case 'description_todo':
+                $descriptionTodoSettings = $this->inputSettings->getDescriptionTodoConfig();
+                if (!empty($descriptionTodoSettings)) {
+                    if (strlen($value) > $descriptionTodoSettings["maxLength"]) {
+                        throw new InputException(4, "description", $descriptionTodoSettings["maxLength"]);
+                    }
+                } else {
+                    throw new Exception("Chargement de la configuration impossible.");
+                }
+                break;
+
             default:
                 throw new Exception("Champs inconnu.");
                 break;

@@ -148,4 +148,25 @@ class TodoManager
             throw new Exception($e);
         }
     }
+
+    /**
+     * countTodo
+     * Count number of todo for a user.
+     *
+     * @param  Todo $todoObject
+     * @return void
+     */
+    public static function countTodo(User $userObject)
+    {
+        $nbTodo = 0;
+        try {
+            $request = PdoFactory::getPdo()->prepare("SELECT id_todo FROM todo WHERE id_user = :id_user");
+            $request->execute(array(':id_user' => $userObject->getId()));
+            $nbTodo = $request->rowCount();
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+
+        return $nbTodo;
+    }
 }
