@@ -20,12 +20,12 @@
             <form method="post">
                 <div class="input_container">
                     <?php if ($etape == 1) { ?>
-                        <input type="text" class="inputText" name="name" placeholder="Nom" value="">
-                        <input type="text" class="inputText" name="firstname" placeholder="Prénom" value="">
+                        <input type="text" class="inputText" name="name" placeholder="Nom" required>
+                        <input type="text" class="inputText" name="firstname" placeholder="Prénom" required>
                     <?php } else { ?>
                         <input type="hidden" name="etape" value="2">
-                        <input type="text" class="inputText" name="email" placeholder="Email" value="">
-                        <input type="password" class="inputText" name="password" placeholder="Mot de Passe" value="">
+                        <input type="text" class="inputText" name="email" placeholder="Email" required>
+                        <input type="password" class="inputText" name="password" placeholder="Mot de Passe" required>
                     <?php } ?>
                     <input type="submit" class="sender" name="sender" value="">
                 </div>

@@ -20,8 +20,8 @@
     <div class="container">
       <form method="post">
         <div class="input_container">
-          <input type="text" class="inputText" name="email" placeholder="Email">
-          <input type="password" class="inputText" name="password" placeholder="Mot de Passe">
+          <input type="text" class="inputText" name="email" placeholder="Email" required>
+          <input type="password" class="inputText" name="password" placeholder="Mot de Passe" required>
           <input type="submit" class="sender" name="sender" value="">
         </div>
       </form>
