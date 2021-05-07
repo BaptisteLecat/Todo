@@ -50,7 +50,7 @@ class SignUp extends Form
 
         if ($this->verifInput($list_input)) {
             if(SignUpManager::emailIsValid($email)){
-                SignUpManager::createAccount($this->name, $this->firstName, $email, $password);
+                SignUpManager::createAccount($this->name, $this->firstName, $email, $this->hashPassword($password));
                 $success = true;
             }else{
                 throw new SignException(1);

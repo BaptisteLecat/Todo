@@ -24,7 +24,7 @@ class SignIn extends Form
         $list_input = array("email" => $this->email);
 
         if ($this->verifInput($list_input)) {
-            $idUser = SignInManager::verifLogin($this->email, $this->password);
+            $idUser = SignInManager::verifLogin($this->email, $this->hashPassword($this->password)); //HASH[5] == sha256
             if($idUser != null){
                 $userObject = SignInManager::loadUser($idUser);
             }else{

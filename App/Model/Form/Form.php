@@ -29,6 +29,10 @@ class Form
         return array();
     }
 
+    protected function hashPassword(string $password){
+        return hash(hash_algos()[5], $password);
+    }
+
     protected function verifInput($list_input)
     {
         $success = false;
