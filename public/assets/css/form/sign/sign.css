@@ -100,7 +100,7 @@ form {
 
 form .sender {
     outline: none;
-    box-shadow: -2px -2px 0px 1px #506ce6;
+    box-shadow: -1px 0px 0px 2px #506ce6;
     border: none;
     background-color: #5C7AFF;
     border-radius: 2px;
