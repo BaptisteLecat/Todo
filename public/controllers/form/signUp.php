@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     if (isset($_SESSION["SignUp"])) {
                         $etape = 2;
                         $signUp = unserialize($_SESSION["SignUp"]);
-                        $etape = $signUp->signUp($filtered_input['email'], $filtered_input['password']);
+                        $etape = $signUp->signUp(trim($filtered_input['email']), $filtered_input['password']);
                         header('refresh:2.3;url=login');
 
                         $successMessage = new SuccessManager("Succès de l'authentification ! ", "success");

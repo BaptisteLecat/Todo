@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $filtered_input = filter_input_array(INPUT_POST, INPUT_ARGS);
     if (!is_null($filtered_input) && $filtered_input == true) {
         try {
-            $signIn = new SignIn($filtered_input["email"], $filtered_input["password"]);
+            $signIn = new SignIn(trim($filtered_input["email"]), $filtered_input["password"]);
             $_SESSION["User"] = serialize($signIn->signIn());
             header('refresh:2.3;url=home');
 
