@@ -27,6 +27,7 @@ class SignIn extends Form
             $idUser = SignInManager::verifLogin($this->email, $this->hashPassword($this->password)); //HASH[5] == sha256
             if($idUser != null){
                 $userObject = SignInManager::loadUser($idUser);
+                //Create cookies
             }else{
                 throw new SignException(null);
             }

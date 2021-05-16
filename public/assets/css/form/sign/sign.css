@@ -112,7 +112,7 @@ form .sender {
     background-position: center;
     position: absolute;
     right: 20px;
-    top: 50%;
+    top: 40%;
     transform: translate(+50%, -50%);
 }
 
@@ -137,6 +137,12 @@ form .sender {
 
 .formFooter_link {
     width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: #5876f8;
+    font-weight: bold;
 }
 
 

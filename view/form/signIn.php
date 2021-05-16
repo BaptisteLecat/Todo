@@ -23,12 +23,14 @@
           <input type="text" class="inputText" name="email" placeholder="Email" required>
           <input type="password" class="inputText" name="password" placeholder="Mot de Passe" required>
           <input type="submit" class="sender" name="sender" value="">
+          <div class="rememberMe">
+            <input type="checkbox" name="remember" id="remember"><label for="remember">Rester connecté</label>
+          </div>
         </div>
       </form>
       <div class="form_footer">
         <div class="formFooter_link">
           <h6><a href="losePassword.php">Mot de passe oublié?</a></h6>
-          <h6>Vous n'avez pas encore de compte?</h6>
           <div>
           </div>
         </div>
