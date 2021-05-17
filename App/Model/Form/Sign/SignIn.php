@@ -10,12 +10,14 @@ class SignIn extends Form
 {
     private $email;
     private $password;
+    private $remember;
 
-    public function __construct(string $email, string $password)
+    public function __construct(string $email, string $password, bool $remember = null)
     {
         parent::__construct();
         $this->email = $email;
         $this->password = $password;
+        $this->remember = (!is_null($remember)) ? true : false;
     }
 
     public function signIn()
@@ -27,12 +29,20 @@ class SignIn extends Form
             $idUser = SignInManager::verifLogin($this->email, $this->hashPassword($this->password)); //HASH[5] == sha256
             if($idUser != null){
                 $userObject = SignInManager::loadUser($idUser);
-                //Create cookies
+                //Cookies
+                $this->rememberMe($idUser);
             }else{
                 throw new SignException(null);
             }
         }
 
         return $userObject;
+    }
+
+    private function rememberMe(int $idUser){
+        if($this->remember){
+            $cookie = new Cookies($idUser);
+            $cookie->generateLoginCookie();
+        }
     }
 }
