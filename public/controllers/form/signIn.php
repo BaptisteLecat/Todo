@@ -1,5 +1,6 @@
 <?php
 
+use App\Model\Entity\User;
 use App\Model\Form\Sign\SignIn;
 use App\Model\Utils\VisitorCounter;
 use App\Model\Exceptions\SuccessManager;
@@ -39,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
         $cookie = new Cookies();
         $userObject = $cookie->verifLoginCookie();
-        $reflectionObject = new ReflectionClass($userObject);
+        $reflectionObject = new ReflectionClass(new User(1, "", "", "", ""));
         if (!is_null($userObject) && is_a($userObject, $reflectionObject->getName(), true)) {
             $_SESSION["User"] = serialize($userObject);
             header('refresh:2.3;url=home');

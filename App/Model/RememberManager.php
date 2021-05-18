@@ -50,4 +50,16 @@ class RememberManager
             throw new Exception($e);
         }
     }
+
+    public static function deleteRemember(string $identifier, string $token)
+    {
+        try {
+            $request = PdoFactory::getPdo()->prepare("DELETE FROM remember_user WHERE identifier = :identifier or token = :token");
+            $request->execute(array(':identifier' => $identifier, ':token' => $token));
+        } catch (PDOException $e) {
+            throw new DatabaseException($e->getCode());
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+    }
 }
