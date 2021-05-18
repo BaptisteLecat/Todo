@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <div class="menu-item_container" onclick="document.location.href ='<?= $this->goTo('archives') ?>'">
+            <div class="menu-item_container">
                 <div class="item-icon_container">
                     <div class="icon_box">
                         <img src="..\..\assets\icons\settings\archive.png" alt="">
