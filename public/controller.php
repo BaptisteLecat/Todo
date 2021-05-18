@@ -89,7 +89,7 @@ class Controller
         <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&display=swap" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         
-            <base href="http://todo/"/>
+            <base href="http://todo"/>
             <link rel="stylesheet" href="assets/css/menu.css">
             <link rel="stylesheet" href="assets/css/messageBox/template.css">';
         $head .= $this->loadcss_link();
@@ -306,9 +306,9 @@ class Controller
                     }
                     break;
 
-                case 'archives':
+                /*case 'archives':
                     # code...
-                    break;
+                    break;*/
 
                 default:
                     //Page accueil settings
