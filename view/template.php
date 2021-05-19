@@ -3,16 +3,13 @@
 <?= $controller->head(); ?>
 
 <body>
-
-    <?php
-    if ($controller->getMessageBox() != null) {
-        echo($controller->getMessageBox());
-        echo("<script>showMessageBox()</script>");
-    } ?>
-
-
     <?= $controller->getContent(); ?>
 </body>
 
+<?php
+if ($controller->getMessageBox() != null) {
+    echo ($controller->getMessageBox());
+    echo ("<script>showMessageBox()</script>");
+} ?>
 
 </html>
