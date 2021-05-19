@@ -6,7 +6,7 @@
           </div>
 
           <div class="header_bottom">
-              <h1>Ajout d'une tâche</h1>
+              <h1>Ajout d'une todo</h1>
           </div>
       </header>
       <form method="POST">
