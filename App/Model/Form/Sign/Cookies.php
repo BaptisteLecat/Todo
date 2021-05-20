@@ -57,7 +57,7 @@ class Cookies
             }else{
                 //Suppression du cookie. Et des infos potentiellement correspondante au token et à l'identifier dans la base.
                 setcookie($this->cookieName, '', time() -3600, "", "", false, true);
-                RememberManager::deleteRemember($this->identifier, $this->token);
+                RememberManager::deleteRemember(hash(hash_algos()[5], $this->identifier), hash(hash_algos()[5], $this->token));
                 throw new CookieException(2);
             }
         }
