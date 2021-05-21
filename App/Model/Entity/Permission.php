@@ -10,7 +10,7 @@ class Permission implements JsonSerializable
     private $content;
 
     private $list_todoToken;
-    private $list_contribute;
+    private $listTodoContribute;
 
     public function __construct(int $id, string $label, string $content)
     {
@@ -19,7 +19,7 @@ class Permission implements JsonSerializable
         $this->content = $content;
 
         $this->list_todoToken = array();
-        $this->list_contribute = array();
+        $this->listTodoContribute = array();
     }
 
     public function JsonSerialize()
@@ -51,9 +51,9 @@ class Permission implements JsonSerializable
         return $this->list_todoToken;
     }
 
-    public function getList_Contribute()
+    public function getList_TodoContribute()
     {
-        return $this->list_contribute;
+        return $this->listTodoContribute;
     }
 
     public function addTodoToken($todoTokenObject)
@@ -66,13 +66,13 @@ class Permission implements JsonSerializable
         unset($this->list_todoToken[array_search($todoTokenObject, $this->list_todoToken)]);
     }
 
-    public function addContribute($contributeObject)
+    public function addTodoContribute($todoContributeObject)
     {
-        array_push($this->list_contribute, $contributeObject);
+        array_push($this->listTodoContribute, $todoContributeObject);
     }
 
-    public function removeContribute($contributeObject)
+    public function removeTodoContribute($todoContributeObject)
     {
-        unset($this->list_contribute[array_search($contributeObject, $this->list_contribute)]);
+        unset($this->listTodoContribute[array_search($todoContributeObject, $this->listTodoContribute)]);
     }
 }

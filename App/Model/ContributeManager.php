@@ -38,11 +38,13 @@ class ContributeManager
         $todo = null;
 
         try {
-            $request = PdoFactory::getPdo()->prepare("SELECT title_todo, description_todo, createdate_todo, id_icon FROM todo WHERE id_todo = :id_todo");
+            $request = PdoFactory::getPdo()->prepare("SELECT title_todo, description_todo, createdate_todo, id_icon, id_user FROM todo WHERE id_todo = :id_todo");
             $request->execute(array(':id_todo' => $idTodo));
             while ($result = $request->fetch()) {
                 foreach ($list_TodoIcon as $todoIconObject) {
                     if ($todoIconObject->getId() == $result["id_icon"]) {
+                        //Chargement de l'object user du propriétaire.
+                        $userOwner = UserManager::loadUser($result["id_user"]);
                         $todo = new Todo($idTodo, $result["title_todo"], $result["description_todo"], $result["createdate_todo"], $userObject, $todoIconObject, false);
                         break;
                     }
