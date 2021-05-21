@@ -39,7 +39,11 @@ if (isset($_GET["error"])) {
                     break;
 
                 case 'account':
-                    $controller->displayAccount();
+                    if (isset($_GET["action"])) {
+                        $controller->displayAccount($_GET["action"]);
+                    } else {
+                        $controller->displayAccount();
+                    }
                     break;
 
                 case 'signIn':

@@ -7,6 +7,7 @@ switch ($action) {
         $cookie = new Cookies();
         $cookie->deleteCookie();
         session_destroy();
+        header("Location: signIn");
         break;
 }
 
