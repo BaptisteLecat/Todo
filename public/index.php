@@ -38,6 +38,10 @@ if (isset($_GET["error"])) {
                     }
                     break;
 
+                case 'account':
+                    $controller->displayAccount();
+                    break;
+
                 case 'signIn':
                     $controller->displayForm_LoginRegister("login");
                     break;

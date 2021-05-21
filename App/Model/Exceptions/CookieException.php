@@ -17,12 +17,16 @@ class CookieException extends Exception
     public function __toString()
     {
         switch ($this->code) {
-            case 1 :
+            case 1:
                 $messageBox = new MessageBox("Une erreur est survenue lors de la sauvegarde de vos données.", "error", "error");
                 break;
 
             case 2:
                 $messageBox = new MessageBox("Une connexion non sécurisée a été détectée. Veuillez vous reconnecter.", "error", "error");
+                break;
+
+            case 3:
+                $messageBox = new MessageBox("La suppression de votre cookie a échoué.", "error", "error");
                 break;
 
             default:

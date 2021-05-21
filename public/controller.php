@@ -179,6 +179,16 @@ class Controller
         $this->menu();
     }
 
+    public function displayAccount($action = null)
+    {
+        $this->title = "Compte";
+        $this->css_link = array("app", "account/account");
+
+        require 'controllers/account/account.php';
+
+        $this->menu();
+    }
+
     public function displayForm_LoginRegister($action)
     {
         switch ($action) {

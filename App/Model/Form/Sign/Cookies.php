@@ -21,13 +21,38 @@ class Cookies
         $this->cookieName = "todoLogin";
     }
 
+    public function deleteCookie()
+    {
+        if (isset($_COOKIE[$this->cookieName])) {
+            //On récupère les data du cookie.
+            $data = json_decode($_COOKIE[$this->cookieName], true);
+            $args = array(
+                'identifier' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+                'token' => FILTER_SANITIZE_FULL_SPECIAL_CHARS
+            );
+            $filtered_var = filter_var_array($data, $args);
+            $this->identifier = $filtered_var["identifier"];
+            $this->token = $filtered_var["token"];
+            //On authentifie le user grâce au cookie.
+            $this->idUser = RememberManager::verifRemember(hash(hash_algos()[5], $this->identifier), hash(hash_algos()[5], $this->token));
+            if (!is_null($this->idUser)) {
+                //Suppression du cookie. Et des infos potentiellement correspondante au token et à l'identifier dans la base.
+                setcookie($this->cookieName, '', time() - 3600, "", "", false, true);
+                RememberManager::deleteRemember(hash(hash_algos()[5], $this->identifier), hash(hash_algos()[5], $this->token));
+                throw new CookieException(2);
+            } else {
+                throw new CookieException(3);
+            }
+        }
+    }
+
     public function generateLoginCookie()
     {
         $this->identifier = bin2hex(openssl_random_pseudo_bytes(16));
         $this->token = bin2hex(openssl_random_pseudo_bytes(24));
         /*$this->identifier = hash(hash_algos()[5], time());
         $this->token = hash(hash_algos()[5], time());*/
-        
+
         if (!is_null($this->idUser)) {
             RememberManager::insertRemember(hash(hash_algos()[5], $this->identifier), hash(hash_algos()[5], $this->token), $this->idUser);
             $data = ["identifier" => $this->identifier, "token" => $this->token];
@@ -40,7 +65,7 @@ class Cookies
     public function verifLoginCookie()
     {
         $userObject = null;
-        if(isset($_COOKIE[$this->cookieName])){
+        if (isset($_COOKIE[$this->cookieName])) {
             //On récupère les data du cookie.
             $data = json_decode($_COOKIE[$this->cookieName], true);
             $args = array(
@@ -52,11 +77,11 @@ class Cookies
             $this->token = $filtered_var["token"];
             //On authentifie le user grâce au cookie.
             $this->idUser = RememberManager::verifRemember(hash(hash_algos()[5], $this->identifier), hash(hash_algos()[5], $this->token));
-            if(!is_null($this->idUser)){
+            if (!is_null($this->idUser)) {
                 $userObject = SignInManager::loadUser($this->idUser);
-            }else{
+            } else {
                 //Suppression du cookie. Et des infos potentiellement correspondante au token et à l'identifier dans la base.
-                setcookie($this->cookieName, '', time() -3600, "", "", false, true);
+                setcookie($this->cookieName, '', time() - 3600, "", "", false, true);
                 RememberManager::deleteRemember(hash(hash_algos()[5], $this->identifier), hash(hash_algos()[5], $this->token));
                 throw new CookieException(2);
             }

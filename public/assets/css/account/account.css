@@ -1,0 +1,29 @@
+header {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header_top {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 0px 10px;
+    padding-top: 10px;
+}
+
+header img {
+    height: 30px;
+}
+
+.header_bottom {
+    padding-left: 20px;
+}
+
+header h1 {
+    color: #fff;
+    font-family: "Comfortaa", sans-serif;
+    font-size: 20px;
+    font-weight: lighter;
+}
