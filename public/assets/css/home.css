@@ -1,60 +1,88 @@
-header{
-  height: 30px;
-  width: 100%;
-  display: flex;
-  background-color: #384EB2;
-  padding: 0px 4%;
+header {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    padding: 0px 15px;
 }
 
-.headerTodo_switcher_1, .headerTodo_switcher_2{
-  height: 90%;
-  width: 25%;
-  display: flex;
-  margin: auto;
+header .account {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
 }
 
-.headerTodo_switcher_1 h6, .headerTodo_switcher_2 h6{
-  color: #fff;
-  margin: auto;
-  font-family: 'Comfortaa', sans-serif;
-  font-weight: normal;
-  font-size: 14px;
+header .account img {
+    height: 20px;
+    margin-bottom: 2px;
 }
 
-.headerTodo_switcher_1 img{
-  margin-right: auto;
-  height: 100%;
+header .account h5 {
+    color: #fff;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 14px;
+    font-weight: lighter;
+    margin-left: 5px;
 }
 
-.headerTodo_switcher_2 img{
-  margin-left: auto;
-  height: 100%;
+header h1 {
+    color: #fff;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 20px;
+    font-weight: lighter;
+    margin-top: 20px;
 }
 
-.headerTodo_title{
-  height: 100%;
-  width: 50%;
-  display: flex;
+.headerTodo_switcher_1,
+.headerTodo_switcher_2 {
+    height: 90%;
+    width: 25%;
+    display: flex;
+    margin: auto;
 }
 
-.headerTodo_title h1{
-  color: #fff;
-  margin: auto;
-  font-family: 'Comfortaa', sans-serif;
-  font-weight: normal;
-  font-size: 18px;
+.headerTodo_switcher_1 h6,
+.headerTodo_switcher_2 h6 {
+    color: #fff;
+    margin: auto;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: normal;
+    font-size: 14px;
 }
 
-.createBtn{
-  position: fixed;
-  bottom: 60px;
-  right: 1%;
-  z-index: 20;
-  height: 60px;
-  width: 60px;
-  border: none;
-  outline: none;
-  border-radius: 50%;
-  box-shadow: -6px 2px 8px #00000099;
-  background-color: #384EB2;
+.headerTodo_switcher_1 img {
+    margin-right: auto;
+    height: 100%;
+}
+
+.headerTodo_switcher_2 img {
+    margin-left: auto;
+    height: 100%;
+}
+
+.headerTodo_title {
+    height: 100%;
+    width: 50%;
+    display: flex;
+}
+
+.headerTodo_title h1 {
+    color: #fff;
+    margin: auto;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: normal;
+    font-size: 18px;
+}
+
+.createBtn {
+    position: fixed;
+    bottom: 60px;
+    right: 1%;
+    z-index: 20;
+    height: 60px;
+    width: 60px;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    box-shadow: -6px 2px 8px #00000099;
+    background-color: #384EB2;
 }

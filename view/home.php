@@ -1,7 +1,7 @@
 <?php ob_start(); ?>
 <main>
 
-  <div class="daySwitcher_container">
+  <!--<div class="daySwitcher_container">
     <div id='previousSwitcher' class="button_container">
       <button onclick="dayBefore()">Précédent</button>
     </div>
@@ -11,11 +11,24 @@
     <div id='nextSwitcher' class="button_container">
       <button onclick="dayNext()">Suivant</button>
     </div>
-  </div>
+  </div>-->
+  <header>
+    <h1>Paramètres</h1>
+    <div class="account" onclick="document.location.href='account'">
+      <img src="..\..\assets\icons\settings\user.svg">
+      <h5>Compte</h5>
+    </div>
+  </header>
 
   <div class="todo_container">
-    <div class="todo_header">
 
+    <div class="daySwitcher_container">
+      <img id="previousSwitcher" src="..\..\assets\icons\chevron_left_127px.png" onclick="dayBefore()">
+      <h1 id='dayTitle'><?= $dayTitle ?></h1>
+      <img id="nextSwitcher" src="..\..\assets\icons\chevron_right_127px.png" onclick="dayNext()">
+    </div>
+
+    <div class="todo_header">
       <div id="left">
         <h1 id='dateValue'><?= $dateString ?></h1>
       </div>
